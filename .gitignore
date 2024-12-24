@@ -20,6 +20,13 @@
 # Recordings can get excessive in size
 /[Rr]ecordings/
 
+Match3Clone/Assets/Resources.meta
+Match3Clone/Assets/Resources/
+Match3Clone/Assets/Settings
+Match3Clone/Assets/Settings.meta
+Match3Clone/ProjectSettings.meta
+Match3Clone/ProjectSettings/
+
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
 
