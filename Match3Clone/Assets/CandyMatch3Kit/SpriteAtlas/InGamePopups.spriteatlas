@@ -59,6 +59,8 @@ SpriteAtlas:
     - 8c840466cbbe9496dbc13deecbf2196b: 21300000
     - e62ad0378b343431bb3f505af210056d: 21300000
     - 3f1769a7d6b1a4440a7860282a29e6c4: 21300000
+    - d0c1ebe71983f9b48b06df17f6699dc0: -1157417308982331036
+    - 014e5ff764cdd414d9e6ac3517a594c3: 8729031446781007877
     - 81825b080489144c58fe47b7cce50dfd: 21300000
     - 8e5d18692336b45c7a408f21af4b9e88: 21300000
     - facb87d9017ad4597abbb36b3ee79ddc: 21300000
@@ -76,6 +78,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8c840466cbbe9496dbc13deecbf2196b, type: 3}
   - {fileID: 21300000, guid: e62ad0378b343431bb3f505af210056d, type: 3}
   - {fileID: 21300000, guid: 3f1769a7d6b1a4440a7860282a29e6c4, type: 3}
+  - {fileID: -1157417308982331036, guid: d0c1ebe71983f9b48b06df17f6699dc0, type: 3}
+  - {fileID: 8729031446781007877, guid: 014e5ff764cdd414d9e6ac3517a594c3, type: 3}
   - {fileID: 21300000, guid: 81825b080489144c58fe47b7cce50dfd, type: 3}
   - {fileID: 21300000, guid: 8e5d18692336b45c7a408f21af4b9e88, type: 3}
   - {fileID: 21300000, guid: facb87d9017ad4597abbb36b3ee79ddc, type: 3}
@@ -92,6 +96,8 @@ SpriteAtlas:
   - CloseButton
   - ButtonGreen
   - BoosterSwitch
+  - ButtonBlue_0
+  - ButtonWhite_0
   - ButtonGrey
   - CloseButton
   - Coin

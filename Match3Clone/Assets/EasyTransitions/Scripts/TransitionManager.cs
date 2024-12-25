@@ -169,6 +169,7 @@ namespace EasyTransition
             runningTransition = false;
         }
 
+        [System.Obsolete]
         private IEnumerator Start()
         {
             while (this.gameObject.activeInHierarchy)
