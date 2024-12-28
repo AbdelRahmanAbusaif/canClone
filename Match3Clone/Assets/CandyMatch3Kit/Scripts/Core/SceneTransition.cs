@@ -16,6 +16,9 @@ namespace GameVanilla.Core
         /// <summary>
         /// Performs the transition to the next scene.
         /// </summary>
+        private void Start() {
+            ProfileManager.OnUpdateSuccess += PerformTransition;
+        }
         public void PerformTransition()
         {
             Transition.LoadLevel(scene, duration, color);

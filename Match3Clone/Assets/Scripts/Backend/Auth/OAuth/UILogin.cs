@@ -8,8 +8,11 @@ public class UILogin : MonoBehaviour
 {
     [SerializeField] private Button signInButton;
     [SerializeField] private LoginController loginController;
+    [SerializeField] private GameObject loginPanel;
 
     private SceneTransition sceneTransition;
+    private PlayerInfo playerInfo;
+    private string playerName;
     private void OnEnable() {
         signInButton.onClick.AddListener(OnSignInButtonClicked);
         loginController.OnSignInSuccess += OnSignInSuccess;
@@ -23,11 +26,12 @@ public class UILogin : MonoBehaviour
         await loginController.InitSign();
     }
 
-    private void OnSignInSuccess(PlayerInfo info, string arg2)
+    private void OnSignInSuccess(PlayerProfile playerData)
     {
         Debug.Log("Sign in success");
-
         // Here will be the code for get the player info and save it to the database
+        
+        loginPanel.SetActive(true);
     }
 
     // Update is called once per frame
@@ -35,4 +39,5 @@ public class UILogin : MonoBehaviour
         signInButton.onClick.RemoveListener(OnSignInButtonClicked);
         loginController.OnSignInSuccess -= OnSignInSuccess;
     }
+
 }

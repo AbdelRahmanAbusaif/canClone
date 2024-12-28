@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class LoginController : MonoBehaviour
 {
-    public event Action<PlayerInfo, string> OnSignInSuccess;
+    public event Action<PlayerProfile> OnSignInSuccess;
     private PlayerInfo playerInfo;
     async private void Awake() {
         await UnityServices.Instance.InitializeAsync();
@@ -40,7 +40,17 @@ public class LoginController : MonoBehaviour
             await AuthenticationService.Instance.SignInWithUnityAsync(accessToken);
 
             playerInfo =  AuthenticationService.Instance.PlayerInfo;
-            OnSignInSuccess?.Invoke(playerInfo, accessToken);
+            var name = await AuthenticationService.Instance.GetPlayerNameAsync();
+
+            var playerProfile = new PlayerProfile
+            {
+                PlayerName = name,
+                Email = "",
+                PhoneNumber = "",
+                ImageUrl = "null"
+            };
+
+            OnSignInSuccess?.Invoke(playerProfile);
             
             Debug.Log("SignIn is successful.");
         }
