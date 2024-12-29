@@ -18,6 +18,7 @@ namespace GameVanilla.Core
         /// </summary>
         private void Start() {
             ProfileManager.OnUpdateSuccess += PerformTransition;
+            UILogin.OnSignIn += PerformTransition;
         }
         public void PerformTransition()
         {

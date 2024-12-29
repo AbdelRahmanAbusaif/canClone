@@ -23,7 +23,6 @@ public class ProfileManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerNameWarning;
     [SerializeField] private TextMeshProUGUI emailWarning;
     [SerializeField] private TextMeshProUGUI phoneNumberWarning;
-    [SerializeField] private TextMeshProUGUI imageWarning;
     
     private CloudSaveManager cloudSaveManager;
     private string filepath = "";

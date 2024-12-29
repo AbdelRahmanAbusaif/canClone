@@ -1,18 +1,20 @@
 using System;
+using System.Collections.Generic;
 using GameVanilla.Core;
 using Unity.Services.Authentication;
+using Unity.Services.CloudSave;
+using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UILogin : MonoBehaviour
 {
+    public static Action OnSignIn;
     [SerializeField] private Button signInButton;
     [SerializeField] private LoginController loginController;
     [SerializeField] private GameObject loginPanel;
 
     private SceneTransition sceneTransition;
-    private PlayerInfo playerInfo;
-    private string playerName;
     private void OnEnable() {
         signInButton.onClick.AddListener(OnSignInButtonClicked);
         loginController.OnSignInSuccess += OnSignInSuccess;
@@ -26,11 +28,19 @@ public class UILogin : MonoBehaviour
         await loginController.InitSign();
     }
 
-    private void OnSignInSuccess(PlayerProfile playerData)
+    private async void OnSignInSuccess(PlayerProfile playerData)
     {
         Debug.Log("Sign in success");
         // Here will be the code for get the player info and save it to the database
         
+        var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerProfile" });
+        if(data.ContainsKey("PlayerProfile"))
+        {
+            Debug.Log("Player profile already exists");
+
+            OnSignIn?.Invoke();
+            return;
+        }
         loginPanel.SetActive(true);
     }
 

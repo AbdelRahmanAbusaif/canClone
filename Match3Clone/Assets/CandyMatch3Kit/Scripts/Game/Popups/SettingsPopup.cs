@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.Scenes;
+using Unity.Services.Core;
 
 namespace GameVanilla.Game.Popups
 {
@@ -19,8 +20,10 @@ namespace GameVanilla.Game.Popups
     {
 #pragma warning disable 649
         [SerializeField]
-        private ToggleGroup avatarToggleGroup;
+        private Image avatarImage;
 
+        [SerializeField]
+        private Image resetProgressImage;
         [SerializeField]
         private Slider soundSlider;
 
@@ -30,30 +33,38 @@ namespace GameVanilla.Game.Popups
         [SerializeField]
         private AnimatedButton resetProgressButton;
 
-        [SerializeField]
-        private Image resetProgressImage;
 
         [SerializeField]
         private Sprite resetProgressDisabledSprite;
+
 #pragma warning restore 649
 
         private int currentAvatar;
         private int currentSound;
         private int currentMusic;
         private int currentNotifications;
-
+        private CloudSaveManager cloudSaveManager;
+        private PlayerProfile playerProfile;
         /// <summary>
         /// Unity's Awake method.
         /// </summary>
-        protected override void Awake()
+        protected override async void Awake()
         {
+            
             base.Awake();
-            Assert.IsNotNull(avatarToggleGroup);
-            Assert.IsNotNull(soundSlider);
-            Assert.IsNotNull(musicSlider);
             Assert.IsNotNull(resetProgressButton);
             Assert.IsNotNull(resetProgressImage);
             Assert.IsNotNull(resetProgressDisabledSprite);
+
+            await UnityServices.Instance.InitializeAsync();
+
+            // if player Sign in with unity account, load the player profile images
+            cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
+
+            cloudSaveManager.LoadImageAsync("PlayerProfileImage", avatarImage);
+            playerProfile = await cloudSaveManager.LoadDataAsync<PlayerProfile>("PlayerProfile");
+
+            //else load the default avatar
         }
 
         /// <summary>
@@ -62,15 +73,6 @@ namespace GameVanilla.Game.Popups
         protected override void Start()
         {
             base.Start();
-            var avatarSelected = PlayerPrefs.GetInt("avatar_selected");
-            var toggles = avatarToggleGroup.GetComponentsInChildren<Toggle>();
-            for (var i = 0; i < toggles.Length; i++)
-            {
-                toggles[i].isOn = i == avatarSelected;
-            }
-
-            soundSlider.value = PlayerPrefs.GetInt("sound_enabled");
-            musicSlider.value = PlayerPrefs.GetInt("music_enabled");
         }
 
         /// <summary>
