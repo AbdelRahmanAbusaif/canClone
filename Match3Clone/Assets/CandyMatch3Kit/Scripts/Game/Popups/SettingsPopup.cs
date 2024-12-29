@@ -10,6 +10,7 @@ using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.Scenes;
 using Unity.Services.Core;
+using Unity.Services.Authentication;
 
 namespace GameVanilla.Game.Popups
 {
@@ -33,9 +34,11 @@ namespace GameVanilla.Game.Popups
         [SerializeField]
         private AnimatedButton resetProgressButton;
 
-
         [SerializeField]
         private Sprite resetProgressDisabledSprite;
+        
+        [SerializeField]
+        private int anonymousValue;
 
 #pragma warning restore 649
 
@@ -61,6 +64,12 @@ namespace GameVanilla.Game.Popups
             // if player Sign in with unity account, load the player profile images
             cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
 
+            anonymousValue = PlayerPrefs.GetInt("IsAnonymous");
+
+            if(anonymousValue == 1)
+            {
+                return;
+            }
             cloudSaveManager.LoadImageAsync("PlayerProfileImage", avatarImage);
             playerProfile = await cloudSaveManager.LoadDataAsync<PlayerProfile>("PlayerProfile");
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using GameVanilla.Core;
 using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
-using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,15 +10,18 @@ public class UILogin : MonoBehaviour
 {
     public static Action OnSignIn;
     [SerializeField] private Button signInButton;
+    [SerializeField] private SceneTransition sceneTransition;
     [SerializeField] private LoginController loginController;
     [SerializeField] private GameObject loginPanel;
 
-    private SceneTransition sceneTransition;
     private void OnEnable() {
-        signInButton.onClick.AddListener(OnSignInButtonClicked);
-        loginController.OnSignInSuccess += OnSignInSuccess;
 
-        sceneTransition = GetComponent<SceneTransition>();
+        if(signInButton !=null)
+        {
+            signInButton.onClick.AddListener(OnSignInButtonClicked);
+        }
+
+        loginController.OnSignInSuccess += OnSignInSuccess;
     }
 
     private async void OnSignInButtonClicked()
@@ -34,6 +36,7 @@ public class UILogin : MonoBehaviour
         // Here will be the code for get the player info and save it to the database
         
         var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerProfile" });
+
         if(data.ContainsKey("PlayerProfile"))
         {
             Debug.Log("Player profile already exists");
@@ -41,12 +44,25 @@ public class UILogin : MonoBehaviour
             OnSignIn?.Invoke();
             return;
         }
-        loginPanel.SetActive(true);
+        
+        int anonymousValue = PlayerPrefs.GetInt("IsAnonymous");
+        if(anonymousValue == 0)
+        {
+            loginPanel.SetActive(true);
+        }
+        else
+        {
+            sceneTransition.PerformTransition();
+        }
     }
 
     // Update is called once per frame
     private void OnDisable() {
-        signInButton.onClick.RemoveListener(OnSignInButtonClicked);
+
+        if(signInButton !=null)
+        {
+            signInButton.onClick.RemoveListener(OnSignInButtonClicked);
+        }
         loginController.OnSignInSuccess -= OnSignInSuccess;
     }
 
