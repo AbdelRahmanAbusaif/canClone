@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 85b8bde01de541d4aa3c25e9892ea787
+guid: dc164c2ff6f002543832912293c19c41
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5385969320744076580
-    second: PopupBackgroundOrange_0
+      213: -7832766893053028769
+    second: BKG_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PopupBackgroundOrange_0
+      name: BKG_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 13
-        width: 1130
-        height: 1737
+        x: 0
+        y: 0
+        width: 739
+        height: 1265
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cdab5e950713145b0800000000000000
-      internalID: -5385969320744076580
+      spriteID: f565223b20c6c4390800000000000000
+      internalID: -7832766893053028769
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PopupBackgroundOrange_0: -5385969320744076580
+      BKG_0: -7832766893053028769
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
