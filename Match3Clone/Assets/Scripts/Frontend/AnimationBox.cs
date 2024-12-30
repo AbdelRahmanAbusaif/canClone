@@ -1,8 +1,9 @@
 using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine;
+using GameVanilla.Core;
 
-public class AnimationBox : MonoBehaviour
+public class AnimationBox : Popup
 {
     [SerializeField] private GameObject boxForAnimation;
     [SerializeField] private Image blackScreen;
@@ -20,10 +21,13 @@ public class AnimationBox : MonoBehaviour
                 blackScreen.raycastTarget = false;
             });
     }
-    private void OnDisable() {
-        blackScreen.DOFade(0, 0.5f);
-        boxForAnimation.transform.DOMoveY(-1000, 0.5f);
-
-        blackScreen.raycastTarget = true;
+    public void OnClose() {
+        DOTween.Sequence()
+            .Append(blackScreen.DOFade(0, 0.5f))
+            .Append(boxForAnimation.transform.DOScale(0,0.3f))
+            .OnComplete(() =>
+            {
+                gameObject.SetActive(false);
+            });
     }
 }

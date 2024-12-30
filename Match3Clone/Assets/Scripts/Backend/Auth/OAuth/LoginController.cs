@@ -33,6 +33,47 @@ public class LoginController : MonoBehaviour
     {
         await PlayerAccountService.Instance.StartSignInAsync();
     }
+
+    public async void SignInAnonymousButton()
+    {
+        await SignInAnonymous();
+    }
+    public async Task SignInAnonymous()
+    {
+        try
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            playerInfo = AuthenticationService.Instance.PlayerInfo;
+            var name = await AuthenticationService.Instance.GetPlayerNameAsync();
+
+            var playerProfile = new PlayerProfile
+            {
+                PlayerName = name,
+                Email = "",
+                PhoneNumber = "",
+                ImageUrl = "null"
+            };
+
+            PlayerPrefs.SetInt("IsAnonymous", 1);
+
+            OnSignInSuccess?.Invoke(playerProfile);
+            Debug.Log("SignIn is successful.");
+        }
+        catch (AuthenticationException ex)
+        {
+            // Compare error code to AuthenticationErrorCodes
+            // Notify the player with the proper error message
+            Debug.LogError("AuthenticationException: " + ex.Message);
+            Debug.LogException(ex);
+        }
+        catch (RequestFailedException ex)
+        {
+            // Compare error code to CommonErrorCodes
+            // Notify the player with the proper error message
+            Debug.LogError("RequestFailedException: " + ex.Message);
+            Debug.LogException(ex);
+        }
+    }
     async Task SignInWithUnityAsync(string accessToken)
     {
         try
@@ -50,6 +91,7 @@ public class LoginController : MonoBehaviour
                 ImageUrl = "null"
             };
 
+            PlayerPrefs.SetInt("IsAnonymous", 0);
             OnSignInSuccess?.Invoke(playerProfile);
             
             Debug.Log("SignIn is successful.");

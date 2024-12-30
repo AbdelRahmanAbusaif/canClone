@@ -12,8 +12,8 @@ public class PlayerProfile
 [System.Serializable]
 public class PlayerProgress
 {
-    public int level;
-    public int coins;
-    public int experiencePoints;
-    public int highestScore;
+    public int Level;
+    public int Coin;
+    public int ExperiencePoints;
+    public int HighestScore;
 }
