@@ -24,5 +24,9 @@ namespace GameVanilla.Core
         {
             Transition.LoadLevel(scene, duration, color);
         }
+        private void OnDestroy() {
+            ProfileManager.OnUpdateSuccess -= PerformTransition;
+            UILogin.OnSignIn -= PerformTransition;
+        }
     }
 }

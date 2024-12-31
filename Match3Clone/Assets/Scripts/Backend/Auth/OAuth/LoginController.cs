@@ -8,9 +8,15 @@ using UnityEngine;
 public class LoginController : MonoBehaviour
 {
     public event Action<PlayerProfile> OnSignInSuccess;
+    public GameObject LoadingPanel;
     private PlayerInfo playerInfo;
+    private CloudSaveManager cloudSaveManager;
     async private void Awake() {
+        cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
+
         await UnityServices.Instance.InitializeAsync();
+        await SignInCachedUserAsync();
+
         PlayerAccountService.Instance.SignedIn += OnSignedIn;
     }
 
@@ -112,6 +118,58 @@ public class LoginController : MonoBehaviour
             Debug.LogException(ex);
         }
     }
+    async Task SignInCachedUserAsync()
+    {
+
+        // Check if a cached player already exists by checking if the session token exists
+        if (!AuthenticationService.Instance.SessionTokenExists) 
+        {
+            // if not, then do nothing
+            LoadingPanel.SetActive(false);
+            return;
+        }
+
+        // Sign in Anonymously
+        // This call will sign in the cached player.
+        try
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log("Sign in anonymously succeeded!");
+
+            await GetPlayerProfileAsync();
+
+            // Shows how to get the playerID
+            Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");   
+        }
+        catch (AuthenticationException ex)
+        {
+            // Compare error code to AuthenticationErrorCodes
+            // Notify the player with the proper error message
+            Debug.LogException(ex);
+        }
+        catch (RequestFailedException ex)
+        {
+            // Compare error code to CommonErrorCodes
+            // Notify the player with the proper error message
+            Debug.LogException(ex);
+        }  
+    }
+
+    private async Task GetPlayerProfileAsync()
+    {
+        try
+        {
+            var playerProfile =  await cloudSaveManager.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            OnSignInSuccess?.Invoke(playerProfile);
+
+            LoadingPanel.SetActive(false);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+    }
+
     private void OnDestroy()
     {
         PlayerAccountService.Instance.SignedIn -= OnSignedIn;
