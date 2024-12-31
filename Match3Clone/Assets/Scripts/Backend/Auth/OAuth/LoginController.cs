@@ -55,6 +55,7 @@ public class LoginController : MonoBehaviour
             };
 
             PlayerPrefs.SetInt("IsAnonymous", 1);
+            PlayerPrefs.Save();
 
             OnSignInSuccess?.Invoke(playerProfile);
             Debug.Log("SignIn is successful.");
@@ -92,6 +93,8 @@ public class LoginController : MonoBehaviour
             };
 
             PlayerPrefs.SetInt("IsAnonymous", 0);
+            PlayerPrefs.Save();
+            
             OnSignInSuccess?.Invoke(playerProfile);
             
             Debug.Log("SignIn is successful.");
