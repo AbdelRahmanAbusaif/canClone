@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a236f9be109200d4fbde1ef93916409f
+guid: 5da298b149c2d9d4280f0e37074ac7c0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 170358531128257034
-    second: petra map_0
+      213: 8272248013602160421
+    second: d268b8b7-4182-4d15-9ed6-57608aa7d3a6_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: petra map_0
+      name: d268b8b7-4182-4d15-9ed6-57608aa7d3a6_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 3750
-        height: 6667
+        x: 785
+        y: 771
+        width: 6417
+        height: 6416
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a0a6b547e2c3d5200800000000000000
-      internalID: 170358531128257034
+      spriteID: 52fffa87dbdecc270800000000000000
+      internalID: 8272248013602160421
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      petra map_0: 170358531128257034
+      d268b8b7-4182-4d15-9ed6-57608aa7d3a6_0: 8272248013602160421
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

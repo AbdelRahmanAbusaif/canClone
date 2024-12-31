@@ -1142,7 +1142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e16672b1c30cfa41809f46c3d074da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsAnonymous: 0
 --- !u!114 &935876691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2839,12 +2838,12 @@ PrefabInstance:
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -112.48
+      value: -295.2
       objectReference: {fileID: 0}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 295.99
+      value: 296
       objectReference: {fileID: 0}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
@@ -2884,7 +2883,7 @@ PrefabInstance:
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 12.820007
+      value: 10.700012
       objectReference: {fileID: 0}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}

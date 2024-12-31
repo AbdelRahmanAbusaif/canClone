@@ -152,7 +152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7130548806043611032
 RectTransform:
   m_ObjectHideFlags: 0
@@ -186,6 +186,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2063bd63a564b84d880f422bdfd86a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentScene: {fileID: 0}
+  onOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  onClose:
+    m_PersistentCalls:
+      m_Calls: []
   boxForAnimation: {fileID: 5482556119748048130}
   blackScreen: {fileID: 596818052523788876}
 --- !u!1 &617478320306556831
@@ -1288,10 +1295,10 @@ RectTransform:
   - {fileID: 4141806487823944177}
   m_Father: {fileID: 5541969639207562697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 500, y: -800}
-  m_SizeDelta: {x: 1000, y: 400}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2490393117166373639
 GameObject:
@@ -2055,10 +2062,10 @@ RectTransform:
   - {fileID: 5256627795743359045}
   m_Father: {fileID: 5541969639207562697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 500, y: -200}
-  m_SizeDelta: {x: 1000, y: 400}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4418316991216259972
 GameObject:
@@ -2712,10 +2719,10 @@ RectTransform:
   - {fileID: 1288724798747673631}
   m_Father: {fileID: 5541969639207562697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 500, y: -500}
-  m_SizeDelta: {x: 1000, y: 400}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5482556119748048130
 GameObject:

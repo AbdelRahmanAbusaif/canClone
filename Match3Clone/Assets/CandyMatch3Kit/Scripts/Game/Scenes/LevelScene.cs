@@ -30,6 +30,12 @@ namespace GameVanilla.Game.Scenes
 
         [SerializeField]
         private GameObject rewardedAdButton;
+
+        [SerializeField]
+        private Text scoreText;
+
+        public int score;
+
 #pragma warning restore 649
 
         /// <summary>
@@ -52,12 +58,17 @@ namespace GameVanilla.Game.Scenes
 
             var avatar = Instantiate(avatarPrefab);
             avatar.transform.SetParent(scrollView.transform, false);
+           
+            
 
             var nextLevel = PlayerPrefs.GetInt("next_level");
             if (nextLevel == 0)
             {
                 nextLevel = 1;
+                
             }
+            score = nextLevel * 10;
+            scoreText.text = score.ToString();
 
             LevelButton currentButton = null;
             var levelButtons = scrollView.GetComponentsInChildren<LevelButton>();
@@ -125,6 +136,10 @@ namespace GameVanilla.Game.Scenes
                 var gameConfig = PuzzleMatchManager.instance.gameConfig;
                 popup.SetInfo(gameConfig.spinWheelItems, gameConfig.spinWheelCost);
             });
+        }
+        public void OnleaderBoardPressed()
+        {
+            OpenPopup<BuyCoinsPopup>("Popups/LB_popup");
         }
     }
 }

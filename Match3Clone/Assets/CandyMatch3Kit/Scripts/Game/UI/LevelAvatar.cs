@@ -42,9 +42,18 @@ namespace GameVanilla.Game.UI
         /// </summary>
         private void Start()
         {
-            var avatarSelected = PlayerPrefs.GetInt("avatar_selected");
-            //Here we set the avatar image based on the player's selection.
-            avatarImage.sprite = avatarSelected == 0 ? girlAvatarSprite : boyAvatarSprite;
+            if (PlayerPrefs.GetInt("IsAnonymous")==0)
+            {
+                var avatarSelected = PlayerPrefs.GetInt("avatar_selected");
+                //Here we set the avatar image based on the player's selection.
+                avatarImage.sprite = avatarSelected == 0 ? girlAvatarSprite : boyAvatarSprite;
+            }
+            if (PlayerPrefs.GetInt("IsAnonymous")==0)
+            {
+                CloudSaveManager cloudSaveManager = new CloudSaveManager();
+                cloudSaveManager.LoadImageAsync("PlayerProfileImage", avatarImage);
+            }
+
         }
 
         /// <summary>
