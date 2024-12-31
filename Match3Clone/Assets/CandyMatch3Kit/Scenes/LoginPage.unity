@@ -1247,10 +1247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e16672b1c30cfa41809f46c3d074da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-=======
   LoadingPanel: {fileID: 1843694721}
->>>>>>> CloudProfile
 --- !u!114 &935876691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3040,12 +3037,12 @@ PrefabInstance:
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -295.2
+      value: -112.48
       objectReference: {fileID: 0}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 296
+      value: 295.99
       objectReference: {fileID: 0}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
@@ -3085,11 +3082,7 @@ PrefabInstance:
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-<<<<<<< HEAD
-      value: 10.700012
-=======
       value: 12.820068
->>>>>>> CloudProfile
       objectReference: {fileID: 0}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
