@@ -3,6 +3,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class PlayerProfile
 {
+    public string PlayerId;
     public string PlayerName;
     public string Email;
     public string PhoneNumber;

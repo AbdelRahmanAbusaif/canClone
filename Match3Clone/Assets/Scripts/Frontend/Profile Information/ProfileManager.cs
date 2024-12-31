@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using Unity.Services.Core;
 using System;
+using Unity.Services.Authentication;
 
 public class ProfileManager : MonoBehaviour
 {
@@ -133,6 +134,7 @@ public class ProfileManager : MonoBehaviour
 
         var playerProfile = new PlayerProfile
         {
+            PlayerId = AuthenticationService.Instance.PlayerId,
             PlayerName = playerName,
             Email = email,
             PhoneNumber = phoneNumber,

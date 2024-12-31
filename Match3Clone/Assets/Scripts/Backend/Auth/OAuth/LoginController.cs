@@ -8,16 +8,23 @@ using UnityEngine;
 public class LoginController : MonoBehaviour
 {
     public event Action<PlayerProfile> OnSignInSuccess;
+    public static event Action OnSignedOutSuccess;
     public GameObject LoadingPanel;
-    private PlayerInfo playerInfo;
     private CloudSaveManager cloudSaveManager;
+
+    private bool IsSignedOut = false;
     async private void Awake() {
         cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
 
         await UnityServices.Instance.InitializeAsync();
-        await SignInCachedUserAsync();
+
+        if(!IsSignedOut)
+        {
+            await SignInCachedUserAsync();
+        }
 
         PlayerAccountService.Instance.SignedIn += OnSignedIn;
+        PlayerAccountService.Instance.SignedOut += OnSignedOut;
     }
 
     private async void OnSignedIn()
@@ -49,11 +56,11 @@ public class LoginController : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            playerInfo = AuthenticationService.Instance.PlayerInfo;
             var name = await AuthenticationService.Instance.GetPlayerNameAsync();
 
             var playerProfile = new PlayerProfile
             {
+                PlayerId = AuthenticationService.Instance.PlayerId,
                 PlayerName = name,
                 Email = "",
                 PhoneNumber = ""
@@ -85,12 +92,9 @@ public class LoginController : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignInWithUnityAsync(accessToken);
-
-            playerInfo =  AuthenticationService.Instance.PlayerInfo;
-            var name = await AuthenticationService.Instance.GetPlayerNameAsync();
-
             var playerProfile = new PlayerProfile
             {
+                PlayerId = AuthenticationService.Instance.PlayerId,
                 PlayerName = name,
                 Email = "",
                 PhoneNumber = "",
@@ -168,6 +172,13 @@ public class LoginController : MonoBehaviour
         {
             Debug.LogException(ex);
         }
+    }
+    private void OnSignedOut()
+    {
+        Debug.Log("Signed out successfully.");
+
+        OnSignedOutSuccess?.Invoke();
+        IsSignedOut = true;
     }
 
     private void OnDestroy()
