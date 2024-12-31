@@ -28,9 +28,14 @@ public class CloudSaveManager : MonoBehaviour
         try
         {
             var savedData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { key });
-            if (savedData.ContainsKey(key))
+            if (savedData.TryGetValue(key,out var item))
             {
-                string jsonData = savedData[key].ToString();
+
+                string jsonData = item.Value.GetAs<string>();
+                
+                Debug.Log($"{key} loaded successfully.");
+                Debug.Log(jsonData);
+                
                 return JsonUtility.FromJson<T>(jsonData);
             }
         }

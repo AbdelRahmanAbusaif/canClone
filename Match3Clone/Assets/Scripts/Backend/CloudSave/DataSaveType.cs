@@ -6,7 +6,6 @@ public class PlayerProfile
     public string PlayerName;
     public string Email;
     public string PhoneNumber;
-    public string ImageUrl;
 }
 
 [System.Serializable]
