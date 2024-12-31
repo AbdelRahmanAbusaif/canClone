@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using GameVanilla.Core;
 
-public class AnimationBox : Popup
+public class AnimationBox : MonoBehaviour
 {
     [SerializeField] private GameObject boxForAnimation;
     [SerializeField] private Image blackScreen;
@@ -14,8 +14,7 @@ public class AnimationBox : Popup
 
         DOTween.Sequence()
             .Append(boxForAnimation.transform.DOMoveY(0, 0.5f))
-            .AppendInterval(1f)
-            .Append(blackScreen.DOFade(0.5f, 0.5f))
+            .Join(blackScreen.DOFade(0.5f, 0.5f))
             .OnComplete(() =>
             {
                 blackScreen.raycastTarget = false;
@@ -23,8 +22,8 @@ public class AnimationBox : Popup
     }
     public void OnClose() {
         DOTween.Sequence()
-            .Append(blackScreen.DOFade(0, 0.5f))
-            .Append(boxForAnimation.transform.DOScale(0,0.3f))
+            .Append(boxForAnimation.transform.DOLocalMoveY(3000, 0.5f))
+            .Join(blackScreen.DOFade(0, 0.5f))
             .OnComplete(() =>
             {
                 gameObject.SetActive(false);

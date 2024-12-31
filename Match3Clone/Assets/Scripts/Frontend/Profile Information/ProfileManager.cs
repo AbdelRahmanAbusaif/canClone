@@ -136,7 +136,6 @@ public class ProfileManager : MonoBehaviour
             PlayerName = playerName,
             Email = email,
             PhoneNumber = phoneNumber,
-            ImageUrl = "null"
         };
 
         await cloudSaveManager.SaveDataAsync("PlayerProfile", playerProfile);

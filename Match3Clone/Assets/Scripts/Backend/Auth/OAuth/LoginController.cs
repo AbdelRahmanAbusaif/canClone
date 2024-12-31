@@ -50,8 +50,7 @@ public class LoginController : MonoBehaviour
             {
                 PlayerName = name,
                 Email = "",
-                PhoneNumber = "",
-                ImageUrl = "null"
+                PhoneNumber = ""
             };
 
             PlayerPrefs.SetInt("IsAnonymous", 1);
@@ -89,7 +88,6 @@ public class LoginController : MonoBehaviour
                 PlayerName = name,
                 Email = "",
                 PhoneNumber = "",
-                ImageUrl = "null"
             };
 
             PlayerPrefs.SetInt("IsAnonymous", 0);
