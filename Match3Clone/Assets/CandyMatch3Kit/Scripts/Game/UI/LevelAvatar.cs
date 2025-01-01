@@ -65,7 +65,7 @@ namespace GameVanilla.Game.UI
             {
                 return;
             }
-
+            
             var deltaHeight = Mathf.Sin(runningTime + Time.deltaTime);
             var newPos = transform.position;
             newPos.y += deltaHeight * 0.002f;
