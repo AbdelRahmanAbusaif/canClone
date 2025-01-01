@@ -20,6 +20,7 @@ public class ProfileManager : MonoBehaviour
     [SerializeField] private Button uploadImageButton;
 
     [SerializeField] private Image profileImage;
+    [SerializeField] private Texture2D texture;
 
     [SerializeField] private TextMeshProUGUI playerNameWarning;
     [SerializeField] private TextMeshProUGUI emailWarning;
@@ -130,7 +131,14 @@ public class ProfileManager : MonoBehaviour
             return;
         }
 
-        await cloudSaveManager.SaveImageAsync("PlayerProfileImage", profileImage.sprite.texture);
+        if(String.IsNullOrEmpty(filepath))
+        {
+            await cloudSaveManager.SaveImageAsync("PlayerProfileImage", texture);
+        }
+        else
+        {
+            await cloudSaveManager.SaveImageAsync("PlayerProfileImage", profileImage.sprite.texture);
+        }
 
         var playerProfile = new PlayerProfile
         {
