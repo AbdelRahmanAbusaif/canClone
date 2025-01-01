@@ -4,6 +4,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Authentication.PlayerAccounts;
 using Unity.Services.Core;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoginController : MonoBehaviour
 {
@@ -12,19 +13,18 @@ public class LoginController : MonoBehaviour
     public GameObject LoadingPanel;
     private CloudSaveManager cloudSaveManager;
 
-    private bool IsSignedOut = false;
     async private void Awake() {
         cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
 
         await UnityServices.Instance.InitializeAsync();
 
-        if(!IsSignedOut)
+        if(SceneManager.GetActiveScene().buildIndex.Equals(0))
         {
             await SignInCachedUserAsync();
         }
 
         PlayerAccountService.Instance.SignedIn += OnSignedIn;
-        PlayerAccountService.Instance.SignedOut += OnSignedOut;
+        PlayerAccountService.Instance.SignedOut += () => {Debug.Log("Signed out successfully.");};
     }
 
     private async void OnSignedIn()
@@ -45,6 +45,19 @@ public class LoginController : MonoBehaviour
     public async Task InitSign()
     {
         await PlayerAccountService.Instance.StartSignInAsync();
+    }
+    public void InitSignOut()
+    {
+        try
+        {
+            AuthenticationService.Instance.SignOut(true);
+            OnSignedOutSuccess?.Invoke();
+        }
+        catch (AuthenticationException ex)
+        {
+            Debug.LogException(ex);            
+        }
+        
     }
 
     public async void SignInAnonymousButton()
@@ -173,16 +186,9 @@ public class LoginController : MonoBehaviour
             Debug.LogException(ex);
         }
     }
-    private void OnSignedOut()
-    {
-        Debug.Log("Signed out successfully.");
-
-        OnSignedOutSuccess?.Invoke();
-        IsSignedOut = true;
-    }
-
     private void OnDestroy()
     {
         PlayerAccountService.Instance.SignedIn -= OnSignedIn;
+        PlayerAccountService.Instance.SignedOut -= () => {Debug.Log("Signed out successfully.");};
     }
 }

@@ -19,6 +19,8 @@ namespace GameVanilla.Core
         private void Start() {
             ProfileManager.OnUpdateSuccess += PerformTransition;
             UILogin.OnSignIn += PerformTransition;
+
+            LoginController.OnSignedOutSuccess += PerformTransition;
         }
         public void PerformTransition()
         {
@@ -27,6 +29,8 @@ namespace GameVanilla.Core
         private void OnDestroy() {
             ProfileManager.OnUpdateSuccess -= PerformTransition;
             UILogin.OnSignIn -= PerformTransition;
+
+            LoginController.OnSignedOutSuccess -= PerformTransition;
         }
     }
 }

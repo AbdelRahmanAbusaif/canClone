@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ProfileInformationUI : MonoBehaviour
 {
+    public static Action OnSignOutTransition;
     [SerializeField] private TextMeshProUGUI playerId;
     [SerializeField] private TextMeshProUGUI playerNameText;
     [SerializeField] private TextMeshProUGUI emailText;
@@ -16,11 +17,13 @@ public class ProfileInformationUI : MonoBehaviour
     [SerializeField] private Button linkMyAccountButton;
     [SerializeField] private Button signOutButton;
 
+    [SerializeField] private LoginController loginController;
     private CloudSaveManager cloudSaveManager;
 
     async void Start()
     {
         cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
+        loginController = FindAnyObjectByType<LoginController>().GetComponent<LoginController>();
         
         var playerProfile = await cloudSaveManager.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
@@ -47,8 +50,6 @@ public class ProfileInformationUI : MonoBehaviour
             cloudSaveManager.LoadImageAsync("PlayerProfileImage", avatarImage);
         }
 
-        LoginController.OnSignedOutSuccess += OnSignedOutSuccess;
-
         signOutButton.onClick.AddListener(OnSignOutButtonClicked);
     }
 
@@ -56,9 +57,7 @@ public class ProfileInformationUI : MonoBehaviour
     {
         if(AuthenticationService.Instance.IsSignedIn)
         {
-            AuthenticationService.Instance.SignOut();
-
-            AuthenticationService.Instance.ClearSessionToken();
+            loginController.InitSignOut();
         }
         else
         {
@@ -66,17 +65,4 @@ public class ProfileInformationUI : MonoBehaviour
         }
     }
 
-
-    private void OnSignedOutSuccess()
-    {
-        PlayerPrefs.SetInt("IsAnonymous", 1);
-        PlayerPrefs.Save();
-    }
-
-    // Update is called once per frame
-
-    void Update()
-    {
-        
-    }
 }
