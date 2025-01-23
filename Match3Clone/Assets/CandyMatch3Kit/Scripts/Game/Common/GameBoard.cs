@@ -273,8 +273,8 @@ namespace GameVanilla.Game.Common
                     if (tile != null)
                     {
                         var spriteRenderer = tile.GetComponent<SpriteRenderer>();
-                        tileW = spriteRenderer.bounds.size.x;
-                        tileH = spriteRenderer.bounds.size.y;
+                        tileW = spriteRenderer.bounds.size.x * 1.2f;
+                        tileH = spriteRenderer.bounds.size.y * 1.2f;
                         tile.transform.position =
                             new Vector2(i * (tileW + horizontalSpacing), -j * (tileH + verticalSpacing));
 
