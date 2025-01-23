@@ -15423,6 +15423,13 @@ MonoBehaviour:
   - {fileID: 1479801905}
   - {fileID: 1888415830}
   - {fileID: 948286943}
+  imagesBorder:
+  - {fileID: 2026864021}
+  - {fileID: 304328440}
+  - {fileID: 1242816200}
+  - {fileID: 581508225}
+  ActiveBorder: {fileID: 21300000, guid: 99f6d8c0578354553a996a1a14cc98cb, type: 3}
+  InactiveBorder: {fileID: 21300000, guid: 2dcec17b4757b48c6a986d881edf4841, type: 3}
   rightRespawn: {fileID: 1349311627}
   leftRespawn: {fileID: 252967097}
   transitionDuration: 0.1

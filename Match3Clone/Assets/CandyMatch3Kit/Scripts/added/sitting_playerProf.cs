@@ -12,6 +12,8 @@ using GameVanilla.Game.Scenes;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
 
+using SaveData;
+
 namespace GameVanilla.Game.Popups
 {
     /// <summary>

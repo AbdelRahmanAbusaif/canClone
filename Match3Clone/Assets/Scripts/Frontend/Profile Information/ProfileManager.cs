@@ -4,9 +4,10 @@ using UnityEngine.UI;
 using System.Text.RegularExpressions;
 using UnityEngine.Networking;
 using System.Collections;
-using Unity.Services.Core;
 using System;
 using Unity.Services.Authentication;
+
+using SaveData;
 
 public class ProfileManager : MonoBehaviour
 {

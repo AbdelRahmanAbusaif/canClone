@@ -13,7 +13,8 @@ public class PlayerProfile
 public class PlayerProgress
 {
     public int Level;
-    public int Coin;
+    public int Heart;
+    public int Token;
     public int ExperiencePoints;
     public int HighestScore;
 }

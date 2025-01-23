@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
+using SaveData;
+
 namespace GameVanilla.Game.UI
 {
     /// <summary>
@@ -50,8 +52,7 @@ namespace GameVanilla.Game.UI
             }
             if (PlayerPrefs.GetInt("IsAnonymous")==0)
             {
-                CloudSaveManager cloudSaveManager = new CloudSaveManager();
-                cloudSaveManager.LoadImageAsync("PlayerProfileImage", avatarImage);
+                LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
             }
 
         }

@@ -12,6 +12,9 @@ using GameVanilla.Game.Scenes;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
 
+using SaveData;
+using UnityEngine.SocialPlatforms;
+
 namespace GameVanilla.Game.Popups
 {
     /// <summary>
@@ -46,7 +49,6 @@ namespace GameVanilla.Game.Popups
         private int currentSound;
         private int currentMusic;
         private int currentNotifications;
-        private CloudSaveManager cloudSaveManager;
         private PlayerProfile playerProfile;
         /// <summary>
         /// Unity's Awake method.
@@ -62,7 +64,6 @@ namespace GameVanilla.Game.Popups
             await UnityServices.Instance.InitializeAsync();
 
             // if player Sign in with unity account, load the player profile images
-            cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
             
             anonymousValue = PlayerPrefs.GetInt("IsAnonymous");
             if(anonymousValue == 1)
@@ -70,8 +71,8 @@ namespace GameVanilla.Game.Popups
                 return;
             }
 
-            cloudSaveManager.LoadImageAsync("PlayerProfileImage", avatarImage);
-            playerProfile = await cloudSaveManager.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>();
 
             //else load the default avatar
         }

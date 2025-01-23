@@ -4,6 +4,8 @@ using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.UI;
 
+using SaveData;
+
 public class ProfileInformationUI : MonoBehaviour
 {
     public static Action OnSignOutTransition;
@@ -18,15 +20,14 @@ public class ProfileInformationUI : MonoBehaviour
     [SerializeField] private Button signOutButton;
 
     [SerializeField] private LoginController loginController;
-    private CloudSaveManager cloudSaveManager;
 
     async void Start()
     {
-        cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
         loginController = FindAnyObjectByType<LoginController>().GetComponent<LoginController>();
         
-        var playerProfile = await cloudSaveManager.LoadDataAsync<PlayerProfile>("PlayerProfile");
-
+        var playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>();
+        
+        Debug.Log("Player Profile: " + playerProfile.PlayerName);
         try
         {
             playerId.text = playerProfile.PlayerId;
@@ -47,7 +48,7 @@ public class ProfileInformationUI : MonoBehaviour
         else
         {
             linkMyAccountButton.gameObject.SetActive(false);
-            cloudSaveManager.LoadImageAsync("PlayerProfileImage", avatarImage);
+            LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
         }
 
         signOutButton.onClick.AddListener(OnSignOutButtonClicked);
