@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.Scenes;
 using GameVanilla.Game.Popups;
+using TMPro;
 
 namespace GameVanilla.Game.UI
 {
@@ -33,10 +34,9 @@ namespace GameVanilla.Game.UI
         private Image lifeImage;
 
         [SerializeField]
-        private Text numLivesText;
-
+        private TextMeshProUGUI numLivesText;
         [SerializeField]
-        private Text timeToNextLifeText;
+        private TextMeshProUGUI timeToNextLifeText;
 
         [SerializeField]
         private Image buttonImage;

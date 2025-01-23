@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.Scenes;
 using GameVanilla.Game.Popups;
+using TMPro;
 
 namespace GameVanilla.Game.UI
 {
@@ -22,7 +23,7 @@ namespace GameVanilla.Game.UI
         private LevelScene levelScene;
 
         [SerializeField]
-        private Text numCoinsText;
+        private TextMeshProUGUI numCoinsText;
 #pragma warning restore 649
 
         /// <summary>
