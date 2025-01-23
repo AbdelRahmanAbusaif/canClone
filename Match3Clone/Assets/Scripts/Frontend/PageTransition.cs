@@ -1,10 +1,16 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PageTransition : MonoBehaviour
 {
     [SerializeField] private List<GameObject> pages; 
+    [SerializeField] private List<Image> imagesBorder;
+
+    [SerializeField] private Sprite ActiveBorder;
+    [SerializeField] private Sprite InactiveBorder;
+
     [SerializeField] private GameObject rightRespawn;  
     [SerializeField] private GameObject leftRespawn; 
     [SerializeField] private float transitionDuration = 0.1f;
@@ -29,6 +35,8 @@ public class PageTransition : MonoBehaviour
         pages[targetPageIndex].transform.position = entryPosition;
         pages[targetPageIndex].SetActive(true);
 
+        UpdateBorder(targetPageIndex);
+
         // Perform the transition animation
         DOTween.Sequence()
             .Append(pages[currentPageIndex].transform.DOMove(targetPosition, transitionDuration))
@@ -37,6 +45,15 @@ public class PageTransition : MonoBehaviour
             {
                 FinalizeTransition(targetPageIndex);
             });
+    }
+
+    private void UpdateBorder(int targetPageIndex)
+    {
+        for (int i = 0; i < imagesBorder.Count; i++)
+        {
+            imagesBorder[i].sprite = InactiveBorder;
+        }
+        imagesBorder[targetPageIndex].sprite = ActiveBorder;
     }
 
     private void FinalizeTransition(int targetPageIndex)
