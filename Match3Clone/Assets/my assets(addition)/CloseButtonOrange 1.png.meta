@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 2eb78c30fa2738f4db0338edc24913ef
+guid: 32fedbfb81148f44db5d071b115e3ee4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 671437569956605311
-    second: jordanian_boy_0
-  - first:
-      213: 6596696994709608800
-    second: jordanian_boy_1
+      213: 5136502797376263217
+    second: CloseButtonOrange_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -129,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jordanian_boy_0
+      name: CloseButtonOrange_0
       rect:
         serializedVersion: 2
-        x: 49
-        y: 394
-        width: 647
-        height: 940
+        x: 0
+        y: 0
+        width: 140
+        height: 136
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,30 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f7d6d1699ec615900800000000000000
-      internalID: 671437569956605311
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jordanian_boy_1
-      rect:
-        serializedVersion: 2
-        x: 289
-        y: 1
-        width: 166
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0699d8447fc2c8b50800000000000000
-      internalID: 6596696994709608800
+      spriteID: 13499617416884740800000000000000
+      internalID: 5136502797376263217
       vertices: []
       indices: 
       edges: []
@@ -186,8 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      jordanian_boy_0: 671437569956605311
-      jordanian_boy_1: 6596696994709608800
+      CloseButtonOrange_0: 5136502797376263217
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

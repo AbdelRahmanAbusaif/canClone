@@ -34,7 +34,6 @@ public class InternetCheck : MonoBehaviour
                 IsConnected = isConnected;
                 if (isConnected)
                 {
-                    Debug.Log("Internet is connected");
                     loadingPanel.SetActive(false);
                 }
                 else
@@ -43,7 +42,6 @@ public class InternetCheck : MonoBehaviour
                     loadingPanel.SetActive(false);
                     errorInternetPanel.SetActive(true);
                 }
-                Debug.Log($"Internet Connection Status: {isConnected}");
             }));
 
             yield return new WaitForSeconds(2f); // Check every 5 seconds

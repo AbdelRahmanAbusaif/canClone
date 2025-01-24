@@ -472,6 +472,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 124677952}
   m_CullTransparentMesh: 1
+--- !u!1 &205807968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 205807970}
+  - component: {fileID: 205807969}
+  m_Layer: 0
+  m_Name: RemoteAssetsLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &205807969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205807968}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a6b84b45a06744a87953dae3595d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &205807970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205807968}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.9547489, y: 3.179411, z: 0.073950715}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &218077980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3886,6 +3930,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 284883514}
     m_Modifications:
+    - target: {fileID: 544665718351115941, guid: 73692fdec987afd429ac54556e01fd92,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 671437569956605311, guid: 2eb78c30fa2738f4db0338edc24913ef,
+        type: 3}
+    - target: {fileID: 900039202941826452, guid: 73692fdec987afd429ac54556e01fd92,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 900039202941826452, guid: 73692fdec987afd429ac54556e01fd92,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000045776
+      objectReference: {fileID: 0}
     - target: {fileID: 2747891132549362274, guid: 73692fdec987afd429ac54556e01fd92,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4205,3 +4265,4 @@ SceneRoots:
   - {fileID: 387699776}
   - {fileID: 567607535}
   - {fileID: 1354361066}
+  - {fileID: 205807970}

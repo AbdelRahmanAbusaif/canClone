@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/CandyMatch3Kit/Scenes/LoginPage.unity
     guid: e4b8cc0c884a12a45b53261ede099df0
   - enabled: 1
@@ -20,5 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/CandyMatch3Kit/Scenes/sign_in page.unity
     guid: 37df0455f212c9b479bb0f722f7e9cb3
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 5aa9007f80cc1764abf0687c1c468cf6,
+      type: 2}
   m_UseUCBPForAssetBundles: 0
