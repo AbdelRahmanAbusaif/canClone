@@ -13,7 +13,7 @@ public class AnimationBox : MonoBehaviour
         DOTween.Init();
 
         DOTween.Sequence()
-            .Append(boxForAnimation.transform.DOMoveY(0, 0.5f))
+            .Append(boxForAnimation.transform.DOLocalMoveY(0, 0.5f))
             .Join(blackScreen.DOFade(0.5f, 0.5f))
             .OnComplete(() =>
             {
@@ -22,11 +22,14 @@ public class AnimationBox : MonoBehaviour
     }
     public void OnClose() {
         DOTween.Sequence()
-            .Append(boxForAnimation.transform.DOLocalMoveY(3000, 0.5f))
+            .Append(boxForAnimation.transform.DOLocalMoveY(5000, 0.5f))
             .Join(blackScreen.DOFade(0, 0.5f))
             .OnComplete(() =>
             {
                 gameObject.SetActive(false);
             });
+    }
+    private void OnDisable() {
+        OnClose();
     }
 }

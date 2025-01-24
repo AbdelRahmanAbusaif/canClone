@@ -6,38 +6,77 @@ public class InternetCheck : MonoBehaviour
 {
     [SerializeField] private GameObject loadingPanel;
     [SerializeField] private GameObject errorInternetPanel;
-    
-    private  void Start()
+
+    private static InternetCheck Instance;
+
+    public bool IsConnected { get; private set; }
+
+    private void Awake()
     {
-        ConnectInternet();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            StartCoroutine(CheckInternetPeriodically());
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
+    private IEnumerator CheckInternetPeriodically()
+    {
+        while (true)
+        {
+            yield return StartCoroutine(CheckInternetConnection(isConnected =>
+            {
+                IsConnected = isConnected;
+                if (isConnected)
+                {
+                    Debug.Log("Internet is connected");
+                    loadingPanel.SetActive(false);
+                }
+                else
+                {
+                    Debug.Log("Internet is not connected");
+                    loadingPanel.SetActive(false);
+                    errorInternetPanel.SetActive(true);
+                }
+                Debug.Log($"Internet Connection Status: {isConnected}");
+            }));
+
+            yield return new WaitForSeconds(2f); // Check every 5 seconds
+        }
+    }
     public void ConnectInternet()
     {
         loadingPanel.SetActive(true);
-        errorInternetPanel.SetActive(false);
 
         StartCoroutine(CheckInternetConnection((isConnected) =>
         {
-
             if (isConnected)
             {
                 Debug.Log("Internet is connected");
-
                 loadingPanel.SetActive(false);
+                errorInternetPanel.SetActive(false);
             }
             else
             {
                 Debug.Log("Internet is not connected");
-
                 loadingPanel.SetActive(false);
-                errorInternetPanel.SetActive(true);
             }
         }));
     }
 
     public IEnumerator CheckInternetConnection(System.Action<bool> callback)
     {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            callback(false);
+            yield break;
+        }
+
         UnityWebRequest request = new UnityWebRequest("https://www.google.com");
         yield return request.SendWebRequest();
 
