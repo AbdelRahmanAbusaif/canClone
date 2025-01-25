@@ -7,6 +7,9 @@ public class PageTransition : MonoBehaviour
 {
     [SerializeField] private List<GameObject> pages; 
     [SerializeField] private List<Image> imagesBorder;
+    //holding the buttons
+    [SerializeField] private List<GameObject> holder;
+
 
     [SerializeField] private Sprite ActiveBorder;
     [SerializeField] private Sprite InactiveBorder;
@@ -18,6 +21,16 @@ public class PageTransition : MonoBehaviour
     //because first page index is 1(Story page)
     private int currentPageIndex = 1;
     private bool isTransitioning = false;
+
+    Vector2 originSize;
+
+    public void Start()
+    {
+        //save the origin size of buttons
+      originSize = holder[0].GetComponent<RectTransform>().sizeDelta ;
+
+        UpdateBorder(1);  
+    }
 
     public void TransitionToPage(int targetPageIndex)
     {
@@ -52,8 +65,16 @@ public class PageTransition : MonoBehaviour
         for (int i = 0; i < imagesBorder.Count; i++)
         {
             imagesBorder[i].sprite = InactiveBorder;
+            holder[i].GetComponent<RectTransform>().sizeDelta = new Vector2(originSize.x, originSize.y);
+            //enable txt
+            holder[i].GetComponent<RectTransform>().GetChild(2).gameObject.SetActive(true);
+            
         }
         imagesBorder[targetPageIndex].sprite = ActiveBorder;
+        holder[targetPageIndex].GetComponent<RectTransform>().sizeDelta *= new Vector2((float)1.5,(float)1.5);
+        //disable txt
+        holder[targetPageIndex].GetComponent<RectTransform>().GetChild(2).gameObject.SetActive(false);
+        
     }
 
     private void FinalizeTransition(int targetPageIndex)
