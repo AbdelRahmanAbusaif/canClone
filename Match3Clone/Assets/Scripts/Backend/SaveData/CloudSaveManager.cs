@@ -38,7 +38,7 @@ namespace SaveData
                     Debug.Log(jsonData);
 
                     T profileData = JsonUtility.FromJson<T>(jsonData);
-                    await LocalSaveManager.Instance.SaveDataAsync(profileData);
+                    await LocalSaveManager.Instance.SaveDataAsync(profileData, key);
                 
                     return JsonUtility.FromJson<T>(jsonData);
                 }
@@ -57,6 +57,8 @@ namespace SaveData
             try
             {
                 await CloudSaveService.Instance.Files.Player.SaveAsync(key, imageData);
+                await LocalSaveManager.Instance.SaveImageAsync(texture, key);
+                
                 Debug.Log("Image saved successfully to Unity Cloud Save.");
             }
             catch (System.Exception e)
@@ -75,7 +77,7 @@ namespace SaveData
                     texture.LoadImage(imageData);
                     targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
 
-                    await LocalSaveManager.Instance.SaveImageAsync(texture);
+                    await LocalSaveManager.Instance.SaveImageAsync(texture, key);
                     Debug.Log("Image loaded successfully from Unity Cloud Save.");
                 }
             }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using GameVanilla.Core;
-using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using UnityEngine;
 using UnityEngine.UI;

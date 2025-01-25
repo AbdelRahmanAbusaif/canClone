@@ -25,7 +25,7 @@ public class ProfileInformationUI : MonoBehaviour
     {
         loginController = FindAnyObjectByType<LoginController>().GetComponent<LoginController>();
         
-        var playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>();
+        var playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         
         Debug.Log("Player Profile: " + playerProfile.PlayerName);
         try

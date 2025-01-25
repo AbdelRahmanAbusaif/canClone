@@ -18,3 +18,10 @@ public class PlayerProgress
     public int ExperiencePoints;
     public int HighestScore;
 }
+[System.Serializable]
+public class GameAssetsFiles
+{
+    public string FileName;
+    public string FileURL;
+    public string LocalURL;
+}

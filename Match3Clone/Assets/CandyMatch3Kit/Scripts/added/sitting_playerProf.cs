@@ -53,8 +53,8 @@ namespace GameVanilla.Game.Popups
                 return;
             }
 
-            cloudSaveManager.LoadImageAsync("PlayerProfileImage", avatarImage);
-            playerProfile = await cloudSaveManager.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            // cloudSaveManager.LoadImageAsync("PlayerProfileImage", avatarImage);
+            // playerProfile = await cloudSaveManager.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
             //else load the default avatar
         }
