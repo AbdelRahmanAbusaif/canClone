@@ -6,8 +6,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class RemoteAssetsLoader : MonoBehaviour
-{private string savePath;
-
+{
+    private string savePath;
     void Start()
     {
         savePath = Application.persistentDataPath + "/DownloadedAssets/";
@@ -38,8 +38,34 @@ public class RemoteAssetsLoader : MonoBehaviour
 
             if (File.Exists(localFilePath))
             {
-                Debug.Log($"{file.Key} already exists locally.");
-                continue;
+                Debug.Log($"{file.Key} exists locally. Checking for updates...");
+
+                // Send HEAD request to get last-modified date from server
+                UnityWebRequest headRequest = UnityWebRequest.Head(file.Value);
+                yield return headRequest.SendWebRequest();
+
+                if (headRequest.result == UnityWebRequest.Result.Success)
+                {
+                    string remoteLastModified = headRequest.GetResponseHeader("Last-Modified");
+                    string localLastModified = PlayerPrefs.GetString(file.Key + "_LastModified", "");
+
+                    if (remoteLastModified == localLastModified)
+                    {
+                        Debug.Log($"{file.Key} is up to date. Skipping download.");
+                        continue;
+                    }
+                    else
+                    {
+                        Debug.Log($"{file.Key} has been updated. Downloading new version...");
+                        PlayerPrefs.SetString(file.Key + "_LastModified", remoteLastModified);
+                        PlayerPrefs.Save();
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"Failed to check update for {file.Key}: {headRequest.error}");
+                    continue;
+                }
             }
 
             Debug.Log($"Downloading {file.Key} from {file.Value}");

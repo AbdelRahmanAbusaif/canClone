@@ -6,6 +6,7 @@ using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using SaveData;
+using UnityEngine.SocialPlatforms;
 
 public class LoginController : MonoBehaviour
 {
@@ -52,6 +53,10 @@ public class LoginController : MonoBehaviour
         try
         {
             AuthenticationService.Instance.SignOut(true);
+
+            LocalSaveManager.Instance.DeleteData("PlayerProfile");
+            LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
+
             OnSignedOutSuccess?.Invoke();
         }
         catch (AuthenticationException ex)
@@ -151,6 +156,9 @@ public class LoginController : MonoBehaviour
         // This call will sign in the cached player.
         try
         {
+            LocalSaveManager.Instance.DeleteData("PlayerProfile");
+            LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
+            
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log("Sign in anonymously succeeded!");
 
