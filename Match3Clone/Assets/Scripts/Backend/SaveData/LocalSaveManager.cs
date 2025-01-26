@@ -159,7 +159,7 @@ namespace SaveData
 
         public void DeleteImage(string key)
         {
-            string saveImageFilePath = Path.Combine(Application.persistentDataPath, key + ".jpeg");
+            string saveImageFilePath = Path.Combine(Application.persistentDataPath, key + ".png");
 
             if (File.Exists(saveImageFilePath))
             {
