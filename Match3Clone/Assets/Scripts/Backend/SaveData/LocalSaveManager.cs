@@ -4,13 +4,12 @@ using System.Threading.Tasks;
 using Unity.Services.CloudSave;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace SaveData
 {
-    public class LocalSaveManager 
+    public class LocalSaveManager : MonoBehaviour
     {
-
-
         private static readonly object padlock = new object();
         private static LocalSaveManager instance = null;
 
@@ -22,7 +21,14 @@ namespace SaveData
                 {
                     if (instance == null)
                     {
-                        instance = new LocalSaveManager();
+                        instance = FindFirstObjectByType<LocalSaveManager>();
+                        if (instance == null)
+                        {
+                            GameObject singletonObject = new GameObject();
+                            instance = singletonObject.AddComponent<LocalSaveManager>();
+                            singletonObject.name = typeof(LocalSaveManager).ToString() + " (Singleton)";
+                            DontDestroyOnLoad(singletonObject);
+                        }
                     }
                     return instance;
                 }
@@ -37,6 +43,8 @@ namespace SaveData
             try
             {
                 await File.WriteAllTextAsync(saveDataFilePath, jsonData);
+
+                EncryptionHelper.EncryptAndSaveFile(saveDataFilePath, Encoding.UTF8.GetBytes(jsonData));
                 Debug.Log("Data saved successfully to local storage.");
             }
             catch (System.Exception e)
@@ -44,7 +52,6 @@ namespace SaveData
                 Debug.LogError($"Error saving data: {e.Message}");
             }
         }
-    
 
         public async Task<T> LoadDataAsync<T>(string key) where T : new()
         {
@@ -52,18 +59,20 @@ namespace SaveData
             {
                 string saveDataFilePath = Path.Combine(Application.persistentDataPath, key + ".json");
 
-                if(File.Exists(saveDataFilePath))
+                if (File.Exists(saveDataFilePath))
                 {
-                    string jsonData = await File.ReadAllTextAsync(saveDataFilePath);
-                    Debug.Log("Data loaded successfully from local storage.");
+                    var bytes = EncryptionHelper.LoadAndDecryptFile(saveDataFilePath);
+                    string jsonData = Encoding.UTF8.GetString(bytes);
 
+                    Debug.Log("Data loaded successfully from local storage.");
                     Debug.Log(jsonData);
+                    
                     return JsonConvert.DeserializeObject<T>(jsonData);
                 }
                 else
                 {
                     var savedData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { key });
-                    if (savedData.TryGetValue(key,out var item))
+                    if (savedData.TryGetValue(key, out var item))
                     {
                         string jsonData = item.Value.GetAs<string>();
 
@@ -86,7 +95,7 @@ namespace SaveData
         {
             byte[] imageData = ImageUtility.ConvertImageToBytes(texture);
 
-            string saveImageFilePath = Path.Combine(Application.persistentDataPath, key + ".jpeg");
+            string saveImageFilePath = Path.Combine(Application.persistentDataPath, key + ".png");
             Debug.Log(saveImageFilePath);
 
             try
@@ -105,12 +114,16 @@ namespace SaveData
             try
             {
                 byte[] imageData = null;
-                string saveImageFilePath = Path.Combine(Application.persistentDataPath, key + ".jpeg");
+                string saveImageFilePath = Path.Combine(Application.persistentDataPath, key + ".png");
                 Debug.Log(saveImageFilePath);
 
                 if (File.Exists(saveImageFilePath))
                 {
                     imageData = File.ReadAllBytes(saveImageFilePath);
+
+                    Texture2D texture = new Texture2D(2, 2);
+                    texture.LoadImage(imageData);
+                    targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
 
                     Debug.Log("Image loaded successfully from local storage.");
                 }
@@ -120,17 +133,11 @@ namespace SaveData
 
                     Texture2D texture2D = new Texture2D(2, 2);
                     texture2D.LoadImage(imageData);
+                    targetImage.sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
 
                     await SaveImageAsync(texture2D, key);
 
                     Debug.Log("Image loaded successfully from Unity Cloud Save.");
-                }
-
-                if (imageData != null)
-                {
-                    Texture2D texture = new Texture2D(2, 2);
-                    texture.LoadImage(imageData);
-                    targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                 }
             }
             catch (System.Exception e)
@@ -138,21 +145,23 @@ namespace SaveData
                 Debug.LogError($"Failed to load image: {e.Message}");
             }
         }
+
         public void DeleteData(string key)
         {
             string saveDataFilePath = Path.Combine(Application.persistentDataPath, key + ".json");
 
-            if(File.Exists(saveDataFilePath))
+            if (File.Exists(saveDataFilePath))
             {
                 File.Delete(saveDataFilePath);
                 Debug.Log("Data deleted successfully from local storage.");
             }
         }
+
         public void DeleteImage(string key)
         {
             string saveImageFilePath = Path.Combine(Application.persistentDataPath, key + ".jpeg");
 
-            if(File.Exists(saveImageFilePath))
+            if (File.Exists(saveImageFilePath))
             {
                 File.Delete(saveImageFilePath);
                 Debug.Log("Image deleted successfully from local storage.");

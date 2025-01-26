@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -6,7 +5,6 @@ using SaveData;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.RemoteConfig;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -20,14 +18,18 @@ public class RemotlyDownloadAssets : MonoBehaviour
 
         await UnityServices.Instance.InitializeAsync();
 
+        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
+        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+    }
+
+    private static async Task CheckIsSignIn()
+    {
         if (!AuthenticationService.Instance.IsSignedIn)
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
-
-        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
-        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
     }
+
 
     private async void ApplyRemoteConfig(ConfigResponse response)
     {
@@ -58,11 +60,7 @@ public class RemotlyDownloadAssets : MonoBehaviour
         {
             savedFiles = new List<GameAssetsFiles>();
         }
-
-        foreach(var file in savedFiles)
-        {
-            Debug.Log($"Saved File: {file.FileName}");
-        }
+        
         foreach (var file in gameAssetsFiles)
         {
             GameAssetsFiles gameAssetsLoad = savedFiles.Find(f => f.FileName == file.FileName);
@@ -73,8 +71,28 @@ public class RemotlyDownloadAssets : MonoBehaviour
 
                 if(gameAssetsLoad.FileURL == file.FileURL)
                 {
-                    Debug.Log($"{file.FileName} is up to date. Skipping download.");
-                    continue;
+                    using UnityWebRequest requestImage = UnityWebRequest.Head(file.FileURL);
+                    await requestImage.SendWebRequest();
+
+                    if (requestImage.result == UnityWebRequest.Result.Success)
+                    {
+                        string remoteFileSize = requestImage.GetResponseHeader("Content-Length");
+                        string localFileSize = new FileInfo(file.LocalURL + file.FileName).Length.ToString();
+
+                        if (remoteFileSize == localFileSize)
+                        {
+                            Debug.Log($"{file.FileName} is up to date.");
+                            continue;
+                        }
+                        else
+                        {
+                            Debug.Log($"{file.FileName} has been updated. Downloading new version...");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError($"Failed to check {file.FileName} for updates: {requestImage.error}");
+                    }
                 }
                 else
                 {
