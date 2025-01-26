@@ -94,5 +94,7 @@ using GameVanilla.Game.UI;
             currentPageIndex = targetPageIndex;
             isTransitioning = false;
         }
+
+
     }
 
