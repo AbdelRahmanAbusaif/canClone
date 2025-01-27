@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.Scenes;
+using System.Threading.Tasks;
 
 namespace GameVanilla.Game.Popups
 {
@@ -73,10 +74,11 @@ namespace GameVanilla.Game.Popups
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        protected override void Start()
+        protected override async void Start()
         {
             base.Start();
-            var coins = PlayerPrefs.GetInt("num_coins");
+            // var coins = PlayerPrefs.GetInt("num_coins");
+            var coins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
             numCoinsText.text = coins.ToString("n0");
             var avatarSelected = PlayerPrefs.GetInt("avatar_selected");
             if (avatarSelected == 0)
@@ -114,11 +116,12 @@ namespace GameVanilla.Game.Popups
         /// <summary>
         /// Called when the play button is pressed.
         /// </summary>
-        public void OnPlayButtonPressed()
+        public async void OnPlayButtonPressed()
         {
             if (gameScene.level.limitType == LimitType.Moves)
             {
-                var numCoins = PlayerPrefs.GetInt("num_coins");
+                // var numCoins = PlayerPrefs.GetInt("num_coins");
+                var numCoins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
                 if (numCoins >= PuzzleMatchManager.instance.gameConfig.extraMovesCost)
                 {
                     PuzzleMatchManager.instance.coinsSystem.SpendCoins(PuzzleMatchManager.instance.gameConfig.extraMovesCost);
@@ -135,7 +138,8 @@ namespace GameVanilla.Game.Popups
             }
             else if (gameScene.level.limitType == LimitType.Time)
             {
-                var numCoins = PlayerPrefs.GetInt("num_coins");
+                // var numCoins = PlayerPrefs.GetInt("num_coins");
+                var numCoins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
                 if (numCoins >= PuzzleMatchManager.instance.gameConfig.extraTimeCost)
                 {
                     PuzzleMatchManager.instance.coinsSystem.SpendCoins(PuzzleMatchManager.instance.gameConfig.extraTimeCost);

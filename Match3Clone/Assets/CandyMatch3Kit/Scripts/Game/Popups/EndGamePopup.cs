@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using GameVanilla.Core;
 using GameVanilla.Game.Scenes;
 using GameVanilla.Game.UI;
+using GameVanilla.Game.Common;
 
 namespace GameVanilla.Game.Popups
 {
@@ -67,12 +68,13 @@ namespace GameVanilla.Game.Popups
         /// <summary>
         /// Called when the replay button is pressed.
         /// </summary>
-        public void OnReplayButtonPressed()
+        public async void OnReplayButtonPressed()
         {
             var gameScene = parentScene as GameScene;
             if (gameScene != null)
             {
-                var numLives = PlayerPrefs.GetInt("num_lives");
+                // var numLives = PlayerPrefs.GetInt("num_lives");
+                var numLives = await PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
                 if (numLives > 0)
                 {
                     gameScene.RestartGame();

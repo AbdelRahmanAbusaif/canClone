@@ -510,6 +510,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuyCoinsPopup 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114666324139688364, guid: 83062e4b361f25144a4363faabb72ced,
+        type: 3}
+      propertyPath: onOpen.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114666324139688364, guid: 83062e4b361f25144a4363faabb72ced,
+        type: 3}
+      propertyPath: onClose.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224870967893146160, guid: 83062e4b361f25144a4363faabb72ced,
         type: 3}
       propertyPath: m_Pivot.x

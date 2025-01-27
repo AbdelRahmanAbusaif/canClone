@@ -10,6 +10,7 @@ using GameVanilla.Game.Common;
 using GameVanilla.Game.Scenes;
 using GameVanilla.Game.Popups;
 using TMPro;
+using System.Threading.Tasks;
 
 namespace GameVanilla.Game.UI
 {
@@ -38,11 +39,12 @@ namespace GameVanilla.Game.UI
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        private void Start()
+        private async void Start()
         {
-            var numCoins = PlayerPrefs.GetInt("num_coins");
+            // var numCoins = PlayerPrefs.GetInt("num_coins");
+            var numCoins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
             numCoinsText.text = numCoins.ToString("n0");
-            PuzzleMatchManager.instance.coinsSystem.Subscribe(OnCoinsChanged);
+            PuzzleMatchManager.instance.coinsSystem.Subscribe(numCoins => OnCoinsChanged((int)numCoins));
         }
 
         /// <summary>
@@ -50,7 +52,7 @@ namespace GameVanilla.Game.UI
         /// </summary>
         private void OnDestroy()
         {
-            PuzzleMatchManager.instance.coinsSystem.Unsubscribe(OnCoinsChanged);
+            PuzzleMatchManager.instance.coinsSystem.Subscribe(numCoins => OnCoinsChanged((int)numCoins));
         }
 
         /// <summary>

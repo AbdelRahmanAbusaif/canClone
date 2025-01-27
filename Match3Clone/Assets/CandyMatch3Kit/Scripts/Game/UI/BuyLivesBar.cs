@@ -12,6 +12,7 @@ using GameVanilla.Game.Common;
 using GameVanilla.Game.Scenes;
 using GameVanilla.Game.Popups;
 using TMPro;
+using System.Threading.Tasks;
 
 namespace GameVanilla.Game.UI
 {
@@ -67,9 +68,10 @@ namespace GameVanilla.Game.UI
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        private void Start()
+        private async void Start()
         {
-            var numLives = PlayerPrefs.GetInt("num_lives");
+            // var numLives = PlayerPrefs.GetInt("num_lives");
+            var numLives = await PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             numLivesText.text = numLives.ToString();
             buttonImage.sprite = numLives == maxLives ? disabledButtonSprite : enabledButtonSprite;
@@ -87,9 +89,10 @@ namespace GameVanilla.Game.UI
         /// <summary>
         /// Called when the buy button is pressed.
         /// </summary>
-        public void OnBuyButtonPressed()
+        public async void OnBuyButtonPressed()
         {
-            var numLives = PlayerPrefs.GetInt("num_lives");
+            // var numLives = PlayerPrefs.GetInt("num_lives");
+            var numLives = await PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             if (numLives < maxLives)
             {

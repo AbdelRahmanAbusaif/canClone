@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 using GameVanilla.Core;
 using GameVanilla.Game.Common;
+using System.Threading.Tasks;
 
 namespace GameVanilla.Game.Popups
 {
@@ -63,12 +64,13 @@ namespace GameVanilla.Game.Popups
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        protected override void Start()
+        protected override async void Start()
         {
             base.Start();
             PuzzleMatchManager.instance.livesSystem.Subscribe(OnLivesCountdownUpdated, OnLivesCountdownFinished);
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
-            var numLives = PlayerPrefs.GetInt("num_lives");
+            // var numLives = PlayerPrefs.GetInt("num_lives");
+            var numLives = await PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
             if (numLives >= maxLives)
             {
                 DisableRefillButton();
@@ -88,9 +90,10 @@ namespace GameVanilla.Game.Popups
         /// <summary>
         /// Called when the refill button is pressed.
         /// </summary>
-        public void OnRefillButtonPressed()
+        public async void OnRefillButtonPressed()
         {
-            var numCoins = PlayerPrefs.GetInt("num_coins");
+            // var numCoins = PlayerPrefs.GetInt("num_coins");
+            var numCoins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
             if (numCoins >= PuzzleMatchManager.instance.gameConfig.livesRefillCost)
             {
                 PuzzleMatchManager.instance.livesSystem.RefillLives();

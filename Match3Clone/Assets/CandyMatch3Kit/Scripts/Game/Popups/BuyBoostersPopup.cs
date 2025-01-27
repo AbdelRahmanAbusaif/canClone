@@ -10,6 +10,7 @@ using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.Scenes;
 using GameVanilla.Game.UI;
+using System.Threading.Tasks;
 
 namespace GameVanilla.Game.Popups
 {
@@ -77,10 +78,12 @@ namespace GameVanilla.Game.Popups
 	    /// <summary>
 	    /// Unity's Start method.
 	    /// </summary>
-	    protected override void Start()
+	    protected override async void Start()
 	    {
 		    base.Start();
-		    numCoinsText.text = PlayerPrefs.GetInt("num_coins").ToString();
+		    // numCoinsText.text = PlayerPrefs.GetInt("num_coins").ToString();
+			var coins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
+			numCoinsText.text = coins.ToString();
 	    }
 
 	    /// <summary>
@@ -126,7 +129,7 @@ namespace GameVanilla.Game.Popups
 	    /// <summary>
 	    /// Called when the buy button is pressed.
 	    /// </summary>
-	    public void OnBuyButtonPressed()
+	    public async Task OnBuyButtonPressed()
 	    {
 		    var playerPrefsKey = string.Format("num_boosters_{0}", (int)buyButton.boosterType);
 		    var numBoosters = PlayerPrefs.GetInt(playerPrefsKey);
@@ -137,7 +140,8 @@ namespace GameVanilla.Game.Popups
 		    if (gameScene != null)
 		    {
 			    var cost = PuzzleMatchManager.instance.gameConfig.ingameBoosterCost[buyButton.boosterType];
-			    var coins = PlayerPrefs.GetInt("num_coins");
+			    // var coins = PlayerPrefs.GetInt("num_coins");
+				var coins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();				
 			    if (cost > coins)
 			    {
 				    var scene = parentScene;

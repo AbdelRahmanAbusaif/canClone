@@ -13,6 +13,7 @@ using UnityEngine.UI;
 using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.UI;
+using System.Threading.Tasks;
 
 namespace GameVanilla.Game.Popups
 {
@@ -169,14 +170,15 @@ namespace GameVanilla.Game.Popups
         /// <summary>
         /// Called when the spin button is pressed.
         /// </summary>
-        public void OnSpinButtonPressed()
+        public async void OnSpinButtonPressed()
         {
             if (isSpinning)
             {
                 return;
             }
 
-            var numCoins = PlayerPrefs.GetInt("num_coins");
+            // var numCoins = PlayerPrefs.GetInt("num_coins");
+            var numCoins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
             if (isFreeSpin || numCoins >= spinCost)
             {
                 if (!isFreeSpin)

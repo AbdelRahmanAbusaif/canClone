@@ -50,14 +50,14 @@ namespace GameVanilla.Game.Common
 
             var serializer = new fsSerializer();
             gameConfig = FileUtils.LoadJsonFile<GameConfiguration>(serializer, "game_configuration");
-            if (!PlayerPrefs.HasKey("num_lives"))
-            {
-                PlayerPrefs.SetInt("num_lives", gameConfig.maxLives);
-            }
-            if (!PlayerPrefs.HasKey("num_coins"))
-            {
-                PlayerPrefs.SetInt("num_coins", gameConfig.initialCoins);
-            }
+            // if (!PlayerPrefs.HasKey("num_lives"))
+            // {
+            //     PlayerPrefs.SetInt("num_lives", gameConfig.maxLives);
+            // }
+            // if (!PlayerPrefs.HasKey("num_coins"))
+            // {
+            //     PlayerPrefs.SetInt("num_coins", gameConfig.initialCoins);
+            // }
             if (!PlayerPrefs.HasKey("sound_enabled"))
             {
                 PlayerPrefs.SetInt("sound_enabled", 1);

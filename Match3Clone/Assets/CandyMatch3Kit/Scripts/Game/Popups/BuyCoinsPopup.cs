@@ -48,10 +48,11 @@ namespace GameVanilla.Game.Popups
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        protected override void Start()
+        protected override async void Start()
         {
             base.Start();
-            var coins = PlayerPrefs.GetInt("num_coins");
+            // var coins = PlayerPrefs.GetInt("num_coins");
+            var coins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
             numCoinsText.text = coins.ToString("n0");
             PuzzleMatchManager.instance.coinsSystem.Subscribe(OnCoinsChanged);
 
@@ -76,9 +77,9 @@ namespace GameVanilla.Game.Popups
         /// Called when the buy button is pressed.
         /// </summary>
         /// <param name="numCoins">The number of coins to buy.</param>
-        public void OnBuyButtonPressed(int numCoins)
+        public void OnBuyButtonPressed(long numCoins)
         {
-            PuzzleMatchManager.instance.coinsSystem.BuyCoins(numCoins);
+            PuzzleMatchManager.instance.coinsSystem.Subscribe(numCoins => OnCoinsChanged((int)numCoins));
         }
 
         /// <summary>
@@ -93,7 +94,7 @@ namespace GameVanilla.Game.Popups
         /// Called when the number of coins changes.
         /// </summary>
         /// <param name="numCoins">The current number of coins.</param>
-        private void OnCoinsChanged(int numCoins)
+        private void OnCoinsChanged(long numCoins)
         {
             numCoinsText.text = numCoins.ToString("n0");
             coinsParticles.Play();

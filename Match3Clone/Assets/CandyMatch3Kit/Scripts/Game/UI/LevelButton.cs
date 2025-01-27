@@ -11,6 +11,7 @@ using GameVanilla.Game.Popups;
 using GameVanilla.Game.Scenes;
 using System.Threading.Tasks;
 using SaveData;
+using GameVanilla.Game.Common;
 
 namespace GameVanilla.Game.UI
 {
@@ -159,7 +160,7 @@ namespace GameVanilla.Game.UI
         /// <summary>
         /// Called when the button is pressed.
         /// </summary>
-        public void OnButtonPressed()
+        public async void OnButtonPressed()
         {
             if (buttonImage.sprite == lockedButtonSprite)
             {
@@ -169,7 +170,8 @@ namespace GameVanilla.Game.UI
             var scene = GameObject.Find("LevelScene").GetComponent<LevelScene>();
             if (scene != null)
             {
-                var numLives = PlayerPrefs.GetInt("num_lives");
+                // var numLives = PlayerPrefs.GetInt("num_lives");
+                var numLives = await PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
                 if (numLives > 0)
                 {
                     if (!FileUtils.FileExists("Levels/" + numLevel))

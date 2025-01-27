@@ -1,74 +1,118 @@
-﻿// Copyright (C) 2017 gamevanilla. All rights reserved.
-// This code can only be used under the standard Unity Asset Store End User License Agreement,
-// a copy of which is available at http://unity3d.com/company/legal/as_terms.
-
-using System;
-
+﻿using Unity.Services.Core;
+using Unity.Services.Economy;
+using Unity.Services.Economy.Model;
 using UnityEngine;
+using System;
+using System.Threading.Tasks;
 
-namespace GameVanilla.Game.Common
+public class CoinsSystem : MonoBehaviour
 {
-    /// <summary>
-    /// This class handles the coins system in the game. It is used to buy and spend coins and other classes
-    /// can subscribe to it in order to receive a notification when the number of coins changes.
-    /// </summary>
-    public class CoinsSystem : MonoBehaviour
+    private Action<long> onCoinsUpdated;
+    private const string COIN_CURRENCY_ID = "TOKEN_COIN";
+    
+    public int Coins { get; private set; }
+    private async void Start()
     {
-        private Action<int> onCoinsUpdated;
+        await InitializeUnityServices();
+    }
 
-        /// <summary>
-        /// Buys the specified amount of coins.
-        /// </summary>
-        /// <param name="amount">The amount of coins to buy.</param>
-        public void BuyCoins(int amount)
+    private async Task InitializeUnityServices()
+    {
+        try
         {
-            var numCoins = PlayerPrefs.GetInt("num_coins");
-            numCoins += amount;
-            PlayerPrefs.SetInt("num_coins", numCoins);
-            if (onCoinsUpdated != null)
+            await UnityServices.InitializeAsync();
+            await EconomyService.Instance.Configuration.SyncConfigurationAsync();
+            Debug.Log("Unity Economy initialized successfully.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Failed to initialize Unity Economy: " + e.Message);
+        }
+    }
+
+    /// <summary>
+    /// Buys the specified amount of coins.
+    /// </summary>
+    /// <param name="amount">The amount of coins to buy.</param>
+    public async void BuyCoins(int amount)
+    {
+        try
+        {
+            await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(COIN_CURRENCY_ID, amount);
+            long newBalance = await GetCurrentCoins();
+            onCoinsUpdated?.Invoke(newBalance);
+
+            Coins = (int)newBalance;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Failed to buy coins: " + e.Message);
+        }
+    }
+
+    /// <summary>
+    /// Spends the specified amount of coins.
+    /// </summary>
+    /// <param name="amount">The amount of coins to spend.</param>
+    public async void SpendCoins(int amount)
+    {
+        try
+        {
+            long currentBalance = await GetCurrentCoins();
+            if (currentBalance >= amount)
             {
-                onCoinsUpdated(numCoins);
+                await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync(COIN_CURRENCY_ID, amount);
+                long newBalance = await GetCurrentCoins();
+                onCoinsUpdated?.Invoke(newBalance);
+
+                Coins = (int)newBalance;
+            }
+            else
+            {
+                Debug.LogWarning("Not enough coins to spend.");
             }
         }
-
-        /// <summary>
-        /// Spends the specified amount of coins.
-        /// </summary>
-        /// <param name="amount">The amount of coins to spend.</param>
-        public void SpendCoins(int amount)
+        catch (Exception e)
         {
-            var numCoins = PlayerPrefs.GetInt("num_coins");
-            numCoins -= amount;
-            if (numCoins < 0)
-            {
-                numCoins = 0;
-            }
-            PlayerPrefs.SetInt("num_coins", numCoins);
-            if (onCoinsUpdated != null)
-            {
-                onCoinsUpdated(numCoins);
-            }
+            Debug.LogError("Failed to spend coins: " + e.Message);
         }
+    }
 
-        /// <summary>
-        /// Registers the specified callback to be called when the amount of coins changes.
-        /// </summary>
-        /// <param name="callback">The callback to register.</param>
-        public void Subscribe(Action<int> callback)
+    /// <summary>
+    /// Gets the player's current coin balance.
+    /// </summary>
+    public async Task<long> GetCurrentCoins()
+    {
+        try
         {
-            onCoinsUpdated += callback;
+            CurrencyDefinition goldCurrencyDefinition = EconomyService.Instance.Configuration.GetCurrency(COIN_CURRENCY_ID);
+            PlayerBalance playersGoldBarBalance = await goldCurrencyDefinition.GetPlayerBalanceAsync();
+            return playersGoldBarBalance.Balance;
+            
         }
+        catch (Exception e)
+        {
+            Debug.LogError("Failed to get coin balance: " + e.Message);
+            return 0;
+        }
+    }
 
-        /// <summary>
-        /// Unregisters the specified callback to be called when the amount of coins changes.
-        /// </summary>
-        /// <param name="callback">The callback to unregister.</param>
-        public void Unsubscribe(Action<int> callback)
-        {
-            if (onCoinsUpdated != null)
-            {
-                onCoinsUpdated -= callback;
-            }
-        }
+    /// <summary>
+    /// Registers the specified callback to be called when the amount of coins changes.
+    /// </summary>
+    /// <param name="callback">The callback to register.</param>
+    public async void Subscribe(Action<long> callback)
+    {
+        onCoinsUpdated += callback;
+        callback?.Invoke(await GetCurrentCoins()); // Provide initial balance on subscribe
+    }
+
+    /// <summary>
+    /// Unregisters the specified callback to be called when the amount of coins changes.
+    /// </summary>
+    /// <param name="callback">The callback to unregister.</param>
+    public void Unsubscribe(Action<long> callback)
+    {
+        onCoinsUpdated -= callback;
     }
 }
