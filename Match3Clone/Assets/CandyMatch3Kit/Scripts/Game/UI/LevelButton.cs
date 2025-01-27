@@ -86,10 +86,21 @@ namespace GameVanilla.Game.UI
             numLevelTextPink.text = numLevel.ToString();
             // var nextLevel = PlayerPrefs.GetInt("next_level");
             
-            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-            Debug.Log("From LevelButton");
+            var nextLevel = 0;
 
-            var nextLevel = playerProfile.Level;
+            if (PlayerPrefs.GetInt("Level") == 0)
+            {
+                playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+                nextLevel = playerProfile.Level;
+
+                PlayerPrefs.SetInt("Level", nextLevel);
+                PlayerPrefs.Save();
+            }
+            else
+            {
+                nextLevel = PlayerPrefs.GetInt("Level");
+            }
+
             if (nextLevel == 0)
             {
                 nextLevel = 1;

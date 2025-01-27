@@ -175,6 +175,10 @@ namespace GameVanilla.Game.Scenes
 
                 // var nextLevel = PlayerPrefs.GetInt("next_level");
                 var nextLevel = playerProfile.Level;
+
+                PlayerPrefs.SetInt("Level", nextLevel);
+                PlayerPrefs.Save();
+
                 if (nextLevel == 0)
                 {
                     nextLevel = 1;
@@ -184,7 +188,11 @@ namespace GameVanilla.Game.Scenes
                     // PlayerPrefs.SetInt("next_level", level.id + 1);
                     playerProfile.Level++;
                     await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
-                     Debug.Log("From GameScene");
+                    Debug.Log("From GameScene");
+                    
+                    PlayerPrefs.SetInt("Level", playerProfile.Level);
+                    PlayerPrefs.Save();
+                    
                     PuzzleMatchManager.instance.unlockedNextLevel = true;
                 }
                 else
