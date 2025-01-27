@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using SaveData;
 using UnityEngine.SocialPlatforms;
+using System.Collections.Generic;
 
 public class LoginController : MonoBehaviour
 {
@@ -84,7 +85,10 @@ public class LoginController : MonoBehaviour
                 Email = "",
                 PhoneNumber = "",
                 Level = 1,
-                HighestScore = 0
+                LevelsComplete = new List<LevelComplete>()
+                {
+                    
+                }
             };
 
             PlayerPrefs.SetInt("IsAnonymous", 1);
@@ -120,7 +124,10 @@ public class LoginController : MonoBehaviour
                 Email = "",
                 PhoneNumber = "",
                 Level = 1,
-                HighestScore = 0
+                LevelsComplete = new List<LevelComplete>()
+                {
+                    
+                }
             };
 
             PlayerPrefs.SetInt("IsAnonymous", 0);

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -8,13 +9,16 @@ public class PlayerProfile
     public string Email;
     public string PhoneNumber;
     public int Level;
-    public int HighestScore;
+    
+    public List<LevelComplete> LevelsComplete;
 }
 
 [System.Serializable]
-public class PlayerProgress
+public class LevelComplete
 {
-    
+    public int NumberLevel;
+    public int Stars;
+    public int Score;
 }
 [System.Serializable]
 public class GameAssetsFiles

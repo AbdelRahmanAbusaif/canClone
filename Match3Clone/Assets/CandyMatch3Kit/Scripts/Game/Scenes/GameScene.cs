@@ -223,21 +223,31 @@ namespace GameVanilla.Game.Scenes
         /// </summary>
         public void OpenWinPopup()
         {
-            OpenPopup<WinPopup>("Popups/WinPopup", popup =>
+            OpenPopup<WinPopup>("Popups/WinPopup", async popup =>
             {
-                var levelStars = PlayerPrefs.GetInt("level_stars_" + level.id);
+                LevelComplete levelComplete = new LevelComplete();
+
+                levelComplete.NumberLevel = level.id;
+                levelComplete.Stars = 0;
+                levelComplete.Score = 0;
+
+                // var levelStars =PlayerPrefs.GetInt("level_stars_" + level.id);
+                var levelStars = levelComplete.Stars;
+                
                 var gameState = gameBoard.gameState;
                 if (gameState.score >= level.score3)
                 {
                     popup.SetStars(3);
-                    PlayerPrefs.SetInt("level_stars_" + level.id, 3);
+                    // PlayerPrefs.SetInt("level_stars_" + level.id, 3);
+                    levelComplete.Stars = 3;
                 }
                 else if (gameState.score >= level.score2)
                 {
                     popup.SetStars(2);
                     if (levelStars < 3)
                     {
-                        PlayerPrefs.SetInt("level_stars_" + level.id, 2);
+                        // PlayerPrefs.SetInt("level_stars_" + level.id, 2);
+                        levelComplete.Stars = 2;
                     }
                 }
                 else if (gameState.score >= level.score1)
@@ -245,7 +255,8 @@ namespace GameVanilla.Game.Scenes
                     popup.SetStars(1);
                     if (levelStars < 2)
                     {
-                        PlayerPrefs.SetInt("level_stars_" + level.id, 1);
+                        // PlayerPrefs.SetInt("level_stars_" + level.id, 1);
+                        levelComplete.Stars = 1;
                     }
                 }
                 else
@@ -253,6 +264,9 @@ namespace GameVanilla.Game.Scenes
                     popup.SetStars(0);
                 }
 
+                playerProfile.LevelsComplete.Add(levelComplete);
+                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                
                 popup.SetLevel(level.id);
 
                 var levelScore = PlayerPrefs.GetInt("level_score_" + level.id);

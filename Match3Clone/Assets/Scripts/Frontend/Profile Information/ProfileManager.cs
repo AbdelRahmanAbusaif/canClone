@@ -8,6 +8,7 @@ using System;
 using Unity.Services.Authentication;
 
 using SaveData;
+using System.Collections.Generic;
 
 public class ProfileManager : MonoBehaviour
 {
@@ -147,7 +148,12 @@ public class ProfileManager : MonoBehaviour
             PlayerName = playerName,
             Email = email,
             PhoneNumber = phoneNumber,
-            Level = 1
+            Level = 1,
+            LevelsComplete = new List<LevelComplete>()
+            {
+               
+            }
+
         };
 
         await cloudSaveManager.SaveDataAsync("PlayerProfile", playerProfile);

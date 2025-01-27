@@ -11,6 +11,8 @@ using FullSerializer;
 using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.UI;
+using System.Threading.Tasks;
+using SaveData;
 
 namespace GameVanilla.Game.Popups
 {
@@ -91,14 +93,30 @@ namespace GameVanilla.Game.Popups
         /// Loads the level data corresponding to the specified level number.
         /// </summary>
         /// <param name="levelNum">The number of the level to load.</param>
-        public void LoadLevelData(int levelNum)
+        public async void LoadLevelData(int levelNum)
         {
             numLevel = levelNum;
-
+            
             var serializer = new fsSerializer();
             var level = FileUtils.LoadJsonFile<Level>(serializer, "Levels/" + numLevel);
             levelText.text = "Level " + numLevel;
-            var stars = PlayerPrefs.GetInt("level_stars_" + numLevel);
+            // var stars = PlayerPrefs.GetInt("level_stars_" + numLevel);
+            var playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+
+            LevelComplete levelComplete = new LevelComplete();
+            levelComplete.Stars = 0;
+            
+            var stars = 0;
+
+            if(playerProfile.Level == numLevel)
+            {
+                stars = levelComplete.Stars;
+            }
+            else
+            {
+                stars = playerProfile.LevelsComplete[numLevel - 1].Stars;
+            }
+
             if (stars == 1)
             {
                 star1Image.sprite = enabledStarSprite;

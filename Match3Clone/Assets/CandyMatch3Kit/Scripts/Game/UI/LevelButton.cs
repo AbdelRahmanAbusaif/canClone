@@ -95,10 +95,14 @@ namespace GameVanilla.Game.UI
 
                 PlayerPrefs.SetInt("Level", nextLevel);
                 PlayerPrefs.Save();
+
+                Debug.Log($"From LevelButton CloudSaveManager: {nextLevel}");
             }
             else
             {
                 nextLevel = PlayerPrefs.GetInt("Level");
+
+                Debug.Log($"From LevelButton PlayerPrefs: {nextLevel}");
             }
 
             if (nextLevel == 0)
@@ -119,7 +123,10 @@ namespace GameVanilla.Game.UI
             {
                 buttonImage.sprite = playedButtonSprite;
                 numLevelTextBlue.gameObject.SetActive(false);
-                var stars = PlayerPrefs.GetInt("level_stars_" + numLevel);
+
+                playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+                var stars = playerProfile.LevelsComplete[numLevel - 1].Stars;
+
                 switch (stars)
                 {
                     case 1:
