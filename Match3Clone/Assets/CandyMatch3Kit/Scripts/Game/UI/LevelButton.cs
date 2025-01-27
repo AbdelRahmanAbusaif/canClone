@@ -55,7 +55,7 @@ namespace GameVanilla.Game.UI
         [SerializeField]
         private GameObject shineAnimation;
 
-        LevelProgress levelProgress;
+        PlayerProfile playerProfile;
 #pragma warning restore 649
 
         /// <summary>
@@ -88,18 +88,17 @@ namespace GameVanilla.Game.UI
             
             var nextLevel = 0;
 
-            Debug.Log("From LevelButton");
-            if (PlayerPrefs.GetInt("number_level") == 0)
+            if (PlayerPrefs.GetInt("Level") == 0)
             {
-                levelProgress = await CloudSaveManager.Instance.LoadDataAsync<LevelProgress>("LevelProgress");
-                nextLevel = levelProgress.Level;
+                playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+                nextLevel = playerProfile.Level;
 
-                PlayerPrefs.SetInt("number_level", nextLevel);
+                PlayerPrefs.SetInt("Level", nextLevel);
                 PlayerPrefs.Save();
             }
             else
             {
-                nextLevel = PlayerPrefs.GetInt("number_level");
+                nextLevel = PlayerPrefs.GetInt("Level");
             }
 
             if (nextLevel == 0)

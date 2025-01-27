@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using GameVanilla.Core;
-using SaveData;
 using Unity.Services.CloudSave;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,32 +21,12 @@ public class UILogin : MonoBehaviour
         }
 
         loginController.OnSignInSuccess += OnSignInSuccess;
-        loginController.OnSaveLevel += OnSaveLevel;
     }
-
 
     private async void OnSignInButtonClicked()
     {
         Debug.Log("Sign in button clicked");
         await loginController.InitSign();
-    }
-    private async void OnSaveLevel(LevelProgress progress)
-    {
-        Debug.Log("SaveLevelProgress From UILogin");
-        // Here will be the code for get the player info and save it to the database
-        
-        var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "LevelProgress" });
-
-        if(data.ContainsKey("LevelProgress"))
-        {
-            Debug.Log("LevelProgress already exists");
-            return;
-        }
-        else
-        {
-            await CloudSaveManager.Instance.SaveDataAsync("LevelProgress", progress);
-            Debug.Log("LevelProgress saved");
-        }
     }
 
     private async void OnSignInSuccess(PlayerProfile playerData)

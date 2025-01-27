@@ -33,6 +33,8 @@ public class RemotlyDownloadAssets : MonoBehaviour
 
     private async void ApplyRemoteConfig(ConfigResponse response)
     {
+        Debug.Log("Remote Config Fetched Successfully!");
+
         List<GameAssetsFiles> gameAssetsFiles = new List<GameAssetsFiles>
         {
             new() {
@@ -65,7 +67,7 @@ public class RemotlyDownloadAssets : MonoBehaviour
 
             if(gameAssetsLoad != null)
             {
-                // Debug.Log($"{file.FileName} exists locally. Checking for updates...");
+                Debug.Log($"{file.FileName} exists locally. Checking for updates...");
 
                 if(gameAssetsLoad.FileURL == file.FileURL)
                 {
@@ -79,17 +81,17 @@ public class RemotlyDownloadAssets : MonoBehaviour
 
                         if (remoteFileSize == localFileSize)
                         {
-                            // Debug.Log($"{file.FileName} is up to date.");
+                            Debug.Log($"{file.FileName} is up to date.");
                             continue;
                         }
                         else
                         {
-                            // Debug.Log($"{file.FileName} has been updated. Downloading new version...");
+                            Debug.Log($"{file.FileName} has been updated. Downloading new version...");
                         }
                     }
                     else
                     {
-                        // Debug.LogError($"Failed to check {file.FileName} for updates: {requestImage.error}");
+                        Debug.LogError($"Failed to check {file.FileName} for updates: {requestImage.error}");
                     }
                 }
                 else
@@ -113,7 +115,7 @@ public class RemotlyDownloadAssets : MonoBehaviour
                 }
                 savedFiles.Add(file);
 
-                // Debug.Log($"Downloaded and saved: {file.LocalURL + file.FileName}");
+                Debug.Log($"Downloaded and saved: {file.LocalURL + file.FileName}");
 
             }
             else
@@ -121,6 +123,12 @@ public class RemotlyDownloadAssets : MonoBehaviour
                 Debug.LogError($"Failed to download {file.FileName}: {request.error}");
             }
         }
+
+        foreach (var file in savedFiles)
+        {
+            Debug.Log($"Saved File: {file.FileName}");
+        }
+
         await LocalSaveManager.Instance.SaveDataAsync<List<GameAssetsFiles>>(savedFiles, "GameAssetsFiles");
         Debug.Log("All assets have been updated and saved.");
     }

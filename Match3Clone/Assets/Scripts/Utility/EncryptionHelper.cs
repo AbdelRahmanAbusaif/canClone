@@ -27,6 +27,7 @@ public class EncryptionHelper : MonoBehaviour
         {
             byte[] encryptedData = EncryptData(data, EncryptionKey);
             File.WriteAllBytes(filePath, encryptedData);
+            Debug.Log($"File encrypted and saved to: {filePath}");
         }
         catch (Exception e)
         {
@@ -44,6 +45,7 @@ public class EncryptionHelper : MonoBehaviour
                 byte[] encryptedData = File.ReadAllBytes(filePath);
                 return DecryptData(encryptedData, EncryptionKey);
             }
+            Debug.LogError($"File not found: {filePath}");
         }
         catch (Exception e)
         {

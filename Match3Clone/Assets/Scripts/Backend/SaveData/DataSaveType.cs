@@ -7,14 +7,10 @@ public class PlayerProfile
     public string PlayerName;
     public string Email;
     public string PhoneNumber;
-}
-[System.Serializable]
-public class LevelProgress
-{
     public int Level;
-    public int Stars;
-    public int Score;
+    public int HighestScore;
 }
+
 [System.Serializable]
 public class PlayerProgress
 {

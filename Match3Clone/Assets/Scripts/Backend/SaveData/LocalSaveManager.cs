@@ -45,6 +45,7 @@ namespace SaveData
                 await File.WriteAllTextAsync(saveDataFilePath, jsonData);
 
                 EncryptionHelper.EncryptAndSaveFile(saveDataFilePath, Encoding.UTF8.GetBytes(jsonData));
+                Debug.Log("Data saved successfully to local storage.");
             }
             catch (System.Exception e)
             {
@@ -63,6 +64,7 @@ namespace SaveData
                     var bytes = EncryptionHelper.LoadAndDecryptFile(saveDataFilePath);
                     string jsonData = Encoding.UTF8.GetString(bytes);
 
+                    Debug.Log("Data loaded successfully from local storage.");
                     Debug.Log(jsonData);
                     
                     return JsonConvert.DeserializeObject<T>(jsonData);
@@ -74,6 +76,7 @@ namespace SaveData
                     {
                         string jsonData = item.Value.GetAs<string>();
 
+                        Debug.Log($"{key} loaded successfully.");
                         Debug.Log(jsonData);
 
                         return JsonConvert.DeserializeObject<T>(jsonData);
@@ -98,6 +101,7 @@ namespace SaveData
             try
             {
                 await File.WriteAllBytesAsync(saveImageFilePath, imageData);
+                Debug.Log("Image saved successfully to local storage.");
             }
             catch (System.Exception e)
             {
@@ -120,6 +124,8 @@ namespace SaveData
                     Texture2D texture = new Texture2D(2, 2);
                     texture.LoadImage(imageData);
                     targetImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+                    Debug.Log("Image loaded successfully from local storage.");
                 }
                 else
                 {
@@ -130,6 +136,8 @@ namespace SaveData
                     targetImage.sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
 
                     await SaveImageAsync(texture2D, key);
+
+                    Debug.Log("Image loaded successfully from Unity Cloud Save.");
                 }
             }
             catch (System.Exception e)
@@ -145,6 +153,7 @@ namespace SaveData
             if (File.Exists(saveDataFilePath))
             {
                 File.Delete(saveDataFilePath);
+                Debug.Log("Data deleted successfully from local storage.");
             }
         }
 
@@ -155,6 +164,7 @@ namespace SaveData
             if (File.Exists(saveImageFilePath))
             {
                 File.Delete(saveImageFilePath);
+                Debug.Log("Image deleted successfully from local storage.");
             }
         }
     }

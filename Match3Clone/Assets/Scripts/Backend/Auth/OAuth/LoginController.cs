@@ -6,12 +6,11 @@ using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using SaveData;
+using UnityEngine.SocialPlatforms;
 
 public class LoginController : MonoBehaviour
 {
     public event Action<PlayerProfile> OnSignInSuccess;
-    public event Action<LevelProgress> OnSaveLevel;
-    
     public static event Action OnSignedOutSuccess;
     public GameObject LoadingPanel;
     private CloudSaveManager cloudSaveManager;
@@ -77,26 +76,21 @@ public class LoginController : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             var name = await AuthenticationService.Instance.GetPlayerNameAsync();
-            var LevelProgress = new LevelProgress
-            {
-                Level = 1,
-                Stars = 0,
-                Score = 0
-            };
+
             var playerProfile = new PlayerProfile
             {
                 PlayerId = AuthenticationService.Instance.PlayerId,
                 PlayerName = name,
                 Email = "",
                 PhoneNumber = "",
+                Level = 1,
+                HighestScore = 0
             };
 
             PlayerPrefs.SetInt("IsAnonymous", 1);
             PlayerPrefs.Save();
 
-            OnSaveLevel?.Invoke(LevelProgress);
             OnSignInSuccess?.Invoke(playerProfile);
-            
             Debug.Log("SignIn is successful.");
         }
         catch (AuthenticationException ex)
@@ -119,27 +113,21 @@ public class LoginController : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignInWithUnityAsync(accessToken);
-
-            var levelProgress = new LevelProgress
-            {
-                Level = 1,
-                Stars = 0,
-                Score = 0
-            };
             var playerProfile = new PlayerProfile
             {
                 PlayerId = AuthenticationService.Instance.PlayerId,
                 PlayerName = name,
                 Email = "",
                 PhoneNumber = "",
+                Level = 1,
+                HighestScore = 0
             };
 
             PlayerPrefs.SetInt("IsAnonymous", 0);
             PlayerPrefs.Save();
             
-            OnSaveLevel?.Invoke(levelProgress);
-            OnSignInSuccess?.Invoke(playerProfile); 
-
+            OnSignInSuccess?.Invoke(playerProfile);
+            
             Debug.Log("SignIn is successful.");
         }
         catch (AuthenticationException ex)
@@ -176,9 +164,12 @@ public class LoginController : MonoBehaviour
             LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
             
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            await GetPlayerProfileAsync();
-            await GetLevelProgressAsync();
+            Debug.Log("Sign in anonymously succeeded!");
 
+            await GetPlayerProfileAsync();
+
+            // Shows how to get the playerID
+            Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");   
         }
         catch (AuthenticationException ex)
         {
@@ -202,18 +193,6 @@ public class LoginController : MonoBehaviour
             OnSignInSuccess?.Invoke(playerProfile);
 
             LoadingPanel.SetActive(false);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogException(ex);
-        }
-    }
-    private async Task GetLevelProgressAsync()
-    {
-        try
-        {
-            var levelProgress =  await cloudSaveManager.LoadDataAsync<LevelProgress>("LevelProgress");
-            OnSaveLevel?.Invoke(levelProgress);
         }
         catch (Exception ex)
         {

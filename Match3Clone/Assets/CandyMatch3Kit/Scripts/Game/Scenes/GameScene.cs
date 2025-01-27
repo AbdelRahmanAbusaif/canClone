@@ -45,7 +45,7 @@ namespace GameVanilla.Game.Scenes
 		private BuyBoosterButton currentBoosterButton;
 		private int ingameBoosterBgTweenId;
 
-        LevelProgress levelProgress;
+        PlayerProfile playerProfile;
 	    /// <summary>
 	    /// Unity's Awake method.
 	    /// </summary>
@@ -69,8 +69,8 @@ namespace GameVanilla.Game.Scenes
 			level = gameBoard.level;
             OpenPopup<LevelGoalsPopup>("Popups/LevelGoalsPopup", popup => popup.SetGoals(level.goals));
 
-            levelProgress = await CloudSaveManager.Instance.LoadDataAsync<LevelProgress>("LevelProgress");
-            Debug.Log("From Start GameScene");
+            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+             Debug.Log("From Start GameScene");
 		}
 
 	    /// <summary>
@@ -174,7 +174,7 @@ namespace GameVanilla.Game.Scenes
                 EndGame();
 
                 // var nextLevel = PlayerPrefs.GetInt("next_level");
-                var nextLevel = levelProgress.Level;
+                var nextLevel = playerProfile.Level;
 
                 PlayerPrefs.SetInt("Level", nextLevel);
                 PlayerPrefs.Save();
@@ -186,13 +186,13 @@ namespace GameVanilla.Game.Scenes
                 if (level.id == nextLevel)
                 {
                     // PlayerPrefs.SetInt("next_level", level.id + 1);
-                    levelProgress.Level++;
-                    await CloudSaveManager.Instance.SaveDataAsync("LevelProgress", levelProgress);
+                    playerProfile.Level++;
+                    await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
                     Debug.Log("From GameScene");
                     
-                    PlayerPrefs.SetInt("Level", levelProgress.Level);
+                    PlayerPrefs.SetInt("Level", playerProfile.Level);
                     PlayerPrefs.Save();
-
+                    
                     PuzzleMatchManager.instance.unlockedNextLevel = true;
                 }
                 else

@@ -38,7 +38,7 @@ namespace GameVanilla.Game.Scenes
 
         public int score;
 
-        LevelProgress levelProgress;
+        PlayerProfile playerProfile;
 
 #pragma warning restore 649
 
@@ -63,10 +63,10 @@ namespace GameVanilla.Game.Scenes
             var avatar = Instantiate(avatarPrefab);
             avatar.transform.SetParent(scrollView.transform, false);
            
-            levelProgress = await CloudSaveManager.Instance.LoadDataAsync<LevelProgress>("LevelProgress");
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
             // var nextLevel = PlayerPrefs.GetInt("next_level");
-            var nextLevel = levelProgress.Level;
+            var nextLevel = playerProfile.Level;
              Debug.Log("From LevelScene");
 
             Debug.Log("nextLevel: " + nextLevel);
