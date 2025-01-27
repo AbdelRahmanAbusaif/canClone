@@ -36,10 +36,10 @@ namespace GameVanilla.Editor
         private Vector2 scrollPos;
 
         private int newLevel;
-        PlayerProfile playerProfile;
+        LevelProgress levelProgress;
 
         private async void Start() {
-            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            levelProgress = await CloudSaveManager.Instance.LoadDataAsync<LevelProgress>("LevelProgress");
         }
 
         /// <summary>
@@ -61,15 +61,15 @@ namespace GameVanilla.Editor
             }
 
             // newLevel = PlayerPrefs.GetInt("next_level");
-            if(playerProfile != null) 
+            if(levelProgress != null) 
             {                
-                newLevel = playerProfile.Level;
+                newLevel = levelProgress.Level;
             }
             else
             {
-                playerProfile = LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile").Result;
+                levelProgress = LocalSaveManager.Instance.LoadDataAsync<LevelProgress>("LevelProgress").Result;
                 Debug.Log("From GameSettingsTab");
-                newLevel = playerProfile.Level;
+                newLevel = levelProgress.Level;
             }
             
             Debug.Log("newLevel: " + newLevel);
@@ -709,8 +709,8 @@ namespace GameVanilla.Editor
 		    if (GUILayout.Button("Set progress", GUILayout.Width(120), GUILayout.Height(30)))
 		    {
 		        // PlayerPrefs.SetInt("next_level", newLevel);
-                playerProfile.Level = newLevel;
-                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                levelProgress.Level = newLevel;
+                await CloudSaveManager.Instance.SaveDataAsync("LevelProgress", levelProgress);
                  Debug.Log("From GameSettingsTab2");
 		    }
 
