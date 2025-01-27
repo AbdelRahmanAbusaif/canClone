@@ -82,7 +82,7 @@ namespace GameVanilla.Game.Popups
         /// </summary>
         protected override void Start()
         {
-            base.Start();
+            base.Start();            
         }
 
         /// <summary>

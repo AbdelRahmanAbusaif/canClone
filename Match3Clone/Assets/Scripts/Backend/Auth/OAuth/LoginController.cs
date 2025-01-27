@@ -84,9 +84,6 @@ public class LoginController : MonoBehaviour
                 Email = "",
                 PhoneNumber = "",
                 Level = 1,
-                Heart = 5,
-                Token = 0,
-                ExperiencePoints = 0,
                 HighestScore = 0
             };
 
@@ -123,9 +120,6 @@ public class LoginController : MonoBehaviour
                 Email = "",
                 PhoneNumber = "",
                 Level = 1,
-                Heart = 5,
-                Token = 0,
-                ExperiencePoints = 0,
                 HighestScore = 0
             };
 

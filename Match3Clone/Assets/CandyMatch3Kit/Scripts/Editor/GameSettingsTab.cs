@@ -10,6 +10,8 @@ using UnityEngine;
 
 using GameVanilla.Core;
 using GameVanilla.Game.Common;
+using System.Threading.Tasks;
+using SaveData;
 
 namespace GameVanilla.Editor
 {
@@ -34,6 +36,11 @@ namespace GameVanilla.Editor
         private Vector2 scrollPos;
 
         private int newLevel;
+        PlayerProfile playerProfile;
+
+        private async void Start() {
+            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        }
 
         /// <summary>
         /// Constructor.
@@ -53,7 +60,19 @@ namespace GameVanilla.Editor
                 }
             }
 
-            newLevel = PlayerPrefs.GetInt("next_level");
+            // newLevel = PlayerPrefs.GetInt("next_level");
+            if(playerProfile != null) 
+            {                
+                newLevel = playerProfile.Level;
+            }
+            else
+            {
+                playerProfile = LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile").Result;
+                Debug.Log("From GameSettingsTab");
+                newLevel = playerProfile.Level;
+            }
+            
+            Debug.Log("newLevel: " + newLevel);
         }
 
         /// <summary>
@@ -677,7 +696,7 @@ namespace GameVanilla.Editor
         /// <summary>
         /// Draws the preferences settings.
         /// </summary>
-		private void DrawPreferencesSettings()
+		private async void DrawPreferencesSettings()
 		{
             EditorGUILayout.LabelField("Level", EditorStyles.boldLabel);
 		    GUILayout.BeginHorizontal();
@@ -689,7 +708,10 @@ namespace GameVanilla.Editor
 
 		    if (GUILayout.Button("Set progress", GUILayout.Width(120), GUILayout.Height(30)))
 		    {
-		        PlayerPrefs.SetInt("next_level", newLevel);
+		        // PlayerPrefs.SetInt("next_level", newLevel);
+                playerProfile.Level = newLevel;
+                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                 Debug.Log("From GameSettingsTab2");
 		    }
 
 		    GUILayout.Space(15);

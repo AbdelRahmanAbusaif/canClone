@@ -12,6 +12,8 @@ using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.Popups;
 using GameVanilla.Game.UI;
+using System.Threading.Tasks;
+using SaveData;
 
 namespace GameVanilla.Game.Scenes
 {
@@ -43,6 +45,7 @@ namespace GameVanilla.Game.Scenes
 		private BuyBoosterButton currentBoosterButton;
 		private int ingameBoosterBgTweenId;
 
+        PlayerProfile playerProfile;
 	    /// <summary>
 	    /// Unity's Awake method.
 	    /// </summary>
@@ -58,13 +61,16 @@ namespace GameVanilla.Game.Scenes
 	    /// <summary>
 	    /// Unity's Start method.
 	    /// </summary>
-		private void Start()
+		private async void Start()
 	    {
 		    gameBoard.InitializeObjectPools();
 			gameBoard.LoadLevel();
 
 			level = gameBoard.level;
             OpenPopup<LevelGoalsPopup>("Popups/LevelGoalsPopup", popup => popup.SetGoals(level.goals));
+
+            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+             Debug.Log("From Start GameScene");
 		}
 
 	    /// <summary>
@@ -141,7 +147,7 @@ namespace GameVanilla.Game.Scenes
         /// <summary>
         /// Checks if the game has finished.
         /// </summary>
-        public void CheckEndGame()
+        public async void CheckEndGame()
         {
             if (gameFinished)
             {
@@ -167,14 +173,18 @@ namespace GameVanilla.Game.Scenes
             {
                 EndGame();
 
-                var nextLevel = PlayerPrefs.GetInt("next_level");
+                // var nextLevel = PlayerPrefs.GetInt("next_level");
+                var nextLevel = playerProfile.Level;
                 if (nextLevel == 0)
                 {
                     nextLevel = 1;
                 }
                 if (level.id == nextLevel)
                 {
-                    PlayerPrefs.SetInt("next_level", level.id + 1);
+                    // PlayerPrefs.SetInt("next_level", level.id + 1);
+                    playerProfile.Level++;
+                    await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                     Debug.Log("From GameScene");
                     PuzzleMatchManager.instance.unlockedNextLevel = true;
                 }
                 else
