@@ -147,6 +147,7 @@ public class ProfileManager : MonoBehaviour
             PlayerName = playerName,
             Email = email,
             PhoneNumber = phoneNumber,
+            Level = 1
         };
 
         await cloudSaveManager.SaveDataAsync("PlayerProfile", playerProfile);
