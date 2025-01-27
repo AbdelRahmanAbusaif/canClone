@@ -67,9 +67,8 @@ namespace GameVanilla.Game.Scenes
 
             // var nextLevel = PlayerPrefs.GetInt("next_level");
             var nextLevel = playerProfile.Level;
-             Debug.Log("From LevelScene");
-
             Debug.Log("nextLevel: " + nextLevel);
+            
             if (nextLevel == 0)
             {
                 nextLevel = 1;

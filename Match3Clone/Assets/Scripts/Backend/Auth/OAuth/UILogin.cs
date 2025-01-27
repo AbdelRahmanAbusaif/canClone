@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GameVanilla.Core;
+using SaveData;
 using Unity.Services.CloudSave;
 using UnityEngine;
 using UnityEngine.UI;
@@ -51,6 +52,7 @@ public class UILogin : MonoBehaviour
         }
         else
         {
+            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerData);
             sceneTransition.PerformTransition();
         }
     }
