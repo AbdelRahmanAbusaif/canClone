@@ -169,6 +169,7 @@ public class LoginController : MonoBehaviour
         {
             LocalSaveManager.Instance.DeleteData("PlayerProfile");
             LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
+            PlayerPrefs.DeleteAll();
             
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log("Sign in anonymously succeeded!");
