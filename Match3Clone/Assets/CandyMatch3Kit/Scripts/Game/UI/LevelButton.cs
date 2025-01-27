@@ -9,6 +9,8 @@ using UnityEngine.UI;
 using GameVanilla.Core;
 using GameVanilla.Game.Popups;
 using GameVanilla.Game.Scenes;
+using System.Threading.Tasks;
+using SaveData;
 
 namespace GameVanilla.Game.UI
 {
@@ -52,6 +54,8 @@ namespace GameVanilla.Game.UI
 
         [SerializeField]
         private GameObject shineAnimation;
+
+        PlayerProfile playerProfile;
 #pragma warning restore 649
 
         /// <summary>
@@ -70,16 +74,22 @@ namespace GameVanilla.Game.UI
             Assert.IsNotNull(star2);
             Assert.IsNotNull(star3);
             Assert.IsNotNull(shineAnimation);
+
         }
 
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        private void Start()
+        private async void Start()
         {
             numLevelTextBlue.text = numLevel.ToString();
             numLevelTextPink.text = numLevel.ToString();
-            var nextLevel = PlayerPrefs.GetInt("next_level");
+            // var nextLevel = PlayerPrefs.GetInt("next_level");
+            
+            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            Debug.Log("From LevelButton");
+
+            var nextLevel = playerProfile.Level;
             if (nextLevel == 0)
             {
                 nextLevel = 1;

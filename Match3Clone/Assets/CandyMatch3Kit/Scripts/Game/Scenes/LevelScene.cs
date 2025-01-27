@@ -10,6 +10,8 @@ using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.Popups;
 using GameVanilla.Game.UI;
+using System.Threading.Tasks;
+using SaveData;
 
 namespace GameVanilla.Game.Scenes
 {
@@ -36,6 +38,8 @@ namespace GameVanilla.Game.Scenes
 
         public int score;
 
+        PlayerProfile playerProfile;
+
 #pragma warning restore 649
 
         /// <summary>
@@ -52,16 +56,20 @@ namespace GameVanilla.Game.Scenes
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        private void Start()
+        private async void Start()
         {
             scrollRect.vertical = false;
 
             var avatar = Instantiate(avatarPrefab);
             avatar.transform.SetParent(scrollView.transform, false);
            
-            
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
-            var nextLevel = PlayerPrefs.GetInt("next_level");
+            // var nextLevel = PlayerPrefs.GetInt("next_level");
+            var nextLevel = playerProfile.Level;
+             Debug.Log("From LevelScene");
+
+            Debug.Log("nextLevel: " + nextLevel);
             if (nextLevel == 0)
             {
                 nextLevel = 1;

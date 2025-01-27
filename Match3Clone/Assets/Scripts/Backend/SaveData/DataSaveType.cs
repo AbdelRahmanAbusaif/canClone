@@ -8,9 +8,6 @@ public class PlayerProfile
     public string Email;
     public string PhoneNumber;
     public int Level;
-    public int Heart;
-    public int Token;
-    public int ExperiencePoints;
     public int HighestScore;
 }
 
