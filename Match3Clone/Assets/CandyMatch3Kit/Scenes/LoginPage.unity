@@ -1421,7 +1421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &567607534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1694,7 +1694,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875337470}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6f007a40e1697d48b44fabbfe79c61b, type: 3}
   m_Name: 
@@ -2603,7 +2603,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647710674}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6f007a40e1697d48b44fabbfe79c61b, type: 3}
   m_Name: 
@@ -3767,6 +3767,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlitterParticles
       objectReference: {fileID: 0}
+    - target: {fileID: 7906987242583368917, guid: 2f0ba451bb4b941fc8456fd9c5c8be17,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906987242583368917, guid: 2f0ba451bb4b941fc8456fd9c5c8be17,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4215,6 +4225,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StarsParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 8036558662706610395, guid: fc694e7e799ef422db04c75d73d4b79a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8036558662706610395, guid: fc694e7e799ef422db04c75d73d4b79a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

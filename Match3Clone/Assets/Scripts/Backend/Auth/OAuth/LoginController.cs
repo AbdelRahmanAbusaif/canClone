@@ -82,7 +82,12 @@ public class LoginController : MonoBehaviour
                 PlayerId = AuthenticationService.Instance.PlayerId,
                 PlayerName = name,
                 Email = "",
-                PhoneNumber = ""
+                PhoneNumber = "",
+                Level = 1,
+                Heart = 5,
+                Token = 0,
+                ExperiencePoints = 0,
+                HighestScore = 0
             };
 
             PlayerPrefs.SetInt("IsAnonymous", 1);
@@ -117,6 +122,11 @@ public class LoginController : MonoBehaviour
                 PlayerName = name,
                 Email = "",
                 PhoneNumber = "",
+                Level = 1,
+                Heart = 5,
+                Token = 0,
+                ExperiencePoints = 0,
+                HighestScore = 0
             };
 
             PlayerPrefs.SetInt("IsAnonymous", 0);

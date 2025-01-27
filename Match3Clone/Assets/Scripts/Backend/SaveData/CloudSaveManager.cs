@@ -7,6 +7,20 @@ namespace SaveData
 {
     public class CloudSaveManager : MonoBehaviour
     {
+        public static CloudSaveManager Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
         public async Task SaveDataAsync<T>(string key, T data)
         {
             string jsonData = JsonUtility.ToJson(data);
@@ -16,7 +30,7 @@ namespace SaveData
                 {
                     { key, jsonData }
                 });
-
+                await LocalSaveManager.Instance.SaveDataAsync(data, key);
                 Debug.Log($"{key} saved successfully.");
             }
             catch (System.Exception e)
