@@ -7,6 +7,12 @@ using UnityEngine;
 using FullSerializer;
 
 using GameVanilla.Core;
+using SaveData;
+using Unity.Services.RemoteConfig;
+using System;
+using static RemotlyDownloadAssets;
+using Unity.Services.Core;
+using Newtonsoft.Json;
 
 namespace GameVanilla.Game.Common
 {
@@ -33,7 +39,7 @@ namespace GameVanilla.Game.Common
         /// <summary>
         /// Unity's Awake method.
         /// </summary>
-        private void Awake()
+        private async void Awake()
         {
             if (instance == null)
             {
@@ -49,7 +55,16 @@ namespace GameVanilla.Game.Common
             coinsSystem = GetComponent<CoinsSystem>();
 
             var serializer = new fsSerializer();
-            gameConfig = FileUtils.LoadJsonFile<GameConfiguration>(serializer, "game_configuration");
+
+             await UnityServices.Instance.InitializeAsync();
+
+            RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
+            await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+
+            if(!PlayerPrefs.HasKey("next_live_time"))
+            {
+                PlayerPrefs.SetString("next_live_time", "300");
+            }
             // if (!PlayerPrefs.HasKey("num_lives"))
             // {
             //     PlayerPrefs.SetInt("num_lives", gameConfig.maxLives);
@@ -70,6 +85,19 @@ namespace GameVanilla.Game.Common
             #if UNITY_IAP
             iapManager = new IapManager();
             #endif
+        }
+
+        private void ApplyRemoteConfig(ConfigResponse response)
+        {
+            GameConfiguration gameConfig = JsonConvert.DeserializeObject<GameConfiguration>(RemoteConfigService.Instance.appConfig.GetJson("game_configuration"));
+
+            Debug.Log("Remote Config Fetched Successfully!");
+
+            if (gameConfig != null)
+            {
+                Debug.Log("Game Configuration: " + gameConfig);
+                this.gameConfig = gameConfig;
+            }
         }
     }
 }

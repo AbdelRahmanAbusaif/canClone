@@ -59,6 +59,7 @@ public class ProfileInformationUI : MonoBehaviour
         if(AuthenticationService.Instance.IsSignedIn)
         {
             loginController.InitSignOut();
+            PlayerPrefs.DeleteAll();
         }
         else
         {

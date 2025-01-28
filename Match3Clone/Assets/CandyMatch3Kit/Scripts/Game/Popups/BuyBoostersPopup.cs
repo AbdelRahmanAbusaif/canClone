@@ -129,7 +129,7 @@ namespace GameVanilla.Game.Popups
 	    /// <summary>
 	    /// Called when the buy button is pressed.
 	    /// </summary>
-	    public async Task OnBuyButtonPressed()
+	    public async void OnBuyButtonPressed()
 	    {
 		    var playerPrefsKey = string.Format("num_boosters_{0}", (int)buyButton.boosterType);
 		    var numBoosters = PlayerPrefs.GetInt(playerPrefsKey);
