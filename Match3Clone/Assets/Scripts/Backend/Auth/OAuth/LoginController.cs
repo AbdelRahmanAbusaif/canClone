@@ -86,6 +86,11 @@ public class LoginController : MonoBehaviour
                 PhoneNumber = "",
                 Level = 1,
                 LastHeartTime = "0",
+                DailyBonus = new DailyBonus()
+                {
+                    DateLastPlayed = "0",
+                    DailyBonusDayKey = "0"
+                },
                 LevelsComplete = new List<LevelComplete>()
                 {
                     
@@ -126,6 +131,11 @@ public class LoginController : MonoBehaviour
                 PhoneNumber = "",
                 Level = 1,
                 LastHeartTime = "0",
+                DailyBonus = new DailyBonus()
+                {
+                    DateLastPlayed = "0",
+                    DailyBonusDayKey = "0"
+                },
                 LevelsComplete = new List<LevelComplete>()
                 {
                     

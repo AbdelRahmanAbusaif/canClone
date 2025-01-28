@@ -150,6 +150,11 @@ public class ProfileManager : MonoBehaviour
             PhoneNumber = phoneNumber,
             Level = 1,
             LastHeartTime = "0",
+            DailyBonus = new DailyBonus()
+            {
+                DateLastPlayed = "0",
+                DailyBonusDayKey = "0"
+            },
             LevelsComplete = new List<LevelComplete>()
             {
                
