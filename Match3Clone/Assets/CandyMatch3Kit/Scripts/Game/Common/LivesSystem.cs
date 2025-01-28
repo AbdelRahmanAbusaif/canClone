@@ -20,18 +20,34 @@ namespace GameVanilla.Game.Common
         private TimeSpan timeSpan;
         private bool runningCountdown;
         private float accTime;
-
+        
         public Action<TimeSpan, int> onCountdownUpdated;
         public Action<int> onCountdownFinished;
+        private DateTime dateTime;
 
+        private async void Awake() {
+            await PuzzleMatchManager.instance.serverTimeManager.FetchServerTime(OnServerTimeFetched, OnServerTimeFetchFailed);
+        }
         /// <summary>
         /// Sets the appropriate number of lives according to the general lives counter.
-        /// </summary>
+        /// </summary> 
         private async void Start()
         {            
             await InitializeUnityServices();
-            await CheckLives();
+
+            Invoke(nameof(CheckLives), 3f);
         }
+
+        private void OnServerTimeFetchFailed(string obj)
+        {
+            Debug.LogError($"Error fetching server time: {obj}");
+        }
+
+        private void OnServerTimeFetched(DateTime time)
+        {
+            dateTime = time;
+        }
+
         /// <summary>
         /// Unity's Update method.
         /// </summary>
@@ -44,7 +60,6 @@ namespace GameVanilla.Game.Common
             }
 
             accTime += Time.deltaTime;
-            Debug.Log("accTime: " + accTime);
             if (accTime >= 1.0f)
             {
                 accTime = 0.0f;
@@ -59,6 +74,16 @@ namespace GameVanilla.Game.Common
                 {
                     StopCountdown();
                     AddLife();
+
+                    await PuzzleMatchManager.instance.serverTimeManager.FetchServerTime(serverTime =>
+                    {
+                        PlayerPrefs.SetString("next_life_time", serverTime.Date.ToString()); // ISO 8601 format
+                        PlayerPrefs.Save();
+                        Debug.Log("Heart claimed and time saved!");
+                    }, error =>
+                    {
+                        Debug.LogError($"Failed to claim heart: {error}");
+                    });
                 }
             }
         }
@@ -75,11 +100,11 @@ namespace GameVanilla.Game.Common
         /// Make sure to check the lives when the app goes from background to foreground.
         /// </summary>
         /// <param name="pauseStatus">The pause status.</param>
-        private async void OnApplicationPause(bool pauseStatus)
+        private  void OnApplicationPause(bool pauseStatus)
         {
             if (!pauseStatus)
             {
-                await CheckLives();
+                CheckLives();
             }
         }
 
@@ -110,7 +135,7 @@ namespace GameVanilla.Game.Common
             }
         }
 
-        private async Task CheckLives()
+        private async void CheckLives()
         {
             runningCountdown = false;
 
@@ -122,13 +147,31 @@ namespace GameVanilla.Game.Common
             Debug.Log("From CheckLives: " + numLives);
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             var timeToNextLife = PuzzleMatchManager.instance.gameConfig.timeToNextLife;
-
+            
+            if (!PlayerPrefs.HasKey("next_life_time"))
+            {
+                DateTime nextLifeTime = dateTime.AddMinutes(5); // Example: 5 minutes
+                PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
+                PlayerPrefs.Save();
+                Debug.Log($"Initialized next_life_time: {nextLifeTime}");
+            }
             if (numLives < maxLives && PlayerPrefs.HasKey("next_life_time") )
             {
-                var now = DateTime.Now;
-                var savedNextLifeTime = GetSavedNextLifeTime();
+                DateTime now;
+                if(dateTime == DateTime.MinValue)
+                {
+                    Debug.LogError("Server time not fetched yet.");
+                    now = DateTime.Now;
+                }
+                else 
+                {
+                    now = dateTime;
+                }
 
-                Debug.Log("Here");
+                Debug.Log("From CheckLives Now: " + now);
+                var savedNextLifeTime = GetSavedNextLifeTime();
+                Debug.Log("From CheckLives savedNextLifeTime: " + savedNextLifeTime);
+
                 if (savedNextLifeTime.Value > now)
                 {
                     var remainingTime = savedNextLifeTime.Value - now;
@@ -136,8 +179,6 @@ namespace GameVanilla.Game.Common
                     {
                         StartCountdown((int)remainingTime.TotalSeconds);
                     }
-
-                    Debug.Log("Here If");
                 }
                 else
                 {

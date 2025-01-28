@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 114523015657736830}
   - component: {fileID: 114440977651962760}
   - component: {fileID: 114903634578139318}
+  - component: {fileID: -2481352968503092160}
   - component: {fileID: 8393762374588120423}
   m_Layer: 0
   m_Name: GameManager
@@ -65,6 +66,7 @@ MonoBehaviour:
     rewardedAdCoins: 0
     spinWheelCost: 0
     spinWheelCostIncrement: 0
+  serverTimeManager: {fileID: 0}
   livesSystem: {fileID: 0}
   coinsSystem: {fileID: 0}
   lastSelectedLevel: 0
@@ -91,6 +93,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4deb558fc27edf541aff216e6f17abab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2481352968503092160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193228960034462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e05c873f42422b428b349a0a2e5c87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8393762374588120423
