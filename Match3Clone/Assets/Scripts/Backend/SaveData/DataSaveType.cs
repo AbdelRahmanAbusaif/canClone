@@ -8,8 +8,8 @@ public class PlayerProfile
     public string PlayerName;
     public string Email;
     public string PhoneNumber;
+    public string LastHeartTime;
     public int Level;
-    
     public List<LevelComplete> LevelsComplete;
 }
 

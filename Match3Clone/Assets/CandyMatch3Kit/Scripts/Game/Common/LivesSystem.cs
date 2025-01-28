@@ -4,6 +4,7 @@
 
 using System;
 using System.Threading.Tasks;
+using SaveData;
 using Unity.Services.Core;
 using Unity.Services.Economy;
 using Unity.Services.Economy.Model;
@@ -25,8 +26,11 @@ namespace GameVanilla.Game.Common
         public Action<int> onCountdownFinished;
         private DateTime dateTime;
 
-        private async void Awake() {
+        private PlayerProfile playerProfile;
+        private async void Awake() 
+        {
             await PuzzleMatchManager.instance.serverTimeManager.FetchServerTime(OnServerTimeFetched, OnServerTimeFetchFailed);
+            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         }
         /// <summary>
         /// Sets the appropriate number of lives according to the general lives counter.
@@ -35,7 +39,7 @@ namespace GameVanilla.Game.Common
         {            
             await InitializeUnityServices();
 
-            Invoke(nameof(CheckLives), 3f);
+            Invoke(nameof(CheckLives), 5f);
         }
 
         private void OnServerTimeFetchFailed(string obj)
@@ -75,10 +79,13 @@ namespace GameVanilla.Game.Common
                     StopCountdown();
                     AddLife();
 
-                    await PuzzleMatchManager.instance.serverTimeManager.FetchServerTime(serverTime =>
+                    await PuzzleMatchManager.instance.serverTimeManager.FetchServerTime(async serverTime =>
                     {
-                        PlayerPrefs.SetString("next_life_time", serverTime.Date.ToString()); // ISO 8601 format
-                        PlayerPrefs.Save();
+                        // PlayerPrefs.SetString("next_life_time", serverTime.Date.ToString()); // ISO 8601 format
+                        // PlayerPrefs.Save();
+                        playerProfile.LastHeartTime = serverTime.Date.ToString();
+                        await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+
                         Debug.Log("Heart claimed and time saved!");
                     }, error =>
                     {
@@ -148,14 +155,17 @@ namespace GameVanilla.Game.Common
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             var timeToNextLife = PuzzleMatchManager.instance.gameConfig.timeToNextLife;
             
-            if (!PlayerPrefs.HasKey("next_life_time"))
+            if (playerProfile.LastHeartTime == "0" && numLives < maxLives)
             {
                 DateTime nextLifeTime = dateTime.AddMinutes(5); // Example: 5 minutes
-                PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
-                PlayerPrefs.Save();
+                // PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
+                // PlayerPrefs.Save();
+                playerProfile.LastHeartTime = nextLifeTime.ToBinary().ToString();
+                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+
                 Debug.Log($"Initialized next_life_time: {nextLifeTime}");
             }
-            if (numLives < maxLives && PlayerPrefs.HasKey("next_life_time") )
+            if (numLives < maxLives && playerProfile.LastHeartTime !="0" )
             {
                 DateTime now;
                 if(dateTime == DateTime.MinValue)
@@ -359,17 +369,20 @@ namespace GameVanilla.Game.Common
             var nextLifeTime = DateTime.Now.AddSeconds(seconds);
             SaveNextLifeTime(nextLifeTime);
         }
-        public void SaveNextLifeTime(DateTime nextLifeTime)
+        public async void SaveNextLifeTime(DateTime nextLifeTime)
         {
-            PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
-            PlayerPrefs.Save();
+            // PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
+            // PlayerPrefs.Save();
+            playerProfile.LastHeartTime = nextLifeTime.ToBinary().ToString();
+            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
         }
         public DateTime? GetSavedNextLifeTime()
         {
 
-            if (PlayerPrefs.HasKey("next_life_time"))
+            if (playerProfile.LastHeartTime != "0")
             {
-                string binaryString = PlayerPrefs.GetString("next_life_time");
+                // string binaryString = PlayerPrefs.GetString("next_life_time");
+                string binaryString = playerProfile.LastHeartTime;
                 Debug.Log($"Retrieved next_life_time: {binaryString}");
                 if (long.TryParse(binaryString, out long binary))
                 {
