@@ -149,6 +149,7 @@ public class ProfileManager : MonoBehaviour
             Email = email,
             PhoneNumber = phoneNumber,
             Level = 1,
+            LastHeartTime = "0",
             LevelsComplete = new List<LevelComplete>()
             {
                

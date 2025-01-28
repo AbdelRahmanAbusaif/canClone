@@ -85,6 +85,7 @@ public class LoginController : MonoBehaviour
                 Email = "",
                 PhoneNumber = "",
                 Level = 1,
+                LastHeartTime = "0",
                 LevelsComplete = new List<LevelComplete>()
                 {
                     
@@ -124,6 +125,7 @@ public class LoginController : MonoBehaviour
                 Email = "",
                 PhoneNumber = "",
                 Level = 1,
+                LastHeartTime = "0",
                 LevelsComplete = new List<LevelComplete>()
                 {
                     
