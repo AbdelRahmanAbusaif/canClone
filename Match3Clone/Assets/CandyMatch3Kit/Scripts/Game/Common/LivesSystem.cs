@@ -155,7 +155,7 @@ namespace GameVanilla.Game.Common
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             var timeToNextLife = PuzzleMatchManager.instance.gameConfig.timeToNextLife;
             
-            if (playerProfile.LastHeartTime == "0")
+            if (playerProfile.LastHeartTime == "0" && numLives < maxLives)
             {
                 DateTime nextLifeTime = dateTime.AddMinutes(5); // Example: 5 minutes
                 // PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
