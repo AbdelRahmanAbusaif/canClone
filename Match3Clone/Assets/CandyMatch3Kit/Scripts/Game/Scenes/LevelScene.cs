@@ -91,13 +91,19 @@ namespace GameVanilla.Game.Scenes
 
             if (currentButton == null)
             {
-                currentButton = levelButtons[levelButtons.Length - 1];
+                // currentButton = levelButtons[levelButtons.Length - 1];
+                currentButton = levelButtons[28];
             }
 
+
+           
+
             var newPos = scrollView.GetComponent<RectTransform>().anchoredPosition;
+           
             newPos.y =
-                scrollRect.transform.InverseTransformPoint(scrollView.GetComponent<RectTransform>().position).y -
-                scrollRect.transform.InverseTransformPoint(currentButton.transform.position).y;
+             scrollRect.transform.InverseTransformPoint(scrollView.GetComponent<RectTransform>().position).y
+              - scrollRect.transform.InverseTransformPoint(currentButton.transform.position).y;
+           
             if (newPos.y < scrollView.GetComponent<RectTransform>().anchoredPosition.y)
             {
                 scrollView.GetComponent<RectTransform>().anchoredPosition = newPos;
