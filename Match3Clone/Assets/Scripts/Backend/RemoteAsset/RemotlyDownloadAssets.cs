@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ using UnityEngine.Networking;
 public class RemotlyDownloadAssets : MonoBehaviour
 {
     private string savePath;
+    public List<GameAssetsFiles> GameAssetsFiles = new List<GameAssetsFiles>();
+
     private async Task Awake()
     {
         savePath = Application.persistentDataPath + "/DownloadedAssets/";
@@ -31,7 +34,7 @@ public class RemotlyDownloadAssets : MonoBehaviour
     }
 
 
-    private async void ApplyRemoteConfig(ConfigResponse response)
+    private void ApplyRemoteConfig(ConfigResponse response)
     {
         Debug.Log("Remote Config Fetched Successfully!");
 
@@ -49,30 +52,32 @@ public class RemotlyDownloadAssets : MonoBehaviour
             }
         };
 
-        await DownloadAndSaveFiles(gameAssetsFiles);
+        GameAssetsFiles = gameAssetsFiles;
     }
 
-    private async Task DownloadAndSaveFiles(List<GameAssetsFiles> gameAssetsFiles)
+    public IEnumerator DownloadAndSaveFiles(List<GameAssetsFiles> gameAssetsFiles)
     {
         // Load the existing list of files from storage
-        List<GameAssetsFiles> savedFiles = await LocalSaveManager.Instance.LoadDataAsync<List<GameAssetsFiles>>("GameAssetsFiles");
+        var loadTask = LocalSaveManager.Instance.LoadDataAsync<List<GameAssetsFiles>>("GameAssetsFiles");
+        yield return new WaitUntil(() => loadTask.IsCompleted);
+        List<GameAssetsFiles> savedFiles = loadTask.Result;
         if (savedFiles == null)
         {
             savedFiles = new List<GameAssetsFiles>();
         }
-        
+
         foreach (var file in gameAssetsFiles)
         {
             GameAssetsFiles gameAssetsLoad = savedFiles.Find(f => f.FileName == file.FileName);
 
-            if(gameAssetsLoad != null)
+            if (gameAssetsLoad != null)
             {
                 Debug.Log($"{file.FileName} exists locally. Checking for updates...");
 
-                if(gameAssetsLoad.FileURL == file.FileURL)
+                if (gameAssetsLoad.FileURL == file.FileURL)
                 {
                     using UnityWebRequest requestImage = UnityWebRequest.Head(file.FileURL);
-                    await requestImage.SendWebRequest();
+                    yield return requestImage.SendWebRequest();
 
                     if (requestImage.result == UnityWebRequest.Result.Success)
                     {
@@ -103,20 +108,19 @@ public class RemotlyDownloadAssets : MonoBehaviour
             Debug.Log($"Downloading {file.FileName} from {file.FileURL}");
 
             using UnityWebRequest request = UnityWebRequest.Get(file.FileURL);
-            await request.SendWebRequest();
+            yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                await File.WriteAllBytesAsync(file.LocalURL + file.FileName, request.downloadHandler.data);
+                File.WriteAllBytes(file.LocalURL + file.FileName, request.downloadHandler.data);
 
-                if(gameAssetsLoad != null)
+                if (gameAssetsLoad != null)
                 {
                     savedFiles.Remove(gameAssetsLoad);
                 }
                 savedFiles.Add(file);
 
                 Debug.Log($"Downloaded and saved: {file.LocalURL + file.FileName}");
-
             }
             else
             {
@@ -129,10 +133,10 @@ public class RemotlyDownloadAssets : MonoBehaviour
             Debug.Log($"Saved File: {file.FileName}");
         }
 
-        await LocalSaveManager.Instance.SaveDataAsync<List<GameAssetsFiles>>(savedFiles, "GameAssetsFiles");
+        var saveTask = LocalSaveManager.Instance.SaveDataAsync<List<GameAssetsFiles>>(savedFiles, "GameAssetsFiles");
+        yield return new WaitUntil(() => saveTask.IsCompleted);
         Debug.Log("All assets have been updated and saved.");
     }
-    
     private void OnDestroy() {
         RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
     }

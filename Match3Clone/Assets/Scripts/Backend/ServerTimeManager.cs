@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class ServerTimeManager : MonoBehaviour
 {
     private static ServerTimeManager _instance;
+    private DateTime? dateTime;
 
     public static ServerTimeManager Instance
     {
@@ -30,14 +30,14 @@ public class ServerTimeManager : MonoBehaviour
     {
         get
         {
-            if (!_serverTime.HasValue)
+            if (!dateTime.HasValue)
             {
                 Debug.LogWarning("Server time has not been initialized yet. Returning DateTime.MinValue.");
                 return DateTime.MinValue; // Fallback value
             }
 
             // Calculate and return the current server time with the elapsed duration
-            return _serverTime.Value.AddSeconds(Time.realtimeSinceStartup);
+            return dateTime.Value.AddSeconds(Time.realtimeSinceStartup);
         }
     }
 
@@ -47,7 +47,7 @@ public class ServerTimeManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
-            Initialize(); // Automatically initialize when the singleton is created
+            // Initialize(); // Automatically initialize when the singleton is created
         }
         else if (_instance != this)
         {
@@ -55,13 +55,15 @@ public class ServerTimeManager : MonoBehaviour
         }
     }
 
-    private async void Initialize()
+    private void Initialize()
     {
         if (_isInitialized) return;
 
         try
         {
-            _serverTime = await FetchServerTimeAsync();
+            StartCoroutine(FetchServerTimeAsync());
+
+            _serverTime = dateTime;
             _isInitialized = true;
             Debug.Log($"Server time initialized: {_serverTime}");
         }
@@ -71,13 +73,12 @@ public class ServerTimeManager : MonoBehaviour
         }
     }
 
-    private async Task<DateTime> FetchServerTimeAsync()
+    public IEnumerator FetchServerTimeAsync()
     {
         using UnityWebRequest request = UnityWebRequest.Get(TimeApiUrl);
-        var operation = request.SendWebRequest();
+        request.timeout = 10; // Timeout in seconds
 
-        while (!operation.isDone)
-            await Task.Yield();
+        yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
@@ -85,12 +86,22 @@ public class ServerTimeManager : MonoBehaviour
             Debug.Log($"Server response JSON: {json}");
 
             ServerTimeResponse response = JsonUtility.FromJson<ServerTimeResponse>(json);
-            return DateTime.Parse(response.dateTime);
+
+            dateTime = DateTime.Parse(response.dateTime);
         }
         else
         {
             throw new Exception($"Request failed: {request.error}");
         }
+    }
+
+    private void OnDestroy() {
+        if(_instance == null)
+        {
+            _instance = null;
+        }
+
+        GC.Collect();
     }
 }
 
