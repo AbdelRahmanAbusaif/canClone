@@ -105,16 +105,7 @@ namespace GameVanilla.Game.Scenes
         /// </summary>
         private async void AwardDailyBonus()
         {
-            var dateToday = DateTime.Now;
-
-            await PuzzleMatchManager.instance.serverTimeManager.FetchServerTime((serverTime) =>
-            {
-                Debug.Log($"Server time: {serverTime}");
-                dateToday = serverTime;
-            }, (error) =>
-            {
-                Debug.LogError($"Error fetching server time: {error}");
-            });
+            var dateToday = ServerTimeManager.Instance.CurrentTime;
 
             var dateLastPlayedStr = Convert.ToString(dateToday, CultureInfo.InvariantCulture);
             // PlayerPrefs.SetString(dateLastPlayedKey, dateLastPlayedStr);

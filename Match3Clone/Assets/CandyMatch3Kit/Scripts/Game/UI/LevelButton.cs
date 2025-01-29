@@ -89,22 +89,8 @@ namespace GameVanilla.Game.UI
             
             var nextLevel = 0;
 
-            if (PlayerPrefs.GetInt("Level") == 0)
-            {
-                playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-                nextLevel = playerProfile.Level;
-
-                PlayerPrefs.SetInt("Level", nextLevel);
-                PlayerPrefs.Save();
-
-                Debug.Log($"From LevelButton CloudSaveManager: {nextLevel}");
-            }
-            else
-            {
-                nextLevel = PlayerPrefs.GetInt("Level");
-
-                Debug.Log($"From LevelButton PlayerPrefs: {nextLevel}");
-            }
+            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            nextLevel = playerProfile.Level;
 
             if (nextLevel == 0)
             {

@@ -25,7 +25,6 @@ namespace GameVanilla.Game.Common
         public static PuzzleMatchManager instance;
 
         public GameConfiguration gameConfig;
-        public ServerTimeManager serverTimeManager;
 
         public LivesSystem livesSystem;
         public CoinsSystem coinsSystem;
@@ -54,7 +53,6 @@ namespace GameVanilla.Game.Common
 
             livesSystem = GetComponent<LivesSystem>();
             coinsSystem = GetComponent<CoinsSystem>();
-            serverTimeManager = GetComponent<ServerTimeManager>();
 
             var serializer = new fsSerializer();
 
