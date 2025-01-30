@@ -95,9 +95,6 @@ namespace GameVanilla.Game.Scenes
                 currentButton = levelButtons[28];
             }
 
-
-           
-
             var newPos = scrollView.GetComponent<RectTransform>().anchoredPosition;
            
             newPos.y =

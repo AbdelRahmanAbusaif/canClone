@@ -140,6 +140,7 @@ namespace GameVanilla.Game.Common
                 // PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
                 // PlayerPrefs.Save();
                 playerProfile.LastHeartTime = nextLifeTime.ToBinary().ToString();
+                Debug.Log($"From Lives System CheckLives: {playerProfile.Level}");
                 await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
 
                 Debug.Log($"Initialized next_life_time: {nextLifeTime}");
@@ -301,7 +302,19 @@ namespace GameVanilla.Game.Common
         {
             // PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
             // PlayerPrefs.Save();
+
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            
             playerProfile.LastHeartTime = nextLifeTime.ToBinary().ToString();
+
+            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.PlayerName}");
+            Debug.Log($"From Lives System SaveNextLifeTime is null: {playerProfile == null}");
+            Debug.Log($"From Lives System SaveNextLifeTime: {nextLifeTime}");
+            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.LastHeartTime}");
+            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.Level}");
+            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.DailyBonus.DailyBonusDayKey}");
+            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.DailyBonus.DateLastPlayed}");
+
             await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
         }
         public DateTime? GetSavedNextLifeTime()

@@ -176,8 +176,6 @@ namespace GameVanilla.Game.Scenes
                 // var nextLevel = PlayerPrefs.GetInt("next_level");
                 var nextLevel = playerProfile.Level;
 
-                PlayerPrefs.SetInt("Level", nextLevel);
-                PlayerPrefs.Save();
 
                 if (nextLevel == 0)
                 {
@@ -185,13 +183,10 @@ namespace GameVanilla.Game.Scenes
                 }
                 if (level.id == nextLevel)
                 {
-                    PlayerPrefs.SetInt("next_level", level.id + 1);
                     playerProfile.Level++;
+
+                    Debug.Log("From CheckEndGame GameScene : " + playerProfile.Level);
                     await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
-                    Debug.Log("From GameScene");
-                    
-                    PlayerPrefs.SetInt("Level", playerProfile.Level);
-                    PlayerPrefs.Save();
                     
                     PuzzleMatchManager.instance.unlockedNextLevel = true;
                 }
@@ -265,6 +260,8 @@ namespace GameVanilla.Game.Scenes
                 }
 
                 playerProfile.LevelsComplete.Add(levelComplete);
+
+                Debug.Log("From GameScene WinPopup : " + playerProfile.LevelsComplete.Count);
                 await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
                 
                 popup.SetLevel(level.id);
@@ -283,9 +280,12 @@ namespace GameVanilla.Game.Scenes
         /// <summary>
         /// Opens the lose popup.
         /// </summary>
-        public void OpenLosePopup()
+        public async Task OpenLosePopup()
         {
             PuzzleMatchManager.instance.livesSystem.RemoveLife();
+
+            Debug.Log("From OpenLosePopup GameScene" + playerProfile.Level);
+            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
             OpenPopup<LosePopup>("Popups/LosePopup", popup =>
             {
                 popup.SetLevel(level.id);
