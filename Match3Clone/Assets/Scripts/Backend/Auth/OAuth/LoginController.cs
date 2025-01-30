@@ -4,9 +4,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Authentication.PlayerAccounts;
 using Unity.Services.Core;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using SaveData;
-using UnityEngine.SocialPlatforms;
 using System.Collections.Generic;
 
 public class LoginController : MonoBehaviour
@@ -14,17 +12,12 @@ public class LoginController : MonoBehaviour
     public event Action<PlayerProfile> OnSignInSuccess;
     public static event Action OnSignedOutSuccess;
     public GameObject LoadingPanel;
-    private CloudSaveManager cloudSaveManager;
-
-    async private void Awake() {
+    private CloudSaveManager cloudSaveManager;    
+    async private void Awake() 
+    {
         cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
 
         await UnityServices.Instance.InitializeAsync();
-
-        if(SceneManager.GetActiveScene().buildIndex.Equals(0))
-        {
-            await SignInCachedUserAsync();
-        }
 
         PlayerAccountService.Instance.SignedIn += OnSignedIn;
         PlayerAccountService.Instance.SignedOut += () => {Debug.Log("Signed out successfully.");};
@@ -49,6 +42,7 @@ public class LoginController : MonoBehaviour
     {
         await PlayerAccountService.Instance.StartSignInAsync();
     }
+    
     public void InitSignOut()
     {
         try
@@ -66,6 +60,59 @@ public class LoginController : MonoBehaviour
         }
         
     }
+   public async void InitLinkAccount()
+    {
+        var accessToken = AuthenticationService.Instance.AccessToken;
+
+        Debug.Log("Access token: " + accessToken);
+        if (accessToken == string.Empty)
+        {
+            Debug.LogError("Access token is null or empty. Cannot link account.");
+            return;
+        }
+
+        await LinkWithUnityAsync(accessToken);
+    }
+
+    async Task LinkWithUnityAsync(string accessToken)
+    {
+        try
+        {
+            if (AuthenticationService.Instance == null)
+            {
+                Debug.LogError("AuthenticationService is not initialized.");
+                return;
+            }
+
+            await AuthenticationService.Instance.LinkWithUnityAsync(accessToken);
+
+            PlayerPrefs.SetInt("IsAnonymous", 0);
+            PlayerPrefs.Save();
+
+            Debug.Log("Link is successful.");
+        }
+        catch (AuthenticationException ex) when (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
+        {
+            Debug.LogError("This user is already linked with another account. Log in instead.");
+            // Optionally notify the user via UI.
+        }
+        catch (AuthenticationException ex)
+        {
+            Debug.LogError($"Authentication error: {ex.ErrorCode} - {ex.Message}");
+            // Optionally notify the user via UI.
+        }
+        catch (RequestFailedException ex)
+        {
+            Debug.LogError($"Request failed: {ex.ErrorCode} - {ex.Message}");
+            // Optionally notify the user via UI.
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"An unexpected error occurred: {ex.Message}");
+            // Optionally notify the user via UI.
+        }
+    }
+
 
     public async void SignInAnonymousButton()
     {
@@ -77,6 +124,18 @@ public class LoginController : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             var name = await AuthenticationService.Instance.GetPlayerNameAsync();
+
+            // Retrieve and store the access token
+            var accessToken = AuthenticationService.Instance.AccessToken;
+
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                Debug.Log("AccessToken retrieved successfully: " + accessToken);
+            }
+            else
+            {
+                Debug.LogWarning("AccessToken is null or empty.");
+            }
 
             var playerProfile = new PlayerProfile
             {
@@ -164,14 +223,18 @@ public class LoginController : MonoBehaviour
             Debug.LogException(ex);
         }
     }
+    public async void InitSignInCachedUser()
+    {
+        await SignInCachedUserAsync();
+    }
     async Task SignInCachedUserAsync()
     {
-
+        Debug.Log("Server time initialized.");
         // Check if a cached player already exists by checking if the session token exists
         if (!AuthenticationService.Instance.SessionTokenExists) 
         {
             // if not, then do nothing
-            LoadingPanel.SetActive(false);
+            Debug.Log("No cached player found.");
             return;
         }
 
@@ -187,6 +250,7 @@ public class LoginController : MonoBehaviour
 
             await GetPlayerProfileAsync();
 
+            
             // Shows how to get the playerID
             Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");   
         }
@@ -210,8 +274,6 @@ public class LoginController : MonoBehaviour
         {
             var playerProfile =  await cloudSaveManager.LoadDataAsync<PlayerProfile>("PlayerProfile");
             OnSignInSuccess?.Invoke(playerProfile);
-
-            LoadingPanel.SetActive(false);
         }
         catch (Exception ex)
         {

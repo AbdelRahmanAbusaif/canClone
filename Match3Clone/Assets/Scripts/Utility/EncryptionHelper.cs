@@ -57,27 +57,23 @@ public class EncryptionHelper : MonoBehaviour
     // Encrypt data using AES
     private static byte[] EncryptData(byte[] data, string key)
     {
-        using (Aes aes = Aes.Create())
-        {
-            aes.Key = GenerateKey(key);
-            aes.IV = new byte[16]; // Zero IV (for simplicity, but should be unique for each encryption)
+        using Aes aes = Aes.Create();
+        aes.Key = GenerateKey(key);
+        aes.IV = new byte[16]; // Zero IV (for simplicity, but should be unique for each encryption)
 
-            using var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-            return PerformCryptography(data, encryptor);
-        }
+        using var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+        return PerformCryptography(data, encryptor);
     }
 
     // Decrypt data using AES
     private static byte[] DecryptData(byte[] encryptedData, string key)
     {
-        using (Aes aes = Aes.Create())
-        {
-            aes.Key = GenerateKey(key);
-            aes.IV = new byte[16]; // Must be the same IV used for encryption
+        using Aes aes = Aes.Create();
+        aes.Key = GenerateKey(key);
+        aes.IV = new byte[16]; // Must be the same IV used for encryption
 
-            using var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-            return PerformCryptography(encryptedData, decryptor);
-        }
+        using var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+        return PerformCryptography(encryptedData, decryptor);
     }
 
     // Convert key to 256-bit key (AES standard)

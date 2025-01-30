@@ -43,7 +43,7 @@ namespace GameVanilla.Game.Scenes
             Assert.IsNotNull(soundButton);
             Assert.IsNotNull(musicButton);
 
-            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         }
 
         /// <summary>
