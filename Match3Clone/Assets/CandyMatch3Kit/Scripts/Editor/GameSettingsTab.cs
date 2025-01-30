@@ -39,7 +39,7 @@ namespace GameVanilla.Editor
         PlayerProfile playerProfile;
 
         private async void Start() {
-            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         }
 
         /// <summary>

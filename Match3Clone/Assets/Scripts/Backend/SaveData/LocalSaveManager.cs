@@ -44,7 +44,7 @@ namespace SaveData
             {
                 await File.WriteAllTextAsync(saveDataFilePath, jsonData);
 
-                EncryptionHelper.EncryptAndSaveFile(saveDataFilePath, Encoding.UTF8.GetBytes(jsonData));
+                // EncryptionHelper.EncryptAndSaveFile(saveDataFilePath, Encoding.UTF8.GetBytes(jsonData));
                 Debug.Log("Data saved successfully to local storage.");
             }
             catch (System.Exception e)
@@ -61,7 +61,8 @@ namespace SaveData
 
                 if (File.Exists(saveDataFilePath))
                 {
-                    var bytes = EncryptionHelper.LoadAndDecryptFile(saveDataFilePath);
+                    // var bytes = EncryptionHelper.LoadAndDecryptFile(saveDataFilePath);
+                    var bytes = await File.ReadAllBytesAsync(saveDataFilePath);
                     string jsonData = Encoding.UTF8.GetString(bytes);
 
                     Debug.Log("Data loaded successfully from local storage.");
