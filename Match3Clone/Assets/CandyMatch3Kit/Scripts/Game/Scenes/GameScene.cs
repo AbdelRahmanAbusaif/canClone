@@ -185,7 +185,7 @@ namespace GameVanilla.Game.Scenes
                 }
                 if (level.id == nextLevel)
                 {
-                    // PlayerPrefs.SetInt("next_level", level.id + 1);
+                    PlayerPrefs.SetInt("next_level", level.id + 1);
                     playerProfile.Level++;
                     await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
                     Debug.Log("From GameScene");

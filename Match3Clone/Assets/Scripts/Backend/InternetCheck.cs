@@ -87,4 +87,24 @@ public class InternetCheck : MonoBehaviour
             callback(true);
         }
     }
+    /*
+    private IEnumerator CheckInternetSpeed()
+    {
+        UnityWebRequest request = new UnityWebRequest("https://www.google.com");
+        float startTime = Time.time;
+        yield return request.SendWebRequest();
+        float endTime = Time.time;
+
+        float duration = endTime - startTime;
+
+        if (duration > 2.5f)
+        {
+            loadingPanel.SetActive(true);
+        }
+        else
+        {
+            loadingPanel.SetActive(false);
+        }
+    }
+    */
 }

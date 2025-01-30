@@ -82,7 +82,15 @@ namespace GameVanilla.Game.Popups
         /// </summary>
         protected override void Start()
         {
-            base.Start();            
+            base.Start();
+            var sound = PlayerPrefs.GetInt("sound_enabled");
+            if (sound == 1) {soundSlider.value = 1;}
+            else {soundSlider.value = 0;}
+            var music = PlayerPrefs.GetInt("music_enabled");
+            if (music == 1) {musicSlider.value = 1;}
+            else musicSlider.value = 0;
+
+
         }
 
         /// <summary>
