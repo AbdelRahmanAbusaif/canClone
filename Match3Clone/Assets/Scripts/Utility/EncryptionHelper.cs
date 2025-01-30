@@ -25,7 +25,7 @@ public class EncryptionHelper : MonoBehaviour
     {
         try
         {
-            byte[] encryptedData = EncryptData(data, EncryptionKey);
+            byte[] encryptedData = XorEncryptDecrypt(data);
             File.WriteAllBytes(filePath, encryptedData);
             Debug.Log($"File encrypted and saved to: {filePath}");
         }
@@ -35,7 +35,6 @@ public class EncryptionHelper : MonoBehaviour
         }
     }
 
-    // Load and decrypt file
     public static byte[] LoadAndDecryptFile(string filePath)
     {
         try
@@ -43,7 +42,7 @@ public class EncryptionHelper : MonoBehaviour
             if (File.Exists(filePath))
             {
                 byte[] encryptedData = File.ReadAllBytes(filePath);
-                return DecryptData(encryptedData, EncryptionKey);
+                return XorEncryptDecrypt(encryptedData); // XOR works both for encryption and decryption
             }
             Debug.LogError($"File not found: {filePath}");
         }
@@ -54,44 +53,17 @@ public class EncryptionHelper : MonoBehaviour
         return null;
     }
 
-    // Encrypt data using AES
-    private static byte[] EncryptData(byte[] data, string key)
+    // XOR Encryption/Decryption Function
+    private static byte[] XorEncryptDecrypt(byte[] data)
     {
-        using Aes aes = Aes.Create();
-        aes.Key = GenerateKey(key);
-        aes.IV = new byte[16]; // Zero IV (for simplicity, but should be unique for each encryption)
+        byte[] keyBytes = Encoding.UTF8.GetBytes(EncryptionKey);
+        byte[] result = new byte[data.Length];
 
-        using var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-        return PerformCryptography(data, encryptor);
-    }
-
-    // Decrypt data using AES
-    private static byte[] DecryptData(byte[] encryptedData, string key)
-    {
-        using Aes aes = Aes.Create();
-        aes.Key = GenerateKey(key);
-        aes.IV = new byte[16]; // Must be the same IV used for encryption
-
-        using var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-        return PerformCryptography(encryptedData, decryptor);
-    }
-
-    // Convert key to 256-bit key (AES standard)
-    private static byte[] GenerateKey(string key)
-    {
-        using (SHA256 sha256 = SHA256.Create())
+        for (int i = 0; i < data.Length; i++)
         {
-            return sha256.ComputeHash(Encoding.UTF8.GetBytes(key));
+            result[i] = (byte)(data[i] ^ keyBytes[i % keyBytes.Length]); // XOR with key in a circular manner
         }
-    }
 
-    // Helper function to perform encryption and decryption
-    private static byte[] PerformCryptography(byte[] data, ICryptoTransform cryptoTransform)
-    {
-        using MemoryStream memoryStream = new MemoryStream();
-        using CryptoStream cryptoStream = new CryptoStream(memoryStream, cryptoTransform, CryptoStreamMode.Write);
-        cryptoStream.Write(data, 0, data.Length);
-        cryptoStream.FlushFinalBlock();
-        return memoryStream.ToArray();
+        return result;
     }
 }

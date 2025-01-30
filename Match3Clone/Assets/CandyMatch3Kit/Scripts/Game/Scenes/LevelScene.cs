@@ -63,7 +63,7 @@ namespace GameVanilla.Game.Scenes
             var avatar = Instantiate(avatarPrefab);
             avatar.transform.SetParent(scrollView.transform, false);
            
-            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
             // var nextLevel = PlayerPrefs.GetInt("next_level");
             var nextLevel = playerProfile.Level;

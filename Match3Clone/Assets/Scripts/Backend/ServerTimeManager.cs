@@ -8,6 +8,7 @@ public class ServerTimeManager : MonoBehaviour
     private static ServerTimeManager _instance;
     private DateTime? dateTime;
 
+    public Action<bool> OnServerInitialized;
     public static ServerTimeManager Instance
     {
         get
@@ -23,8 +24,6 @@ public class ServerTimeManager : MonoBehaviour
     }
 
     private const string TimeApiUrl = "https://www.timeapi.io/api/time/current/zone?timeZone=Asia%2FAmman";
-    private DateTime? _serverTime;
-    private bool _isInitialized = false;
 
     public DateTime CurrentTime
     {
@@ -55,23 +54,6 @@ public class ServerTimeManager : MonoBehaviour
         }
     }
 
-    private void Initialize()
-    {
-        if (_isInitialized) return;
-
-        try
-        {
-            StartCoroutine(FetchServerTimeAsync());
-
-            _serverTime = dateTime;
-            _isInitialized = true;
-            Debug.Log($"Server time initialized: {_serverTime}");
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Failed to initialize server time: {ex.Message}");
-        }
-    }
 
     public IEnumerator FetchServerTimeAsync()
     {
@@ -86,12 +68,15 @@ public class ServerTimeManager : MonoBehaviour
             Debug.Log($"Server response JSON: {json}");
 
             ServerTimeResponse response = JsonUtility.FromJson<ServerTimeResponse>(json);
-
+            
+            OnServerInitialized?.Invoke(true);
             dateTime = DateTime.Parse(response.dateTime);
         }
         else
         {
-            throw new Exception($"Request failed: {request.error}");
+            OnServerInitialized?.Invoke(false);
+
+            Debug.LogError($"Failed to fetch server time: {request.error}");
         }
     }
 

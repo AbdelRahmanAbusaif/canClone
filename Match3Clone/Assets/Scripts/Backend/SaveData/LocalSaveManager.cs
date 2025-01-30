@@ -69,19 +69,7 @@ namespace SaveData
                     
                     return JsonConvert.DeserializeObject<T>(jsonData);
                 }
-                else
-                {
-                    var savedData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { key });
-                    if (savedData.TryGetValue(key, out var item))
-                    {
-                        string jsonData = item.Value.GetAs<string>();
-
-                        Debug.Log($"{key} loaded successfully.");
-                        Debug.Log(jsonData);
-
-                        return JsonConvert.DeserializeObject<T>(jsonData);
-                    }
-                }
+                
             }
             catch (System.Exception e)
             {

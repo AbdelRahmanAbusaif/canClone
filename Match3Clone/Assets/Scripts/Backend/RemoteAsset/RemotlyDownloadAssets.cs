@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -12,9 +13,10 @@ using UnityEngine.Networking;
 public class RemotlyDownloadAssets : MonoBehaviour
 {
     private string savePath;
+    public Action<bool> OnDownloadCompleted;
     public List<GameAssetsFiles> GameAssetsFiles = new List<GameAssetsFiles>();
 
-    private async Task Awake()
+    private async void Awake()
     {
         savePath = Application.persistentDataPath + "/DownloadedAssets/";
         Directory.CreateDirectory(savePath);
@@ -84,9 +86,12 @@ public class RemotlyDownloadAssets : MonoBehaviour
                         string remoteFileSize = requestImage.GetResponseHeader("Content-Length");
                         string localFileSize = new FileInfo(file.LocalURL + file.FileName).Length.ToString();
 
+                        OnDownloadCompleted?.Invoke(true);
+                        
                         if (remoteFileSize == localFileSize)
                         {
                             Debug.Log($"{file.FileName} is up to date.");
+
                             continue;
                         }
                         else
@@ -97,6 +102,8 @@ public class RemotlyDownloadAssets : MonoBehaviour
                     else
                     {
                         Debug.LogError($"Failed to check {file.FileName} for updates: {requestImage.error}");
+
+                        OnDownloadCompleted?.Invoke(false);
                     }
                 }
                 else
@@ -121,20 +128,19 @@ public class RemotlyDownloadAssets : MonoBehaviour
                 savedFiles.Add(file);
 
                 Debug.Log($"Downloaded and saved: {file.LocalURL + file.FileName}");
+
+                OnDownloadCompleted?.Invoke(true);
             }
             else
             {
+                OnDownloadCompleted?.Invoke(false);
+
                 Debug.LogError($"Failed to download {file.FileName}: {request.error}");
             }
         }
-
-        foreach (var file in savedFiles)
-        {
-            Debug.Log($"Saved File: {file.FileName}");
-        }
-
         var saveTask = LocalSaveManager.Instance.SaveDataAsync<List<GameAssetsFiles>>(savedFiles, "GameAssetsFiles");
         yield return new WaitUntil(() => saveTask.IsCompleted);
+
         Debug.Log("All assets have been updated and saved.");
     }
     private void OnDestroy() {

@@ -1,8 +1,9 @@
 using System.Collections;
-using SaveData;
+using GameVanilla.Core;
 using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LoadingManager : MonoBehaviour
 {
@@ -10,21 +11,55 @@ public class LoadingManager : MonoBehaviour
     public RemotlyDownloadAssets remoteAssetDownloader; // Attach the RemoteAssetDownloader script
     public LoginController loginController; // Attach the LoginController script
     [Header("UI Elements")]
-    public GameObject loadingSpinner; 
+    public GameObject LoadingSpinner; 
+    public GameObject RetryPanel;
+
+    public Button RetryButton;
+
     public string HomePageScene; 
     public string LoginPageScene;
 
+    [Header("Booleans for checking")]
+    public bool isAssetsDownloaded = false;
+    public bool isAPIDataFetched = false;
+
     void Start()
     {
+        remoteAssetDownloader.OnDownloadCompleted += (bool isAssetsDownloaded) => {
+            if(isAssetsDownloaded)
+            {
+                this.isAssetsDownloaded = true;
+            }
+            else
+            {
+                this.isAssetsDownloaded = false;
+            }
+        };
+        ServerTimeManager.Instance.OnServerInitialized += (bool isAPIDataFetched)=>{
+            if(isAPIDataFetched)
+            {
+                this.isAPIDataFetched = true;
+            }
+            else
+            {
+                this.isAPIDataFetched = false;
+            }
+        };
+
+        RetryButton.onClick.AddListener(() => {
+            RetryPanel.SetActive(false);
+            StartCoroutine(LoadGameData());
+        });
+
         StartCoroutine(LoadGameData());
     }
 
     IEnumerator LoadGameData()
     {
         // Show loading spinner if available
-        if (loadingSpinner != null)
+        if (LoadingSpinner != null)
         {
-            loadingSpinner.SetActive(true);
+            LoadingSpinner.SetActive(true);
         }
 
         // Task 1: Simulate downloading assets from the cloud
@@ -36,22 +71,57 @@ public class LoadingManager : MonoBehaviour
         yield return remoteAssetDownloader.DownloadAndSaveFiles(remoteAssetDownloader.GameAssetsFiles);
 
         // Hide loading spinner
-        if (loadingSpinner != null)
+        if (LoadingSpinner != null)
         {
-            loadingSpinner.SetActive(false);
+            LoadingSpinner.SetActive(false);
         }
 
-        // Load the next scene
+        if (isAssetsDownloaded && isAPIDataFetched)
+        {
+            LoadNextScene();
+        }
+        else
+        {
+            RetryPanel.SetActive(true);
+        }
+    }
+
+    private void LoadNextScene()
+    {
         Debug.Log("Loading next scene...");
 
-        if(AuthenticationService.Instance.SessionTokenExists)
+        if (AuthenticationService.Instance.SessionTokenExists)
         {
             loginController.InitSignInCachedUser();
             // SceneManager.LoadSceneAsync(HomePageScene);
         }
         else
         {
-            SceneManager.LoadScene(LoginPageScene);
+            Transition.LoadLevel(LoginPageScene,1f,Color.black);
         }
+    }
+
+    private void OnDestroy() {
+
+        remoteAssetDownloader.OnDownloadCompleted -= (bool isAssetsDownloaded) => {
+            if(isAssetsDownloaded)
+            {
+                this.isAssetsDownloaded = true;
+            }
+            else
+            {
+                this.isAssetsDownloaded = false;
+            }
+        };
+        ServerTimeManager.Instance.OnServerInitialized -= (bool isAPIDataFetched)=>{
+            if(isAPIDataFetched)
+            {
+                this.isAPIDataFetched = true;
+            }
+            else
+            {
+                this.isAPIDataFetched = false;
+            }
+        };
     }
 }

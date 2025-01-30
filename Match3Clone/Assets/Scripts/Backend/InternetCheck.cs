@@ -78,6 +78,8 @@ public class InternetCheck : MonoBehaviour
         UnityWebRequest request = new UnityWebRequest("https://www.google.com");
         yield return request.SendWebRequest();
 
+        StartCoroutine(CheckInternetSpeed());
+
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
             callback(false);
@@ -87,7 +89,7 @@ public class InternetCheck : MonoBehaviour
             callback(true);
         }
     }
-    /*
+    
     private IEnumerator CheckInternetSpeed()
     {
         UnityWebRequest request = new UnityWebRequest("https://www.google.com");
@@ -100,11 +102,13 @@ public class InternetCheck : MonoBehaviour
         if (duration > 2.5f)
         {
             loadingPanel.SetActive(true);
+            Debug.Log("Internet is slow");
         }
         else
         {
             loadingPanel.SetActive(false);
+            Debug.Log("Internet is fast");
         }
     }
-    */
+    
 }
