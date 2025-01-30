@@ -69,8 +69,7 @@ public class ProfileInformationUI : MonoBehaviour
     }
     private void OnLinkAccountButtonClicked()
     {
-        loginController.InitLinkAccount();
-
+        // loginController.InitLinkAccount();
     }
 
 }

@@ -7567,6 +7567,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -725
       objectReference: {fileID: 0}
+    - target: {fileID: 8685680325818628140, guid: a638c664d13aab4468d6b484b8d73b58,
+        type: 3}
+      propertyPath: scene
+      value: LoginPage
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

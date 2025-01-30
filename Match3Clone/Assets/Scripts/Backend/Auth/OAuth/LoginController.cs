@@ -48,6 +48,7 @@ public class LoginController : MonoBehaviour
         try
         {
             AuthenticationService.Instance.SignOut(true);
+            PlayerAccountService.Instance.SignOut();
 
             LocalSaveManager.Instance.DeleteData("PlayerProfile");
             LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
@@ -70,6 +71,16 @@ public class LoginController : MonoBehaviour
             Debug.LogError("Access token is null or empty. Cannot link account.");
             return;
         }
+        if(PlayerPrefs.GetInt("IsAnonymous") == 0)
+        {
+            Debug.LogError("Account is already linked.");
+            return;
+        }
+        if(!AuthenticationService.Instance.IsSignedIn)
+        {
+            Debug.LogError("User is not signed in.");
+            return;
+        }
 
         await LinkWithUnityAsync(accessToken);
     }
@@ -83,7 +94,6 @@ public class LoginController : MonoBehaviour
                 Debug.LogError("AuthenticationService is not initialized.");
                 return;
             }
-
             await AuthenticationService.Instance.LinkWithUnityAsync(accessToken);
 
             PlayerPrefs.SetInt("IsAnonymous", 0);
@@ -123,6 +133,7 @@ public class LoginController : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            
             var name = await AuthenticationService.Instance.GetPlayerNameAsync();
 
             // Retrieve and store the access token
