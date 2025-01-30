@@ -111,7 +111,7 @@ namespace GameVanilla.Game.UI
                 buttonImage.sprite = playedButtonSprite;
                 numLevelTextBlue.gameObject.SetActive(false);
 
-                playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+                playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
                 var stars = playerProfile.LevelsComplete[numLevel - 1].Stars;
 
                 switch (stars)

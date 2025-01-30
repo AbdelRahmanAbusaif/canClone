@@ -69,7 +69,7 @@ namespace GameVanilla.Game.Scenes
 			level = gameBoard.level;
             OpenPopup<LevelGoalsPopup>("Popups/LevelGoalsPopup", popup => popup.SetGoals(level.goals));
 
-            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
              Debug.Log("From Start GameScene");
 		}
 

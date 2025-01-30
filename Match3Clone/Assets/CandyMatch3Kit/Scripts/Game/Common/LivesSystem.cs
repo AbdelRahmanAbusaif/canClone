@@ -28,7 +28,7 @@ namespace GameVanilla.Game.Common
         private PlayerProfile playerProfile;
         private async void Awake() 
         {
-            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         }
         /// <summary>
         /// Sets the appropriate number of lives according to the general lives counter.
