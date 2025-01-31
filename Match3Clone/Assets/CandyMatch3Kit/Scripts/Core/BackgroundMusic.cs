@@ -37,8 +37,8 @@ namespace GameVanilla.Core
         private void Start()
         {
             var music = PlayerPrefs.GetInt("music_enabled");
-            audioSource.mute = music == 0;
             audioSource.Play();
+            audioSource.mute = music == 0;
         }
     }
 }

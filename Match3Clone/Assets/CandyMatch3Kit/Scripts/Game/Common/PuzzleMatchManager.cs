@@ -51,6 +51,15 @@ namespace GameVanilla.Game.Common
             }
             DontDestroyOnLoad(gameObject);
 
+            if (!PlayerPrefs.HasKey("sound_enabled"))
+            {
+                PlayerPrefs.SetInt("sound_enabled", 1);
+            }
+            if (!PlayerPrefs.HasKey("music_enabled"))
+            {
+                PlayerPrefs.SetInt("music_enabled", 1);
+            }
+            
             livesSystem = GetComponent<LivesSystem>();
             coinsSystem = GetComponent<CoinsSystem>();
 
@@ -73,14 +82,6 @@ namespace GameVanilla.Game.Common
             // {
             //     PlayerPrefs.SetInt("num_coins", gameConfig.initialCoins);
             // }
-            if (!PlayerPrefs.HasKey("sound_enabled"))
-            {
-                PlayerPrefs.SetInt("sound_enabled", 1);
-            }
-            if (!PlayerPrefs.HasKey("music_enabled"))
-            {
-                PlayerPrefs.SetInt("music_enabled", 1);
-            }
 
             #if UNITY_IAP
             iapManager = new IapManager();

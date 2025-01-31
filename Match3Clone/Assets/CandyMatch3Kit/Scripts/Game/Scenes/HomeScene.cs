@@ -51,8 +51,8 @@ namespace GameVanilla.Game.Scenes
         /// </summary>
         private void Start()
         {
-            UpdateButtons();
             CheckDailyBonus();
+            UpdateButtons();
         }
 
         /// <summary>
