@@ -6,8 +6,9 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.Assertions;
-
+using SaveData;
 using GameVanilla.Core;
+using UnityEngine.UI;
 
 namespace GameVanilla.Game.Common
 {
@@ -42,6 +43,10 @@ namespace GameVanilla.Game.Common
         public ObjectPool collectableExplosion;
 
         public ObjectPool complimentTextPool;
+
+        [SerializeField]
+        public Text numOfcola;
+
 
         private readonly List<ObjectPool> candyExplosions = new List<ObjectPool>();
         private readonly List<ObjectPool> elementExplosions = new List<ObjectPool>();
@@ -89,7 +94,11 @@ namespace GameVanilla.Game.Common
             specialBlockExplosions.Add(chocolateExplosion);
             specialBlockExplosions.Add(null);
         }
+        public void Start()
+        {
+           
 
+        }
         /// <summary>
         /// Returns the explosion pool of the specified candy color.
         /// </summary>
@@ -97,6 +106,19 @@ namespace GameVanilla.Game.Common
         /// <returns>The explosion pool of the specified candy color.</returns>
         public ObjectPool GetCandyExplosionPool(CandyColor color)
         {
+            
+             // Get the current value from PlayerPrefs
+            int currentValue = PlayerPrefs.GetInt("itemCollected", 0);
+
+            // Increase the value by one
+            if (color == CandyColor.Blue)
+            {
+                currentValue++;
+                PlayerPrefs.SetInt("itemCollected", currentValue);
+                PlayerPrefs.Save();
+                numOfcola.text=currentValue.ToString();
+            }
+          
             return candyExplosions[(int) color];
         }
 
