@@ -46,7 +46,6 @@ namespace GameVanilla.Game.Common
         {
             if (!runningCountdown)
             {
-                Debug.Log("runningCountdown: " + runningCountdown);
                 return;
             }
 

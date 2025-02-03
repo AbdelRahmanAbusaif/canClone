@@ -5,7 +5,6 @@ public class VideoController : MonoBehaviour
 {
     public VideoPlayer videoPlayer;
     public float displayDuration = 3.0f; // Duration to display the video
-    public GameObject mycanvas;
     private void Start()
     {
         videoPlayer.loopPointReached += OnVideoEnd;

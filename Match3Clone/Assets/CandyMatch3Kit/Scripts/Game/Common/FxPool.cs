@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using SaveData;
 using GameVanilla.Core;
+using System;
 
 
 namespace GameVanilla.Game.Common
@@ -18,7 +19,7 @@ namespace GameVanilla.Game.Common
     public class FxPool : MonoBehaviour
     {
     
-
+        public Action OnItemCollected;
         public ObjectPool spawnParticles;
 
         public ObjectPool blueCandyExplosion;
@@ -118,6 +119,10 @@ namespace GameVanilla.Game.Common
                 currentValue++;
                 PlayerPrefs.SetInt("itemCollected", currentValue);
                 PlayerPrefs.Save();
+
+                // Call the event
+                OnItemCollected.Invoke();
+
                 Debug.Log(currentValue);
             }
           
