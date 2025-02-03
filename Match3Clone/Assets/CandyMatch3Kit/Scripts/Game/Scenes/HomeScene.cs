@@ -38,19 +38,18 @@ namespace GameVanilla.Game.Scenes
         /// <summary>
         /// Unity's Awake method.
         /// </summary>
-        private async void Awake()
+        private  void Awake()
         {
             Assert.IsNotNull(soundButton);
             Assert.IsNotNull(musicButton);
-
-            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         }
 
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        private void Start()
+        private async void Start()
         {
+            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
             CheckDailyBonus();
             UpdateButtons();
         }
