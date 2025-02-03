@@ -8802,28 +8802,14 @@ GameObject:
   m_Component:
   - component: {fileID: 778204758}
   - component: {fileID: 778204757}
-  - component: {fileID: 778204756}
+  - component: {fileID: 778204759}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: VideoPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &778204756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 778204755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af3f04e75ba8a33489e22d33ace9c498, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  videoPlayer: {fileID: 778204757}
-  displayDuration: 15
 --- !u!328 &778204757
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -8832,7 +8818,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778204755}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 7242d45f0195afb49a9be789a6c4edd0, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: e46057665d748784fb1e031b90ebc3df, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 1897807767}
@@ -8875,6 +8861,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &778204759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778204755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af3f04e75ba8a33489e22d33ace9c498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  videoPlayer: {fileID: 778204757}
+  displayDuration: 4
 --- !u!1001 &814601525
 PrefabInstance:
   m_ObjectHideFlags: 0
