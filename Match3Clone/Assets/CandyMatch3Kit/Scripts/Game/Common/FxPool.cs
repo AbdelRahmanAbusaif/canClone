@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using SaveData;
 using GameVanilla.Core;
-using UnityEngine.UI;
+
 
 namespace GameVanilla.Game.Common
 {
@@ -17,6 +17,8 @@ namespace GameVanilla.Game.Common
     /// </summary>
     public class FxPool : MonoBehaviour
     {
+    
+
         public ObjectPool spawnParticles;
 
         public ObjectPool blueCandyExplosion;
@@ -44,8 +46,6 @@ namespace GameVanilla.Game.Common
 
         public ObjectPool complimentTextPool;
 
-        [SerializeField]
-        public Text numOfcola;
 
 
         private readonly List<ObjectPool> candyExplosions = new List<ObjectPool>();
@@ -57,6 +57,8 @@ namespace GameVanilla.Game.Common
         /// </summary>
         private void Awake()
         {
+           
+
             Assert.IsNotNull(spawnParticles);
 
             Assert.IsNotNull(blueCandyExplosion);
@@ -116,7 +118,7 @@ namespace GameVanilla.Game.Common
                 currentValue++;
                 PlayerPrefs.SetInt("itemCollected", currentValue);
                 PlayerPrefs.Save();
-                numOfcola.text=currentValue.ToString();
+                Debug.Log(currentValue);
             }
           
             return candyExplosions[(int) color];
