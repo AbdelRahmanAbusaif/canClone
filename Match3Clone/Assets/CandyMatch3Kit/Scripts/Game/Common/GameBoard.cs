@@ -275,8 +275,8 @@ namespace GameVanilla.Game.Common
                         var spriteRenderer = tile.GetComponent<SpriteRenderer>();
 
                         //Scale up the tile to fill the board
-                        tileW = spriteRenderer.bounds.size.x * 1.4f;
-                        tileH = spriteRenderer.bounds.size.y * 1.4f;
+                        tileW = spriteRenderer.bounds.size.x * 1.2f;
+                        tileH = spriteRenderer.bounds.size.y * 1.2f;
 
                         tile.transform.position =
                             new Vector2(i * (tileW + horizontalSpacing), -j * (tileH + verticalSpacing));
