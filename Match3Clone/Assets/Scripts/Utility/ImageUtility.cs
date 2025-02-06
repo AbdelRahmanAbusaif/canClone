@@ -19,4 +19,27 @@ public static class ImageUtility
         texture.LoadImage(imageData); // LoadImage resizes the texture to fit the data
         return texture;
     }
+        // Resize a texture to target dimensions
+    public static Texture2D ResizeTexture(Texture2D original, int width, int height)
+    {
+        RenderTexture rt = RenderTexture.GetTemporary(width, height);
+        RenderTexture.active = rt;
+
+        Graphics.Blit(original, rt);
+
+        Texture2D resized = new Texture2D(width, height, original.format, false);
+        resized.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        resized.Apply();
+
+        RenderTexture.active = null;
+        RenderTexture.ReleaseTemporary(rt);
+
+        return resized;
+    }
+
+    // Compress texture to JPEG format with a specified quality
+    public static byte[] CompressTexture(Texture2D texture, int quality = 50)
+    {
+        return texture.EncodeToJPG(quality); // JPEG quality from 1-100
+    }
 }

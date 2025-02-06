@@ -5,6 +5,7 @@ using Unity.Services.CloudSave;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.Text;
+using Unity.Services.CloudSave.Models.Data.Player;
 
 namespace SaveData
 {
@@ -82,8 +83,10 @@ namespace SaveData
 
         public async Task SaveImageAsync(Texture2D texture, string key)
         {
-            byte[] imageData = ImageUtility.ConvertImageToBytes(texture);
+            Texture2D resizedTexture = ImageUtility.ResizeTexture(texture, 128, 128);
 
+            byte[] imageData = ImageUtility.CompressTexture(resizedTexture, quality: 50);
+            
             string saveImageFilePath = Path.Combine(Application.persistentDataPath, key + ".png");
             Debug.Log(saveImageFilePath);
 
@@ -118,13 +121,23 @@ namespace SaveData
                 }
                 else
                 {
-                    imageData = await CloudSaveService.Instance.Files.Player.LoadBytesAsync(key);
+                    var image = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { key }, new Unity.Services.CloudSave.Models.Data.Player.LoadOptions(new PublicReadAccessClassOptions()));
 
-                    Texture2D texture2D = new Texture2D(2, 2);
-                    texture2D.LoadImage(imageData);
-                    targetImage.sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
+                    if(image.TryGetValue(key, out var item))
+                    {
+                        string base64Image = item.Value.GetAs<string>();
+                        byte[] imageDataBytes = System.Convert.FromBase64String(base64Image);
+                        Texture2D texture = new Texture2D(2, 2);
+                        texture.LoadImage(imageDataBytes); // Convert bytes to texture
 
-                    await SaveImageAsync(texture2D, key);
+                        targetImage.sprite = Sprite.Create(
+                            texture,
+                            new Rect(0, 0, texture.width, texture.height),
+                            new Vector2(0.5f, 0.5f)
+                        );
+                        Debug.Log("Image loaded successfully from Unity Cloud Save.");
+                        await SaveImageAsync(texture, key);
+                    }
 
                     Debug.Log("Image loaded successfully from Unity Cloud Save.");
                 }

@@ -1,13 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Unity.Services.Leaderboards;
-using UnityEditor.Timeline.Actions;
+using Unity.Services.Leaderboards.Models;
 using UnityEngine;
 
 public class LeaderboardManager : MonoBehaviour
 {
     public static LeaderboardManager Instance { get; private set; }
     string leaderboardId  = "COIN_LEADERBOARD";
-
     private void Awake()
     {
         if (Instance == null)
@@ -20,41 +22,40 @@ public class LeaderboardManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    #if UNITY_EDITOR
-        [ContextMenu("Add Score")]
-    #endif
     public async void AddScore(int score)
-    {
+    {   
         var playerEntry = await LeaderboardsService.Instance
-            .AddPlayerScoreAsync(leaderboardId, score);
+        .AddPlayerScoreAsync(
+            leaderboardId,
+            score
+        );
         Debug.Log(JsonConvert.SerializeObject(playerEntry));
     }
-    #if UNITY_EDITOR
-        [ContextMenu("Add Score")]
-    #endif
-    public async void GetPlayerScore()
+    public async Task<LeaderboardScoresPage> GetPlayerScore()
     {
         var scoreResponse = await LeaderboardsService.Instance
-            .GetPlayerScoreAsync(leaderboardId);
+        .GetScoresAsync(
+            leaderboardId,
+            new GetScoresOptions { IncludeMetadata = true }
+        );
+
+        return scoreResponse;
+    }
+    public async Task<LeaderboardEntry> GetPlayerProfileScore()
+    {
+        var scoreResponse = await LeaderboardsService.Instance
+        .GetPlayerScoreAsync(
+            leaderboardId
+        );
+
         Debug.Log(JsonConvert.SerializeObject(scoreResponse));
+
+        return scoreResponse;
     }
-    public async void GetPaginatedScores()
-    {
-        var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(
-            leaderboardId,
-            new GetScoresOptions{ Offset = 25, Limit = 50 }
-        );
-        Debug.Log(JsonConvert.SerializeObject(scoresResponse));
-    }
-    public async void GetPlayerRange()
-    {
-        // Returns a total of 11 entries (the given player plus 5 on either side)
-        var rangeLimit = 5;
-        var scoresResponse = await LeaderboardsService.Instance.GetPlayerRangeAsync(
-            leaderboardId,
-            new GetPlayerRangeOptions{ RangeLimit = rangeLimit }
-        );
-        Debug.Log(JsonConvert.SerializeObject(scoresResponse));
-    }
+}
+[Serializable]
+public class MetadataScore
+{
+    public string playerId;
+    public string timeTaken;
 }

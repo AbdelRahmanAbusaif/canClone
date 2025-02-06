@@ -163,7 +163,8 @@ public class ProfileManager : MonoBehaviour
         };
 
         await cloudSaveManager.SaveDataAsync("PlayerProfile", playerProfile);
-
+        await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
+        
         Debug.Log("Player profile updated successfully");
         OnUpdateSuccess?.Invoke();
     }
