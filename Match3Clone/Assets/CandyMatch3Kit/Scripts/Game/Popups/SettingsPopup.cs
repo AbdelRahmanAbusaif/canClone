@@ -71,7 +71,7 @@ namespace GameVanilla.Game.Popups
                 return;
             }
 
-            LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
+            CloudSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
             //else load the default avatar

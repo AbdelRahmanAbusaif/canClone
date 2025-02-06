@@ -13,6 +13,7 @@ public class UILogin : MonoBehaviour
     [SerializeField] private SceneTransition sceneTransition;
     [SerializeField] private LoginController loginController;
     [SerializeField] private GameObject loginPanel;
+    [SerializeField] private Texture2D defaultImage;
 
     private void OnEnable() {
 
@@ -36,15 +37,15 @@ public class UILogin : MonoBehaviour
         // Here will be the code for get the player info and save it to the database
         
         var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerProfile" });
+        var dataImage = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerProfileImage" }, new Unity.Services.CloudSave.Models.Data.Player.LoadOptions(new Unity.Services.CloudSave.Models.Data.Player.PublicReadAccessClassOptions()));
 
-        if(data.ContainsKey("PlayerProfile"))
+        if(data.ContainsKey("PlayerProfile") && dataImage.ContainsKey("PlayerProfileImage"))
         {
             Debug.Log("Player profile already exists");
 
             OnSignIn?.Invoke();
             return;
         }
-        
         int anonymousValue = PlayerPrefs.GetInt("IsAnonymous");
         if(anonymousValue == 0)
         {
@@ -53,6 +54,8 @@ public class UILogin : MonoBehaviour
         else
         {
             await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerData);
+            await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileImage", defaultImage);
+
             sceneTransition.PerformTransition();
         }
     }

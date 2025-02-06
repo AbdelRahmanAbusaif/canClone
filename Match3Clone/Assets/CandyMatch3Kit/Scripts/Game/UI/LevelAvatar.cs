@@ -44,16 +44,17 @@ namespace GameVanilla.Game.UI
         /// </summary>
         private void Start()
         {
-            if (PlayerPrefs.GetInt("IsAnonymous")==0)
-            {
-                var avatarSelected = PlayerPrefs.GetInt("avatar_selected");
-                //Here we set the avatar image based on the player's selection.
-                avatarImage.sprite = avatarSelected == 0 ? girlAvatarSprite : boyAvatarSprite;
-            }
-            if (PlayerPrefs.GetInt("IsAnonymous")==0)
-            {
-                LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
-            }
+            // if (PlayerPrefs.GetInt("IsAnonymous")==0)
+            // {
+            //     var avatarSelected = PlayerPrefs.GetInt("avatar_selected");
+            //     //Here we set the avatar image based on the player's selection.
+            //     avatarImage.sprite = avatarSelected == 0 ? girlAvatarSprite : boyAvatarSprite;
+            // }
+            // if (PlayerPrefs.GetInt("IsAnonymous")==0)
+            // {
+            //     LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
+            // }
+            CloudSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
 
         }
 

@@ -516,6 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ae00d2d42c3bf4e93d1e90137be1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameAssetsFiles: []
 --- !u!1001 &218077980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1806,6 +1807,7 @@ MonoBehaviour:
   sceneTransition: {fileID: 2085347962}
   loginController: {fileID: 935876690}
   loginPanel: {fileID: 1508782826}
+  defaultImage: {fileID: 2800000, guid: c37baee87604c4ba99e417e6a1ce17be, type: 3}
 --- !u!114 &935876692
 MonoBehaviour:
   m_ObjectHideFlags: 0

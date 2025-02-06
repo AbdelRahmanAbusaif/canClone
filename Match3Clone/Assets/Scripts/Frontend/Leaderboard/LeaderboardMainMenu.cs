@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using SaveData;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using Random = UnityEngine.Random;
 
 public class LeaderboardMainMenu : MonoBehaviour
