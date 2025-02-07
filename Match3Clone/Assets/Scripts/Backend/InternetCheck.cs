@@ -102,12 +102,10 @@ public class InternetCheck : MonoBehaviour
         if (duration > 2.5f)
         {
             loadingPanel.SetActive(true);
-            Debug.Log("Internet is slow");
         }
         else
         {
             loadingPanel.SetActive(false);
-            Debug.Log("Internet is fast");
         }
     }
     

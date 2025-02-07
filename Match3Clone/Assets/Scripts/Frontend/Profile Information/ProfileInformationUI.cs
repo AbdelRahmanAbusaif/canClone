@@ -11,6 +11,7 @@ public class ProfileInformationUI : MonoBehaviour
     public static Action OnSignOutTransition;
     [SerializeField] private TextMeshProUGUI playerId;
     [SerializeField] private TextMeshProUGUI playerNameText;
+    [SerializeField] private TextMeshProUGUI playerLevelText;
     [SerializeField] private TextMeshProUGUI emailText;
     [SerializeField] private TextMeshProUGUI phoneNumberText;
 
@@ -33,7 +34,8 @@ public class ProfileInformationUI : MonoBehaviour
             playerId.text = playerProfile.PlayerId;
             playerNameText.text = playerProfile.PlayerName;
             emailText.text = playerProfile.Email;
-            phoneNumberText.text = playerProfile.PhoneNumber;            
+            phoneNumberText.text = playerProfile.PhoneNumber;
+            playerLevelText.text = playerProfile.Level.ToString();            
         }
         catch (Exception ex)
         {
