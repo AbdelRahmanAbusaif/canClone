@@ -14,6 +14,7 @@ using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.UI;
 using System.Threading.Tasks;
+using SaveData;
 
 namespace GameVanilla.Game.Popups
 {
@@ -76,6 +77,8 @@ namespace GameVanilla.Game.Popups
         private bool isFreeSpin;
         private int spinCost;
 
+        private PlayerProfile playerProfile;
+
         /// <summary>
         /// Unity's Awake method.
         /// </summary>
@@ -98,20 +101,21 @@ namespace GameVanilla.Game.Popups
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        protected override void Start()
+        protected override async void Start()
         {
             base.Start();
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
             
-            if (!PlayerPrefs.HasKey(dateLastSpinKey))
+            if (String.Equals(playerProfile.DailyBonus.DateLastPlayed, "0"))
             {
                 SetFreeSpin();
             }
             else
             {
-                var dateLastSpinStr = PlayerPrefs.GetString(dateLastSpinKey);
+                var dateLastSpinStr = playerProfile.SpinWheel.DateLastSpin;
                 var dateLastSpin = Convert.ToDateTime(dateLastSpinStr, CultureInfo.InvariantCulture);
 
-                var dateNow = DateTime.Now;
+                var dateNow = ServerTimeManager.Instance.CurrentTime;
                 var diff = dateNow.Subtract(dateLastSpin);
                 if (diff.TotalHours >= 24)
                 {
@@ -127,12 +131,16 @@ namespace GameVanilla.Game.Popups
         /// <summary>
         /// Configures the wheel for a free spin.
         /// </summary>
-        private void SetFreeSpin()
+        private async void SetFreeSpin()
         {
             isFreeSpin = true;
             coinImage.enabled = false;
             costText.enabled = false;
-            PlayerPrefs.SetInt(numSpinsKey, 0);
+            // PlayerPrefs.SetInt(numSpinsKey, 0);
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            playerProfile.SpinWheel.DailySpinDayKey = "1";
+
+            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
         }
 
         /// <summary>
@@ -141,7 +149,8 @@ namespace GameVanilla.Game.Popups
         private void SetSpinCost()
         {
             var gameConfig = PuzzleMatchManager.instance.gameConfig;
-            var numSpins = PlayerPrefs.GetInt(numSpinsKey);
+            // var numSpins = PlayerPrefs.GetInt(numSpinsKey);
+            var numSpins = Convert.ToInt16(playerProfile.SpinWheel.DailySpinDayKey);
             
             spinCost = gameConfig.spinWheelCost;
             spinCost += (numSpins - 1) * gameConfig.spinWheelCostIncrement;
@@ -223,12 +232,18 @@ namespace GameVanilla.Game.Popups
                         wheelAnimator.SetTrigger(BlueLight);
                         break;
                 }
-
-                var numSpins = PlayerPrefs.GetInt(numSpinsKey);
+                playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+                // var numSpins = PlayerPrefs.GetInt(numSpinsKey);
+                var numSpins = Convert.ToInt16(playerProfile.SpinWheel.DailySpinDayKey);
                 numSpins += 1;
-                PlayerPrefs.SetInt(numSpinsKey, numSpins);
 
-                PlayerPrefs.SetString(dateLastSpinKey, Convert.ToString(DateTime.Today, CultureInfo.InvariantCulture));
+                // PlayerPrefs.SetInt(numSpinsKey, numSpins);
+                // PlayerPrefs.SetString(dateLastSpinKey, Convert.ToString(DateTime.Today, CultureInfo.InvariantCulture));
+                
+                playerProfile.SpinWheel.DailySpinDayKey = numSpins.ToString();
+                playerProfile.SpinWheel.DailySpinDayKey = ServerTimeManager.Instance.CurrentTime.ToString();
+
+                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
             }
             else
             {

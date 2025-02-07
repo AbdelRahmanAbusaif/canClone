@@ -11,6 +11,7 @@ public class PlayerProfile
     public string LastHeartTime;
     public int Level;
     public DailyBonus DailyBonus;
+    public SpinWheel SpinWheel;
     public List<LevelComplete> LevelsComplete;
 }
 [System.Serializable]
@@ -18,6 +19,12 @@ public class DailyBonus
 {
     public string DateLastPlayed;
     public string DailyBonusDayKey;
+}
+[System.Serializable]
+public class SpinWheel
+{
+    public string DateLastSpin;
+    public string DailySpinDayKey;
 }
 [System.Serializable]
 public class LevelComplete

@@ -161,6 +161,11 @@ public class LoginController : MonoBehaviour
                     DateLastPlayed = "0",
                     DailyBonusDayKey = "0"
                 },
+                SpinWheel = new SpinWheel()
+                {
+                    DateLastSpin = "0",
+                    DailySpinDayKey = "0"
+                },
                 LevelsComplete = new List<LevelComplete>()
                 {
                     
@@ -205,6 +210,11 @@ public class LoginController : MonoBehaviour
                 {
                     DateLastPlayed = "0",
                     DailyBonusDayKey = "0"
+                },
+                SpinWheel = new SpinWheel()
+                {
+                    DateLastSpin = "0",
+                    DailySpinDayKey = "0"
                 },
                 LevelsComplete = new List<LevelComplete>()
                 {
