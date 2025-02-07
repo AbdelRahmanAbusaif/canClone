@@ -1207,8 +1207,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -497.5}
-  m_SizeDelta: {x: 0, y: -995.01}
+  m_AnchoredPosition: {x: 0, y: -580.80005}
+  m_SizeDelta: {x: 0, y: -1161.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1276157980
 GameObject:
@@ -1640,6 +1640,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1647710678}
     m_Modifications:
+    - target: {fileID: 900039202941826452, guid: 73692fdec987afd429ac54556e01fd92,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.300064
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151962847225435707, guid: 73692fdec987afd429ac54556e01fd92,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662359301551457663, guid: 73692fdec987afd429ac54556e01fd92,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -24.650024
+      objectReference: {fileID: 0}
     - target: {fileID: 2747891132549362274, guid: 73692fdec987afd429ac54556e01fd92,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1744,6 +1759,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Logo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5898580919633573910, guid: 73692fdec987afd429ac54556e01fd92,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 21.000122
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115157483782783380, guid: 73692fdec987afd429ac54556e01fd92,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
