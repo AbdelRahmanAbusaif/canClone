@@ -106,14 +106,14 @@ namespace GameVanilla.Game.Popups
             base.Start();
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
             
-            if (String.Equals(playerProfile.DailyBonus.DateLastPlayed, "0"))
+            if (String.Equals(playerProfile.SpinWheel.DateLastSpin, "0"))
             {
                 SetFreeSpin();
             }
             else
             {
                 var dateLastSpinStr = playerProfile.SpinWheel.DateLastSpin;
-                var dateLastSpin = Convert.ToDateTime(dateLastSpinStr, CultureInfo.InvariantCulture);
+                var dateLastSpin = Convert.ToDateTime(dateLastSpinStr);
 
                 var dateNow = ServerTimeManager.Instance.CurrentTime;
                 var diff = dateNow.Subtract(dateLastSpin);
@@ -138,7 +138,7 @@ namespace GameVanilla.Game.Popups
             costText.enabled = false;
             // PlayerPrefs.SetInt(numSpinsKey, 0);
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-            playerProfile.SpinWheel.DailySpinDayKey = "1";
+            playerProfile.SpinWheel.DailySpinDayKey = "0";
 
             await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
         }
@@ -241,7 +241,7 @@ namespace GameVanilla.Game.Popups
                 // PlayerPrefs.SetString(dateLastSpinKey, Convert.ToString(DateTime.Today, CultureInfo.InvariantCulture));
                 
                 playerProfile.SpinWheel.DailySpinDayKey = numSpins.ToString();
-                playerProfile.SpinWheel.DailySpinDayKey = ServerTimeManager.Instance.CurrentTime.ToString();
+                playerProfile.SpinWheel.DateLastSpin = ServerTimeManager.Instance.CurrentTime.ToString();
 
                 await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
             }

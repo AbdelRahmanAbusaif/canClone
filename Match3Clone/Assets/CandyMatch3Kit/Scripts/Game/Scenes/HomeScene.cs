@@ -58,8 +58,9 @@ namespace GameVanilla.Game.Scenes
         /// <summary>
         /// Checks the daily bonus.
         /// </summary>
-        private void CheckDailyBonus()
+        private async void CheckDailyBonus()
         {
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
             StartCoroutine(CheckDailyBonusAsync());
         }
 
@@ -67,8 +68,11 @@ namespace GameVanilla.Game.Scenes
         /// Internal coroutine to check the daily bonus.
         /// </summary>
         private IEnumerator CheckDailyBonusAsync()
-        {
-            yield return new WaitForSeconds(0.5f);
+        {       
+            Debug.Log("Checking daily bonus...");
+
+            // GetPlayerProfile();
+            // yield return new WaitUntil(() => playerProfile != null);
 
             var date_last_played = playerProfile.DailyBonus.DateLastPlayed;
             if (date_last_played == "0")
@@ -79,9 +83,10 @@ namespace GameVanilla.Game.Scenes
             }
             
             var dateLastPlayedStr = date_last_played;
-            var dateLastPlayed = Convert.ToDateTime(dateLastPlayedStr, CultureInfo.CurrentCulture);
+            var dateLastPlayed = Convert.ToDateTime(dateLastPlayedStr);
+            Debug.Log($"Date last played: {dateLastPlayed}");
 
-            var dateNow = DateTime.Now;
+            var dateNow = ServerTimeManager.Instance.CurrentTime;
             var diff = dateNow.Subtract(dateLastPlayed);
             if (diff.TotalHours >= 24)
             {
@@ -93,11 +98,12 @@ namespace GameVanilla.Game.Scenes
                 {
                     playerProfile.DailyBonus.DateLastPlayed = "0";
                     playerProfile.DailyBonus.DailyBonusDayKey = "0";
-                    yield return CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
 
                     AwardDailyBonus();
                 }
             }
+
+            yield return CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
         }
 
         /// <summary>
@@ -107,7 +113,7 @@ namespace GameVanilla.Game.Scenes
         {
             var dateToday = ServerTimeManager.Instance.CurrentTime;
 
-            var dateLastPlayedStr = Convert.ToString(dateToday, CultureInfo.InvariantCulture);
+            var dateLastPlayedStr = Convert.ToString(dateToday);
             // PlayerPrefs.SetString(dateLastPlayedKey, dateLastPlayedStr);
             playerProfile.DailyBonus.DateLastPlayed = dateLastPlayedStr;
             await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
