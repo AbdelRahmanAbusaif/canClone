@@ -139,6 +139,7 @@ namespace GameVanilla.Game.Popups
             // PlayerPrefs.SetInt(numSpinsKey, 0);
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
             playerProfile.SpinWheel.DailySpinDayKey = "0";
+            playerProfile.SpinWheel.DateLastSpin = ServerTimeManager.Instance.CurrentTime.ToString();
 
             await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
         }
@@ -241,7 +242,6 @@ namespace GameVanilla.Game.Popups
                 // PlayerPrefs.SetString(dateLastSpinKey, Convert.ToString(DateTime.Today, CultureInfo.InvariantCulture));
                 
                 playerProfile.SpinWheel.DailySpinDayKey = numSpins.ToString();
-                playerProfile.SpinWheel.DateLastSpin = ServerTimeManager.Instance.CurrentTime.ToString();
 
                 await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
             }

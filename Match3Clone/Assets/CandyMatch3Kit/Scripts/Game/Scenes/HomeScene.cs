@@ -87,7 +87,12 @@ namespace GameVanilla.Game.Scenes
             Debug.Log($"Date last played: {dateLastPlayed}");
 
             var dateNow = ServerTimeManager.Instance.CurrentTime;
+
+            Debug.Log($"Date now from Home Screen: {dateNow}");
             var diff = dateNow.Subtract(dateLastPlayed);
+
+            Debug.Log($"Difference from Home Screen: {diff}");
+
             if (diff.TotalHours >= 24)
             {
                 if (diff.TotalHours < 48)
@@ -98,12 +103,11 @@ namespace GameVanilla.Game.Scenes
                 {
                     playerProfile.DailyBonus.DateLastPlayed = "0";
                     playerProfile.DailyBonus.DailyBonusDayKey = "0";
+                    yield return CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
 
                     AwardDailyBonus();
                 }
             }
-
-            yield return CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
         }
 
         /// <summary>
@@ -112,12 +116,15 @@ namespace GameVanilla.Game.Scenes
         private async void AwardDailyBonus()
         {
             var dateToday = ServerTimeManager.Instance.CurrentTime;
-
+            Debug.Log($"Date today DateTime: {dateToday}");
             var dateLastPlayedStr = Convert.ToString(dateToday);
+
+            Debug.Log($"Date today: {dateToday}");
             // PlayerPrefs.SetString(dateLastPlayedKey, dateLastPlayedStr);
             playerProfile.DailyBonus.DateLastPlayed = dateLastPlayedStr;
-            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
 
+            Debug.Log($"Date last played from Home Screen: {dateLastPlayedStr}");
+                        
             // var dailyBonusDay = PlayerPrefs.GetInt(dailyBonusDayKey);
             var dailyBonusDayString = playerProfile.DailyBonus.DailyBonusDayKey;
             var dailyBonusDay = Convert.ToInt32(dailyBonusDayString);
