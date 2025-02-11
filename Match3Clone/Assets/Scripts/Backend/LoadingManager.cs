@@ -26,7 +26,7 @@ public class LoadingManager : MonoBehaviour
     public bool isAssetsDownloaded = false;
     public bool isAPIDataFetched = false;
 
-    async void Start()
+    void Start()
     {
         remoteAssetDownloader.OnDownloadCompleted += (bool isAssetsDownloaded) => {
             if(isAssetsDownloaded)
@@ -49,9 +49,6 @@ public class LoadingManager : MonoBehaviour
             }
         };
 
-        await UnityServices.Instance.InitializeAsync();
-        await EconomyService.Instance.Configuration.SyncConfigurationAsync();
-        
         RetryButton.onClick.AddListener(() => {
             RetryPanel.SetActive(false);
             StartCoroutine(LoadGameData());
