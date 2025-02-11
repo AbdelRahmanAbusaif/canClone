@@ -1,11 +1,8 @@
 using System.Collections;
-using System.Threading.Tasks;
 using GameVanilla.Core;
 using Unity.Services.Authentication;
-using Unity.Services.Core;
-using Unity.Services.Economy;
+using Unity.Services.Authentication.PlayerAccounts;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoadingManager : MonoBehaviour
@@ -18,6 +15,7 @@ public class LoadingManager : MonoBehaviour
     public GameObject RetryPanel;
 
     public Button RetryButton;
+    public UILogin uILogin;
 
     public string HomePageScene; 
     public string LoginPageScene;
@@ -54,6 +52,13 @@ public class LoadingManager : MonoBehaviour
             StartCoroutine(LoadGameData());
         });
 
+        // Add event listener for sign up button
+        // this will load the login page scene because player is already signed in but not complete the sign up process
+        uILogin.OnSignUp += () => {
+            AuthenticationService.Instance.SignOut();
+            PlayerAccountService.Instance.SignOut();
+            Transition.LoadLevel(LoginPageScene,1f,Color.black);
+        };
         StartCoroutine(LoadGameData());
     }
 
@@ -125,6 +130,10 @@ public class LoadingManager : MonoBehaviour
             {
                 this.isAPIDataFetched = false;
             }
+        };
+
+        uILogin.OnSignUp -= () => {
+            Transition.LoadLevel(LoginPageScene,1f,Color.black);
         };
     }
 }

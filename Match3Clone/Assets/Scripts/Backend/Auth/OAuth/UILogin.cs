@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using GameVanilla.Core;
-using SaveData;
 using Unity.Services.CloudSave;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +8,7 @@ using UnityEngine.UI;
 public class UILogin : MonoBehaviour
 {
     public static Action OnSignIn;
+    public Action OnSignUp;
     [SerializeField] private Button signInButton;
     [SerializeField] private SceneTransition sceneTransition;
     [SerializeField] private LoginController loginController;
@@ -46,8 +46,15 @@ public class UILogin : MonoBehaviour
             OnSignIn?.Invoke();
             return;
         }
-        
-        loginPanel.SetActive(true);
+        if(loginPanel != null)
+        {
+            loginPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Login panel is not assigned");
+            OnSignUp?.Invoke();
+        }
     }
 
     // Update is called once per frame
