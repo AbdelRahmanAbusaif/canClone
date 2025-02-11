@@ -1,6 +1,9 @@
 using System.Collections;
+using System.Threading.Tasks;
 using GameVanilla.Core;
 using Unity.Services.Authentication;
+using Unity.Services.Core;
+using Unity.Services.Economy;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,7 +26,7 @@ public class LoadingManager : MonoBehaviour
     public bool isAssetsDownloaded = false;
     public bool isAPIDataFetched = false;
 
-    void Start()
+    async void Start()
     {
         remoteAssetDownloader.OnDownloadCompleted += (bool isAssetsDownloaded) => {
             if(isAssetsDownloaded)
@@ -46,6 +49,9 @@ public class LoadingManager : MonoBehaviour
             }
         };
 
+        await UnityServices.Instance.InitializeAsync();
+        await EconomyService.Instance.Configuration.SyncConfigurationAsync();
+        
         RetryButton.onClick.AddListener(() => {
             RetryPanel.SetActive(false);
             StartCoroutine(LoadGameData());

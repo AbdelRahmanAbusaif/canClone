@@ -14,27 +14,136 @@ public class ProfileManager : MonoBehaviour
 {
     public static Action OnUpdateSuccess;
 
-    [SerializeField] private TMP_InputField playerNameInputField;
-    [SerializeField] private TMP_InputField emailInputField;
-    [SerializeField] private TMP_InputField phoneNumberInputField;
-
+    [SerializeField] private List<InputProfilePanel> panels;
     [SerializeField] private Button updateButton;
     [SerializeField] private Button uploadImageButton;
 
     [SerializeField] private Image profileImage;
     [SerializeField] private Texture2D texture;
 
-    [SerializeField] private TextMeshProUGUI playerNameWarning;
-    [SerializeField] private TextMeshProUGUI emailWarning;
-    [SerializeField] private TextMeshProUGUI phoneNumberWarning;
+    [SerializeField] private GameObject uploadImagePanel;
     
     private CloudSaveManager cloudSaveManager;
+
     private string filepath = "";
+    private string playerName;
+    private string email;
+    private string phoneNumber;
+
+    private int currentPanelIndex = 0;
+
+
     private void OnEnable() {
         updateButton.onClick.AddListener(OnUpdateButtonClicked);
         uploadImageButton.onClick.AddListener(OnUploadImageButtonClicked);
 
         cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
+
+        foreach (var panel in panels)
+        {
+            panel.gameObject.SetActive(false); // Hide all panels initially
+        }
+
+        if (panels.Count > 0)
+        {
+            ActivatePanel(0); // Start with the first panel
+        }
+    }
+
+    private void ActivatePanel(int index)
+    {
+        if (index < 0 || index >= panels.Count)
+        {
+            Debug.LogWarning("Invalid panel index.");
+            return;
+        }
+
+        // Deactivate all panels
+        foreach (var panel in panels)
+        {
+            panel.gameObject.SetActive(false);
+        }
+
+        // Activate the current panel
+        var currentPanel = panels[index];
+        currentPanel.gameObject.SetActive(true);
+
+        // Set up the panel-specific logic
+        switch (currentPanel.Id)
+        {
+            case "Username":
+                currentPanel.ValidateInput = ValidateUsername;
+                playerName = currentPanel.inputField.text;
+                Debug.Log(playerName);
+                break;
+            case "Email":
+                currentPanel.ValidateInput = ValidateEmail;
+                email = currentPanel.inputField.text;
+                Debug.Log(email);
+                break;
+            case "Phone":
+                currentPanel.ValidateInput = ValidatePhoneNumber;
+                phoneNumber = currentPanel.inputField.text;
+                Debug.Log(phoneNumber);
+                break;
+        }
+
+        currentPanel.OnNextButtonClickedAction = success =>
+        {
+            if (success)
+            {
+                currentPanelIndex++;
+                if (currentPanelIndex < panels.Count)
+                {
+                    Debug.Log("Moving to the next panel...");
+
+                    
+                    ActivatePanel(currentPanelIndex);
+                }
+                else
+                {
+                    uploadImagePanel.SetActive(true);
+                    updateButton.gameObject.SetActive(true);
+
+                    currentPanel.gameObject.SetActive(false);
+                    Debug.Log("Sign-up process completed!");
+                }
+                switch (currentPanel.Id)
+                {
+                    case "Username":
+                        playerName = currentPanel.inputField.text;
+                        Debug.Log(playerName);
+                        break;
+                    case "Email":
+                        email = currentPanel.inputField.text;
+                        Debug.Log(email);
+                        break;
+                    case "Phone":
+                        phoneNumber = currentPanel.inputField.text;
+                        Debug.Log(phoneNumber);
+                        break;
+                }
+            }
+            else
+            {
+                Debug.Log("Validation failed. Please check your data.");
+            }
+        };
+    }
+    private bool ValidateUsername(string input)
+    {
+        return !string.IsNullOrEmpty(input) && input.Length >= 3;
+    }
+
+    private bool ValidateEmail(string input)
+    {
+        return System.Text.RegularExpressions.Regex.IsMatch(input, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+    }
+
+    private bool ValidatePhoneNumber(string input)
+    {
+        string pattern = @"^07[8-9][0-9]{7}$";
+        return Regex.IsMatch(input, pattern);
     }
 
     private void OnUploadImageButtonClicked()
@@ -89,49 +198,44 @@ public class ProfileManager : MonoBehaviour
         }
     }
 
-
     private async void OnUpdateButtonClicked()
     {
-        string playerName = playerNameInputField.text;
-        string email = emailInputField.text;
-        string phoneNumber = phoneNumberInputField.text;
+        // // Here will be the code for updating the player profile
+        // if(Validation.IsValidName(playerName))
+        // {
+        //     Debug.Log("Player name is valid");
+        // }
+        // else
+        // {
+        //     Debug.Log("Player name is invalid");
+        //     playerNameWarning.gameObject.SetActive(true);
 
-        // Here will be the code for updating the player profile
-        if(Validation.IsValidName(playerName))
-        {
-            Debug.Log("Player name is valid");
-        }
-        else
-        {
-            Debug.Log("Player name is invalid");
-            playerNameWarning.gameObject.SetActive(true);
+        //     return;
+        // }
 
-            return;
-        }
+        // if(Validation.IsValidEmail(email))
+        // {
+        //     Debug.Log("Email is valid");
+        // }
+        // else
+        // {
+        //     Debug.Log("Email is invalid");
 
-        if(Validation.IsValidEmail(email))
-        {
-            Debug.Log("Email is valid");
-        }
-        else
-        {
-            Debug.Log("Email is invalid");
+        //     emailWarning.gameObject.SetActive(true);
+        //     return;
+        // }
 
-            emailWarning.gameObject.SetActive(true);
-            return;
-        }
+        // if(Validation.IsValidPhoneNumber(phoneNumber))
+        // {
+        //     Debug.Log("Phone number is valid");
+        // }
+        // else
+        // {
+        //     Debug.Log("Phone number is invalid");
 
-        if(Validation.IsValidPhoneNumber(phoneNumber))
-        {
-            Debug.Log("Phone number is valid");
-        }
-        else
-        {
-            Debug.Log("Phone number is invalid");
-
-            phoneNumberWarning.gameObject.SetActive(true);
-            return;
-        }
+        //     phoneNumberWarning.gameObject.SetActive(true);
+        //     return;
+        // }
 
         if(String.IsNullOrEmpty(filepath))
         {
@@ -173,28 +277,10 @@ public class ProfileManager : MonoBehaviour
         Debug.Log("Player profile updated successfully");
         OnUpdateSuccess?.Invoke();
     }
-    private class Validation{
-        public static bool IsValidName(string name)
-        {
-            Regex regex = new(@"^[a-zA-Z0-9]*$");
-            return regex.IsMatch(name) && name.Length > 0;
-        }
-        public static bool IsValidEmail(string email)
-        {
-            try
-            {
-                string pattern = @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
-                return Regex.IsMatch(email, pattern);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public static bool IsValidPhoneNumber(string phoneNumber)
-        {
-            string pattern = @"^07[8-9][0-9]{7}$";
-            return Regex.IsMatch(phoneNumber, pattern);
-        }
+
+    private void OnDisable() 
+    {
+        updateButton.onClick.RemoveListener(OnUpdateButtonClicked);
+        uploadImageButton.onClick.RemoveListener(OnUploadImageButtonClicked);
     }
 }
