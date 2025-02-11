@@ -716,7 +716,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 37e85ca5b7c4e490f9a84953beaa6369,
+      objectReference: {fileID: 21300000, guid: 81825b080489144c58fe47b7cce50dfd,
         type: 3}
     - target: {fileID: 1210917281038611772, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}
@@ -861,12 +861,29 @@ PrefabInstance:
     - target: {fileID: 6282386961248359291, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}
       propertyPath: m_text
-      value: Save My Progress
+      value: Unity Player Account
       objectReference: {fileID: 0}
     - target: {fileID: 6282386961248359291, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}
       propertyPath: m_fontSize
       value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282386961248359291, guid: 84bc6c82c81a2364f99ff675ea6bf768,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 015573da50ed04390be9f20287a541d6,
+        type: 2}
+    - target: {fileID: 6282386961248359291, guid: 84bc6c82c81a2364f99ff675ea6bf768,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2237749729835323621, guid: 015573da50ed04390be9f20287a541d6,
+        type: 2}
+    - target: {fileID: 6282386961248359291, guid: 84bc6c82c81a2364f99ff675ea6bf768,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3439,6 +3456,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gust
       objectReference: {fileID: 0}
+    - target: {fileID: 1210917281038611772, guid: 84bc6c82c81a2364f99ff675ea6bf768,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3181641777101304931, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3492,7 +3514,7 @@ PrefabInstance:
     - target: {fileID: 5297025032493593276, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5297025032493593276, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}
@@ -3502,7 +3524,7 @@ PrefabInstance:
     - target: {fileID: 5297025032493593276, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5297025032493593276, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}
@@ -3552,12 +3574,12 @@ PrefabInstance:
     - target: {fileID: 5297025032493593276, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 679
       objectReference: {fileID: 0}
     - target: {fileID: 5297025032493593276, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -578.8025
       objectReference: {fileID: 0}
     - target: {fileID: 5297025032493593276, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}

@@ -42,19 +42,7 @@ public class ProfileInformationUI : MonoBehaviour
             Debug.LogException(ex);
         }
 
-
-        if(PlayerPrefs.GetInt("IsAnonymous") == 1)
-        {
-            linkMyAccountButton.gameObject.SetActive(true);
-        }
-        else
-        {
-            linkMyAccountButton.gameObject.SetActive(false);
-            LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
-        }
-
         signOutButton.onClick.AddListener(OnSignOutButtonClicked);
-        linkMyAccountButton.onClick.AddListener(OnLinkAccountButtonClicked);
     }
 
     private void OnSignOutButtonClicked()
@@ -69,9 +57,4 @@ public class ProfileInformationUI : MonoBehaviour
             Debug.Log("User is not signed in");
         }
     }
-    private void OnLinkAccountButtonClicked()
-    {
-        // loginController.InitLinkAccount();
-    }
-
 }

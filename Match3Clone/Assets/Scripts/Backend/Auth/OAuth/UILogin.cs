@@ -46,18 +46,8 @@ public class UILogin : MonoBehaviour
             OnSignIn?.Invoke();
             return;
         }
-        int anonymousValue = PlayerPrefs.GetInt("IsAnonymous");
-        if(anonymousValue == 0)
-        {
-            loginPanel.SetActive(true);
-        }
-        else
-        {
-            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerData);
-            await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileImage", defaultImage);
-
-            sceneTransition.PerformTransition();
-        }
+        
+        loginPanel.SetActive(true);
     }
 
     // Update is called once per frame

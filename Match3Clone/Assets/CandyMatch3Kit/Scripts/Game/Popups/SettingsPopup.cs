@@ -64,12 +64,6 @@ namespace GameVanilla.Game.Popups
             await UnityServices.Instance.InitializeAsync();
 
             // if player Sign in with unity account, load the player profile images
-            
-            anonymousValue = PlayerPrefs.GetInt("IsAnonymous");
-            if(anonymousValue == 1)
-            {
-                return;
-            }
 
             CloudSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
