@@ -280,7 +280,7 @@ namespace GameVanilla.Game.Scenes
         /// <summary>
         /// Opens the lose popup.
         /// </summary>
-        public async Task OpenLosePopup()
+        public async void OpenLosePopup()
         {
             PuzzleMatchManager.instance.livesSystem.RemoveLife();
 
