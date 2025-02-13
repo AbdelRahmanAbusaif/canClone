@@ -22,8 +22,8 @@ public class LeaderboardMainMenu : MonoBehaviour
 
         try
         {
-            TestAddScore();
-            Debug.Log("Test Add Score");
+            // TestAddScore();
+            // Debug.Log("Test Add Score");
 
             var playerScore = await LeaderboardManager.Instance.GetPlayerProfileScore();
             leaderboardPlayerProfile.Initializer(playerScore);

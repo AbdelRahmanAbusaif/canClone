@@ -46,6 +46,8 @@ public class UILogin : MonoBehaviour
             OnSignIn?.Invoke();
             return;
         }
+        LeaderboardManager.Instance.AddScore(0);
+
         if(loginPanel != null)
         {
             loginPanel.SetActive(true);
