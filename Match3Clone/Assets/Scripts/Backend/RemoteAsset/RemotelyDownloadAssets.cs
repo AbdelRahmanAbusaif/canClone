@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using SaveData;
 using Unity.Services.Authentication;
@@ -10,7 +11,7 @@ using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class RemotlyDownloadAssets : MonoBehaviour
+public class RemotelyDownloadAssets : MonoBehaviour
 {
     private string savePath;
     public Action<bool> OnDownloadCompleted;
@@ -26,33 +27,48 @@ public class RemotlyDownloadAssets : MonoBehaviour
         RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
     }
-
-    private static async Task CheckIsSignIn()
-    {
-        if (!AuthenticationService.Instance.IsSignedIn)
-        {
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-        }
-    }
-
-
     private void ApplyRemoteConfig(ConfigResponse response)
     {
         Debug.Log("Remote Config Fetched Successfully!");
 
-        List<GameAssetsFiles> gameAssetsFiles = new List<GameAssetsFiles>
+       var assetKeys = new Dictionary<string, string>
         {
-            new() {
-                FileName = "logo.png",
-                FileURL = RemoteConfigService.Instance.appConfig.GetString("LogoURL"),
-                LocalURL = savePath
-            },
-            new() {
-                FileName = "background.png",
-                FileURL = RemoteConfigService.Instance.appConfig.GetString("BackgroundURL"),
-                LocalURL = savePath
-            }
+            { "logo.png", "LogoURL" },
+            { "background.png", "BackgroundURL" },
+            { "BackGroundMusic.wav", "BackgroundMusicURL" },
+            { "PurpleCandy.png", "PurpleCandyURL" },
+            { "RedCandy.png", "RedCandyURL" },
+            { "GreenCandy.png", "GreenCandyURL" },
+            { "YellowCandy.png", "YellowCandyURL" },
+            { "OrangeCandy.png", "OrangeCandyURL" },
+            { "BlueCandy.png", "BlueCandyURL" },
+            { "WrappedYellowCandy.png", "WrappedYellowCandyURL" },
+            { "WrappedRedCandy.png", "WrappedRedCandyURL" },
+            { "WrappedPurpleCandy.png", "WrappedPurpleCandyURL" },
+            { "WrappedOrangeCandy.png", "WrappedOrangeCandyURL" },
+            { "WrappedGreenCandy.png", "WrappedGreenCandyURL" },
+            { "WrappedBlueCandy.png", "WrappedBlueCandyURL" },
+            { "StripedVerticalYellowCandy.png", "StripedVerticalYellowCandyURL" },
+            { "StripedVerticalRedCandy.png", "StripedVerticalRedCandyURL" },
+            { "StripedVerticalPurpleCandy.png", "StripedVerticalPurpleCandyURL" },
+            { "StripedVerticalOrangeCandy.png", "StripedVerticalOrangeCandyURL" },
+            { "StripedVerticalGreenCandy.png", "StripedVerticalGreenCandyURL" },
+            { "StripedVerticalBlueCandy.png", "StripedVerticalBlueCandyURL" },
+            { "StripedHorizontalYellowCandy.png", "StripedHorizontalYellowCandyURL" },
+            { "StripedHorizontalRedCandy.png", "StripedHorizontalRedCandyURL" },
+            { "StripedHorizontalPurpleCandy.png", "StripedHorizontalPurpleCandyURL" },
+            { "StripedHorizontalOrangeCandy.png", "StripedHorizontalOrangeCandyURL" },
+            { "StripedHorizontalGreenCandy.png", "StripedHorizontalGreenCandyURL" },
+            { "StripedHorizontalBlueCandy.png", "StripedHorizontalBlueCandyURL" },
+            { "ColorBomb.png", "ColorBombURL" }
         };
+
+        List<GameAssetsFiles> gameAssetsFiles = assetKeys.Select(kvp => new GameAssetsFiles
+        {
+            FileName = kvp.Key,
+            FileURL = RemoteConfigService.Instance.appConfig.GetString(kvp.Value),
+            LocalURL = savePath
+        }).ToList();
 
         GameAssetsFiles = gameAssetsFiles;
     }
@@ -72,7 +88,7 @@ public class RemotlyDownloadAssets : MonoBehaviour
         {
             GameAssetsFiles gameAssetsLoad = savedFiles.Find(f => f.FileName == file.FileName);
 
-            if (gameAssetsLoad != null)
+            if (gameAssetsLoad != null && File.Exists(file.LocalURL + file.FileName))
             {
                 Debug.Log($"{file.FileName} exists locally. Checking for updates...");
 

@@ -513,7 +513,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 205807968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6ae00d2d42c3bf4e93d1e90137be1e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 755e9780c8940aa49a0c537c73e63659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GameAssetsFiles: []
@@ -3985,6 +3985,7 @@ GameObject:
   - component: {fileID: 1309982044229341120}
   - component: {fileID: 3826282035357101424}
   - component: {fileID: 2961772001385170101}
+  - component: {fileID: 3826282035357101425}
   m_Layer: 5
   m_Name: PurpleCandie
   m_TagString: Untagged
@@ -4941,6 +4942,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787731353469823006}
   m_CullTransparentMesh: 0
+--- !u!114 &3826282035357101425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787731353469823006}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d354cd4ed6b2240b0e7b6e32272490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageKey: PurpleCandie
+  image: {fileID: 2961772001385170101}
 --- !u!224 &3859926062516027713
 RectTransform:
   m_ObjectHideFlags: 0
