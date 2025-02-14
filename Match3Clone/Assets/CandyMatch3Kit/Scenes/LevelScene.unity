@@ -2614,12 +2614,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leaderboardId: RED_LEADERBOARD
+  leaderboardTitleKey: RedLeaderboardTitle
   playerPerPage: 10
   leaderboardItemPrefab:
   - {fileID: 8879040379389349698, guid: d8e681eb0fdbbc64d8f84d4607300180, type: 3}
   - {fileID: 4703618176471812214, guid: 87827ccd1f49e924d860d0385cf0beff, type: 3}
   - {fileID: 5301227870174008127, guid: 8bfd18c8702199946922e28f134e04f8, type: 3}
   - {fileID: 3077946221920023372, guid: 8f1563800595e9841ac2d467a612f3b2, type: 3}
+  leaderboardText: {fileID: 7456205620341523563}
   leaderboardPlayerProfile: {fileID: 993665664}
   playerContainer: {fileID: 556817749547939717}
 --- !u!1001 &122199333
@@ -11426,12 +11428,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leaderboardId: PURPLE_LEADERBOARD
+  leaderboardTitleKey: PurpleLeaderboardTitle
   playerPerPage: 10
   leaderboardItemPrefab:
   - {fileID: 8879040379389349698, guid: d8e681eb0fdbbc64d8f84d4607300180, type: 3}
   - {fileID: 4703618176471812214, guid: 87827ccd1f49e924d860d0385cf0beff, type: 3}
   - {fileID: 5301227870174008127, guid: 8bfd18c8702199946922e28f134e04f8, type: 3}
   - {fileID: 3077946221920023372, guid: 8f1563800595e9841ac2d467a612f3b2, type: 3}
+  leaderboardText: {fileID: 1674760894}
   leaderboardPlayerProfile: {fileID: 993665664}
   playerContainer: {fileID: 556817749547939717}
 --- !u!1 &567108520
@@ -13778,12 +13782,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leaderboardId: ORANGE_LEADERBOARD
+  leaderboardTitleKey: OrangeLeaderboardTitle
   playerPerPage: 10
   leaderboardItemPrefab:
   - {fileID: 8879040379389349698, guid: d8e681eb0fdbbc64d8f84d4607300180, type: 3}
   - {fileID: 4703618176471812214, guid: 87827ccd1f49e924d860d0385cf0beff, type: 3}
   - {fileID: 5301227870174008127, guid: 8bfd18c8702199946922e28f134e04f8, type: 3}
   - {fileID: 3077946221920023372, guid: 8f1563800595e9841ac2d467a612f3b2, type: 3}
+  leaderboardText: {fileID: 360076920}
   leaderboardPlayerProfile: {fileID: 993665664}
   playerContainer: {fileID: 556817749547939717}
 --- !u!1 &689616448
@@ -15195,10 +15201,10 @@ RectTransform:
   - {fileID: 1758981395}
   m_Father: {fileID: 1837281552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 109.89142, y: -83.3}
+  m_SizeDelta: {x: 219.78285, y: 166.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &755706022
 MonoBehaviour:
@@ -15415,10 +15421,10 @@ RectTransform:
   - {fileID: 1680013239}
   m_Father: {fileID: 1837281552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 989.0228, y: -83.3}
+  m_SizeDelta: {x: 219.78285, y: 166.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &769427552
 MonoBehaviour:
@@ -15757,12 +15763,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leaderboardId: GREEN_LEADERBOARD
+  leaderboardTitleKey: GreenLeaderboardTitle
   playerPerPage: 10
   leaderboardItemPrefab:
   - {fileID: 8879040379389349698, guid: d8e681eb0fdbbc64d8f84d4607300180, type: 3}
   - {fileID: 4703618176471812214, guid: 87827ccd1f49e924d860d0385cf0beff, type: 3}
   - {fileID: 5301227870174008127, guid: 8bfd18c8702199946922e28f134e04f8, type: 3}
   - {fileID: 3077946221920023372, guid: 8f1563800595e9841ac2d467a612f3b2, type: 3}
+  leaderboardText: {fileID: 659806448}
   leaderboardPlayerProfile: {fileID: 993665664}
   playerContainer: {fileID: 556817749547939717}
 --- !u!1001 &814601525
@@ -25273,10 +25281,10 @@ RectTransform:
   - {fileID: 1550492235}
   m_Father: {fileID: 1837281552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 769.24, y: -83.3}
+  m_SizeDelta: {x: 219.78285, y: 166.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1315772745
 MonoBehaviour:
@@ -29044,10 +29052,10 @@ RectTransform:
   - {fileID: 2108145104}
   m_Father: {fileID: 1837281552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 329.6743, y: -83.3}
+  m_SizeDelta: {x: 219.78285, y: 166.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1529226271
 MonoBehaviour:
@@ -29793,12 +29801,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leaderboardId: BLUE_LEADERBOARD
+  leaderboardTitleKey: BlueLeaderboardTitle
   playerPerPage: 10
   leaderboardItemPrefab:
   - {fileID: 8879040379389349698, guid: d8e681eb0fdbbc64d8f84d4607300180, type: 3}
   - {fileID: 4703618176471812214, guid: 87827ccd1f49e924d860d0385cf0beff, type: 3}
   - {fileID: 5301227870174008127, guid: 8bfd18c8702199946922e28f134e04f8, type: 3}
   - {fileID: 3077946221920023372, guid: 8f1563800595e9841ac2d467a612f3b2, type: 3}
+  leaderboardText: {fileID: 1282349229}
   leaderboardPlayerProfile: {fileID: 993665664}
   playerContainer: {fileID: 556817749547939717}
 --- !u!224 &1574062104 stripped
@@ -33859,12 +33869,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leaderboardId: YELLOW_LEADERBOARD
+  leaderboardTitleKey: YellowLeaderboardTitle
   playerPerPage: 10
   leaderboardItemPrefab:
   - {fileID: 8879040379389349698, guid: d8e681eb0fdbbc64d8f84d4607300180, type: 3}
   - {fileID: 4703618176471812214, guid: 87827ccd1f49e924d860d0385cf0beff, type: 3}
   - {fileID: 5301227870174008127, guid: 8bfd18c8702199946922e28f134e04f8, type: 3}
   - {fileID: 3077946221920023372, guid: 8f1563800595e9841ac2d467a612f3b2, type: 3}
+  leaderboardText: {fileID: 2018398349}
   leaderboardPlayerProfile: {fileID: 993665664}
   playerContainer: {fileID: 556817749547939717}
 --- !u!1 &1791166345
@@ -34807,26 +34819,38 @@ MonoBehaviour:
   leaderboardButtons:
   - Button: {fileID: 755706020}
     LeaderboardPanel: {fileID: 120028111}
+    leaderboardText: {fileID: 1758981396}
+    LeaderboardTitleKey: RedLeaderboardTitle
     buttonName: IsRedLeaderboard
     isLeaderboardActive: 0
   - Button: {fileID: 1529226269}
     LeaderboardPanel: {fileID: 1569883304}
+    leaderboardText: {fileID: 2108145105}
+    LeaderboardTitleKey: BlueLeaderboardTitle
     buttonName: IsBlueLeaderboard
     isLeaderboardActive: 0
   - Button: {fileID: 1960192493}
     LeaderboardPanel: {fileID: 811876787}
+    leaderboardText: {fileID: 1031915645}
+    LeaderboardTitleKey: GreenLeaderboardTitle
     buttonName: IsGreenLeaderboard
     isLeaderboardActive: 0
   - Button: {fileID: 1315772743}
     LeaderboardPanel: {fileID: 563543852}
+    leaderboardText: {fileID: 1550492236}
+    LeaderboardTitleKey: PurpleLeaderboardTitle
     buttonName: IsPurpleLeaderboard
     isLeaderboardActive: 0
   - Button: {fileID: 769427550}
     LeaderboardPanel: {fileID: 1791089589}
+    leaderboardText: {fileID: 1680013240}
+    LeaderboardTitleKey: YellowLeaderboardTitle
     buttonName: IsYellowLeaderboard
     isLeaderboardActive: 0
   - Button: {fileID: 1987874085}
     LeaderboardPanel: {fileID: 685052084}
+    leaderboardText: {fileID: 1598410825}
+    LeaderboardTitleKey: OrangeLeaderboardTitle
     buttonName: IsOrangeLeaderboard
     isLeaderboardActive: 0
 --- !u!1001 &1838726573
@@ -36178,7 +36202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1888415831
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37383,10 +37407,10 @@ RectTransform:
   - {fileID: 1031915644}
   m_Father: {fileID: 1837281552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 549.45715, y: -83.3}
+  m_SizeDelta: {x: 219.78285, y: 166.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1960192495
 MonoBehaviour:
@@ -38074,10 +38098,10 @@ RectTransform:
   - {fileID: 1598410824}
   m_Father: {fileID: 1837281552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1208.8058, y: -83.3}
+  m_SizeDelta: {x: 219.78285, y: 166.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1987874087
 MonoBehaviour:
