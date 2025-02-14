@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class LeaderboardMainMenu : MonoBehaviour
 {
+    [SerializeField] private string leaderboardId;
     [SerializeField] private int playerPerPage = 10;
     [SerializeField] private List<LeaderboardItem> leaderboardItemPrefab;
     [SerializeField] private LeaderboardItem leaderboardPlayerProfile;
@@ -13,8 +15,7 @@ public class LeaderboardMainMenu : MonoBehaviour
     
     private void TestAddScore()
     {
-        LeaderboardManager.Instance.AddScore(Random.Range(0, 1000));
-
+        LeaderboardManager.Instance.AddScore(leaderboardId,Random.Range(0, 1000));
         Debug.Log("Score added successfully.");
     }
     private async void OnEnable()
@@ -25,11 +26,11 @@ public class LeaderboardMainMenu : MonoBehaviour
             // TestAddScore();
             // Debug.Log("Test Add Score");
 
-            var playerScore = await LeaderboardManager.Instance.GetPlayerProfileScore();
+            var playerScore = await LeaderboardManager.Instance.GetPlayerProfileScore(leaderboardId);
             leaderboardPlayerProfile.Initializer(playerScore);
 
             ClearPlayer();
-            var scoreResponse = await LeaderboardManager.Instance.GetPlayerScore();
+            var scoreResponse = await LeaderboardManager.Instance.GetPlayerScore(leaderboardId);
 
             for (int i = 0; i < scoreResponse.Results.Count && i < playerPerPage ; i++)
             {

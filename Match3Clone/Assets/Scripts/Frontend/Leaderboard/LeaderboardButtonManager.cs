@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.Services.RemoteConfig;
+using UnityEngine;
+using static RemotelyDownloadAssets;
+
+public class LeaderboardButtonManager : MonoBehaviour
+{
+    [SerializeField] private List<LeaderboardButton> leaderboardButtons;
+    bool isFirstLeaderboardEnable = true;
+    private async void Awake() 
+    {
+        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
+        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+    }
+
+    private void ApplyRemoteConfig(ConfigResponse response)
+    {
+        // Implement the logic to apply remote config settings to leaderboard buttons
+
+        foreach(var leaderboardButton in leaderboardButtons)
+        {
+            leaderboardButton.isLeaderboardActive = RemoteConfigService.Instance.appConfig.GetBool(leaderboardButton.buttonName);
+            leaderboardButton.Button.SetActive(leaderboardButton.isLeaderboardActive);
+
+            if(leaderboardButton.isLeaderboardActive && isFirstLeaderboardEnable)
+            {
+                isFirstLeaderboardEnable = false;
+                leaderboardButton.LeaderboardPanel.SetActive(true);
+            }
+        }
+    }
+
+    public void DisableAllLeaderboardButtons()
+    {
+        foreach (var leaderboardButton in leaderboardButtons)
+        {
+            leaderboardButton.LeaderboardPanel.SetActive(false);
+        }
+    }
+}
+[Serializable]
+public class LeaderboardButton
+{
+    public GameObject Button;
+    public GameObject LeaderboardPanel;
+    public string buttonName;
+    public bool isLeaderboardActive;
+}
