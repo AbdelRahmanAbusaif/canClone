@@ -58,7 +58,16 @@ public class RemotelyDownloadAssets : MonoBehaviour
             { "StripedHorizontalOrangeCandy.png", "StripedHorizontalOrangeCandyURL" },
             { "StripedHorizontalGreenCandy.png", "StripedHorizontalGreenCandyURL" },
             { "StripedHorizontalBlueCandy.png", "StripedHorizontalBlueCandyURL" },
-            { "ColorBomb.png", "ColorBombURL" }
+            { "ColorBomb.png", "ColorBombURL" },
+            { "Syrup1.png", "Syrup1URL" },
+            { "Syrup2.png", "Syrup2URL" },
+            { "Unbreakable.png", "UnbreakableURL" },
+            { "Watermelon.png", "WatermelonURL" },
+            { "Cherry.png", "CherryURL" },
+            { "Chocolate.png", "ChocolateURL" },
+            { "Honey.png", "HoneyURL" },
+            { "Ice.png", "IceURL" },
+            { "Marshmallow.png", "MarshmallowURL" }
         };
 
         List<GameAssetsFiles> gameAssetsFiles = assetKeys.Select(kvp => new GameAssetsFiles

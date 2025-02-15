@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 using GameVanilla.Core;
 using GameVanilla.Game.Common;
+using SaveData;
+using System.Threading.Tasks;
+using Unity.Mathematics;
+using System.IO;
 
 namespace GameVanilla.Game.UI
 {
@@ -39,66 +43,135 @@ namespace GameVanilla.Game.UI
         /// Fills this element with the information of the specified goal.
         /// </summary>
         /// <param name="goal">The associated goal.</param>
-        public virtual void Fill(Goal goal)
+        public virtual async void Fill(Goal goal)
         {
             currentGoal = goal;
             if (goal is CollectCandyGoal)
             {
-                var candyGoal = (CollectCandyGoal)goal;
-                var texture = Resources.Load("Game/" + candyGoal.candyType + "Candy") as Texture2D;
-                if (texture != null)
-                {
-                    image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
-                        new Vector2(0.5f, 0.5f), 100);
-                }
-                targetAmount = candyGoal.amount;
-                amountText.text = targetAmount.ToString();
+            var candyGoal = (CollectCandyGoal)goal;
+            var path = "";
+            switch(candyGoal.candyType)
+            {
+                case CandyColor.Blue:
+                path = Path.Combine("DownloadedAssets", "BlueCandy");
+                break;
+                case CandyColor.Green:
+                path = Path.Combine("DownloadedAssets", "GreenCandy");
+                break;
+                case CandyColor.Orange:
+                path = Path.Combine("DownloadedAssets", "OrangeCandy");
+                break;
+                case CandyColor.Purple:
+                path = Path.Combine("DownloadedAssets", "PurpleCandy");
+                break;
+                case CandyColor.Red:
+                path = Path.Combine("DownloadedAssets", "RedCandy");
+                break; 
+                case CandyColor.Yellow:
+                path = Path.Combine("DownloadedAssets", "YellowCandy");
+                break;
+            }
+            Debug.Log(path);
+            var sprite = await LocalSaveManager.Instance.LoadSpriteAsync(path);
+            var texture = sprite.texture;
+            if (texture != null)
+            {
+                image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
+                new Vector2(0.5f, 0.5f), 100);
+            }
+            targetAmount = candyGoal.amount;
+            amountText.text = targetAmount.ToString();
             }
             else if (goal is CollectElementGoal)
             {
-                var elementGoal = (CollectElementGoal)goal;
-                var texture = Resources.Load("Game/" + elementGoal.elementType) as Texture2D;
-                if (texture != null)
-                {
-                    image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
-                        new Vector2(0.5f, 0.5f), 100);
-                }
-                targetAmount = elementGoal.amount;
-                amountText.text = targetAmount.ToString();
+            var elementGoal = (CollectElementGoal)goal;
+            var path = "";
+            switch(elementGoal.elementType)
+            {
+                case ElementType.Honey:
+                path = Path.Combine("DownloadedAssets", "Honey");
+                break;
+                case ElementType.Ice:
+                path = Path.Combine("DownloadedAssets", "Ice");
+                break;
+                case ElementType.Syrup1:
+                path = Path.Combine("DownloadedAssets", "Syrup1");
+                break;
+                case ElementType.Syrup2:
+                path = Path.Combine("DownloadedAssets", "Syrup2");
+                break;
+            }
+            var sprite = await LocalSaveManager.Instance.LoadSpriteAsync(path);
+            var texture = sprite.texture;
+            if (texture != null)
+            {
+                image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
+                new Vector2(0.5f, 0.5f), 100);
+            }
+            targetAmount = elementGoal.amount;
+            amountText.text = targetAmount.ToString();
             }
             else if (goal is CollectSpecialBlockGoal)
             {
-                var specialGoal = (CollectSpecialBlockGoal)goal;
-                var texture = Resources.Load("Game/" + specialGoal.specialBlockType) as Texture2D;
-                if (texture != null)
-                {
-                    image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
-                        new Vector2(0.5f, 0.5f), 100);
-                }
-                targetAmount = specialGoal.amount;
-                amountText.text = targetAmount.ToString();
+            var specialGoal = (CollectSpecialBlockGoal)goal;
+            var path = "";
+
+            switch(specialGoal.specialBlockType)
+            {
+                case SpecialBlockType.Chocolate:
+                path = Path.Combine("DownloadedAssets", "Chocolate");
+                break;
+                case SpecialBlockType.Marshmallow:
+                path = Path.Combine("DownloadedAssets", "Marshmallow");
+                break;
+                case SpecialBlockType.Unbreakable:
+                path = Path.Combine("DownloadedAssets", "Unbreakable");
+                break;
+            }
+            var sprite = await LocalSaveManager.Instance.LoadSpriteAsync(path);
+            var texture = sprite.texture;
+            if (texture != null)
+            {
+                image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
+                new Vector2(0.5f, 0.5f), 100);
+            }
+            targetAmount = specialGoal.amount;
+            amountText.text = targetAmount.ToString();
             }
             else if (goal is CollectCollectableGoal)
             {
-                var collectableGoal = (CollectCollectableGoal)goal;
-                var texture = Resources.Load("Game/" + collectableGoal.collectableType) as Texture2D;
-                if (texture != null)
-                {
-                    image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
-                        new Vector2(0.5f, 0.5f), 100);
-                }
-                targetAmount = collectableGoal.amount;
-                amountText.text = targetAmount.ToString();
+            var collectableGoal = (CollectCollectableGoal)goal;
+            var path = "";
+            switch(collectableGoal.collectableType)
+            {
+                case CollectableType.Cherry:
+                path = Path.Combine("DownloadedAssets", "Cherry");
+                break;
+                case CollectableType.Watermelon:
+                path = Path.Combine("DownloadedAssets", "Watermelon");
+                break;
+            }
+            var sprite = await LocalSaveManager.Instance.LoadSpriteAsync(path);
+            var texture = sprite.texture;
+            if (texture != null)
+            {
+                image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
+                new Vector2(0.5f, 0.5f), 100);
+            }
+            targetAmount = collectableGoal.amount;
+            amountText.text = targetAmount.ToString();
             }
             else if (goal is DestroyAllChocolateGoal)
             {
-                var texture = Resources.Load("Game/Chocolate") as Texture2D;
-                if (texture != null)
-                {
-                    image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
-                        new Vector2(0.5f, 0.5f), 100);
-                }
-                amountText.text = "All";
+            var path = Path.Combine("DownloadedAssets", "Chocolate");
+            var sprite = await LocalSaveManager.Instance.LoadSpriteAsync(path);
+            var texture = sprite.texture;
+            if (texture != null)
+            {
+                image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
+                new Vector2(0.5f, 0.5f), 100);
+            }
+            amountText.text = "All";
             }
         }
 
