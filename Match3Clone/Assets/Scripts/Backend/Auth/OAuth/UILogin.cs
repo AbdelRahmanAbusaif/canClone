@@ -63,13 +63,6 @@ public class UILogin : MonoBehaviour
         var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerProfile" });
         var dataImage = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerProfileImage" }, new Unity.Services.CloudSave.Models.Data.Player.LoadOptions(new Unity.Services.CloudSave.Models.Data.Player.PublicReadAccessClassOptions()));
 
-        if(data.ContainsKey("PlayerProfile") && dataImage.ContainsKey("PlayerProfileImage"))
-        {
-            Debug.Log("Player profile already exists");
-
-            OnSignIn?.Invoke();
-            return;
-        }
         // LeaderboardManager.Instance.AddScore(0);
         if(isBlueLeaderboard)
         {
@@ -94,6 +87,14 @@ public class UILogin : MonoBehaviour
         if(isPurpleLeaderboard)
         {
             LeaderboardManager.Instance.AddScore("PURPLE_LEADERBOARD",0);
+        }
+        
+        if(data.ContainsKey("PlayerProfile") && dataImage.ContainsKey("PlayerProfileImage"))
+        {
+            Debug.Log("Player profile already exists");
+
+            OnSignIn?.Invoke();
+            return;
         }
 
 

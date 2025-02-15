@@ -14,6 +14,7 @@ using GameVanilla.Game.Popups;
 using GameVanilla.Game.UI;
 using System.Threading.Tasks;
 using SaveData;
+using System;
 
 namespace GameVanilla.Game.Scenes
 {
@@ -22,6 +23,8 @@ namespace GameVanilla.Game.Scenes
     /// </summary>
 	public class GameScene : BaseScene
 	{
+        // when call this event will be added score to player profile
+        public Action OnWinPopupOpened;
 		public GameBoard gameBoard;
 
 		public GameUi gameUi;
@@ -222,6 +225,7 @@ namespace GameVanilla.Game.Scenes
             {
                 LevelComplete levelComplete = new LevelComplete();
 
+                OnWinPopupOpened?.Invoke();
                 levelComplete.NumberLevel = level.id;
                 levelComplete.Stars = 0;
                 levelComplete.Score = 0;

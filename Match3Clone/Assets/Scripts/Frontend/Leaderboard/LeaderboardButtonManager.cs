@@ -42,6 +42,10 @@ public class LeaderboardButtonManager : MonoBehaviour
             leaderboardButton.LeaderboardPanel.SetActive(false);
         }
     }
+    private void OnDestroy() 
+    {
+        RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
+    }
 }
 [Serializable]
 public class LeaderboardButton

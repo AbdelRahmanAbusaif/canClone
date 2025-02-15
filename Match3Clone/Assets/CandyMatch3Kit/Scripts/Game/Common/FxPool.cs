@@ -47,6 +47,12 @@ namespace GameVanilla.Game.Common
         private readonly List<ObjectPool> elementExplosions = new List<ObjectPool>();
         private readonly List<ObjectPool> specialBlockExplosions = new List<ObjectPool>();
 
+                
+        /// <summary>
+        /// Event triggered when the candy is exploded.
+        /// </summary>
+        public event System.Action<CandyColor> OnExplode;
+
         /// <summary>
         /// Unity's Awake method.
         /// </summary>
@@ -97,6 +103,7 @@ namespace GameVanilla.Game.Common
         /// <returns>The explosion pool of the specified candy color.</returns>
         public ObjectPool GetCandyExplosionPool(CandyColor color)
         {
+            OnExplode?.Invoke(color);
             return candyExplosions[(int) color];
         }
 
