@@ -16,6 +16,7 @@ namespace GameVanilla.Game.Common
     /// </summary>
     public class FxPool : MonoBehaviour
     {
+        public GameObject tile;
         public ObjectPool spawnParticles;
 
         public ObjectPool blueCandyExplosion;
@@ -107,6 +108,7 @@ namespace GameVanilla.Game.Common
         /// <returns>The explosion pool of the specified striped candy.</returns>
         public ObjectPool GetStripedCandyExplosionPool(StripeDirection direction)
         {
+            tile.gameObject.GetComponent<Animator>().Play("shake");
             switch (direction)
             {
                 case StripeDirection.Horizontal:

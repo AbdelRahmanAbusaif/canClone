@@ -568,14 +568,14 @@ namespace GameVanilla.Game.Common
                         var selectedTileCopy = selectedTile;
                         selectedTile.GetComponent<SpriteRenderer>().sortingOrder = 1;
                         currentlySwapping = true;
-                        LeanTween.LeanTween.move(selectedTile, hit.collider.gameObject.transform.position, 0.25f).setOnComplete(
+                        LeanTween.LeanTween.move(selectedTile, hit.collider.gameObject.transform.position, 0.15f).setOnComplete(
                             () =>
                             {
                                 currentlySwapping = false;
                                 selectedTileCopy.GetComponent<SpriteRenderer>().sortingOrder = 0;
                                 combo.Resolve(this, tiles, fxPool);
                             });
-                        LeanTween.LeanTween.move(hit.collider.gameObject, selectedTile.transform.position, 0.25f);
+                        LeanTween.LeanTween.move(hit.collider.gameObject, selectedTile.transform.position, 0.15f);
 
                         var tileA = hit.collider.gameObject;
                         var tileB = selectedTile;
@@ -609,14 +609,14 @@ namespace GameVanilla.Game.Common
                         var selectedTileCopy = selectedTile;
                         selectedTile.GetComponent<SpriteRenderer>().sortingOrder = 1;
                         currentlySwapping = true;
-                        LeanTween.LeanTween.move(selectedTile, hit.collider.gameObject.transform.position, 0.25f).setOnComplete(
+                        LeanTween.LeanTween.move(selectedTile, hit.collider.gameObject.transform.position, 0.15f).setOnComplete(
                             () =>
                             {
                                 currentlySwapping = false;
                                 selectedTileCopy.GetComponent<SpriteRenderer>().sortingOrder = 0;
                                 HandleMatches(true);
                             });
-                        LeanTween.LeanTween.move(hit.collider.gameObject, selectedTile.transform.position, 0.25f);
+                        LeanTween.LeanTween.move(hit.collider.gameObject, selectedTile.transform.position, 0.15f);
 
                         var tileA = hit.collider.gameObject;
                         var tileB = selectedTile;
@@ -676,17 +676,17 @@ namespace GameVanilla.Game.Common
                               tileA.GetComponent<Tile>().y != tileB.GetComponent<Tile>().y))
                         {
                             currentlySwapping = true;
-                            LeanTween.LeanTween.move(selectedTile, hitTilePos, 0.2f);
-                            LeanTween.LeanTween.move(hit.collider.gameObject, selectedTilePos, 0.2f).setOnComplete(() =>
+                            LeanTween.LeanTween.move(selectedTile, hitTilePos, 0.15f);
+                            LeanTween.LeanTween.move(hit.collider.gameObject, selectedTilePos, 0.15f).setOnComplete(() =>
                             {
-                                LeanTween.LeanTween.move(selectedTileCopy, selectedTilePos, 0.2f).setOnComplete(() =>
+                                LeanTween.LeanTween.move(selectedTileCopy, selectedTilePos, 0.15f).setOnComplete(() =>
                                 {
                                     currentlySwapping = false;
                                     selectedTileCopy.GetComponent<SpriteRenderer>().sortingOrder = 0;
                                     selectedTileCopy.transform.rotation = Quaternion.identity;
                                     hit.collider.gameObject.transform.rotation = Quaternion.identity;
                                 });
-                                LeanTween.LeanTween.move(hitTileCopy, hitTilePos, 0.2f);
+                                LeanTween.LeanTween.move(hitTileCopy, hitTilePos, 0.15f);
                             });
                         }
 
@@ -1845,7 +1845,7 @@ namespace GameVanilla.Game.Common
                     }
                 }
 
-                StartCoroutine(ApplyGravityAsync(didAnySpecialCandyExplode ? 0.5f : 0.0f));
+                StartCoroutine(ApplyGravityAsync(didAnySpecialCandyExplode ? 0.7f : 0.0f));
                 return true;
             }
             else
@@ -1869,10 +1869,10 @@ namespace GameVanilla.Game.Common
             }
 
             inputLocked = true;
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(delay/2);
             ApplyGravityInternal();
             possibleSwaps = DetectPossibleSwaps();
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
             if (currentlyAwarding)
             {
                 gameScene.CheckEndGame();
@@ -2005,7 +2005,7 @@ namespace GameVanilla.Game.Common
                             tiles[tileIndex + (numTilesToFall * level.width)] = tiles[tileIndex];
                             var tween = LeanTween.LeanTween.move(tile,
                                 tilePositions[tileIndex + level.width * numTilesToFall],
-                                0.5f);
+                                0.35f);
                             tween.setEase(LeanTween.LeanTweenType.easeInQuad);
                             tween.setOnComplete(() =>
                             {
@@ -2069,7 +2069,7 @@ namespace GameVanilla.Game.Common
                             tile.transform.position = pos;
                             var tween = LeanTween.LeanTween.move(tile,
                                 targetPos,
-                                0.5f);
+                                0.35f);
                             tween.setEase(LeanTween.LeanTweenType.easeInQuad);
                             tween.setOnComplete(() =>
                             {
