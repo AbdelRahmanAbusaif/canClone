@@ -6,8 +6,6 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.Text;
 using Unity.Services.CloudSave.Models.Data.Player;
-using UnityEngine.Networking;
-using System.Collections;
 
 namespace SaveData
 {
@@ -147,65 +145,6 @@ namespace SaveData
             catch (System.Exception e)
             {
                 Debug.LogError($"Failed to load image: {e.Message}");
-            }
-        }
-        public async Task<AudioClip> LoadClipAsync(string key)
-        {
-            string saveClipFilePath = Path.Combine(Application.persistentDataPath, key + ".wav");
-            Debug.Log(saveClipFilePath);
-
-            if (File.Exists(saveClipFilePath))
-            {
-                UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip(saveClipFilePath, AudioType.WAV);
-                await request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.Success)
-                {
-                    AudioClip clip = DownloadHandlerAudioClip.GetContent(request);
-                    Debug.Log("Clip loaded successfully from local storage.");
-                    return clip;
-                }
-                else
-                {
-                    Debug.LogError($"Failed to load clip: {request.error}");
-                    return null;
-                }
-            }
-            else
-            {
-                Debug.Log("Clip Not Found in Local Storage.");
-                return null;
-            }
-        }        
-        public async Task<Sprite> LoadSpriteAsync(string key)
-        {
-            string saveClipFilePath = Path.Combine(Application.persistentDataPath, key + ".png");
-            Debug.Log(saveClipFilePath);
-
-            if (File.Exists(saveClipFilePath))
-            {
-                UnityWebRequest request = UnityWebRequestTexture.GetTexture(saveClipFilePath);
-                await request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.Success)
-                {
-                    Texture2D texture = DownloadHandlerTexture.GetContent(request);
-
-                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-                    sprite.name = key;
-                    Debug.Log("texture loaded successfully from local storage.");
-                    return sprite;
-                }
-                else
-                {
-                    Debug.LogError($"Failed to load texture: {request.error}");
-                    return null;
-                }
-            }
-            else
-            {
-                Debug.Log("Texture Not Found in Local Storage.");
-                return null;
             }
         }
 

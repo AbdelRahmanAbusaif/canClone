@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 public class LoginController : MonoBehaviour
 {
-    public event Action<PlayerProfile>  OnSignInSuccess;
+    public event Action<PlayerProfile> OnSignInSuccess;
     public static event Action OnSignedOutSuccess;
     public GameObject LoadingPanel;
     private CloudSaveManager cloudSaveManager;    

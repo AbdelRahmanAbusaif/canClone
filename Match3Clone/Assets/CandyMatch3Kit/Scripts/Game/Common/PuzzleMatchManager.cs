@@ -10,7 +10,7 @@ using GameVanilla.Core;
 using SaveData;
 using Unity.Services.RemoteConfig;
 using System;
-using static RemotelyDownloadAssets;
+using static RemotlyDownloadAssets;
 using Unity.Services.Core;
 using Newtonsoft.Json;
 

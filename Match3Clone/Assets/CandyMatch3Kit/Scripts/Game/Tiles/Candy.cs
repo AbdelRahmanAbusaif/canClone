@@ -27,6 +27,7 @@ namespace GameVanilla.Game.Common
             {
                 GetComponent<Animator>().SetTrigger("Kill");
             }
+
             return new List<GameObject> {gameObject};
         }
 
