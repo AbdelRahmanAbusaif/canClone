@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.Scenes;
+using SaveData;
+using TMPro;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 using static RemotelyDownloadAssets;
@@ -15,9 +17,11 @@ public class ScoreSystem : MonoBehaviour
 
     [SerializeField] private List<Score> scores;
 
+    private PlayerProfile playerProfile;    
 
     private async void Start()
-    {
+    {   
+        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         
         RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
@@ -31,6 +35,12 @@ public class ScoreSystem : MonoBehaviour
         foreach (var score in scores)
         {
             score.isScoreAvailable = RemoteConfigService.Instance.appConfig.GetBool(score.remoteConfigKey);
+
+            if (score.isScoreAvailable)
+            {
+                Debug.Log($"Score for {score.candyColor} candy is available");
+                score.scorePanel.SetActive(true);
+            }
         }
     }
 
@@ -43,7 +53,7 @@ public class ScoreSystem : MonoBehaviour
 
         foreach (var score in scores)
         {
-            if (score.isScoreAvailable)
+            if (score.isScoreAvailable && playerProfile.LevelsComplete.Find(L => L.NumberLevel == gameScene.level.id) == null)
             {
                 LeaderboardManager.Instance.AddScore(score.leaderboardId, score.score);
                 Debug.Log($"Score for {score.candyColor} candy is {score.score}");
@@ -61,13 +71,17 @@ public class ScoreSystem : MonoBehaviour
             if (score.candyColor == candy && score.isScoreAvailable)
             {
                 score.score++;
+                score.scoreText.text = score.score.ToString();
             }
         }
     }
 
     private void OnDestroy() 
     {
+        RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
+
         fxPool.OnExplode -= OnCandyExplode;
+        gameScene.OnWinPopupOpened -= OnGameWin;
     }
     [Serializable]
     public class Score
@@ -77,5 +91,7 @@ public class ScoreSystem : MonoBehaviour
         public string leaderboardId;
         public string remoteConfigKey;
         public CandyColor candyColor;
+        public TextMeshProUGUI scoreText;
+        public GameObject scorePanel;
     }
 }
