@@ -423,6 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a7e0becfbe70642a7c09baa467ca88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tile: {fileID: 882554314}
   spawnParticles: {fileID: 641128865}
   blueCandyExplosion: {fileID: 1644740608}
   greenCandyExplosion: {fileID: 112511860}

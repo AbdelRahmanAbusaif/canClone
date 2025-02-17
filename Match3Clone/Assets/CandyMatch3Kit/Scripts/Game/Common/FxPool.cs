@@ -115,7 +115,7 @@ namespace GameVanilla.Game.Common
         /// <returns>The explosion pool of the specified striped candy.</returns>
         public ObjectPool GetStripedCandyExplosionPool(StripeDirection direction)
         {
-            tile.gameObject.GetComponent<Animator>().Play("shake");
+            // tile.gameObject.GetComponent<Animator>().Play("shake");
             switch (direction)
             {
                 case StripeDirection.Horizontal:
