@@ -74,6 +74,7 @@ public class LoginController : MonoBehaviour
                 PhoneNumber = "",
                 Level = 1,
                 LastHeartTime = "0",
+                IsAcceptedTerms = false,
                 DailyBonus = new DailyBonus()
                 {
                     DateLastPlayed = "0",

@@ -10,6 +10,7 @@ public class PlayerProfile
     public string PhoneNumber;
     public string LastHeartTime;
     public int Level;
+    public bool IsAcceptedTerms;
     public DailyBonus DailyBonus;
     public SpinWheel SpinWheel;
     public List<LevelComplete> LevelsComplete;

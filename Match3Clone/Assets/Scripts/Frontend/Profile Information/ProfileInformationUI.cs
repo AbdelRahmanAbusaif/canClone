@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using SaveData;
+using NUnit.Framework;
 
 public class ProfileInformationUI : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class ProfileInformationUI : MonoBehaviour
             playerNameText.text = playerProfile.PlayerName;
             emailText.text = playerProfile.Email;
             phoneNumberText.text = playerProfile.PhoneNumber;
-            playerLevelText.text = playerProfile.Level.ToString();            
+            playerLevelText.text = playerProfile.Level.ToString();
         }
         catch (Exception ex)
         {

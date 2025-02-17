@@ -254,6 +254,7 @@ public class ProfileManager : MonoBehaviour
             PhoneNumber = phoneNumber,
             Level = 1,
             LastHeartTime = "0",
+            IsAcceptedTerms = true,
             DailyBonus = new DailyBonus()
             {
                 DateLastPlayed = "0",

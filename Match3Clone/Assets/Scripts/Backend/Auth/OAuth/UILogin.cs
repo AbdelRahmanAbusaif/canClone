@@ -13,6 +13,7 @@ public class UILogin : MonoBehaviour
     [SerializeField] private SceneTransition sceneTransition;
     [SerializeField] private LoginController loginController;
     [SerializeField] private GameObject loginPanel;
+    [SerializeField] private GameObject termPanel;
     [SerializeField] private Texture2D defaultImage;
 
     private void OnEnable() {
@@ -46,9 +47,10 @@ public class UILogin : MonoBehaviour
             OnSignIn?.Invoke();
             return;
         }
-        if(loginPanel != null)
+        if(termPanel != null)
         {
-            loginPanel.SetActive(true);
+            // loginPanel.SetActive(true);
+            termPanel.SetActive(true);
         }
         else
         {

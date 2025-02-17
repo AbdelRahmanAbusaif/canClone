@@ -117,6 +117,8 @@ namespace GameVanilla.Game.Popups
 
                 var dateNow = ServerTimeManager.Instance.CurrentTime;
                 var diff = dateNow.Subtract(dateLastSpin);
+
+                Debug.Log("Date Last Spin: " + diff);
                 if (diff.TotalHours >= 24)
                 {
                     SetFreeSpin();
