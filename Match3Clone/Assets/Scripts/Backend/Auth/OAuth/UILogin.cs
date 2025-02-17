@@ -97,13 +97,7 @@ public class UILogin : MonoBehaviour
             OnSignIn?.Invoke();
             return;
         }
-<<<<<<< HEAD
         if(termPanel != null)
-=======
-
-
-        if(loginPanel != null)
->>>>>>> parent of 5936972 (I dont know what it is)
         {
             // loginPanel.SetActive(true);
             termPanel.SetActive(true);
