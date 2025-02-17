@@ -1,20 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
+using Unity.Services.RemoteConfig;
 using UnityEngine;
+using static RemotelyDownloadAssets;
 using Random = UnityEngine.Random;
 
 public class LeaderboardMainMenu : MonoBehaviour
 {
+    [SerializeField] private string leaderboardId;
+    [SerializeField] private string leaderboardTitleKey;
     [SerializeField] private int playerPerPage = 10;
     [SerializeField] private List<LeaderboardItem> leaderboardItemPrefab;
+    [SerializeField] private TextMeshProUGUI leaderboardText;
     [SerializeField] private LeaderboardItem leaderboardPlayerProfile;
     [SerializeField] private RectTransform playerContainer;
     
     private void TestAddScore()
     {
-        LeaderboardManager.Instance.AddScore(Random.Range(0, 1000));
-
+        LeaderboardManager.Instance.AddScore(leaderboardId,Random.Range(0, 1000));
         Debug.Log("Score added successfully.");
     }
     private async void OnEnable()
@@ -22,14 +27,16 @@ public class LeaderboardMainMenu : MonoBehaviour
 
         try
         {
-            TestAddScore();
-            Debug.Log("Test Add Score");
+            // TestAddScore();
+            // Debug.Log("Test Add Score");
+            RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
+            await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
 
-            var playerScore = await LeaderboardManager.Instance.GetPlayerProfileScore();
+            var playerScore = await LeaderboardManager.Instance.GetPlayerProfileScore(leaderboardId);
             leaderboardPlayerProfile.Initializer(playerScore);
 
             ClearPlayer();
-            var scoreResponse = await LeaderboardManager.Instance.GetPlayerScore();
+            var scoreResponse = await LeaderboardManager.Instance.GetPlayerScore(leaderboardId);
 
             for (int i = 0; i < scoreResponse.Results.Count && i < playerPerPage ; i++)
             {
@@ -39,12 +46,18 @@ public class LeaderboardMainMenu : MonoBehaviour
                 leaderboardItem.Initializer(scoreResponse.Results[i]);
             }
         }
-        catch (System.Exception e) when (e is TaskCanceledException || e is TimeoutException)
+        catch (Exception e) when (e is TaskCanceledException || e is TimeoutException)
         {
             Debug.LogError("Failed to get player score: " + e.Message);
             throw;
         }
     }
+
+    private void ApplyRemoteConfig(ConfigResponse response)
+    {
+        leaderboardText.text = RemoteConfigService.Instance.appConfig.GetString(leaderboardTitleKey);
+    }
+
     private void ClearPlayer()
     {
         foreach (Transform child in playerContainer)

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 61842563918724352}
   - component: {fileID: 114194003213530110}
   - component: {fileID: 95358358196114662}
+  - component: {fileID: 4192488605498470485}
   m_Layer: 0
   m_Name: RedCandy
   m_TagString: Tile
@@ -175,3 +176,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4192488605498470485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834606758426242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1337d8c8ae2bc14ca00a866f66122f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureKey: RedCandy
+  sprite: {fileID: 212628875992374668}

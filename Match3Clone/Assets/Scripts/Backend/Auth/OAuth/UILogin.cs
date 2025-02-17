@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using GameVanilla.Core;
 using Unity.Services.CloudSave;
+using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.UI;
+using static RemotelyDownloadAssets;
 
 public class UILogin : MonoBehaviour
 {
@@ -15,8 +17,15 @@ public class UILogin : MonoBehaviour
     [SerializeField] private GameObject loginPanel;
     [SerializeField] private GameObject termPanel;
     [SerializeField] private Texture2D defaultImage;
+    
+    bool isBlueLeaderboard = false;
+    bool isRedLeaderboard = false;
+    bool isGreenLeaderboard = false;
+    bool isYellowLeaderboard = false;
+    bool isOrangeLeaderboard = false;
+    bool isPurpleLeaderboard = false;
 
-    private void OnEnable() {
+    private async void OnEnable() {
 
         if(signInButton !=null)
         {
@@ -24,6 +33,21 @@ public class UILogin : MonoBehaviour
         }
 
         loginController.OnSignInSuccess += OnSignInSuccess;
+
+        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
+        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+    }
+
+    private void ApplyRemoteConfig(ConfigResponse response)
+    {
+        Debug.Log("Remote Config Fetched Successfully!");
+        
+        isBlueLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsBlueLeaderboard");
+        isRedLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsRedLeaderboard");
+        isGreenLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsGreenLeaderboard");
+        isOrangeLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsOrangeLeaderboard");
+        isYellowLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsYellowLeaderboard");
+        isPurpleLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsPurpleLeaderboard");
     }
 
     private async void OnSignInButtonClicked()
@@ -40,6 +64,32 @@ public class UILogin : MonoBehaviour
         var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerProfile" });
         var dataImage = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerProfileImage" }, new Unity.Services.CloudSave.Models.Data.Player.LoadOptions(new Unity.Services.CloudSave.Models.Data.Player.PublicReadAccessClassOptions()));
 
+        // LeaderboardManager.Instance.AddScore(0);
+        if(isBlueLeaderboard)
+        {
+            LeaderboardManager.Instance.AddScore("BLUE_LEADERBOARD",0);
+        }
+        if(isRedLeaderboard)
+        {
+            LeaderboardManager.Instance.AddScore("RED_LEADERBOARD",0);
+        }
+        if(isGreenLeaderboard)
+        {
+            LeaderboardManager.Instance.AddScore("GREEN_LEADERBOARD",0);
+        }
+        if(isYellowLeaderboard)
+        {
+            LeaderboardManager.Instance.AddScore("YELLOW_LEADERBOARD",0);
+        }
+        if(isOrangeLeaderboard)
+        {
+            LeaderboardManager.Instance.AddScore("ORANGE_LEADERBOARD",0);
+        }
+        if(isPurpleLeaderboard)
+        {
+            LeaderboardManager.Instance.AddScore("PURPLE_LEADERBOARD",0);
+        }
+        
         if(data.ContainsKey("PlayerProfile") && dataImage.ContainsKey("PlayerProfileImage"))
         {
             Debug.Log("Player profile already exists");
@@ -47,7 +97,13 @@ public class UILogin : MonoBehaviour
             OnSignIn?.Invoke();
             return;
         }
+<<<<<<< HEAD
         if(termPanel != null)
+=======
+
+
+        if(loginPanel != null)
+>>>>>>> parent of 5936972 (I dont know what it is)
         {
             // loginPanel.SetActive(true);
             termPanel.SetActive(true);

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class LoadingManager : MonoBehaviour
 {
     [Header("Required Components")]
-    public RemotlyDownloadAssets remoteAssetDownloader; // Attach the RemoteAssetDownloader script
+    public RemotelyDownloadAssets remoteAssetDownloader; // Attach the RemoteAssetDownloader script
     public LoginController loginController; // Attach the LoginController script
     [Header("UI Elements")]
     public GameObject LoadingSpinner; 
