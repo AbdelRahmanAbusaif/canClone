@@ -33,7 +33,6 @@ public class InputProfilePanel : MonoBehaviour
         }
         else
         {
-            warningText.text = "Invalid input. Please check your data.";
             warningText.gameObject.SetActive(true);
             OnNextButtonClickedAction?.Invoke(false);
         }

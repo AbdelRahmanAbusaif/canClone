@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Local Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Local
+  m_TableCollectionNameGuidString: 58f0f652f9b00564ba34bb75de15f7de
+  m_Entries:
+  - m_Id: 680716837638144
+    m_Key: AcceotButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 680430073073664
+    m_Key: CloseButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704479759224832
+    m_Key: CuationButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 673602270449664
+    m_Key: EmailSignupPage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 670035337859072
+    m_Key: 'FacebookAccountButton '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 671235068186624
+    m_Key: ImageProfileTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704742419124224
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 673165911838720
+    m_Key: NextButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 675162559926272
+    m_Key: PhoneNumberTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 679939654078464
+    m_Key: PolicyTermButtonLink
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678521484398592
+    m_Key: PolicyTermDescriptiion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678068990300160
+    m_Key: PolicyTermSupport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 677924454584320
+    m_Key: PolicyTermTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 662548291309568
+    m_Key: SignInUsing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 670518685257728
+    m_Key: TItlePlayerProfile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 669416556384256
+    m_Key: UnityAccountButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 677276413644800
+    m_Key: UpdateButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 670997251149824
+    m_Key: UpdateImageButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 671670961229824
+    m_Key: UsernameSignUpProfile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674485695729664
+    m_Key: WarningEmailPanel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 676806324441088
+    m_Key: WarningPhoneNumber
+    m_Metadata:
+      m_Items: []
+  - m_Id: 672472262037504
+    m_Key: WarningUsername
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704793300226048
+    m_Key: CuationDiscription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 705286063837184
+    m_Key: TryAgainButton
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 1883826653255172399
+  references:
+    version: 2
+    RefIds:
+    - rid: 1883826653255172399
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1739802537388

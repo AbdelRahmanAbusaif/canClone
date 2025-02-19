@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Local_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 58f0f652f9b00564ba34bb75de15f7de, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 662548291309568
+    m_Localized: 'Sign In using:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 669416556384256
+    m_Localized: Unity Account
+    m_Metadata:
+      m_Items: []
+  - m_Id: 670035337859072
+    m_Localized: Facebook Account
+    m_Metadata:
+      m_Items: []
+  - m_Id: 670518685257728
+    m_Localized: Player sign up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 670997251149824
+    m_Localized: Update Image
+    m_Metadata:
+      m_Items: []
+  - m_Id: 671235068186624
+    m_Localized: Pick a image
+    m_Metadata:
+      m_Items: []
+  - m_Id: 671670961229824
+    m_Localized: 'So, what is you name brother?
+
+      Choice your name wisely!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 672472262037504
+    m_Localized: Name must be in English and Does not contain Space
+    m_Metadata:
+      m_Items: []
+  - m_Id: 673165911838720
+    m_Localized: Next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 673602270449664
+    m_Localized: 'So, Your name is Awsome!
+
+      please enter you email then:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674485695729664
+    m_Localized: Email Should be like this example "example@domain"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 675162559926272
+    m_Localized: Now, Pick your phone number!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 676806324441088
+    m_Localized: The number should be like Jordan Pattern
+    m_Metadata:
+      m_Items: []
+  - m_Id: 677276413644800
+    m_Localized: Update Profile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 677924454584320
+    m_Localized: Policy Term
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678068990300160
+    m_Localized: We Support our game with ads!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678521484398592
+    m_Localized: In order to provide a free gaming experience with real rewards,
+      we display short, non-intrusive ads that last no more than 5 seconds. We need
+      your consent before you start playing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 679939654078464
+    m_Localized: 'For more information please follow : Privice Policy '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 680430073073664
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 680716837638144
+    m_Localized: Accept
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704479759224832
+    m_Localized: Cuation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704793300226048
+    m_Localized: 'You Are not connecting to internet
+
+      please try again.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 705286063837184
+    m_Localized: Try Again
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
