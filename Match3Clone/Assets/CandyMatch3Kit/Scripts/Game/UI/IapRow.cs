@@ -92,7 +92,6 @@ namespace GameVanilla.Game.UI
             coinsImage.sprite = coinIcons[(int)item.coinIcon];
             coinsImage.SetNativeSize();
 
-            #if UNITY_IAP
             var storeController = PuzzleMatchManager.instance.iapManager.controller;
             if (storeController != null)
             {
@@ -102,9 +101,7 @@ namespace GameVanilla.Game.UI
                     priceText.text = product.metadata.localizedPriceString;
                 }
             }
-            #else
             priceText.text = "$5,99";
-            #endif
         }
 
         /// <summary>
@@ -112,16 +109,12 @@ namespace GameVanilla.Game.UI
         /// </summary>
         public void OnPurchaseButtonPressed()
         {
-            #if UNITY_IAP
             var storeController = PuzzleMatchManager.instance.iapManager.controller;
             if (storeController != null)
             {
                 storeController.InitiatePurchase(cachedItem.storeId);
                 buyCoinsPopup.OpenLoadingPopup();
             }
-            #else
-            PuzzleMatchManager.instance.coinsSystem.BuyCoins(cachedItem.numCoins);
-            #endif
             GetComponent<PlaySound>().Play("Button");
         }
     }

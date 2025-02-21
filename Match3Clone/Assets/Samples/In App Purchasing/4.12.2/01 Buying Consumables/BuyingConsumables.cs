@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using Unity.Services.Core;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
@@ -26,8 +28,10 @@ namespace Samples.Purchasing.Core.BuyingConsumables
             UpdateUI();
         }
 
-        void InitializePurchasing()
+        async void InitializePurchasing()
         {
+            await UnityServices.InitializeAsync();
+
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
             //Add products that will be purchasable and indicate its type.

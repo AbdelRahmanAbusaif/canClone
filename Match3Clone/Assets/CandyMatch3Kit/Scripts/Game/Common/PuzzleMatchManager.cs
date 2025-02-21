@@ -32,9 +32,9 @@ namespace GameVanilla.Game.Common
         public int lastSelectedLevel;
         public bool unlockedNextLevel;
 
-        #if UNITY_IAP
+         
         public IapManager iapManager;
-        #endif
+    
 
         /// <summary>
         /// Unity's Awake method.
@@ -83,9 +83,7 @@ namespace GameVanilla.Game.Common
             //     PlayerPrefs.SetInt("num_coins", gameConfig.initialCoins);
             // }
 
-            #if UNITY_IAP
             iapManager = new IapManager();
-            #endif
         }
 
         private void ApplyRemoteConfig(ConfigResponse response)
