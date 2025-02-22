@@ -20,8 +20,6 @@ public class BuyPanelUI : MonoBehaviour
     {
         buyButton.onClick.AddListener(OnBuyButtonClicked);
     }
-
-
     public void SetItemDetails(StoreItem item, Image image)
     {
         storeItem = item;
@@ -50,14 +48,15 @@ public class BuyPanelUI : MonoBehaviour
         Debug.Log("Buy button clicked");
     }
 
-    private void Add(List<string> data)
+    private async void Add(List<string> data)
     {
-        if (data.Contains(GetItemData()))
+        if (data.Contains(storeItem.Title))
         {
             Debug.Log("Item already owned");
             return;
         }
-        data.Add(GetItemData());;
+        data.Add(storeItem.Title);
+        await CloudSaveManager.Instance.SaveDataAsyncString(storeItem.Title.Replace(" ", String.Empty), GetItemData());
     }
 
     public void OnClose()

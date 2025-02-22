@@ -21,6 +21,8 @@ public class StoreItemUI : MonoBehaviour
     private void Start()
     {
         buyButton.onClick.AddListener(OnBuyButtonClicked);
+
+        InvokeRepeating(nameof(UpdateBuyButton), 0, 0.1f);
     }
 
     private void OnBuyButtonClicked()
@@ -32,6 +34,16 @@ public class StoreItemUI : MonoBehaviour
             var buyPanelUI = Instantiate(buyPanel, canvas.transform);
             buyPanelUI.SetActive(true);
             buyPanelUI.GetComponent<BuyPanelUI>().SetItemDetails(storeItem, itemImage);
+        }
+    }
+        private async void UpdateBuyButton()
+    {
+        PlayerProfile playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+
+        string name = storeItem.Title;
+        if (playerProfile.ContainerProfileImages.Contains(name))
+        {
+            buyButton.interactable = false;
         }
     }
 
