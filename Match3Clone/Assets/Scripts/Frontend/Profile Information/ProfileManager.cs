@@ -237,14 +237,6 @@ public class ProfileManager : MonoBehaviour
         //     return;
         // }
 
-        if(String.IsNullOrEmpty(filepath))
-        {
-            await cloudSaveManager.SaveImageAsync("PlayerProfileImage", texture);
-        }
-        else
-        {
-            await cloudSaveManager.SaveImageAsync("PlayerProfileImage", profileImage.sprite.texture);
-        }
 
         var playerProfile = new PlayerProfile
         {
@@ -252,6 +244,8 @@ public class ProfileManager : MonoBehaviour
             PlayerName = playerName,
             Email = email,
             PhoneNumber = phoneNumber,
+            DataPublicProfileBorder = "",
+            DataPublicProfileImage = "",
             Level = 1,
             LastHeartTime = "0",
             IsAcceptedTerms = true,
@@ -268,17 +262,45 @@ public class ProfileManager : MonoBehaviour
             LevelsComplete = new List<LevelComplete>()
             {
                
-            }
+            },
+            ContainerProfileImages = new List<string>(),
+            ContainerProfileBorders = new List<string>()
+        };  
 
-        };
+        
+        if(String.IsNullOrEmpty(filepath))
+        {
+            await cloudSaveManager.SaveImageAsync("PlayerProfileImage", texture);
 
+            await cloudSaveManager.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(texture));
+            Debug.Log($"Player Profile Image: {GetImageBase64(texture)}");
+
+            playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
+            playerProfile.ContainerProfileImages.Add("PlayerImageUploaded");
+        }
+        else
+        {
+            await cloudSaveManager.SaveImageAsync("PlayerProfileImage", profileImage.sprite.texture);
+            await cloudSaveManager.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(texture));
+            Debug.Log($"Player Profile Image: {GetImageBase64(profileImage.sprite.texture)}");
+
+
+            playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
+            playerProfile.ContainerProfileImages.Add("PlayerImageUploaded");
+        }
         await cloudSaveManager.SaveDataAsync("PlayerProfile", playerProfile);
         await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
-        
+
         Debug.Log("Player profile updated successfully");
         OnUpdateSuccess?.Invoke();
     }
-
+    private string GetImageBase64(Texture2D texture)
+    {
+        Texture2D resizeTexture = ImageUtility.ResizeTexture(texture, 256, 256);
+        byte[] bytes = ImageUtility.CompressTexture(resizeTexture, quality: 50);
+        
+        return Convert.ToBase64String(bytes);
+    }
     private void OnDisable() 
     {
         updateButton.onClick.RemoveListener(OnUpdateButtonClicked);

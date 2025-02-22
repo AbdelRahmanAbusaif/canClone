@@ -8,12 +8,16 @@ public class PlayerProfile
     public string PlayerName;
     public string Email;
     public string PhoneNumber;
+    public string DataPublicProfileImage;
+    public string DataPublicProfileBorder;
     public string LastHeartTime;
     public int Level;
     public bool IsAcceptedTerms;
     public DailyBonus DailyBonus;
     public SpinWheel SpinWheel;
     public List<LevelComplete> LevelsComplete;
+    public List<string> ContainerProfileImages;
+    public List<string> ContainerProfileBorders;
 }
 [System.Serializable]
 public class DailyBonus

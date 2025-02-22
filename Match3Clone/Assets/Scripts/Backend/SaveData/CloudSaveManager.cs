@@ -41,6 +41,22 @@ namespace SaveData
                 Debug.LogError($"Error saving {key}: {e.Message}");
             }
         }
+        public async Task SaveDataAsyncString<T>(string key, T data)
+        {
+            try
+            {
+                await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object>
+                {
+                    { key, data }
+                });
+                await LocalSaveManager.Instance.SaveDataAsync(data, key);
+                Debug.Log($"{key} saved successfully.");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Error saving {key}: {e.Message}");
+            }
+        }
 
         public async Task<T> LoadDataAsync<T>(string key) where T : new()
         {

@@ -72,6 +72,8 @@ public class LoginController : MonoBehaviour
                 PlayerName = name,
                 Email = "",
                 PhoneNumber = "",
+                DataPublicProfileImage = "",
+                DataPublicProfileBorder = "",
                 Level = 1,
                 LastHeartTime = "0",
                 IsAcceptedTerms = false,
@@ -88,7 +90,9 @@ public class LoginController : MonoBehaviour
                 LevelsComplete = new List<LevelComplete>()
                 {
                     
-                }
+                },
+                ContainerProfileImages = new List<string>(),
+                ContainerProfileBorders = new List<string>()
             };
 
             OnSignInSuccess?.Invoke(playerProfile);

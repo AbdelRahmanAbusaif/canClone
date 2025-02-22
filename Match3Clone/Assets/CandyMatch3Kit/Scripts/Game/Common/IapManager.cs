@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 
 using GameVanilla.Game.Popups;
+using UnityEngine.Purchasing.Extension;
 
 namespace GameVanilla.Game.Common
 {
@@ -13,7 +14,7 @@ namespace GameVanilla.Game.Common
     /// This class manages the in-app purchases of the game. It is based on the official Unity IAP
     /// documentation available here: https://docs.unity3d.com/Manual/UnityIAPInitialization.html
     /// </summary>
-    public class IapManager : IStoreListener
+    public class IapManager : IDetailedStoreListener
     {
         public IStoreController controller { get; private set; }
         public IExtensionProvider extensions { get; private set; }
@@ -153,5 +154,22 @@ namespace GameVanilla.Game.Common
 
             return "Unknown error.";
         }
+
+        public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
+        {
+            var shopPopup = Object.FindFirstObjectByType<BuyCoinsPopup>();
+            if (shopPopup != null)
+            {
+                shopPopup.GetComponent<BuyCoinsPopup>().CloseLoadingPopup();
+                shopPopup.GetComponent<BuyCoinsPopup>().parentScene.OpenPopup<AlertPopup>("Popups/AlertPopup",
+                    popup =>
+                    {
+                        popup.SetTitle("Error");
+                        popup.SetText(string.Format("There was an error when purchasing {0}: {1}",
+                            product.metadata.localizedTitle, failureDescription.message));
+                    }, false);
+            }
+        }
+
     }
 }

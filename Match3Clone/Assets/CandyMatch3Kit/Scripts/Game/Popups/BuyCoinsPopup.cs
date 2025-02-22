@@ -79,7 +79,6 @@ namespace GameVanilla.Game.Popups
         /// <param name="numCoins">The number of coins to buy.</param>
         public void OnBuyButtonPressed(long numCoins)
         {
-            ShopManager.Instance.InitBuyCoin(numCoins);
             PuzzleMatchManager.instance.coinsSystem.Subscribe(numCoins => OnCoinsChanged((int)numCoins));
         }
 
