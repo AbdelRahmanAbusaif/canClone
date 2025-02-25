@@ -2756,11 +2756,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0913d13f9b6364b438375a78409a70b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoldAmount:
-    id: coin
-    name: Coin
-    description: 12312
-    price: 50
 --- !u!4 &2013534192
 Transform:
   m_ObjectHideFlags: 0
@@ -3059,7 +3054,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &473165407533009450
 GameObject:
   m_ObjectHideFlags: 0
@@ -4643,7 +4638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &6308131840636805412
 GameObject:
   m_ObjectHideFlags: 0
@@ -4699,6 +4694,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4412185359237751098}
     m_Modifications:
+    - target: {fileID: 3409462422465856904, guid: 290ca30a37d50364f972f92f8949b982,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 85ce291db55a8234eb4c6f0a9785eb24,
+        type: 3}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4717,7 +4718,7 @@ PrefabInstance:
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
@@ -4732,12 +4733,12 @@ PrefabInstance:
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 273.6
+      value: 291.4
       objectReference: {fileID: 0}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 341.9
+      value: -302.6
       objectReference: {fileID: 0}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
@@ -4777,12 +4778,12 @@ PrefabInstance:
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 13
+      value: -5.899994
       objectReference: {fileID: 0}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -29
+      value: 123
       objectReference: {fileID: 0}
     - target: {fileID: 4832400007230216015, guid: 290ca30a37d50364f972f92f8949b982,
         type: 3}

@@ -16,10 +16,6 @@ using GameVanilla.Game.UI;
         //holding the buttons
         [SerializeField] private List<GameObject> holder;
 
-
-        [SerializeField] private Sprite ActiveBorder;
-        [SerializeField] private Sprite InactiveBorder;
-
         [SerializeField] private GameObject rightRespawn;
         [SerializeField] private GameObject leftRespawn;
         [SerializeField] private float transitionDuration = 0.1f;
@@ -69,19 +65,11 @@ using GameVanilla.Game.UI;
 
         private void UpdateBorder(int targetPageIndex)
         {
-            for (int i = 0; i < imagesBorder.Count; i++)
+            for (int i = 0; i < holder.Count; i++)
             {
-                imagesBorder[i].sprite = InactiveBorder;
                 holder[i].GetComponent<RectTransform>().sizeDelta = new Vector2(originSize.x, originSize.y);
-                //enable txt
-                holder[i].GetComponent<RectTransform>().GetChild(2).gameObject.SetActive(true);
-
             }
-            imagesBorder[targetPageIndex].sprite = ActiveBorder;
             holder[targetPageIndex].GetComponent<RectTransform>().sizeDelta *= new Vector2((float)1.5, (float)1.5);
-            //disable txt
-            holder[targetPageIndex].GetComponent<RectTransform>().GetChild(2).gameObject.SetActive(false);
-
         }
 
         private void FinalizeTransition(int targetPageIndex)
