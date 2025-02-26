@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: e414cddcb0072654ba55b645df568799
+guid: 9320a01c9b9e94a43b4f83541053ffaf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1155959085086930857
-    second: Kashkaawan 1_0
+      213: 657206807783421593
+    second: Kittaneh2-15_0
   - first:
-      213: 8177061887002994502
-    second: Kashkaawan 1_1
+      213: 3114230824026658437
+    second: Kittaneh2-15_1
+  - first:
+      213: 5649849904447146567
+    second: Kittaneh2-15_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -142,13 +145,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Kashkaawan 1_0
+      name: Kittaneh2-15_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 3865
-        height: 2501
+        width: 56
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,20 +160,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a7fd71d9aaca0010800000000000000
-      internalID: 1155959085086930857
+      spriteID: 99636e11c1ede1900800000000000000
+      internalID: 657206807783421593
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Kashkaawan 1_1
+      name: Kittaneh2-15_1
       rect:
         serializedVersion: 2
-        x: 552
-        y: 2323
-        width: 337
-        height: 336
+        x: 47
+        y: 17
+        width: 78
+        height: 74
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,8 +182,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 647e2395672ca7170800000000000000
-      internalID: 8177061887002994502
+      spriteID: 5865eae3f68f73b20800000000000000
+      internalID: 3114230824026658437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kittaneh2-15_2
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 0
+        width: 57
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74ac8dccd8c486e40800000000000000
+      internalID: 5649849904447146567
       vertices: []
       indices: 
       edges: []
@@ -189,7 +214,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -199,8 +224,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Kashkaawan 1_0: 1155959085086930857
-      Kashkaawan 1_1: 8177061887002994502
+      Kittaneh2-15_0: 657206807783421593
+      Kittaneh2-15_1: 3114230824026658437
+      Kittaneh2-15_2: 5649849904447146567
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

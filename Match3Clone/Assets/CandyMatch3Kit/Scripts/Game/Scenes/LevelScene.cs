@@ -75,7 +75,7 @@ namespace GameVanilla.Game.Scenes
                 
             }
             score = nextLevel * 10;
-            scoreText.text = score.ToString();
+            // scoreText.text = score.ToString();
 
             LevelButton currentButton = null;
             var levelButtons = scrollView.GetComponentsInChildren<LevelButton>();

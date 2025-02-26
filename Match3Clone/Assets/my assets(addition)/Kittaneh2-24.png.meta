@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: e414cddcb0072654ba55b645df568799
+guid: bd1f842f1fd5b9046a335ef5205749f7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1155959085086930857
-    second: Kashkaawan 1_0
-  - first:
-      213: 8177061887002994502
-    second: Kashkaawan 1_1
+      213: -172658999421928331
+    second: Kittaneh2-24_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -142,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Kashkaawan 1_0
+      name: Kittaneh2-24_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 3865
-        height: 2501
+        width: 859
+        height: 1755
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,30 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a7fd71d9aaca0010800000000000000
-      internalID: 1155959085086930857
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Kashkaawan 1_1
-      rect:
-        serializedVersion: 2
-        x: 552
-        y: 2323
-        width: 337
-        height: 336
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 647e2395672ca7170800000000000000
-      internalID: 8177061887002994502
+      spriteID: 57c7e280e879a9df0800000000000000
+      internalID: -172658999421928331
       vertices: []
       indices: 
       edges: []
@@ -189,7 +164,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -199,8 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Kashkaawan 1_0: 1155959085086930857
-      Kashkaawan 1_1: 8177061887002994502
+      Kittaneh2-24_0: -172658999421928331
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
