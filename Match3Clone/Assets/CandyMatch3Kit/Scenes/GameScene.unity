@@ -298,7 +298,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f8978fd31a96542c98d6c37a3390dbd6, type: 3}
   - {fileID: 8300000, guid: 06bad3cef25a447d5aa580cc57b9ef73, type: 3}
   - {fileID: 8300000, guid: 318103f526ece4934bcb644f591ae8f3, type: 3}
-  testLevel: 54
+  testLevel: 1
   currentLimit: 0
 --- !u!4 &27524763
 Transform:
@@ -5372,7 +5372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalGroup: {fileID: 945859641}
-  limitTitleText: {fileID: 0}
+  limitTitleText: {fileID: 1165837889}
   limitText: {fileID: 1165837889}
   scoreText: {fileID: 1731851951}
   progressBar: {fileID: 1599577512}

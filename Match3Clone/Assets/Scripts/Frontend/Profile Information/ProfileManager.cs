@@ -9,6 +9,7 @@ using Unity.Services.Authentication;
 
 using SaveData;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class ProfileManager : MonoBehaviour
 {
@@ -263,30 +264,21 @@ public class ProfileManager : MonoBehaviour
             {
                
             },
-            ContainerProfileImages = new List<string>(),
-            ContainerProfileBorders = new List<string>()
+        ContainerProfileAvatarImages = new(),
+            ContainerProfileBorders = new(),
+            ContainerProfileCoverImages = new(),
+            ContainerProfilePrimeSubscriptions = new()
         };  
 
         
         if(String.IsNullOrEmpty(filepath))
         {
-            await cloudSaveManager.SaveImageAsync("PlayerProfileImage", texture);
-
-            await cloudSaveManager.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(texture));
-            Debug.Log($"Player Profile Image: {GetImageBase64(texture)}");
-
-            playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
-            playerProfile.ContainerProfileImages.Add("PlayerImageUploaded");
+            await SaveImageInCloud(playerProfile, texture);
+            // playerProfile.ContainerProfileImages.Add("PlayerImageUploaded");
         }
         else
         {
-            await cloudSaveManager.SaveImageAsync("PlayerProfileImage", profileImage.sprite.texture);
-            await cloudSaveManager.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(texture));
-            Debug.Log($"Player Profile Image: {GetImageBase64(profileImage.sprite.texture)}");
-
-
-            playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
-            playerProfile.ContainerProfileImages.Add("PlayerImageUploaded");
+            await SaveImageInCloud(playerProfile, profileImage.sprite.texture);
         }
         await cloudSaveManager.SaveDataAsync("PlayerProfile", playerProfile);
         await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
@@ -294,6 +286,24 @@ public class ProfileManager : MonoBehaviour
         Debug.Log("Player profile updated successfully");
         OnUpdateSuccess?.Invoke();
     }
+
+    private async Task SaveImageInCloud(PlayerProfile playerProfile , Texture2D texture = null)
+    {
+        await cloudSaveManager.SaveImageAsync("PlayerProfileImage", texture);
+
+        await cloudSaveManager.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(texture));
+        Debug.Log($"Player Profile Image: {GetImageBase64(texture)}");
+
+        playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
+        ConsumableItem item = new ConsumableItem()
+        {
+            ConsumableName = "PlayerImageUploaded",
+            DatePurchased = DateTime.MinValue.ToString(),
+            DateExpired = DateTime.MaxValue.ToString()
+        };
+        playerProfile.ContainerProfileAvatarImages.Add(item);
+    }
+
     private string GetImageBase64(Texture2D texture)
     {
         Texture2D resizeTexture = ImageUtility.ResizeTexture(texture, 256, 256);

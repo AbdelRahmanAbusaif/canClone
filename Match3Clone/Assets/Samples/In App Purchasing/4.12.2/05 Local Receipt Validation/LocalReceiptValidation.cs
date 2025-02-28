@@ -27,6 +27,7 @@ namespace Samples.Purchasing.Core.LocalReceiptValidation
         int m_GoldCount;
         bool m_UseAppleStoreKitTestCertificate;
 
+        [Obsolete]
         void Start()
         {
             userWarning.Clear();
@@ -55,6 +56,7 @@ namespace Samples.Purchasing.Core.LocalReceiptValidation
                 currentAppStore == AppStore.MacAppStore;
         }
 
+        [Obsolete]
         void InitializePurchasing()
         {
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());

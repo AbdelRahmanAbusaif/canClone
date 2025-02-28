@@ -14,7 +14,7 @@ namespace GameVanilla.Game.Common
         Moves,
         Time
     }
-
+    
     /// <summary>
     /// This class stores the settings of a game level.
     /// </summary>

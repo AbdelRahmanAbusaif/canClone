@@ -91,8 +91,10 @@ public class LoginController : MonoBehaviour
                 {
                     
                 },
-                ContainerProfileImages = new List<string>(),
-                ContainerProfileBorders = new List<string>()
+                ContainerProfileAvatarImages = new List<ConsumableItem>(),
+                ContainerProfileBorders = new List<ConsumableItem>(),
+                ContainerProfilePrimeSubscriptions = new List<ConsumableItem>(),
+                ContainerProfileCoverImages = new List<ConsumableItem>()
             };
 
             OnSignInSuccess?.Invoke(playerProfile);

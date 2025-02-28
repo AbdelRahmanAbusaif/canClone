@@ -147,7 +147,7 @@ namespace GameVanilla.Game.Scenes
                 popup.SetInfo(gameConfig.spinWheelItems, gameConfig.spinWheelCost);
             });
         }
-        public void OnleaderBoardPressed()
+        public void OnLeaderBoardPressed()
         {
             OpenPopup<BuyCoinsPopup>("Popups/LB_popup");
         }

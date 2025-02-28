@@ -14,29 +14,23 @@ public class StorePageManager : MonoBehaviour
     
     [SerializeField] private GameObject loadingPanel;
     [SerializeField] private GameObject storeItemPrefab;
+    [SerializeField] private GameObject storeCoverProfilePrefabs;
 
     [SerializeField] private Transform avatarContent;
     [SerializeField] private Transform borderContent;
     private async void Start()
     {
+        loadingPanel.SetActive(true);
+
         await UnityServices.Instance.InitializeAsync();
         if(!AuthenticationService.Instance.IsSignedIn)
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-        loadingPanel.SetActive(true);
 
         RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
 
         Create(avatarContent, avatarItems);
         Create(borderContent, borderItems);
-
-        var storeItems = new StoreItems
-        {
-            AvatarItems = avatarItems,
-            BorderItems = borderItems
-        };
-        Debug.Log($"{JsonUtility.ToJson(storeItems)}");
     }
 
     private void Create(Transform content , List<StoreItem> list)
