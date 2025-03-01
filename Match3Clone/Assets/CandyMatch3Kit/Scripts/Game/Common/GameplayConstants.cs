@@ -6,7 +6,7 @@ namespace GameVanilla.Game.Common
 {
     public static class GameplayConstants
     {
-        public const float TimeBetweenRandomMatchSuggestions = 5.0f;
+        public const float TimeBetweenRandomMatchSuggestions = 1f;
         public const float TimeBetweenRewardedCandiesCreation = 0.2f;
         public const float TimeBetweenRewardedCandiesExplosion = 0.5f;
         public const float EndGamePopupDelay = 0.75f;
