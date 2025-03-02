@@ -12,6 +12,7 @@ public class BuyPanelUI : MonoBehaviour
     [SerializeField] private List<Bundle> bundles;
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private Image itemImage;
+    [SerializeField] private AnimationBox animationBox;
     private StoreItem storeItem;
     private void Start()
     {
@@ -87,6 +88,9 @@ public class BuyPanelUI : MonoBehaviour
             case StoreItem.ItemType.BorderImage:
                 Add(playerProfile.ContainerProfileBorders, duration);
                 break;
+            case StoreItem.ItemType.CoverProfileImage:
+                Add(playerProfile.ContainerProfileCoverImages, duration);
+                break;
         }
 
         await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
@@ -97,6 +101,7 @@ public class BuyPanelUI : MonoBehaviour
     {
         ConsumableItem consumableItem = new ConsumableItem
         {
+            Id = storeItem.Id,
             ConsumableName = storeItem.Title,
             //this will be updated
         };
@@ -104,11 +109,11 @@ public class BuyPanelUI : MonoBehaviour
 
         // check if the item is already owned by the player
         // if owned then update the date purchased and date expired
-        if (data.Select(x => x.ConsumableName).Contains(consumableItem.ConsumableName))
+        if (data.Select(x => x.Id).Contains(consumableItem.Id))
         {
             //item already owned
             //then update the date purchased and date expired
-            consumableItem = data.FirstOrDefault(x => x.ConsumableName == consumableItem.ConsumableName);
+            consumableItem = data.FirstOrDefault(x => x.Id == consumableItem.Id);
             consumableItem.DatePurchased  = ServerTimeManager.Instance.CurrentTime.ToString();
 
             DateTime durationDate = DateTime.Parse(duration);
@@ -118,7 +123,7 @@ public class BuyPanelUI : MonoBehaviour
 
             Debug.Log("Item already owned");
 
-            data.Remove(data.FirstOrDefault(x => x.ConsumableName == consumableItem.ConsumableName));
+            data.Remove(data.FirstOrDefault(x => x.Id == consumableItem.Id));
         }
         else
         {
@@ -131,7 +136,9 @@ public class BuyPanelUI : MonoBehaviour
         }
 
         data.Add(consumableItem);
-        await CloudSaveManager.Instance.SaveDataAsyncString(storeItem.Title.Replace(" ", String.Empty), GetItemData());
+        await CloudSaveManager.Instance.SaveDataAsyncString(consumableItem.Id, GetItemData());
+
+        animationBox.OnClose();
     }
 
     public void OnClose()

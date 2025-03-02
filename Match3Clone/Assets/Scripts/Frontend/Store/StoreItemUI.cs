@@ -23,7 +23,7 @@ public class StoreItemUI : MonoBehaviour
         buyButton.onClick.AddListener(OnBuyButtonClicked);
 
         playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-        InvokeRepeating(nameof(UpdateBuyButton), 0, 0.1f);
+        // InvokeRepeating(nameof(UpdateBuyButton), 0, 0.1f);
     }
 
     private void OnBuyButtonClicked()
@@ -37,29 +37,6 @@ public class StoreItemUI : MonoBehaviour
             buyPanelUI.GetComponent<BuyPanelUI>().SetItemDetails(storeItem, itemImage);
         }
     }
-    private void UpdateBuyButton()
-    {
-        string name = storeItem.Title;
-        ConsumableItem consumableItem = new ConsumableItem
-        {
-            ConsumableName = name,
-        };
-
-        Debug.Log("Checking if item is in the list");
-        Debug.Log(name);
-        if (playerProfile.ContainerProfileAvatarImages.Contains(consumableItem))
-        {
-            Debug.Log("Item found");
-            buyButton.interactable = false;
-        }
-        else 
-        {
-            Debug.Log("Item not found");
-            buyButton.interactable = true;
-        }
-    }
-
-
     public void SetItem(StoreItem item)
     {
         storeItem = item;

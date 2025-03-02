@@ -297,6 +297,7 @@ public class ProfileManager : MonoBehaviour
         playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
         ConsumableItem item = new ConsumableItem()
         {
+            Id = "PlayerImageUploaded",
             ConsumableName = "PlayerImageUploaded",
             DatePurchased = DateTime.MinValue.ToString(),
             DateExpired = DateTime.MaxValue.ToString()

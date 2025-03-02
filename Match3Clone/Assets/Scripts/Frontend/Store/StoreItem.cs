@@ -2,6 +2,7 @@ using System;
 [Serializable]
 public class StoreItem 
 {
+    public string Id;
     public string Title;
     public string Description;
     public string PriceForOneDay;

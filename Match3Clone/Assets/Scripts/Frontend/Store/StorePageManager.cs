@@ -11,13 +11,16 @@ public class StorePageManager : MonoBehaviour
 {
     [SerializeField] private List<StoreItem> avatarItems;
     [SerializeField] private List<StoreItem> borderItems;
+    [SerializeField] private List<StoreItem> coverProfileItems;
     
     [SerializeField] private GameObject loadingPanel;
-    [SerializeField] private GameObject storeItemPrefab;
+    [SerializeField] private GameObject storeAvatarProfilePrefabs;
+    [SerializeField] private GameObject storeBorderProfilePrefabs;
     [SerializeField] private GameObject storeCoverProfilePrefabs;
 
     [SerializeField] private Transform avatarContent;
     [SerializeField] private Transform borderContent;
+    [SerializeField] private Transform coverProfileContent;
     private async void Start()
     {
         loadingPanel.SetActive(true);
@@ -29,17 +32,17 @@ public class StorePageManager : MonoBehaviour
         RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
 
-        Create(avatarContent, avatarItems);
-        Create(borderContent, borderItems);
+        Create(avatarContent, storeAvatarProfilePrefabs, avatarItems);
+        Create(borderContent, storeBorderProfilePrefabs, borderItems);
+        Create(coverProfileContent, storeCoverProfilePrefabs, coverProfileItems);
     }
 
-    private void Create(Transform content , List<StoreItem> list)
+    private void Create(Transform content ,GameObject itemPrefabs, List<StoreItem> list)
     {
         foreach (var (item, storeItem) in from item in list
-                                          let storeItem = Instantiate(storeItemPrefab, content)
+                                          let storeItem = Instantiate(itemPrefabs, content)
                                           select (item, storeItem))
         {
-            content.GetComponent<RectTransform>().sizeDelta += new Vector2(300, 0);
             storeItem.GetComponent<StoreItemUI>().SetItem(item);
         }
     }
@@ -52,6 +55,7 @@ public class StorePageManager : MonoBehaviour
 
         avatarItems = storeItems.AvatarItems;
         borderItems = storeItems.BorderItems;
+        coverProfileItems = storeItems.CoverProfileItems;
 
         loadingPanel.SetActive(false);
     }
@@ -67,4 +71,5 @@ internal class StoreItems
 {
     public List<StoreItem> AvatarItems;
     public List<StoreItem> BorderItems;
+    public List<StoreItem> CoverProfileItems;
 }

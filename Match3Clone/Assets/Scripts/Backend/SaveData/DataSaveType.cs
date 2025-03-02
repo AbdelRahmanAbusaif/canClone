@@ -25,6 +25,7 @@ public class PlayerProfile
 [System.Serializable]
 public class ConsumableItem
 {
+    public string Id = "";
     public string ConsumableName = "";
     public string DatePurchased = DateTime.MinValue.ToString();
     public string DateExpired = DateTime.MinValue.ToString();
