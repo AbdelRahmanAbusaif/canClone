@@ -394,7 +394,7 @@ namespace GameVanilla.Game.Common
             }
 
             var zoomLevel = gameConfig.GetZoomLevel();
-            Camera.main.orthographicSize = (totalWidth * zoomLevel) * (Screen.height / (float)Screen.width) * 0.5f;
+            Camera.main.orthographicSize = (totalWidth * zoomLevel) * (Screen.height / (float)Screen.width) * 0.6f;
 
             possibleSwaps = DetectPossibleSwaps();
         }
@@ -2306,6 +2306,7 @@ namespace GameVanilla.Game.Common
         /// <returns>The coroutine.</returns>
         private IEnumerator RegenerateLevel()
         {
+            //
             yield return new WaitForSeconds(2.0f);
             for (var i = 0; i < level.width; i++)
             {
