@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.UI;
+using TMPro;
 
 namespace GameVanilla.Game.Popups
 {
@@ -25,7 +26,7 @@ namespace GameVanilla.Game.Popups
         private GameObject iapRowPrefab;
 
         [SerializeField]
-        private Text numCoinsText;
+        private TextMeshProUGUI numCoinsText;
 
         [SerializeField]
         private ParticleSystem coinsParticles;
@@ -41,8 +42,8 @@ namespace GameVanilla.Game.Popups
             base.Awake();
             Assert.IsNotNull(iapItemsParent);
             Assert.IsNotNull(iapRowPrefab);
-            Assert.IsNotNull(numCoinsText);
-            Assert.IsNotNull(coinsParticles);
+            // Assert.IsNotNull(numCoinsText);
+            // Assert.IsNotNull(coinsParticles);
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace GameVanilla.Game.Popups
             base.Start();
             // var coins = PlayerPrefs.GetInt("num_coins");
             var coins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
-            numCoinsText.text = coins.ToString("n0");
+            // numCoinsText.text = coins.ToString("n0");
             PuzzleMatchManager.instance.coinsSystem.Subscribe(OnCoinsChanged);
 
             foreach (var item in PuzzleMatchManager.instance.gameConfig.iapItems)
@@ -96,9 +97,9 @@ namespace GameVanilla.Game.Popups
         /// <param name="numCoins">The current number of coins.</param>
         private void OnCoinsChanged(long numCoins)
         {
-            numCoinsText.text = numCoins.ToString("n0");
+            // numCoinsText.text = numCoins.ToString("n0");
             coinsParticles.Play();
-            GetComponent<PlaySound>().Play("CoinsPopButton");
+            // GetComponent<PlaySound>().Play("CoinsPopButton");
         }
 
         /// <summary>

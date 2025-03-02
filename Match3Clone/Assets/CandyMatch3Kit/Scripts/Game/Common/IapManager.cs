@@ -81,17 +81,17 @@ namespace GameVanilla.Game.Common
             if (catalogProduct != null)
             {
                 PuzzleMatchManager.instance.coinsSystem.BuyCoins(catalogProduct.numCoins);
-			    var shopPopup = Object.FindFirstObjectByType<BuyCoinsPopup>();
-                if (shopPopup != null)
-                {
-                    shopPopup.GetComponent<BuyCoinsPopup>().CloseLoadingPopup();
-                    shopPopup.GetComponent<BuyCoinsPopup>().parentScene.OpenPopup<AlertPopup>("Popups/AlertPopup",
-                        popup =>
-                        {
-                            popup.SetTitle("Purchase");
-                            popup.SetText(string.Format("You purchased {0} coins!", catalogProduct.numCoins));
-                        }, false);
-                }
+  			    // var shopPopup = Object.FindFirstObjectByType<BuyCoinsPopup>();
+                  // if (shopPopup != null)
+                  // {
+                  //     shopPopup.GetComponent<BuyCoinsPopup>().CloseLoadingPopup();
+                  //     shopPopup.GetComponent<BuyCoinsPopup>().parentScene.OpenPopup<AlertPopup>("Popups/AlertPopup",
+                  //         popup =>
+                  //         {
+                  //             popup.SetTitle("Purchase");
+                  //             popup.SetText(string.Format("You purchased {0} coins!", catalogProduct.numCoins));
+                  //         }, false);
+                  // }
             }
             return PurchaseProcessingResult.Complete;
         }
@@ -103,18 +103,19 @@ namespace GameVanilla.Game.Common
         /// <param name="reason">The failure reason.</param>
         public void OnPurchaseFailed(Product product, PurchaseFailureReason reason)
         {
-            var shopPopup = Object.FindFirstObjectByType<BuyCoinsPopup>();
-            if (shopPopup != null)
-            {
-                shopPopup.GetComponent<BuyCoinsPopup>().CloseLoadingPopup();
-                shopPopup.GetComponent<BuyCoinsPopup>().parentScene.OpenPopup<AlertPopup>("Popups/AlertPopup",
-                    popup =>
-                    {
-                        popup.SetTitle("Error");
-                        popup.SetText(string.Format("There was an error when purchasing {0}: {1}",
-                            product.metadata.localizedTitle, GetPurchaseFailureReasonString(reason)));
-                    }, false);
-            }
+            // var shopPopup = Object.FindFirstObjectByType<BuyCoinsPopup>();
+            // if (shopPopup != null)
+            // {
+            //     shopPopup.GetComponent<BuyCoinsPopup>().CloseLoadingPopup();
+            //     shopPopup.GetComponent<BuyCoinsPopup>().parentScene.OpenPopup<AlertPopup>("Popups/AlertPopup",
+            //         popup =>
+            //         {
+            //             popup.SetTitle("Error");
+            //             popup.SetText(string.Format("There was an error when purchasing {0}: {1}",
+            //                 product.metadata.localizedTitle, GetPurchaseFailureReasonString(reason)));
+            //         }, false);
+            // }
+            Debug.Log("OnPurchaseFailed: " + GetPurchaseFailureReasonString(reason));
         }
 
         /// <summary>
@@ -157,18 +158,20 @@ namespace GameVanilla.Game.Common
 
         public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
         {
-            var shopPopup = Object.FindFirstObjectByType<BuyCoinsPopup>();
-            if (shopPopup != null)
-            {
-                shopPopup.GetComponent<BuyCoinsPopup>().CloseLoadingPopup();
-                shopPopup.GetComponent<BuyCoinsPopup>().parentScene.OpenPopup<AlertPopup>("Popups/AlertPopup",
-                    popup =>
-                    {
-                        popup.SetTitle("Error");
-                        popup.SetText(string.Format("There was an error when purchasing {0}: {1}",
-                            product.metadata.localizedTitle, failureDescription.message));
-                    }, false);
-            }
+            // var shopPopup = Object.FindFirstObjectByType<BuyCoinsPopup>();
+            // if (shopPopup != null)
+            // {
+            //     shopPopup.GetComponent<BuyCoinsPopup>().CloseLoadingPopup();
+            //     shopPopup.GetComponent<BuyCoinsPopup>().parentScene.OpenPopup<AlertPopup>("Popups/AlertPopup",
+            //         popup =>
+            //         {
+            //             popup.SetTitle("Error");
+            //             popup.SetText(string.Format("There was an error when purchasing {0}: {1}",
+            //                 product.metadata.localizedTitle, failureDescription.message));
+            //         }, false);
+            // }
+
+            Debug.Log("OnPurchaseFailed: " + failureDescription.message);
         }
 
     }

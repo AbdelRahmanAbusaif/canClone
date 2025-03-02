@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.Popups;
+using TMPro;
 
 namespace GameVanilla.Game.UI
 {
@@ -30,11 +31,11 @@ namespace GameVanilla.Game.UI
         [SerializeField]
         private GameObject discount;
         [SerializeField]
-        private Text discountText;
+        private TextMeshProUGUI discountText;
         [SerializeField]
-        private Text numCoinsText;
+        private TextMeshProUGUI numCoinsText;
         [SerializeField]
-        private Text priceText;
+        private TextMeshProUGUI priceText;
         [SerializeField]
         private Image coinsImage;
         [SerializeField]
@@ -90,7 +91,7 @@ namespace GameVanilla.Game.UI
             }
 
             coinsImage.sprite = coinIcons[(int)item.coinIcon];
-            coinsImage.SetNativeSize();
+            // coinsImage.SetNativeSize();
 
             var storeController = PuzzleMatchManager.instance.iapManager.controller;
             if (storeController != null)
@@ -101,7 +102,7 @@ namespace GameVanilla.Game.UI
                     priceText.text = product.metadata.localizedPriceString;
                 }
             }
-            priceText.text = "$5,99";
+            priceText.text = PuzzleMatchManager.instance.iapManager.controller.products.WithID(item.storeId).metadata.localizedPriceString;
         }
 
         /// <summary>
