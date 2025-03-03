@@ -91,6 +91,7 @@ public class LoginController : MonoBehaviour
                 {
                     
                 },
+                AdManager = new List<AdManager>(),
                 ContainerProfileAvatarImages = new List<ConsumableItem>(),
                 ContainerProfileBorders = new List<ConsumableItem>(),
                 ContainerProfilePrimeSubscriptions = new List<ConsumableItem>(),

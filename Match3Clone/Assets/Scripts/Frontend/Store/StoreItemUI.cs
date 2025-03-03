@@ -25,6 +25,10 @@ public class StoreItemUI : MonoBehaviour
         playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         // InvokeRepeating(nameof(UpdateBuyButton), 0, 0.1f);
     }
+    private void OnEnable() 
+    {
+        LoadImage(storeItem.Url);
+    }
 
     private void OnBuyButtonClicked()
     {
@@ -43,7 +47,6 @@ public class StoreItemUI : MonoBehaviour
 
         titleText.text = item.Title;
         itemDescription = item.Description;
-        LoadImage(item.Url);
     }
 
     private void LoadImage(string Url)

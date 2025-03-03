@@ -149,7 +149,7 @@ namespace GameVanilla.Game.Scenes
         }
         public void OnLeaderBoardPressed()
         {
-            OpenPopup<BuyCoinsPopup>("Popups/LB_popup");
+            // OpenPopup<BuyCoinsPopup>("Popups/LB_popup");
         }
     }
 }

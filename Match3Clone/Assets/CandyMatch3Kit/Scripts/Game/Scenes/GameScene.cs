@@ -190,6 +190,8 @@ namespace GameVanilla.Game.Scenes
 
                     Debug.Log("From CheckEndGame GameScene : " + playerProfile.Level);
                     await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+
+                    PuzzleMatchManager.instance.coinsSystem.BuyCoins(10);
                     
                     PuzzleMatchManager.instance.unlockedNextLevel = true;
                 }

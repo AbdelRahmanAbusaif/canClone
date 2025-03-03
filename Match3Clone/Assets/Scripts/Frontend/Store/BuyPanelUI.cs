@@ -57,7 +57,7 @@ public class BuyPanelUI : MonoBehaviour
             }
         }
 
-        itemImage = image;
+        itemImage.sprite = image.sprite;
     }
     private async void OnBuyOneDayButtonClicked()
     {

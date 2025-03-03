@@ -67,9 +67,6 @@ namespace GameVanilla.Game.Common
 
              await UnityServices.Instance.InitializeAsync();
 
-            RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
-            await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
-
             // if(!PlayerPrefs.HasKey("next_live_time"))
             // {
             //     PlayerPrefs.SetString("next_live_time", "300");
@@ -85,7 +82,11 @@ namespace GameVanilla.Game.Common
 
             iapManager = new IapManager();
         }
-
+        private async void OnEnable() 
+        {
+            RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
+            await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+        }
         private void ApplyRemoteConfig(ConfigResponse response)
         {
             GameConfiguration gameConfig = JsonConvert.DeserializeObject<GameConfiguration>(RemoteConfigService.Instance.appConfig.GetJson("game_configuration"));
@@ -97,6 +98,11 @@ namespace GameVanilla.Game.Common
                 Debug.Log("Game Configuration: " + gameConfig);
                 this.gameConfig = gameConfig;
             }
+        }
+
+        private void OnDisable() 
+        {
+            RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
         }
     }
 }

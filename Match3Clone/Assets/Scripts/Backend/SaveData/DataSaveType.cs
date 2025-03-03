@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 [System.Serializable]
 public class PlayerProfile
@@ -16,11 +15,20 @@ public class PlayerProfile
     public bool IsAcceptedTerms = false;
     public DailyBonus DailyBonus = new();
     public SpinWheel SpinWheel = new();
+    public List<AdManager> AdManager = new();
     public List<LevelComplete> LevelsComplete = new();
     public List<ConsumableItem> ContainerProfileAvatarImages = new();
     public List<ConsumableItem> ContainerProfileCoverImages = new();
     public List<ConsumableItem> ContainerProfileBorders = new();
     public List<ConsumableItem> ContainerProfilePrimeSubscriptions = new();
+}
+[System.Serializable]
+public class AdManager
+{
+    public int AdCounter = 0;
+    public string AdId = "";
+    public string AdCurrentTimer = "";  
+    public string AdNextTimer = "";
 }
 [System.Serializable]
 public class ConsumableItem

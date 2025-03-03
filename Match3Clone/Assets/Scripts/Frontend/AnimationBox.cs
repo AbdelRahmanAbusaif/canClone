@@ -16,6 +16,7 @@ public class AnimationBox : MonoBehaviour
     {
         DOTween.Init();
 
+        Debug.Log("AnimationBox OnEnable");
         switch(animationType)
         {
             case AnimationType.Move:
@@ -88,7 +89,6 @@ public class AnimationBox : MonoBehaviour
     private void OnDestroy() 
     {
         DOTween.Clear();
-        DOTween.KillAll();
     }
 
     public enum AnimationType

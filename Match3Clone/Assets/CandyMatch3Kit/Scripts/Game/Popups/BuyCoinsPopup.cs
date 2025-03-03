@@ -42,7 +42,7 @@ namespace GameVanilla.Game.Popups
             base.Awake();
             Assert.IsNotNull(iapItemsParent);
             Assert.IsNotNull(iapRowPrefab);
-            // Assert.IsNotNull(numCoinsText);
+            Assert.IsNotNull(numCoinsText);
             // Assert.IsNotNull(coinsParticles);
         }
 
@@ -54,7 +54,7 @@ namespace GameVanilla.Game.Popups
             base.Start();
             // var coins = PlayerPrefs.GetInt("num_coins");
             var coins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
-            // numCoinsText.text = coins.ToString("n0");
+            numCoinsText.text = coins.ToString("n0");
             PuzzleMatchManager.instance.coinsSystem.Subscribe(OnCoinsChanged);
 
             foreach (var item in PuzzleMatchManager.instance.gameConfig.iapItems)

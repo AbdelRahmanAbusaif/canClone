@@ -44,6 +44,9 @@ namespace GameVanilla.Game.Popups
 
         [SerializeField]
         private Sprite refillButtonDisabledSprite;
+
+        [SerializeField]
+        private PageTransition pageTransition;
 #pragma warning restore 649
 
         /// <summary>
@@ -67,6 +70,8 @@ namespace GameVanilla.Game.Popups
         protected override async void Start()
         {
             base.Start();
+            pageTransition = FindAnyObjectByType<PageTransition>().GetComponent<PageTransition>();
+
             PuzzleMatchManager.instance.livesSystem.Subscribe(OnLivesCountdownUpdated, OnLivesCountdownFinished);
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             // var numLives = PlayerPrefs.GetInt("num_lives");
@@ -108,15 +113,16 @@ namespace GameVanilla.Game.Popups
                 {
                     scene.CloseCurrentPopup();
                     SoundManager.instance.PlaySound("Button");
-                    scene.OpenPopup<BuyCoinsPopup>("Popups/BuyCoinsPopup",
-                        popup =>
-                        {
-                            popup.onClose.AddListener(
-                                () =>
-                                {
-                                    scene.OpenPopup<BuyLivesPopup>("Popups/BuyLivesPopup");
-                                });
-                        });
+                    pageTransition.TransitionToPage(0);
+                    // scene.OpenPopup<BuyCoinsPopup>("Popups/BuyCoinsPopup",
+                    //     popup =>
+                    //     {
+                    //         popup.onClose.AddListener(
+                    //             () =>
+                    //             {
+                    //                 scene.OpenPopup<BuyLivesPopup>("Popups/BuyLivesPopup");
+                    //             });
+                    //     });
                 }
             }
         }

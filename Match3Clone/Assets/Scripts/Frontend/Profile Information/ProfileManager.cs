@@ -264,7 +264,8 @@ public class ProfileManager : MonoBehaviour
             {
                
             },
-        ContainerProfileAvatarImages = new(),
+            AdManager = new(),
+            ContainerProfileAvatarImages = new(),
             ContainerProfileBorders = new(),
             ContainerProfileCoverImages = new(),
             ContainerProfilePrimeSubscriptions = new()

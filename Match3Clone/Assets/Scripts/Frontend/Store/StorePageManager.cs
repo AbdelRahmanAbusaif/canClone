@@ -26,15 +26,8 @@ public class StorePageManager : MonoBehaviour
         loadingPanel.SetActive(true);
 
         await UnityServices.Instance.InitializeAsync();
-        if(!AuthenticationService.Instance.IsSignedIn)
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
-        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
-
-        Create(avatarContent, storeAvatarProfilePrefabs, avatarItems);
-        Create(borderContent, storeBorderProfilePrefabs, borderItems);
-        Create(coverProfileContent, storeCoverProfilePrefabs, coverProfileItems);
+        // if(!AuthenticationService.Instance.IsSignedIn)
+        // await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
     private void Create(Transform content ,GameObject itemPrefabs, List<StoreItem> list)
@@ -48,7 +41,7 @@ public class StorePageManager : MonoBehaviour
     }
 
 
-    private void ApplyRemoteConfig(ConfigResponse response)
+    public void ApplyRemoteConfig(ConfigResponse response)
     {
         var jsonData = RemoteConfigService.Instance.appConfig.GetJson("StoreItems");
         var storeItems = JsonUtility.FromJson<StoreItems>(jsonData);
@@ -57,14 +50,12 @@ public class StorePageManager : MonoBehaviour
         borderItems = storeItems.BorderItems;
         coverProfileItems = storeItems.CoverProfileItems;
 
-        loadingPanel.SetActive(false);
-    }
+        Create(avatarContent, storeAvatarProfilePrefabs, avatarItems);
+        Create(borderContent, storeBorderProfilePrefabs, borderItems);
+        Create(coverProfileContent, storeCoverProfilePrefabs, coverProfileItems);
 
-    private void OnDestroy() 
-    {
-        RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
-    }
-    
+        loadingPanel.SetActive(false);
+    }    
 }
 
 internal class StoreItems
