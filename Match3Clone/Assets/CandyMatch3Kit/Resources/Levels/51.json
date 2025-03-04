@@ -396,11 +396,11 @@
         }
     ],
     "limitType": "Moves",
-    "limit": 40,
+    "limit": 30,
     "goals": [
         {
             "elementType": "Syrup1",
-            "amount": 49,
+            "amount": 54,
             "$type": "GameVanilla.Game.Common.CollectElementGoal"
         }
     ],
