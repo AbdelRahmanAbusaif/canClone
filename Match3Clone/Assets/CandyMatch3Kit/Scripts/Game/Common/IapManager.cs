@@ -24,9 +24,13 @@ namespace GameVanilla.Game.Common
         /// </summary>
         public IapManager()
         {
+            Debug.Log("IapManager constructor");
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+
+            Debug.Log($"IapManager: {PuzzleMatchManager.instance.gameConfig.iapItems.Count} items");
             foreach (var item in PuzzleMatchManager.instance.gameConfig.iapItems)
             {
+                Debug.Log("Adding product: " + item.storeId);
                 builder.AddProduct(item.storeId, ProductType.Consumable);
             }
             UnityPurchasing.Initialize(this, builder);
@@ -39,6 +43,7 @@ namespace GameVanilla.Game.Common
         /// <param name="extensionProvider">The extension provider.</param>
         public void OnInitialized(IStoreController storeController, IExtensionProvider extensionProvider)
         {
+            Debug.Log("OnInitialized: PASS");
             controller = storeController;
             extensions = extensionProvider;
         }
@@ -52,6 +57,7 @@ namespace GameVanilla.Game.Common
         /// <param name="error">The error received.</param>
         public void OnInitializeFailed(InitializationFailureReason error)
         {
+            Debug.Log("OnInitializeFailed: " + error);
         }
 
 		/// <summary>
@@ -64,6 +70,7 @@ namespace GameVanilla.Game.Common
         /// <param name="message">The error message received.</param>
         public void OnInitializeFailed(InitializationFailureReason error, string message)
         {
+            Debug.Log("OnInitializeFailed: " + error + " - " + message);
         }
 
         /// <summary>

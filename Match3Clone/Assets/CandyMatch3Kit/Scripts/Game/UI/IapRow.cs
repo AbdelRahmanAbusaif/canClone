@@ -102,7 +102,7 @@ namespace GameVanilla.Game.UI
                     priceText.text = product.metadata.localizedPriceString;
                 }
             }
-            priceText.text = PuzzleMatchManager.instance.iapManager.controller.products.WithID(item.storeId).metadata.localizedPriceString;
+            // priceText.text = PuzzleMatchManager.instance.iapManager.controller.products.WithID(item.storeId).metadata.localizedPriceString;
         }
 
         /// <summary>
@@ -111,11 +111,16 @@ namespace GameVanilla.Game.UI
         public void OnPurchaseButtonPressed()
         {
             var storeController = PuzzleMatchManager.instance.iapManager.controller;
+
+            Debug.Log("OnPurchaseButtonPressed");
             if (storeController != null)
             {
                 storeController.InitiatePurchase(cachedItem.storeId);
+
+                Debug.Log("InitiatePurchase");
                 buyCoinsPopup.OpenLoadingPopup();
             }
+            Debug.Log("PlaySound");
             GetComponent<PlaySound>().Play("Button");
         }
     }

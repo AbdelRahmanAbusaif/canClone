@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class GridLayoutFix : MonoBehaviour
 {
     [SerializeField] private RectTransform rectTransform;
-    [SerializeField] private CanvasScaler canvasScaler;
+    [SerializeField] private RectTransform canvasScaler;
     [SerializeField] private FixType fixType;
     public enum FixType
     {
@@ -13,17 +13,18 @@ public class GridLayoutFix : MonoBehaviour
     }
     void Start()
     {
+        canvasScaler = GameObject.Find("Canvas").GetComponent<RectTransform>();
         FixSize();
     }
     void FixSize()
     {
         if(fixType == FixType.Width)
         {
-            rectTransform.sizeDelta = new Vector2(canvasScaler.referenceResolution.x, rectTransform.sizeDelta.y);
+            rectTransform.sizeDelta = new Vector2(canvasScaler.sizeDelta.x, rectTransform.sizeDelta.y);
         }
         else
         {
-            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, canvasScaler.referenceResolution.y);
+            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, canvasScaler.sizeDelta.y);
         }
     }
 }

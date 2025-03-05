@@ -84,11 +84,8 @@ namespace SaveData
         }
 
         public async Task SaveImageAsync(Texture2D texture, string key)
-        {
-            Texture2D resizedTexture = ImageUtility.ResizeTexture(texture, 128, 128);
-
-            byte[] imageData = ImageUtility.CompressTexture(resizedTexture, quality: 50);
-            
+        {                   
+            var imageData = texture.EncodeToPNG();     
             string saveImageFilePath = Path.Combine(Application.persistentDataPath, key + ".png");
             Debug.Log(saveImageFilePath);
 
