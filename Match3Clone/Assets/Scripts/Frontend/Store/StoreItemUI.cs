@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class StoreItemUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI titleText;
+    [SerializeField] private TextMeshProUGUI priceText;
     [SerializeField] private Image itemImage;
 
     [SerializeField] private Button buyButton;
@@ -17,7 +18,8 @@ public class StoreItemUI : MonoBehaviour
 
     private string itemDescription;
     private StoreItem storeItem;
-    PlayerProfile playerProfile;
+    private PrimeSubscription primeSubscription;
+    private PlayerProfile playerProfile;
     private async void Start()
     {
         buyButton.onClick.AddListener(OnBuyButtonClicked);
@@ -27,7 +29,8 @@ public class StoreItemUI : MonoBehaviour
     }
     private void OnEnable() 
     {
-        LoadImage(storeItem.Url);
+        if(storeItem != null)
+            LoadImage(storeItem.Url);
     }
 
     private void OnBuyButtonClicked()
@@ -38,7 +41,11 @@ public class StoreItemUI : MonoBehaviour
 
             var buyPanelUI = Instantiate(buyPanel, canvas.transform);
             buyPanelUI.SetActive(true);
-            buyPanelUI.GetComponent<BuyPanelUI>().SetItemDetails(storeItem, itemImage);
+
+            if(storeItem != null)
+                buyPanelUI.GetComponent<BuyPanelUI>().SetItemDetails(storeItem, itemImage);
+            else if(primeSubscription != null)
+                buyPanelUI.GetComponent<PrimeSubscriptionPanel>().SetPrimeSubscriptionItem(primeSubscription);
         }
     }
     public void SetItem(StoreItem item)
@@ -47,6 +54,13 @@ public class StoreItemUI : MonoBehaviour
 
         titleText.text = item.Title;
         itemDescription = item.Description;
+    }
+    public void SetPrimeSubscriptionItem(PrimeSubscription item)
+    {
+        primeSubscription = item;
+
+        titleText.text = item.Title;
+        priceText.text = item.Price;
     }
 
     private void LoadImage(string Url)

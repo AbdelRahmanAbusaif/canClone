@@ -67,7 +67,8 @@ public class RemotelyDownloadAssets : MonoBehaviour
             { "Chocolate.png", "ChocolateURL" },
             { "Honey.png", "HoneyURL" },
             { "Ice.png", "IceURL" },
-            { "Marshmallow.png", "MarshmallowURL" }
+            { "Marshmallow.png", "MarshmallowURL" },
+            { "SubIcon.png", "SubIconURL"}
         };
 
         List<GameAssetsFiles> gameAssetsFiles = assetKeys.Select(kvp => new GameAssetsFiles

@@ -14,6 +14,11 @@ public class BuyPanelUI : MonoBehaviour
     [SerializeField] private Image itemImage;
     [SerializeField] private AnimationBox animationBox;
     private StoreItem storeItem;
+    private PlayerProfile playerProfile;
+    private async void OnEnable() 
+    {
+        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+    }
     private void Start()
     {
         foreach (var bundle in bundles)
@@ -66,29 +71,28 @@ public class BuyPanelUI : MonoBehaviour
     }
     private async void OnBuySevenDaysButtonClicked()
     {        
-        var bundle = bundles.FirstOrDefault(x => x.DurationType == Duration.OneDay);
+        var bundle = bundles.FirstOrDefault(x => x.DurationType == Duration.SevenDays);
         await BuyItemWithCoin(bundle.price , ServerTimeManager.Instance.CurrentTime.AddDays(7).ToString());
     }
     private async void OnBuyThirtyDaysButtonClicked()
     {
-        var bundle = bundles.FirstOrDefault(x => x.DurationType == Duration.OneDay);
+        var bundle = bundles.FirstOrDefault(x => x.DurationType == Duration.ThirtyDays);
         await BuyItemWithCoin(bundle.price , ServerTimeManager.Instance.CurrentTime.AddDays(30).ToString());
     }
 
     private async System.Threading.Tasks.Task BuyItemWithCoin(int price, string duration)
     {
         PuzzleMatchManager.instance.coinsSystem.SpendCoins(price);
-        PlayerProfile playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
         switch (storeItem.Type)
         {
-            case StoreItem.ItemType.ProfileImage:
+            case ItemType.ProfileImage:
                 Add(playerProfile.ContainerProfileAvatarImages, duration);
                 break;
-            case StoreItem.ItemType.BorderImage:
+            case ItemType.BorderImage:
                 Add(playerProfile.ContainerProfileBorders, duration);
                 break;
-            case StoreItem.ItemType.CoverProfileImage:
+            case ItemType.CoverProfileImage:
                 Add(playerProfile.ContainerProfileCoverImages, duration);
                 break;
         }
@@ -97,6 +101,7 @@ public class BuyPanelUI : MonoBehaviour
         Debug.Log("Buy button clicked");
     }
 
+    // Add the consumable item to the player profile
     private async void Add(List<ConsumableItem> data , string duration)
     {
         ConsumableItem consumableItem = new ConsumableItem
@@ -106,6 +111,7 @@ public class BuyPanelUI : MonoBehaviour
             //this will be updated
         };
 
+        Debug.Log($"Duration: {duration}");
 
         // check if the item is already owned by the player
         // if owned then update the date purchased and date expired
@@ -117,7 +123,7 @@ public class BuyPanelUI : MonoBehaviour
             consumableItem.DatePurchased  = ServerTimeManager.Instance.CurrentTime.ToString();
 
             DateTime durationDate = DateTime.Parse(duration);
-            int durationDays = durationDate.Day; // Extract the day component
+            int durationDays = durationDate.Day - ServerTimeManager.Instance.CurrentTime.Day; // Extract the day component
             DateTime dateTime = DateTime.Parse(consumableItem.DateExpired);
             consumableItem.DateExpired = dateTime.AddDays(durationDays).ToString();
 
@@ -140,7 +146,6 @@ public class BuyPanelUI : MonoBehaviour
 
         animationBox.OnClose();
     }
-
     public void OnClose()
     {
         Invoke(nameof(DestroyPanel), 1f);
@@ -175,5 +180,7 @@ public enum Duration
 {
     OneDay,
     SevenDays,
-    ThirtyDays
+    ThirtyDays,
+    HalfYear,
+    OneYear
 }

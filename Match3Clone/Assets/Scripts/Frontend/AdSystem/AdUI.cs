@@ -62,11 +62,14 @@ public class AdUI : MonoBehaviour
                 AdNextTimer = ""
             };
 
+            Instantiate(adPrefabs, adContainer).GetComponent<AdUIComponent>().SetAdData(ad.AdClicksGoal.ToString(), adManager.AdCounter.ToString(), ad.AdReward.ToString());
+            adUIComponents.Add(adPrefabs);
+            
             playerProfile.AdManager.Add(adManager);
 
             Debug.Log("Ad Added");
         }
-        // await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+        await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
     }
 }
 [Serializable]
