@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using SaveData;
 using TMPro;
@@ -20,5 +21,27 @@ public class PlayerItemInformationPage : MonoBehaviour
         LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", playerImage);
         LocalSaveManager.Instance.LoadImageAsync("PlayerCoverProfileImage", playerCoverProfileImage);
         LocalSaveManager.Instance.LoadImageAsync("PlayerProfileBorder", playerBorderImage);
+
+        ProfileEditUI.OnImageChanged += OnImageChanged;
+    }
+
+    private void OnImageChanged(ConsumableType type, Sprite sprite)
+    {
+        switch(type)
+        {
+            case ConsumableType.PlayerProfileAvatar:
+                playerImage.sprite = sprite;
+                break;
+            case ConsumableType.PlayerProfileCover:
+                playerCoverProfileImage.sprite = sprite;
+                break;
+            case ConsumableType.PlayerProfileBorder:
+                playerBorderImage.sprite = sprite;
+                break;
+        }
+    }
+    private void OnDisable() 
+    {
+        ProfileEditUI.OnImageChanged -= OnImageChanged;
     }
 }

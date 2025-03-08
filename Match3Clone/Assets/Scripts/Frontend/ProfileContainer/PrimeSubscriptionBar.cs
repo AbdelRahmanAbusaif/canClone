@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using SaveData;
 using TMPro;
 using UnityEngine;
@@ -7,23 +8,37 @@ public class PrimeSubscriptionBar : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI durationText;
     private PlayerProfile playerProfile;
-    private async void OnEnable() 
+    private async void OnEnable()
+
+    {
+        PrimeSubscriptionPanel.OnSubscriptionPurchased += OnPrimeSubscriptionPurchased;
+        await UpdateUI();
+    }
+
+    private async System.Threading.Tasks.Task UpdateUI()
     {
         playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-        
-        DateTime expiredDate = DateTime.Parse(playerProfile.PrimeSubscriptions.DateExpired);
 
-        Debug.Log("Expired Date :"+expiredDate);
+        DateTime expiredDate = DateTime.TryParse(playerProfile.PrimeSubscriptions.DateExpired , out DateTime date) ? date : DateTime.MinValue;
 
-        if(expiredDate < DateTime.Now)
+        Debug.Log("Expired Date :" + expiredDate);
+
+        if (expiredDate < DateTime.Now)
         {
             durationText.text = "0";
         }
-        else 
+        else
         {
-            var timeSpan =  expiredDate.Date - DateTime.Now.Date;
+            var timeSpan = expiredDate.Date - DateTime.Now.Date;
             print(timeSpan.Days);
             durationText.text = timeSpan.Days.ToString();
         }
     }
+
+
+    private async void OnPrimeSubscriptionPurchased()
+    {
+        await UpdateUI();
+    }
+
 }

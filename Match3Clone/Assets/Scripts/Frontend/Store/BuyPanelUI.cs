@@ -82,6 +82,14 @@ public class BuyPanelUI : MonoBehaviour
 
     private async System.Threading.Tasks.Task BuyItemWithCoin(int price, string duration)
     {
+        int coins = PuzzleMatchManager.instance.coinsSystem.Coins;
+        
+        if(coins < price)
+        {
+            Debug.Log("Not enough coins");
+            return;
+        }
+        
         PuzzleMatchManager.instance.coinsSystem.SpendCoins(price);
 
         switch (storeItem.Type)

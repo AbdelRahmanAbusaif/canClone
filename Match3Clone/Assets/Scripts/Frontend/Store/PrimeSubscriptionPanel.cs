@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class PrimeSubscriptionPanel : MonoBehaviour
 {
+    public static event Action OnSubscriptionPurchased;
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private AnimationBox animationBox;
     [SerializeField] private Button buyButton;
@@ -25,9 +26,17 @@ public class PrimeSubscriptionPanel : MonoBehaviour
 
         title.text = primeSubscription.Title;
     }
-    private async void OnClickBuyButton()
+    private void OnClickBuyButton()
     {
         int price = int.Parse(primeSubscription.Price);
+    int coins = PuzzleMatchManager.instance.coinsSystem.Coins;
+
+    if(coins < price)
+    {
+        Debug.Log("Not enough coins");
+        return;
+    }
+
         PuzzleMatchManager.instance.coinsSystem.SpendCoins(price);
 
         switch(primeSubscription.DurationType)
@@ -48,9 +57,8 @@ public class PrimeSubscriptionPanel : MonoBehaviour
                 Add(playerProfile.PrimeSubscriptions, ServerTimeManager.Instance.CurrentTime.AddDays(365).ToString());
                 break;
         }
-        await CloudSaveManager.Instance.SaveDataAsync<PlayerProfile>("PlayerProfile", playerProfile);
     }
-    private void Add(ConsumableItem data , string duration)
+    private async void Add(ConsumableItem data , string duration)
     {
         data.DatePurchased = ServerTimeManager.Instance.CurrentTime.ToString();
 
@@ -63,11 +71,17 @@ public class PrimeSubscriptionPanel : MonoBehaviour
         }
 
         DateTime durationDate = DateTime.Parse(duration);
-        int durationDays = durationDate.Day - ServerTimeManager.Instance.CurrentTime.Day; // Extract the day component
+        var durationDays = durationDate - ServerTimeManager.Instance.CurrentTime; // Extract the day component
+        Debug.Log("Duration Days: " + durationDays.Days);
         DateTime dateTime = DateTime.Parse(data.DateExpired);
-        data.DateExpired = dateTime.AddDays(durationDays).ToString();
-        playerProfile.PrimeSubscriptions = data;
+        data.DateExpired = dateTime.AddDays(durationDays.Days).ToString();
 
+        playerProfile.PrimeSubscriptions.DateExpired = data.DateExpired;
+        playerProfile.PrimeSubscriptions.DatePurchased = data.DatePurchased;
+
+        await CloudSaveManager.Instance.SaveDataAsync<PlayerProfile>("PlayerProfile", playerProfile);
+
+        OnSubscriptionPurchased?.Invoke();
         animationBox.OnClose();
     }
 

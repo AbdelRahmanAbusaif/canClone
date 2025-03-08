@@ -1102,7 +1102,7 @@ MonoBehaviour:
   RetryPanel: {fileID: 1388965112}
   RetryButton: {fileID: 1092929926}
   uILogin: {fileID: 567607538}
-  HomePageScene: HomeScene
+  HomePageScene: HomePage
   LoginPageScene: LoginPage
   isAssetsDownloaded: 0
   isAPIDataFetched: 0
@@ -2001,6 +2001,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxForAnimation: {fileID: 244143209}
   blackScreen: {fileID: 1388965115}
+  animationType: 0
+  startPosY: 5000
+  endPosY: 0
+  duration: 0.5
 --- !u!114 &1388965115
 MonoBehaviour:
   m_ObjectHideFlags: 0

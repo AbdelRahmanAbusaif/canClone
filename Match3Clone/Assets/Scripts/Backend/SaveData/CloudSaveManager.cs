@@ -106,12 +106,20 @@ namespace SaveData
                 Debug.LogError($"Failed to save image: {e.Message}");
             }
         }
-        public async void LoadImageAsync(string key, Image targetImage)
+        public async void LoadImageAsync(string key, Image targetImage, bool publicData = true)
         {
             try
             {
-                var imageData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string>{key}, new LoadOptions(new PublicReadAccessClassOptions()));
+                Dictionary<string, Unity.Services.CloudSave.Models.Item> imageData = null;
 
+                if(publicData)
+                {
+                    imageData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string>{key}, new LoadOptions(new PublicReadAccessClassOptions()));
+                }
+                else 
+                {
+                    imageData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string>{key});
+                }
                 if(imageData.TryGetValue(key, out var item))
                 {
                     string base64Image = item.Value.GetAs<string>();
