@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class StoreItemUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI titleText;
+    [SerializeField] private TextMeshProUGUI priceText;
     [SerializeField] private Image itemImage;
 
     [SerializeField] private Button buyButton;
@@ -17,13 +18,19 @@ public class StoreItemUI : MonoBehaviour
 
     private string itemDescription;
     private StoreItem storeItem;
-    PlayerProfile playerProfile;
+    private PrimeSubscription primeSubscription;
+    private PlayerProfile playerProfile;
     private async void Start()
     {
         buyButton.onClick.AddListener(OnBuyButtonClicked);
 
         playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-        InvokeRepeating(nameof(UpdateBuyButton), 0, 0.1f);
+        // InvokeRepeating(nameof(UpdateBuyButton), 0, 0.1f);
+    }
+    private void OnEnable() 
+    {
+        if(storeItem != null)
+            LoadImage(storeItem.Url);
     }
 
     private void OnBuyButtonClicked()
@@ -34,39 +41,26 @@ public class StoreItemUI : MonoBehaviour
 
             var buyPanelUI = Instantiate(buyPanel, canvas.transform);
             buyPanelUI.SetActive(true);
-            buyPanelUI.GetComponent<BuyPanelUI>().SetItemDetails(storeItem, itemImage);
+
+            if(storeItem != null)
+                buyPanelUI.GetComponent<BuyPanelUI>().SetItemDetails(storeItem, itemImage);
+            else if(primeSubscription != null)
+                buyPanelUI.GetComponent<PrimeSubscriptionPanel>().SetPrimeSubscriptionItem(primeSubscription);
         }
     }
-    private void UpdateBuyButton()
-    {
-        string name = storeItem.Title;
-        ConsumableItem consumableItem = new ConsumableItem
-        {
-            ConsumableName = name,
-        };
-
-        Debug.Log("Checking if item is in the list");
-        Debug.Log(name);
-        if (playerProfile.ContainerProfileAvatarImages.Contains(consumableItem))
-        {
-            Debug.Log("Item found");
-            buyButton.interactable = false;
-        }
-        else 
-        {
-            Debug.Log("Item not found");
-            buyButton.interactable = true;
-        }
-    }
-
-
     public void SetItem(StoreItem item)
     {
         storeItem = item;
 
         titleText.text = item.Title;
         itemDescription = item.Description;
-        LoadImage(item.Url);
+    }
+    public void SetPrimeSubscriptionItem(PrimeSubscription item)
+    {
+        primeSubscription = item;
+
+        titleText.text = item.Title;
+        priceText.text = item.Price;
     }
 
     private void LoadImage(string Url)

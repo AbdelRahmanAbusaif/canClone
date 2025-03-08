@@ -25,6 +25,8 @@ namespace GameVanilla.Game.UI
 
         [SerializeField]
         private TextMeshProUGUI numCoinsText;
+        [SerializeField]
+        private PageTransition pageTransition;
 #pragma warning restore 649
 
         /// <summary>
@@ -45,6 +47,7 @@ namespace GameVanilla.Game.UI
             var numCoins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
             numCoinsText.text = numCoins.ToString("n0");
             PuzzleMatchManager.instance.coinsSystem.Subscribe(numCoins => OnCoinsChanged((int)numCoins));
+            pageTransition = FindAnyObjectByType<PageTransition>().GetComponent<PageTransition>();
         }
 
         /// <summary>
@@ -60,7 +63,8 @@ namespace GameVanilla.Game.UI
         /// </summary>
         public void OnBuyButtonPressed()
         {
-            levelScene.OpenPopup<BuyCoinsPopup>("Popups/BuyCoinsPopup");
+            pageTransition.TransitionToPage(0);
+            // levelScene.OpenPopup<BuyCoinsPopup>("Popups/BuyCoinsPopup");
         }
 
         /// <summary>

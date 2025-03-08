@@ -12,8 +12,6 @@ using GameVanilla.Game.UI;
     public class PageTransition : MonoBehaviour
     {
         [SerializeField] private List<GameObject> pages;
-        [SerializeField] private List<Image> imagesBorder;
-        //holding the buttons
         [SerializeField] private List<GameObject> holder;
 
         [SerializeField] private GameObject rightRespawn;

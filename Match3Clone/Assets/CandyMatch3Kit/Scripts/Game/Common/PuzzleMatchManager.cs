@@ -63,12 +63,7 @@ namespace GameVanilla.Game.Common
             livesSystem = GetComponent<LivesSystem>();
             coinsSystem = GetComponent<CoinsSystem>();
 
-            var serializer = new fsSerializer();
-
-             await UnityServices.Instance.InitializeAsync();
-
-            RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
-            await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+            await UnityServices.Instance.InitializeAsync();
 
             // if(!PlayerPrefs.HasKey("next_live_time"))
             // {
@@ -83,12 +78,16 @@ namespace GameVanilla.Game.Common
             //     PlayerPrefs.SetInt("num_coins", gameConfig.initialCoins);
             // }
 
-            iapManager = new IapManager();
         }
-
+        private async void OnEnable() 
+        {
+            RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
+            await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+        }
         private void ApplyRemoteConfig(ConfigResponse response)
         {
             GameConfiguration gameConfig = JsonConvert.DeserializeObject<GameConfiguration>(RemoteConfigService.Instance.appConfig.GetJson("game_configuration"));
+            Debug.Log("Remote Config Items Store:" + gameConfig.iapItems.Count);
 
             Debug.Log("Remote Config Fetched Successfully!");
 
@@ -96,7 +95,13 @@ namespace GameVanilla.Game.Common
             {
                 Debug.Log("Game Configuration: " + gameConfig);
                 this.gameConfig = gameConfig;
+                iapManager = new IapManager();
             }
+        }
+
+        private void OnDisable() 
+        {
+            RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
         }
     }
 }

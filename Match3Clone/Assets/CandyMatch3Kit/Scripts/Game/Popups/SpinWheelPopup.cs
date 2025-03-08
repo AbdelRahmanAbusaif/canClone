@@ -56,6 +56,8 @@ namespace GameVanilla.Game.Popups
         
         [SerializeField]
         private SpinWheelWidget blueLightItem;
+        [SerializeField]
+        private PageTransition pageTransition;
 #pragma warning restore 649
         
         private readonly string dateLastSpinKey = "date_last_spin";
@@ -105,7 +107,8 @@ namespace GameVanilla.Game.Popups
         {
             base.Start();
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-            
+            pageTransition = FindAnyObjectByType<PageTransition>().GetComponent<PageTransition>();
+
             if (String.Equals(playerProfile.SpinWheel.DateLastSpin, "0"))
             {
                 SetFreeSpin();
@@ -250,7 +253,8 @@ namespace GameVanilla.Game.Popups
             else
             {
                 Close();
-                parentScene.OpenPopup<BuyCoinsPopup>("Popups/BuyCoinsPopup");
+                pageTransition.TransitionToPage(0);
+                // parentScene.OpenPopup<BuyCoinsPopup>("Popups/BuyCoinsPopup");
             }
         }
 

@@ -87,13 +87,11 @@ public class LoginController : MonoBehaviour
                     DateLastSpin = "0",
                     DailySpinDayKey = "0"
                 },
-                LevelsComplete = new List<LevelComplete>()
-                {
-                    
-                },
+                PrimeSubscriptions = new(),
+                LevelsComplete = new(),
+                AdManager = new List<AdManager>(),
                 ContainerProfileAvatarImages = new List<ConsumableItem>(),
                 ContainerProfileBorders = new List<ConsumableItem>(),
-                ContainerProfilePrimeSubscriptions = new List<ConsumableItem>(),
                 ContainerProfileCoverImages = new List<ConsumableItem>()
             };
 

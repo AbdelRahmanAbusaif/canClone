@@ -4,6 +4,7 @@ using Unity.Services.Economy.Model;
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
+using Unity.Services.Authentication;
 
 public class CoinsSystem : MonoBehaviour
 {
@@ -21,6 +22,10 @@ public class CoinsSystem : MonoBehaviour
         try
         {
             await UnityServices.InitializeAsync();
+
+            if(!AuthenticationService.Instance.IsSignedIn)
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            
             await EconomyService.Instance.Configuration.SyncConfigurationAsync();
             Debug.Log("Unity Economy initialized successfully.");
         }
