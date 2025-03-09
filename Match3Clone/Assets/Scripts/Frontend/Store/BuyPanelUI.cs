@@ -131,9 +131,10 @@ public class BuyPanelUI : MonoBehaviour
             consumableItem.DatePurchased  = ServerTimeManager.Instance.CurrentTime.ToString();
 
             DateTime durationDate = DateTime.Parse(duration);
-            int durationDays = durationDate.Day - ServerTimeManager.Instance.CurrentTime.Day; // Extract the day component
+            var durationDays = durationDate - ServerTimeManager.Instance.CurrentTime; // Extract the day component
+            Debug.Log("Duration Days: " + durationDays.Days);
             DateTime dateTime = DateTime.Parse(consumableItem.DateExpired);
-            consumableItem.DateExpired = dateTime.AddDays(durationDays).ToString();
+            consumableItem.DateExpired = dateTime.AddDays(durationDays.Days).ToString();
 
             Debug.Log("Item already owned");
 
