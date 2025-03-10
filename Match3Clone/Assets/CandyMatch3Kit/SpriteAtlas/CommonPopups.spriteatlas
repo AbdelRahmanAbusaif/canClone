@@ -55,6 +55,7 @@ SpriteAtlas:
     - affa40016622140c9a71d9334d89d7bb: 21300000
     - d48857d1a10a847f6a0bb2cc4f00459a: 21300000
     - 118a1e223abb64357ad7a993c212d267: 21300000
+    - 7ba5e4a4dba240243af3334cb4513a65: -636890562664542030
     - da70381c27d80430887a142d8cbe2124: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -62,12 +63,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: affa40016622140c9a71d9334d89d7bb, type: 3}
   - {fileID: 21300000, guid: d48857d1a10a847f6a0bb2cc4f00459a, type: 3}
   - {fileID: 21300000, guid: 118a1e223abb64357ad7a993c212d267, type: 3}
+  - {fileID: -636890562664542030, guid: 7ba5e4a4dba240243af3334cb4513a65, type: 3}
   - {fileID: 21300000, guid: da70381c27d80430887a142d8cbe2124, type: 3}
   m_PackedSpriteNamesToIndex:
   - Circle
   - Background
   - Background
   - CloseButton
+  - Background - Copy_0
   - Button
   m_RenderDataMap: {}
   m_Tag: CommonPopups

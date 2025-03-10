@@ -10,6 +10,7 @@ public class ProfileEditUI : MonoBehaviour
     public static event Action<ConsumableType,Sprite> OnImageChanged;
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemName;
+    [SerializeField] private TextMeshProUGUI expiredText;
     [SerializeField] private Button itemButton;
     [SerializeField] private ConsumableType consumableType;
 
@@ -43,7 +44,7 @@ public class ProfileEditUI : MonoBehaviour
         OnImageChanged?.Invoke(consumableType, itemImage.sprite);
     }
 
-    public async void SetItemData(string itemId, string name)
+    public async void SetItemData(string itemId, string name, ConsumableType consumableType)
     {
         // if(!AuthenticationService.Instance.IsSignedIn)
         // {
@@ -52,14 +53,31 @@ public class ProfileEditUI : MonoBehaviour
         // }
 
         playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-        
-        var item = playerProfile.ContainerProfileAvatarImages.Find(x => x.Id == itemId);
-        Debug.Log("Item Id: " + item.Id);
+        ConsumableItem item = null;
+        switch(consumableType)
+        {
+            case ConsumableType.PlayerProfileAvatar:
+            item = playerProfile.ContainerProfileAvatarImages.Find(x => x.Id == itemId);
+            break;
+            case ConsumableType.PlayerProfileCover:
+            item = playerProfile.ContainerProfileCoverImages.Find(x => x.Id == itemId);
+            break;
+            case ConsumableType.PlayerProfileBorder:
+            item = playerProfile.ContainerProfileBorders.Find(x => x.Id == itemId);
+            break;
+        }
+
         if (item != null)
         {
             Debug.Log("Item found");
             Debug.Log("Item name: " + item.ConsumableName);
             itemName.text = name;
+
+            DateTime expirationDate = DateTime.Parse(item.DateExpired);
+            var timeLeft = expirationDate - DateTime.Now;
+            
+            expiredText.text = timeLeft.Days.ToString();
+
             CloudSaveManager.Instance.LoadImageAsync(item.Id, itemImage, false);
         }
         else 

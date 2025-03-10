@@ -39,7 +39,7 @@ public class ProfileEditItem : MonoBehaviour
                         item.ItemValues.Add(containerProfileAvatarImage);
 
                         GameObject cloneObject = Instantiate(item.ItemPrefab, item.ItemContainer.transform);
-                        cloneObject.GetComponent<ProfileEditUI>().SetItemData(containerProfileAvatarImage.Id, containerProfileAvatarImage.ConsumableName);
+                        cloneObject.GetComponent<ProfileEditUI>().SetItemData(containerProfileAvatarImage.Id, containerProfileAvatarImage.ConsumableName, ConsumableType.PlayerProfileAvatar);
                     }
                     break;
                 case ConsumableType.PlayerProfileCover:
@@ -49,7 +49,7 @@ public class ProfileEditItem : MonoBehaviour
                         item.ItemValues.Add(containerProfileCoverImage);
 
                         GameObject cloneObject = Instantiate(item.ItemPrefab, item.ItemContainer.transform);
-                        cloneObject.GetComponent<ProfileEditUI>().SetItemData(containerProfileCoverImage.Id, containerProfileCoverImage.ConsumableName);
+                        cloneObject.GetComponent<ProfileEditUI>().SetItemData(containerProfileCoverImage.Id, containerProfileCoverImage.ConsumableName, ConsumableType.PlayerProfileCover);
                     }
                     break;
                 case ConsumableType.PlayerProfileBorder:
@@ -59,23 +59,28 @@ public class ProfileEditItem : MonoBehaviour
                         item.ItemValues.Add(containerProfileBorder);
 
                         GameObject cloneObject = Instantiate(item.ItemPrefab, item.ItemContainer.transform);
-                        cloneObject.GetComponent<ProfileEditUI>().SetItemData(containerProfileBorder.Id, containerProfileBorder.ConsumableName);
+                        cloneObject.GetComponent<ProfileEditUI>().SetItemData(containerProfileBorder.Id, containerProfileBorder.ConsumableName, ConsumableType.PlayerProfileBorder);
                     }
                     break;
             }
         }
+
+        foreach (var item in profileEditItemData)
+        {
+            if(item.ItemValues.Count == 0)
+            {
+                item.emptyItem.SetActive(true);
+            }
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Update code here
-    }
 }
 [Serializable]
 public class ProfileEditItemData
 {
     public ConsumableType ListItemId;
+    public GameObject emptyItem;
     public GameObject ItemPrefab;
     public GameObject ItemContainer;
     public List<ConsumableItem> ItemValues;
