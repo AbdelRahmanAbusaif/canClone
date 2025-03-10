@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GameVanilla.Core;
+using SaveData;
 using Unity.Services.CloudSave;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
@@ -105,6 +106,10 @@ public class UILogin : MonoBehaviour
         else
         {
             Debug.LogWarning("Login panel is not assigned");
+
+            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerData);
+            await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileImage", defaultImage);
+            
             OnSignUp?.Invoke();
         }
     }

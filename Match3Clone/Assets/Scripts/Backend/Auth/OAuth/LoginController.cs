@@ -118,6 +118,55 @@ public class LoginController : MonoBehaviour
     {
         await SignInCachedUserAsync();
     }
+    public async void InitSignAnonymous()
+    {
+        await SignInAnonymouslyAsync();
+    }
+
+    private async Task SignInAnonymouslyAsync()
+    {
+        try
+        {
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log("Sign in anonymously succeeded!");
+            
+            var playerProfile = new PlayerProfile
+            {
+                PlayerId = AuthenticationService.Instance.PlayerId,
+                PlayerName = name,
+                Email = "",
+                PhoneNumber = "",
+                DataPublicProfileImage = "",
+                DataPublicProfileBorder = "",
+                Level = 1,
+                LastHeartTime = "0",
+                IsAcceptedTerms = false,
+                DailyBonus = new DailyBonus()
+                {
+                    DateLastPlayed = "0",
+                    DailyBonusDayKey = "0"
+                },
+                SpinWheel = new SpinWheel()
+                {
+                    DateLastSpin = "0",
+                    DailySpinDayKey = "0"
+                },
+                PrimeSubscriptions = new(),
+                LevelsComplete = new(),
+                AdManager = new List<AdManager>(),
+                ContainerProfileAvatarImages = new List<ConsumableItem>(),
+                ContainerProfileBorders = new List<ConsumableItem>(),
+                ContainerProfileCoverImages = new List<ConsumableItem>()
+            };
+
+            OnSignInSuccess?.Invoke(playerProfile);
+        }
+        catch(Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+    }
+
     async Task SignInCachedUserAsync()
     {
         Debug.Log("Server time initialized.");
