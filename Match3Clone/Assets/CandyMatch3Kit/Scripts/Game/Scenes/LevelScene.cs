@@ -91,8 +91,8 @@ namespace GameVanilla.Game.Scenes
 
             if (currentButton == null)
             {
-                // currentButton = levelButtons[levelButtons.Length - 1];
-                currentButton = levelButtons[28];
+                 currentButton = levelButtons[levelButtons.Length - 1];
+                
             }
 
             var newPos = scrollView.GetComponent<RectTransform>().anchoredPosition;
