@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GameVanilla.Core;
+using SaveData;
 using Unity.Services.CloudSave;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class UILogin : MonoBehaviour
     [SerializeField] private GameObject loginPanel;
     [SerializeField] private GameObject termPanel;
     [SerializeField] private Texture2D defaultImage;
+    [SerializeField] private Texture2D defaultBorderImage;
+    [SerializeField] private Texture2D defaultBackgroundImage;
     
     bool isBlueLeaderboard = false;
     bool isRedLeaderboard = false;
@@ -105,6 +108,12 @@ public class UILogin : MonoBehaviour
         else
         {
             Debug.LogWarning("Login panel is not assigned");
+
+            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerData);
+            await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileImage", defaultImage);
+            await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileBorderImage", defaultBorderImage);
+            await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileBackgroundImage", defaultBackgroundImage);
+
             OnSignUp?.Invoke();
         }
     }
