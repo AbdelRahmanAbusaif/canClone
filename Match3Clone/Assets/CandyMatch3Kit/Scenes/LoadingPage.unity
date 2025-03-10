@@ -1137,6 +1137,9 @@ MonoBehaviour:
   loginPanel: {fileID: 0}
   termPanel: {fileID: 0}
   defaultImage: {fileID: 2800000, guid: c37baee87604c4ba99e417e6a1ce17be, type: 3}
+  defaultBorderImage: {fileID: 2800000, guid: 99f6d8c0578354553a996a1a14cc98cb, type: 3}
+  defaultBackgroundImage: {fileID: 2800000, guid: 5a4f8fd15a8d04ce982def866de0670c,
+    type: 3}
 --- !u!1 &592558967
 GameObject:
   m_ObjectHideFlags: 0
