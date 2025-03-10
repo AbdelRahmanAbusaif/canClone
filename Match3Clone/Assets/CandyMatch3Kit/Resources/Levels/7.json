@@ -317,10 +317,10 @@
         }
     ],
     "limitType": "Moves",
-    "limit": 25,
+    "limit": 20,
     "goals": [
         {
-            "score": 300,
+            "score": 600,
             "$type": "GameVanilla.Game.Common.ReachScoreGoal"
         },
         {

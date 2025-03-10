@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c445641b598124542bf334d101742505
+guid: ed1a3207d2d8ef042bf88b448414046c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4495772814044620747
-    second: List - Copy_0
+      213: -7547480805243867957
+    second: Kittaneh2-24-Photoroom_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -110,19 +110,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -139,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: List - Copy_0
+      name: Kittaneh2-24-Photoroom_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 6
-        width: 1008
-        height: 238
+        x: 0
+        y: 0
+        width: 626
+        height: 1280
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 538130cf17ecb91c0800000000000000
-      internalID: -4495772814044620747
+      spriteID: bcc2c562236f14790800000000000000
+      internalID: -7547480805243867957
       vertices: []
       indices: 
       edges: []
@@ -173,8 +160,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      List - Copy_0: -4495772814044620747
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
