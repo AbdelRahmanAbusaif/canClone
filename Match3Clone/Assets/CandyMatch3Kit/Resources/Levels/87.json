@@ -398,7 +398,7 @@
         }
     ],
     "limitType": "Time",
-    "limit": 90,
+    "limit": 100,
     "goals": [
         {
             "elementType": "Syrup2",
@@ -411,12 +411,11 @@
         "Green",
         "Orange",
         "Purple",
-        "Red",
-        "Yellow"
+        "Red"
     ],
     "score1": 1000,
-    "score2": 2000,
-    "score3": 3000,
+    "score2": 1500,
+    "score3": 2100,
     "awardSpecialCandies": true,
     "awardedSpecialCandyType": "Striped",
     "collectableChance": 0,

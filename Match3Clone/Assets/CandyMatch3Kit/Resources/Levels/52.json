@@ -315,7 +315,7 @@
         }
     ],
     "limitType": "Moves",
-    "limit": 30,
+    "limit": 34,
     "goals": [
         {
             "specialBlockType": "Marshmallow",
@@ -328,12 +328,11 @@
         "Green",
         "Orange",
         "Purple",
-        "Red",
-        "Yellow"
+        "Red"
     ],
     "score1": 1500,
-    "score2": 2500,
-    "score3": 3000,
+    "score2": 1800,
+    "score3": 2200,
     "awardSpecialCandies": true,
     "awardedSpecialCandyType": "Striped",
     "collectableChance": 0,

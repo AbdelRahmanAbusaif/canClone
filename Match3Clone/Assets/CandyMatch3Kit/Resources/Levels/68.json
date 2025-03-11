@@ -410,11 +410,11 @@
         }
     ],
     "limitType": "Moves",
-    "limit": 25,
+    "limit": 35,
     "goals": [
         {
             "elementType": "Ice",
-            "amount": 56,
+            "amount": 49,
             "$type": "GameVanilla.Game.Common.CollectElementGoal"
         }
     ],
@@ -428,7 +428,7 @@
     ],
     "score1": 1000,
     "score2": 2000,
-    "score3": 4000,
+    "score3": 3000,
     "awardSpecialCandies": true,
     "awardedSpecialCandyType": "Striped",
     "collectableChance": 0,

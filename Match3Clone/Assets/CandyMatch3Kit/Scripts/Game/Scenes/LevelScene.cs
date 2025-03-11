@@ -77,6 +77,11 @@ namespace GameVanilla.Game.Scenes
             score = nextLevel * 10;
             // scoreText.text = score.ToString();
 
+
+            ////////////// 
+            LevelButton prevButton = null;
+           
+
             LevelButton currentButton = null;
             var levelButtons = scrollView.GetComponentsInChildren<LevelButton>();
             foreach (var button in levelButtons)
@@ -108,19 +113,21 @@ namespace GameVanilla.Game.Scenes
 
             var targetPos = currentButton.transform.position + new Vector3(0, 1.0f, 0);
 
-            LevelButton prevButton = null;
+           
             if (PuzzleMatchManager.instance.unlockedNextLevel)
             {
                 foreach (var button in scrollView.GetComponentsInChildren<LevelButton>())
                 {
                     if (button.numLevel != PuzzleMatchManager.instance.lastSelectedLevel)
                     {
-                        continue;
+                        // continue;
+                       
                     }
                     prevButton = button;
                     break;
                 }
             }
+           
 
             if (prevButton != null)
             {

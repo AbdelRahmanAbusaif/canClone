@@ -94,9 +94,9 @@
             "$type": "GameVanilla.Game.Common.SpecialCandyTile"
         },
         {
-            "type": "ColorBomb",
+            "type": "RandomCandy",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.SpecialCandyTile"
+            "$type": "GameVanilla.Game.Common.CandyTile"
         },
         {
             "type": "BlueCandyHorizontalStriped",
@@ -313,7 +313,7 @@
         }
     ],
     "limitType": "Moves",
-    "limit": 15,
+    "limit": 22,
     "goals": [
         {
             "collectableType": "Watermelon",
@@ -330,8 +330,8 @@
         "Yellow"
     ],
     "score1": 1000,
-    "score2": 2000,
-    "score3": 3000,
+    "score2": 1800,
+    "score3": 2500,
     "awardSpecialCandies": true,
     "awardedSpecialCandyType": "Wrapped",
     "collectableChance": 0,

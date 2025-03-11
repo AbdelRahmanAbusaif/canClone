@@ -275,7 +275,7 @@
         }
     ],
     "limitType": "Moves",
-    "limit": 15,
+    "limit": 22,
     "goals": [
         {
             "elementType": "Syrup2",
@@ -292,13 +292,11 @@
         "Blue",
         "Green",
         "Orange",
-        "Purple",
-        "Red",
-        "Yellow"
+        "Purple"
     ],
-    "score1": 1000,
-    "score2": 2000,
-    "score3": 3000,
+    "score1": 750,
+    "score2": 1100,
+    "score3": 1700,
     "awardSpecialCandies": true,
     "awardedSpecialCandyType": "Striped",
     "collectableChance": 0,

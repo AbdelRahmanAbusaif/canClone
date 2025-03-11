@@ -133,13 +133,21 @@ namespace GameVanilla.Game.UI
                 }
             }
             else
-            {
+            {/*
                 buttonImage.sprite = lockedButtonSprite;
                 numLevelTextBlue.gameObject.SetActive(false);
                 numLevelTextPink.gameObject.SetActive(false);
                 star1.SetActive(false);
                 star2.SetActive(false);
                 star3.SetActive(false);
+                */
+
+                buttonImage.sprite = currentButtonSprite;
+                star1.SetActive(false);
+                star2.SetActive(false);
+                star3.SetActive(false);
+                shineAnimation.SetActive(true);
+                numLevelTextPink.gameObject.SetActive(false);
             }
         }
 
@@ -148,10 +156,10 @@ namespace GameVanilla.Game.UI
         /// </summary>
         public async void OnButtonPressed()
         {
-            if (buttonImage.sprite == lockedButtonSprite)
+           /* if (buttonImage.sprite == lockedButtonSprite)
             {
                 return;
-            }
+            }*/
 
             var scene = GameObject.Find("LevelScene").GetComponent<LevelScene>();
             if (scene != null)

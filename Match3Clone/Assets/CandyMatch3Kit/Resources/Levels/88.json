@@ -55,7 +55,7 @@
             "$type": "GameVanilla.Game.Common.HoleTile"
         },
         {
-            "type": "PurpleCandyHorizontalStriped",
+            "type": "BlueCandyHorizontalStriped",
             "elementType": "None",
             "$type": "GameVanilla.Game.Common.SpecialCandyTile"
         },
@@ -131,9 +131,9 @@
             "$type": "GameVanilla.Game.Common.HoleTile"
         },
         {
-            "type": "OrangeCandyHorizontalStriped",
+            "type": "RandomCandy",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.SpecialCandyTile"
+            "$type": "GameVanilla.Game.Common.CandyTile"
         },
         {
             "type": "RandomCandy",
@@ -207,9 +207,9 @@
             "$type": "GameVanilla.Game.Common.HoleTile"
         },
         {
-            "type": "BlueCandyHorizontalStriped",
+            "type": "RandomCandy",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.SpecialCandyTile"
+            "$type": "GameVanilla.Game.Common.CandyTile"
         },
         {
             "type": "RandomCandy",
@@ -321,13 +321,11 @@
         "Blue",
         "Green",
         "Orange",
-        "Purple",
-        "Red",
         "Yellow"
     ],
     "score1": 1000,
-    "score2": 2000,
-    "score3": 3000,
+    "score2": 1500,
+    "score3": 2000,
     "awardSpecialCandies": true,
     "awardedSpecialCandyType": "Striped",
     "collectableChance": 0,

@@ -9,9 +9,9 @@
             "$type": "GameVanilla.Game.Common.CollectableTile"
         },
         {
-            "type": "Cherry",
+            "type": "RandomCandy",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CollectableTile"
+            "$type": "GameVanilla.Game.Common.CandyTile"
         },
         {
             "type": "Cherry",
@@ -24,9 +24,9 @@
             "$type": "GameVanilla.Game.Common.CollectableTile"
         },
         {
-            "type": "Cherry",
+            "type": "RandomCandy",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CollectableTile"
+            "$type": "GameVanilla.Game.Common.CandyTile"
         },
         {
             "type": "Cherry",
@@ -39,9 +39,9 @@
             "$type": "GameVanilla.Game.Common.CollectableTile"
         },
         {
-            "type": "Cherry",
+            "type": "RandomCandy",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CollectableTile"
+            "$type": "GameVanilla.Game.Common.CandyTile"
         },
         {
             "type": "Cherry",
@@ -390,11 +390,11 @@
         }
     ],
     "limitType": "Moves",
-    "limit": 15,
+    "limit": 25,
     "goals": [
         {
             "collectableType": "Cherry",
-            "amount": 9,
+            "amount": 6,
             "$type": "GameVanilla.Game.Common.CollectCollectableGoal"
         }
     ],
@@ -408,7 +408,7 @@
     ],
     "score1": 1000,
     "score2": 2000,
-    "score3": 3000,
+    "score3": 2300,
     "awardSpecialCandies": true,
     "awardedSpecialCandyType": "Striped",
     "collectableChance": 0,
