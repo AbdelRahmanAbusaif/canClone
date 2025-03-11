@@ -1,4 +1,5 @@
 using System.Collections;
+using System.IO;
 using System.Threading.Tasks;
 using SaveData;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class UpdateTexture : MonoBehaviour
             Debug.LogError("Texture object is not assigned.");
             return;
         }
-        string texturePath = "DownloadedAssets/" + textureKey;
+        string texturePath = Path.Combine("DownloadedAssets", textureKey);
 
         sprite.sprite = await LocalSaveManager.Instance.LoadSpriteAsync(texturePath);        
     }

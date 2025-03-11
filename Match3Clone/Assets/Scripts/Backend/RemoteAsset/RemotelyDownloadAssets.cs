@@ -17,7 +17,7 @@ public class RemotelyDownloadAssets : MonoBehaviour
 
     private async void Awake()
     {
-        savePath = Application.persistentDataPath + "/DownloadedAssets/";
+        savePath = Path.Combine(Application.persistentDataPath, "DownloadedAssets");
         Directory.CreateDirectory(savePath);
 
         await UnityServices.Instance.InitializeAsync();

@@ -8,6 +8,7 @@ using System.Text;
 using Unity.Services.CloudSave.Models.Data.Player;
 using UnityEngine.Networking;
 using System.Collections;
+using System;
 
 namespace SaveData
 {
@@ -146,32 +147,26 @@ namespace SaveData
                 Debug.LogError($"Failed to load image: {e.Message}");
             }
         }
-        public async Task<AudioClip> LoadClipAsync(string key)
+
+        [Obsolete]
+        public IEnumerator LoadClipAsync(string key, Action<AudioClip> callback =null)
         {
-            string saveClipFilePath = Path.Combine(Application.persistentDataPath, key + ".wav");
-            Debug.Log(saveClipFilePath);
+             string saveClipFilePath = Path.Combine(Application.persistentDataPath, key + ".wav");
+            Debug.Log("Loading file from: " + saveClipFilePath);
 
-            if (File.Exists(saveClipFilePath))
+            using WWW www = new WWW(saveClipFilePath);
+            yield return www;
+
+            if (string.IsNullOrEmpty(www.error))
             {
-                UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip(saveClipFilePath, AudioType.WAV);
-                await request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.Success)
-                {
-                    AudioClip clip = DownloadHandlerAudioClip.GetContent(request);
-                    Debug.Log("Clip loaded successfully from local storage.");
-                    return clip;
-                }
-                else
-                {
-                    Debug.LogError($"Failed to load clip: {request.error}");
-                    return null;
-                }
+                AudioClip clip = www.GetAudioClip(false, false, AudioType.WAV);
+                Debug.Log("Clip loaded successfully from local storage.");
+                callback?.Invoke(clip);
             }
             else
             {
-                Debug.Log("Clip Not Found in Local Storage.");
-                return null;
+                Debug.LogError($"Failed to load audio: {www.error}");
+                callback?.Invoke(null);
             }
         }        
         public async Task<Sprite> LoadSpriteAsync(string key)
@@ -181,21 +176,19 @@ namespace SaveData
 
             if (File.Exists(saveClipFilePath))
             {
-                UnityWebRequest request = UnityWebRequestTexture.GetTexture(saveClipFilePath);
-                await request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.Success)
+                byte[] imageBytes = await Task.Run(() => File.ReadAllBytes(saveClipFilePath));
+        
+                Texture2D texture = new Texture2D(2, 2);
+                if (texture.LoadImage(imageBytes))
                 {
-                    Texture2D texture = DownloadHandlerTexture.GetContent(request);
-
                     Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                     sprite.name = key;
-                    Debug.Log("texture loaded successfully from local storage.");
+                    Debug.Log("Texture loaded successfully from local storage.");
                     return sprite;
                 }
                 else
                 {
-                    Debug.LogError($"Failed to load texture: {request.error}");
+                    Debug.LogError("Failed to load texture from bytes.");
                     return null;
                 }
             }
