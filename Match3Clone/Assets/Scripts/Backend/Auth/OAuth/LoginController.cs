@@ -6,6 +6,7 @@ using Unity.Services.Core;
 using UnityEngine;
 using SaveData;
 using System.Collections.Generic;
+using UnityEngine.SocialPlatforms;
 
 public class LoginController : MonoBehaviour
 {
@@ -61,6 +62,62 @@ public class LoginController : MonoBehaviour
         }
         
     }
+    public async void InitSignAnonymous()
+    {
+        LocalSaveManager.Instance.DeleteData("PlayerProfile");
+        LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
+
+        await SignInAnonymously();
+    }
+
+    private async Task SignInAnonymously()
+    {
+        try
+        {
+            LocalSaveManager.Instance.DeleteData("PlayerProfile");
+            LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
+
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            var playerProfile = new PlayerProfile
+            {
+                PlayerId = AuthenticationService.Instance.PlayerId,
+                PlayerName = name,
+                Email = "",
+                PhoneNumber = "",
+                DataPublicProfileImage = "",
+                DataPublicProfileBorder = "",
+                Level = 1,
+                LastHeartTime = "0",
+                IsAcceptedTerms = false,
+                DailyBonus = new DailyBonus()
+                {
+                    DateLastPlayed = "0",
+                    DailyBonusDayKey = "0"
+                },
+                SpinWheel = new SpinWheel()
+                {
+                    DateLastSpin = "0",
+                    DailySpinDayKey = "0"
+                },
+                PrimeSubscriptions = new(),
+                LevelsComplete = new(),
+                AdManager = new List<AdManager>(),
+                ContainerProfileAvatarImages = new List<ConsumableItem>(),
+                ContainerProfileBorders = new List<ConsumableItem>(),
+                ContainerProfileCoverImages = new List<ConsumableItem>()
+            };
+
+            OnSignInSuccess?.Invoke(playerProfile);
+            Debug.Log("Sign in anonymously succeeded!");
+        }
+        catch (System.Exception)
+        {
+            Debug.Log("Sign in anonymously failed.");
+            
+            throw;
+        }
+    }
+
     async Task SignInWithUnityAsync(string accessToken)
     {
         try
