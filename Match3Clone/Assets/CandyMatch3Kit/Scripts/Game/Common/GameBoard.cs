@@ -394,7 +394,7 @@ namespace GameVanilla.Game.Common
             }
 
             var zoomLevel = gameConfig.GetZoomLevel();
-            Camera.main.orthographicSize = (totalWidth * zoomLevel) * (Screen.height / (float)Screen.width) * 0.6f;
+            Camera.main.orthographicSize = (totalWidth*0.6f) * (Screen.height / (float)Screen.width) ;
 
             possibleSwaps = DetectPossibleSwaps();
         }
