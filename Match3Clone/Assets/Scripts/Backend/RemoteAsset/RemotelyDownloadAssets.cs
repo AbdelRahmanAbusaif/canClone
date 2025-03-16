@@ -17,7 +17,7 @@ public class RemotelyDownloadAssets : MonoBehaviour
 
     private async void Awake()
     {
-        savePath = Application.persistentDataPath + "/DownloadedAssets/";
+        savePath = Path.Combine(Application.persistentDataPath, "DownloadedAssets");
         Directory.CreateDirectory(savePath);
 
         await UnityServices.Instance.InitializeAsync();
@@ -96,7 +96,8 @@ public class RemotelyDownloadAssets : MonoBehaviour
         {
             GameAssetsFiles gameAssetsLoad = savedFiles.Find(f => f.FileName == file.FileName);
 
-            if (gameAssetsLoad != null && File.Exists(file.LocalURL + file.FileName))
+            string localPath = Path.Combine(file.LocalURL, file.FileName);
+            if (gameAssetsLoad != null && File.Exists(localPath))
             {
                 Debug.Log($"{file.FileName} exists locally. Checking for updates...");
 
@@ -108,7 +109,8 @@ public class RemotelyDownloadAssets : MonoBehaviour
                     if (requestImage.result == UnityWebRequest.Result.Success)
                     {
                         string remoteFileSize = requestImage.GetResponseHeader("Content-Length");
-                        string localFileSize = new FileInfo(file.LocalURL + file.FileName).Length.ToString();
+                        string filePath = Path.Combine(file.LocalURL, file.FileName);
+                        string localFileSize = new FileInfo(filePath).Length.ToString();
 
                         OnDownloadCompleted?.Invoke(true);
                         
@@ -143,7 +145,8 @@ public class RemotelyDownloadAssets : MonoBehaviour
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                File.WriteAllBytes(file.LocalURL + file.FileName, request.downloadHandler.data);
+                string filePath = Path.Combine(file.LocalURL, file.FileName);
+                File.WriteAllBytes(filePath, request.downloadHandler.data);
 
                 if (gameAssetsLoad != null)
                 {

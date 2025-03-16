@@ -149,11 +149,18 @@ namespace SaveData
         public async Task<AudioClip> LoadClipAsync(string key)
         {
             string saveClipFilePath = Path.Combine(Application.persistentDataPath, key + ".wav");
-            Debug.Log(saveClipFilePath);
+
+            #if UNITY_ANDROID || UNITY_IOS
+            string filePath = "file:///" + saveClipFilePath;
+            #else
+            string filePath = saveClipFilePath;
+            #endif
+
+            Debug.Log("Loading file from: " + filePath);
 
             if (File.Exists(saveClipFilePath))
             {
-                UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip(saveClipFilePath, AudioType.WAV);
+                using UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip(filePath, AudioType.WAV);
                 await request.SendWebRequest();
 
                 if (request.result == UnityWebRequest.Result.Success)
@@ -170,38 +177,36 @@ namespace SaveData
             }
             else
             {
-                Debug.Log("Clip Not Found in Local Storage.");
+                Debug.LogError("Clip Not Found in Local Storage.");
                 return null;
             }
         }        
         public async Task<Sprite> LoadSpriteAsync(string key)
         {
             string saveClipFilePath = Path.Combine(Application.persistentDataPath, key + ".png");
-            Debug.Log(saveClipFilePath);
+            Debug.Log("Loading file from: " + saveClipFilePath);
 
             if (File.Exists(saveClipFilePath))
             {
-                UnityWebRequest request = UnityWebRequestTexture.GetTexture(saveClipFilePath);
-                await request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.Success)
+                byte[] imageBytes = await Task.Run(() => File.ReadAllBytes(saveClipFilePath));
+                
+                Texture2D texture = new Texture2D(2, 2);
+                if (texture.LoadImage(imageBytes))
                 {
-                    Texture2D texture = DownloadHandlerTexture.GetContent(request);
-
                     Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
                     sprite.name = key;
-                    Debug.Log("texture loaded successfully from local storage.");
+                    Debug.Log("Texture loaded successfully from local storage.");
                     return sprite;
                 }
                 else
                 {
-                    Debug.LogError($"Failed to load texture: {request.error}");
+                    Debug.LogError("Failed to load texture from bytes.");
                     return null;
                 }
             }
             else
             {
-                Debug.Log("Texture Not Found in Local Storage.");
+                Debug.LogError("Texture not found in local storage.");
                 return null;
             }
         }

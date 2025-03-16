@@ -73,7 +73,7 @@ namespace GameVanilla.Game.Common
             CurrencyDefinition goldCurrencyDefinition = EconomyService.Instance.Configuration.GetCurrency("HEART_ID");
             PlayerBalance playersGoldBarBalance = await goldCurrencyDefinition.GetPlayerBalanceAsync();
             var balanceResult = playersGoldBarBalance;
-            return (int)balanceResult.Balance;
+            return 99999999;
         }
 
         /// <summary>

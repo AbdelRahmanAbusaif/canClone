@@ -55,8 +55,8 @@ public class LoadingManager : MonoBehaviour
         // Add event listener for sign up button
         // this will load the login page scene because player is already signed in but not complete the sign up process
         uILogin.OnSignUp += () => {
-            AuthenticationService.Instance.SignOut();
-            PlayerAccountService.Instance.SignOut();
+            // AuthenticationService.Instance.SignOut();
+            // PlayerAccountService.Instance.SignOut();
             Transition.LoadLevel(LoginPageScene,1f,Color.black);
         };
         StartCoroutine(LoadGameData());
@@ -105,7 +105,8 @@ public class LoadingManager : MonoBehaviour
         }
         else
         {
-            Transition.LoadLevel(LoginPageScene,1f,Color.black);
+            // Transition.LoadLevel(LoginPageScene,1f,Color.black);
+            loginController.InitSignAnonymous();
         }
     }
 

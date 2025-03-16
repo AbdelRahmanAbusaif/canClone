@@ -1103,7 +1103,7 @@ MonoBehaviour:
   RetryButton: {fileID: 1092929926}
   uILogin: {fileID: 567607538}
   HomePageScene: HomePage
-  LoginPageScene: LoginPage
+  LoginPageScene: HomeScene
   isAssetsDownloaded: 0
   isAPIDataFetched: 0
 --- !u!114 &567607537
@@ -1137,6 +1137,8 @@ MonoBehaviour:
   loginPanel: {fileID: 0}
   termPanel: {fileID: 0}
   defaultImage: {fileID: 2800000, guid: c37baee87604c4ba99e417e6a1ce17be, type: 3}
+  borderImage: {fileID: 2800000, guid: 99f6d8c0578354553a996a1a14cc98cb, type: 3}
+  profileCoverImage: {fileID: 2800000, guid: 1339c2ed3d218b14abd2d7e4a9418a8c, type: 3}
 --- !u!1 &592558967
 GameObject:
   m_ObjectHideFlags: 0
