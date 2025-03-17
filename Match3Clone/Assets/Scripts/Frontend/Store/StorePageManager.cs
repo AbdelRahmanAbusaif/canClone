@@ -40,6 +40,7 @@ public class StorePageManager : MonoBehaviour
                                           select (item, storeItem))
         {
             storeItem.GetComponent<StoreItemUI>().SetItem(item);
+            content.GetComponent<RectTransform>().sizeDelta = new Vector2(content.GetComponent<RectTransform>().sizeDelta.x, content.GetComponent<RectTransform>().sizeDelta.y + 200);
         }
     }
     private void Create(Transform content ,GameObject itemPrefabs, List<PrimeSubscription> list)
@@ -49,6 +50,7 @@ public class StorePageManager : MonoBehaviour
                                           select (item, storeItem))
         {
             storeItem.GetComponent<StoreItemUI>().SetPrimeSubscriptionItem(item);
+            content.GetComponent<RectTransform>().sizeDelta = new Vector2(content.GetComponent<RectTransform>().sizeDelta.x, content.GetComponent<RectTransform>().sizeDelta.y + 200);
         }
     }
 

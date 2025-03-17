@@ -8,7 +8,7 @@ public class ApplyRemoteConfig : MonoBehaviour
 {
     [SerializeField] private AdUI adUI;
     [SerializeField] private StorePageManager storePageManager;
-    private async void OnEnable() 
+    private async void Awake() 
     {
         RemoteConfigService.Instance.FetchCompleted += Apply;
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
@@ -21,7 +21,7 @@ public class ApplyRemoteConfig : MonoBehaviour
     }
 
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         RemoteConfigService.Instance.FetchCompleted -= Apply;
     }
