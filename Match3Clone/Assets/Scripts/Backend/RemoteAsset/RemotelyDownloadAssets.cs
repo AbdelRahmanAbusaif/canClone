@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using SaveData;
+using TMPro;
 using Unity.Services.Core;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
@@ -80,6 +81,20 @@ public class RemotelyDownloadAssets : MonoBehaviour
 
         GameAssetsFiles = gameAssetsFiles;
     }
+
+    /// <summary>
+    /// Downloads and saves a list of game asset files to the local storage.
+    /// </summary>
+    /// <param name="gameAssetsFiles">A list of <see cref="GameAssetsFiles"/> objects representing the files to be downloaded.</param>
+    /// <returns>
+    /// An <see cref="AsyncOperation"/> that represents the asynchronous operation of downloading and saving files.
+    /// </returns>
+    /// <remarks>
+    /// This method checks if the files already exist locally and are up-to-date by comparing their sizes.
+    /// If a file is outdated or missing, it downloads the latest version from the specified URL and saves it locally.
+    /// The method also updates the saved metadata for the files.
+    /// </remarks>
+    /// 
 
     public IEnumerator DownloadAndSaveFiles(List<GameAssetsFiles> gameAssetsFiles)
     {
@@ -166,6 +181,108 @@ public class RemotelyDownloadAssets : MonoBehaviour
             }
         }
         var saveTask = LocalSaveManager.Instance.SaveDataAsync<List<GameAssetsFiles>>(savedFiles, "GameAssetsFiles");
+        yield return new WaitUntil(() => saveTask.IsCompleted);
+
+        Debug.Log("All assets have been updated and saved.");
+    }
+    public IEnumerator AsyncOperationDownloadWithProgress(List<GameAssetsFiles> gameAssetsFiles, UnityEngine.UI.Slider progressSlider, TextMeshProUGUI progressText)
+    {
+        // Initialize the slider
+        progressSlider.value = 0;
+        progressSlider.maxValue = gameAssetsFiles.Count;
+        progressText.text = "0";
+
+        // Load the existing list of files from storage
+        var loadTask = LocalSaveManager.Instance.LoadDataAsync<List<GameAssetsFiles>>("GameAssetsFiles");
+        yield return new WaitUntil(() => loadTask.IsCompleted);
+        List<GameAssetsFiles> savedFiles = loadTask.Result ?? new List<GameAssetsFiles>();
+
+        int completedFiles = 0;
+
+        foreach (var file in gameAssetsFiles)
+        {
+            GameAssetsFiles gameAssetsLoad = savedFiles.Find(f => f.FileName == file.FileName);
+            string localPath = Path.Combine(file.LocalURL, file.FileName);
+
+            if (gameAssetsLoad != null && File.Exists(localPath))
+            {
+                Debug.Log($"{file.FileName} exists locally. Checking for updates...");
+
+                if (gameAssetsLoad.FileURL == file.FileURL)
+                {
+                    using UnityWebRequest requestImage = UnityWebRequest.Head(file.FileURL);
+                    yield return requestImage.SendWebRequest();
+
+                    if (requestImage.result == UnityWebRequest.Result.Success)
+                    {
+                        string remoteFileSize = requestImage.GetResponseHeader("Content-Length");
+                        string localFileSize = new FileInfo(localPath).Length.ToString();
+
+                        if (remoteFileSize == localFileSize)
+                        {
+                            Debug.Log($"{file.FileName} is up to date.");
+                            completedFiles++;
+                            progressSlider.value = completedFiles;
+                            progressText.text = (completedFiles * 100 / gameAssetsFiles.Count) + "%";
+
+                            OnDownloadCompleted?.Invoke(true);
+                            continue;
+                        }
+                        else
+                        {
+                            Debug.Log($"{file.FileName} has been updated. Downloading new version...");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError($"Failed to check {file.FileName} for updates: {requestImage.error}");
+
+                        OnDownloadCompleted?.Invoke(false);
+                        continue;
+                    }
+                }
+                else
+                {
+                    OnDownloadCompleted?.Invoke(false);
+
+                    Debug.Log($"{file.FileName} has been updated. Downloading new version...");
+                }
+            }
+
+            Debug.Log($"Downloading {file.FileName} from {file.FileURL}");
+
+            using UnityWebRequest request = UnityWebRequest.Get(file.FileURL);
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                File.WriteAllBytes(localPath, request.downloadHandler.data);
+
+                if (gameAssetsLoad != null)
+                {
+                    savedFiles.Remove(gameAssetsLoad);
+                }
+                savedFiles.Add(file);
+
+                Debug.Log($"Downloaded and saved: {localPath}");
+
+                OnDownloadCompleted?.Invoke(true);
+            }
+            else
+            {
+                Debug.LogError($"Failed to download {file.FileName}: {request.error}");
+
+                OnDownloadCompleted?.Invoke(false);
+            }
+
+            // Update the slider progress
+            completedFiles++;
+            
+            progressText.text = (completedFiles * 100 / gameAssetsFiles.Count) + "%";
+            progressSlider.value = completedFiles;
+        }
+
+        var saveTask = LocalSaveManager.Instance.SaveDataAsync(savedFiles, "GameAssetsFiles");
         yield return new WaitUntil(() => saveTask.IsCompleted);
 
         Debug.Log("All assets have been updated and saved.");

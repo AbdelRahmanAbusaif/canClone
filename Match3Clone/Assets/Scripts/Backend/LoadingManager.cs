@@ -1,7 +1,7 @@
 using System.Collections;
 using GameVanilla.Core;
+using TMPro;
 using Unity.Services.Authentication;
-using Unity.Services.Authentication.PlayerAccounts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +13,9 @@ public class LoadingManager : MonoBehaviour
     [Header("UI Elements")]
     public GameObject LoadingSpinner; 
     public GameObject RetryPanel;
+    
+    public Slider slider;
+    public TextMeshProUGUI ProgressText;
 
     public Button RetryButton;
     public UILogin uILogin;
@@ -70,13 +73,12 @@ public class LoadingManager : MonoBehaviour
             LoadingSpinner.SetActive(true);
         }
 
-        // Task 1: Simulate downloading assets from the cloud
         Debug.Log("Downloading assets...");
         yield return ServerTimeManager.Instance.FetchServerTimeAsync();
 
-        // Task 3: Simulate fetching API data
         Debug.Log("Fetching API data...");
-        yield return remoteAssetDownloader.DownloadAndSaveFiles(remoteAssetDownloader.GameAssetsFiles);
+
+        yield return remoteAssetDownloader.AsyncOperationDownloadWithProgress(remoteAssetDownloader.GameAssetsFiles, slider, ProgressText);
 
         // Hide loading spinner
         if (LoadingSpinner != null)
