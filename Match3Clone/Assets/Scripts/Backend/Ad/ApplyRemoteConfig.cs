@@ -8,6 +8,8 @@ public class ApplyRemoteConfig : MonoBehaviour
 {
     [SerializeField] private AdUI adUI;
     [SerializeField] private StorePageManager storePageManager;
+    [SerializeField] private RemotelyDownloadAssets remotelyDownloadAssets;
+    [SerializeField] private UILogin uILogin;
     private async void Awake() 
     {
         RemoteConfigService.Instance.FetchCompleted += Apply;
@@ -16,8 +18,22 @@ public class ApplyRemoteConfig : MonoBehaviour
 
     private void Apply(ConfigResponse response)
     {
-        storePageManager.ApplyRemoteConfig(response);
-        adUI.ApplyRemoteConfig(response);
+        if(uILogin != null)
+        {
+            uILogin.ApplyRemoteConfig(response);
+        }
+        if(adUI != null)
+        {
+            adUI.ApplyRemoteConfig(response);
+        }
+        if(storePageManager != null)
+        {
+            storePageManager.ApplyRemoteConfig(response);
+        }
+        if(remotelyDownloadAssets != null)
+        {
+            remotelyDownloadAssets.ApplyRemoteConfig(response);
+        }
     }
 
 

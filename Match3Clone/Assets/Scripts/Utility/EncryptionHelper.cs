@@ -11,7 +11,7 @@ public class EncryptionHelper : MonoBehaviour
     
     private void Awake()
     {
-        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
+        // RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
     }
 
     private void ApplyRemoteConfig(ConfigResponse response)

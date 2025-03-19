@@ -22,11 +22,8 @@ public class RemotelyDownloadAssets : MonoBehaviour
         Directory.CreateDirectory(savePath);
 
         await UnityServices.Instance.InitializeAsync();
-
-        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
-        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
     }
-    private void ApplyRemoteConfig(ConfigResponse response)
+    public void ApplyRemoteConfig(ConfigResponse response)
     {
         Debug.Log("Remote Config Fetched Successfully!");
 
@@ -215,10 +212,10 @@ public class RemotelyDownloadAssets : MonoBehaviour
 
                     if (requestImage.result == UnityWebRequest.Result.Success)
                     {
-                        string remoteFileSize = requestImage.GetResponseHeader("Content-Length");
-                        string localFileSize = new FileInfo(localPath).Length.ToString();
+                        string remoteFileHash = requestImage.GetResponseHeader("ETag")?.Trim('"'); // Use ETag as a hash if available
+                        string localFileHash = CalculateMD5(localPath);
 
-                        if (remoteFileSize == localFileSize)
+                        if (!string.IsNullOrEmpty(remoteFileHash) && remoteFileHash == localFileHash)
                         {
                             Debug.Log($"{file.FileName} is up to date.");
                             completedFiles++;
@@ -230,7 +227,7 @@ public class RemotelyDownloadAssets : MonoBehaviour
                         }
                         else
                         {
-                            Debug.Log($"{file.FileName} has been updated. Downloading new version...");
+                            Debug.Log($"{file.FileName} has been updated or hash mismatch. Downloading new version...");
                         }
                     }
                     else
@@ -290,6 +287,18 @@ public class RemotelyDownloadAssets : MonoBehaviour
     private void OnDestroy() {
         RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
     }
+    private string CalculateMD5(string filePath)
+    {
+        using (var md5 = System.Security.Cryptography.MD5.Create())
+        {
+            using (var stream = File.OpenRead(filePath))
+            {
+                byte[] hash = md5.ComputeHash(stream);
+                return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+            }
+        }
+    }
+
     public struct UserAttributes { }
     public struct AppAttributes { }
 }
