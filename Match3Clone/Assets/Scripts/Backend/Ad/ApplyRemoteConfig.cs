@@ -10,6 +10,7 @@ public class ApplyRemoteConfig : MonoBehaviour
     [SerializeField] private StorePageManager storePageManager;
     [SerializeField] private RemotelyDownloadAssets remotelyDownloadAssets;
     [SerializeField] private UILogin uILogin;
+    [SerializeField] private LoadingManager loadingManager;
     private async void Awake() 
     {
         RemoteConfigService.Instance.FetchCompleted += Apply;
@@ -33,6 +34,10 @@ public class ApplyRemoteConfig : MonoBehaviour
         if(remotelyDownloadAssets != null)
         {
             remotelyDownloadAssets.ApplyRemoteConfig(response);
+        }
+        if(loadingManager != null)
+        {
+            loadingManager.ApplyRemoteConfig(response);
         }
     }
 

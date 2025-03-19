@@ -28,7 +28,8 @@ public class UILogin : MonoBehaviour
     bool isOrangeLeaderboard = false;
     bool isPurpleLeaderboard = false;
 
-    private async void OnEnable() {
+    private void OnEnable() 
+    {
 
         if(signInButton !=null)
         {
