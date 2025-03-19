@@ -16,12 +16,10 @@ public class RemotelyDownloadAssets : MonoBehaviour
     public Action<bool> OnDownloadCompleted;
     public List<GameAssetsFiles> GameAssetsFiles = new List<GameAssetsFiles>();
 
-    private async void Awake()
+    private void Awake()
     {
         savePath = Path.Combine(Application.persistentDataPath, "DownloadedAssets");
         Directory.CreateDirectory(savePath);
-
-        await UnityServices.Instance.InitializeAsync();
     }
     public void ApplyRemoteConfig(ConfigResponse response)
     {

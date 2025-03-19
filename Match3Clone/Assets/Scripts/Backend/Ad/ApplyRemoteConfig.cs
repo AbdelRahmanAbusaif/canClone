@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Unity.Services.Core;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 using static RemotelyDownloadAssets;
@@ -13,6 +14,8 @@ public class ApplyRemoteConfig : MonoBehaviour
     [SerializeField] private LoadingManager loadingManager;
     private async void Awake() 
     {
+        await UnityServices.InitializeAsync();
+
         RemoteConfigService.Instance.FetchCompleted += Apply;
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
     }
