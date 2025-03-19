@@ -130,6 +130,7 @@ public class LoadingManager : MonoBehaviour
         }
         else
         {
+            LoadingBar.SetActive(false);
             RetryPanel.SetActive(true);
         }
     }
