@@ -68,10 +68,10 @@ namespace GameVanilla.Game.UI
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        private async void Start()
+        private void Start()
         {
             // var numLives = PlayerPrefs.GetInt("num_lives");
-            var numLives = await PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
+            var numLives = PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             numLivesText.text = numLives.ToString();
             buttonImage.sprite = numLives == maxLives ? disabledButtonSprite : enabledButtonSprite;
@@ -89,10 +89,10 @@ namespace GameVanilla.Game.UI
         /// <summary>
         /// Called when the buy button is pressed.
         /// </summary>
-        public async void OnBuyButtonPressed()
+        public void OnBuyButtonPressed()
         {
             // var numLives = PlayerPrefs.GetInt("num_lives");
-            var numLives = await PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
+            var numLives = PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             if (numLives < maxLives)
             {

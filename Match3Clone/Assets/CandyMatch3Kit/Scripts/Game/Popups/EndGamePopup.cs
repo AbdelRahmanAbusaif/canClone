@@ -68,13 +68,13 @@ namespace GameVanilla.Game.Popups
         /// <summary>
         /// Called when the replay button is pressed.
         /// </summary>
-        public async void OnReplayButtonPressed()
+        public void OnReplayButtonPressed()
         {
             var gameScene = parentScene as GameScene;
             if (gameScene != null)
             {
                 // var numLives = PlayerPrefs.GetInt("num_lives");
-                var numLives = await PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
+                var numLives = PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
                 if (numLives > 0)
                 {
                     gameScene.RestartGame();

@@ -250,12 +250,17 @@ public class ProfileManager : MonoBehaviour
             DataPublicProfileBorder = "",
             DataPublicProfileImage = "",
             Level = 1,
-            LastHeartTime = "0",
             IsAcceptedTerms = true,
             DailyBonus = new DailyBonus()
             {
                 DateLastPlayed = "0",
                 DailyBonusDayKey = "0"
+            },
+            HeartSystem = new HeartSystem()
+            {
+                Heart = 5,
+                LastHeartTime = "0",
+                NextHeartTime = "0"
             },
             SpinWheel = new SpinWheel()
             {

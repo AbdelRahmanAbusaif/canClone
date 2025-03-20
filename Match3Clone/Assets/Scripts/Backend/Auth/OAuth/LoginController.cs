@@ -87,8 +87,13 @@ public class LoginController : MonoBehaviour
                 DataPublicProfileImage = "",
                 DataPublicProfileBorder = "",
                 Level = 1,
-                LastHeartTime = "0",
                 IsAcceptedTerms = false,
+                HeartSystem = new HeartSystem()
+                {
+                    Heart = 5,
+                    LastHeartTime = "0",
+                    NextHeartTime = "0"
+                },
                 DailyBonus = new DailyBonus()
                 {
                     DateLastPlayed = "0",
@@ -132,8 +137,13 @@ public class LoginController : MonoBehaviour
                 DataPublicProfileImage = "",
                 DataPublicProfileBorder = "",
                 Level = 1,
-                LastHeartTime = "0",
                 IsAcceptedTerms = false,
+                HeartSystem = new HeartSystem()
+                {
+                    Heart = 5,
+                    LastHeartTime = "0",
+                    NextHeartTime = "0"
+                },
                 DailyBonus = new DailyBonus()
                 {
                     DateLastPlayed = "0",

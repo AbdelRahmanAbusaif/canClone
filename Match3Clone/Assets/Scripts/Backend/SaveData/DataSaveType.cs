@@ -10,9 +10,9 @@ public class PlayerProfile
     public string PhoneNumber = "";
     public string DataPublicProfileImage = "";
     public string DataPublicProfileBorder = "";
-    public string LastHeartTime = "";
     public int Level = 1;
     public bool IsAcceptedTerms = false;
+    public HeartSystem HeartSystem = new();
     public DailyBonus DailyBonus = new();
     public SpinWheel SpinWheel = new();
     public ConsumableItem PrimeSubscriptions = new();
@@ -21,6 +21,13 @@ public class PlayerProfile
     public List<ConsumableItem> ContainerProfileAvatarImages = new();
     public List<ConsumableItem> ContainerProfileCoverImages = new();
     public List<ConsumableItem> ContainerProfileBorders = new();
+}
+[Serializable]
+public class HeartSystem
+{
+    public int Heart = 0;
+    public string LastHeartTime = "";
+    public string NextHeartTime = "";
 }
 [System.Serializable]
 public class AdManager

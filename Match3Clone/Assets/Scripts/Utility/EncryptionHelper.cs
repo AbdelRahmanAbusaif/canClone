@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 
@@ -21,12 +22,12 @@ public class EncryptionHelper : MonoBehaviour
 
     // Encrypt and save file
 
-    public static void EncryptAndSaveFile(string filePath, byte[] data)
+    public static async Task EncryptAndSaveFile(string filePath, byte[] data)
     {
         try
         {
             byte[] encryptedData = XorEncryptDecrypt(data);
-            File.WriteAllBytes(filePath, encryptedData);
+            await File.WriteAllBytesAsync(filePath, encryptedData);
             Debug.Log($"File encrypted and saved to: {filePath}");
         }
         catch (Exception e)
@@ -35,13 +36,13 @@ public class EncryptionHelper : MonoBehaviour
         }
     }
 
-    public static byte[] LoadAndDecryptFile(string filePath)
+    public static async Task<byte[]> LoadAndDecryptFile(string filePath)
     {
         try
         {
             if (File.Exists(filePath))
             {
-                byte[] encryptedData = File.ReadAllBytes(filePath);
+                byte[] encryptedData = await File.ReadAllBytesAsync(filePath);
                 return XorEncryptDecrypt(encryptedData); // XOR works both for encryption and decryption
             }
             Debug.LogError($"File not found: {filePath}");
