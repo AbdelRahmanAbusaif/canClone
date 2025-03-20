@@ -28,6 +28,7 @@ public class ScoreSystem : MonoBehaviour
 
         fxPool.OnExplode += OnCandyExplode;
         gameScene.OnWinPopupOpened += OnGameWin;
+        gameScene.OnLosePopupOpened += OnGameLose;
     }
 
     private void ApplyRemoteConfig(ConfigResponse response)
@@ -57,6 +58,20 @@ public class ScoreSystem : MonoBehaviour
             {
                 LeaderboardManager.Instance.AddScore(score.leaderboardId, score.score);
                 Debug.Log($"Score for {score.candyColor} candy is {score.score}");
+            }
+        }
+    }
+    private void OnGameLose()
+    {
+        // Implement the logic to save the score when the game is lost
+        Debug.Log("Game lost");
+
+        foreach (var score in scores)
+        {
+            if (score.isScoreAvailable && playerProfile.LevelsComplete.Find(L => L.NumberLevel == gameScene.level.id) == null)
+            {
+                score.score = 0;
+                score.scoreText.text = score.score.ToString();
             }
         }
     }
