@@ -25,7 +25,6 @@ namespace GameVanilla.Game.Scenes
 	{
         // when call this event will be added score to player profile
         public Action OnWinPopupOpened;
-        public Action OnLosePopupOpened;
 		public GameBoard gameBoard;
 
 		public GameUi gameUi;
@@ -306,7 +305,6 @@ namespace GameVanilla.Game.Scenes
         /// </summary>
         private void OpenNoMovesOrTimePopup()
         {
-            OnLosePopupOpened?.Invoke();
             OpenPopup<NoMovesOrTimePopup>("Popups/NoMovesOrTimePopup",
                 popup => { popup.SetGameScene(this); });
         }
