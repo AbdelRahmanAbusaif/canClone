@@ -1,8 +1,10 @@
 using System.Collections;
 using GameVanilla.Core;
+using TMPro;
 using Unity.Services.Authentication;
-using Unity.Services.Authentication.PlayerAccounts;
+using Unity.Services.RemoteConfig;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class LoadingManager : MonoBehaviour
@@ -12,19 +14,28 @@ public class LoadingManager : MonoBehaviour
     public LoginController loginController; // Attach the LoginController script
     [Header("UI Elements")]
     public GameObject LoadingSpinner; 
+    public GameObject LoadingBar;
     public GameObject RetryPanel;
+    
+    [Header("UI Elements for Progress Bar")]
+    public Slider slider;
+    public TextMeshProUGUI ProgressText;
 
     public Button RetryButton;
     public UILogin uILogin;
 
+    [Header("Scene Names")]
     public string HomePageScene; 
     public string LoginPageScene;
 
-    [Header("Booleans for checking")]
+    [Header("Checkers")]
+    public string App_Updated_Number;
+
     public bool isAssetsDownloaded = false;
     public bool isAPIDataFetched = false;
+    
 
-    void Start()
+    private void Start()
     {
         remoteAssetDownloader.OnDownloadCompleted += (bool isAssetsDownloaded) => {
             if(isAssetsDownloaded)
@@ -61,8 +72,21 @@ public class LoadingManager : MonoBehaviour
         };
         StartCoroutine(LoadGameData());
     }
+    public void ApplyRemoteConfig(ConfigResponse response)
+    {
+        if(response.status == ConfigRequestStatus.Success)
+        {
+            Debug.Log("Remote Config Fetched Successfully!");
+            App_Updated_Number = RemoteConfigService.Instance.appConfig.GetString("app_updated_number");
 
-    IEnumerator LoadGameData()
+            Debug.Log("App Updated Number: " + App_Updated_Number);
+        }
+        else
+        {
+            Debug.Log("Remote Config Fetch Failed!");
+        }
+    }
+    private IEnumerator LoadGameData()
     {
         // Show loading spinner if available
         if (LoadingSpinner != null)
@@ -70,13 +94,29 @@ public class LoadingManager : MonoBehaviour
             LoadingSpinner.SetActive(true);
         }
 
-        // Task 1: Simulate downloading assets from the cloud
         Debug.Log("Downloading assets...");
         yield return ServerTimeManager.Instance.FetchServerTimeAsync();
 
-        // Task 3: Simulate fetching API data
         Debug.Log("Fetching API data...");
-        yield return remoteAssetDownloader.DownloadAndSaveFiles(remoteAssetDownloader.GameAssetsFiles);
+
+        if(string.Equals(App_Updated_Number,PlayerPrefs.GetString("App_Updated_Number","0")))
+        {
+            Debug.Log("App is already updated");
+            isAssetsDownloaded = true;
+        }
+        else
+        {
+            Debug.Log("App is not updated");
+            
+            LoadingBar.SetActive(true);
+            LoadingSpinner.SetActive(false);
+
+            yield return remoteAssetDownloader.AsyncOperationDownloadWithProgress(remoteAssetDownloader.GameAssetsFiles, slider, ProgressText);
+
+            PlayerPrefs.SetString("App_Updated_Number",App_Updated_Number);
+            PlayerPrefs.Save();
+
+        }
 
         // Hide loading spinner
         if (LoadingSpinner != null)
@@ -90,6 +130,7 @@ public class LoadingManager : MonoBehaviour
         }
         else
         {
+            LoadingBar.SetActive(false);
             RetryPanel.SetActive(true);
         }
     }

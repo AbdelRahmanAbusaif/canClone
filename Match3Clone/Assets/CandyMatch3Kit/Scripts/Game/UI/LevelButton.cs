@@ -154,7 +154,7 @@ namespace GameVanilla.Game.UI
         /// <summary>
         /// Called when the button is pressed.
         /// </summary>
-        public async void OnButtonPressed()
+        public void OnButtonPressed()
         {
            /* if (buttonImage.sprite == lockedButtonSprite)
             {
@@ -165,7 +165,7 @@ namespace GameVanilla.Game.UI
             if (scene != null)
             {
                 // var numLives = PlayerPrefs.GetInt("num_lives");
-                var numLives = await PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
+                var numLives = PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
                 if (numLives > 0)
                 {
                     if (!FileUtils.FileExists("Levels/" + numLevel))

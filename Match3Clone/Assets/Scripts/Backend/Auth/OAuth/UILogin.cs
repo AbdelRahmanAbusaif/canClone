@@ -28,7 +28,8 @@ public class UILogin : MonoBehaviour
     bool isOrangeLeaderboard = false;
     bool isPurpleLeaderboard = false;
 
-    private async void OnEnable() {
+    private void OnEnable() 
+    {
 
         if(signInButton !=null)
         {
@@ -36,12 +37,9 @@ public class UILogin : MonoBehaviour
         }
 
         loginController.OnSignInSuccess += OnSignInSuccess;
-
-        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
-        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
     }
 
-    private void ApplyRemoteConfig(ConfigResponse response)
+    public void ApplyRemoteConfig(ConfigResponse response)
     {
         Debug.Log("Remote Config Fetched Successfully!");
         
@@ -117,13 +115,14 @@ public class UILogin : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void OnDisable() {
+    private void OnDestroy() {
 
+        RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
+        loginController.OnSignInSuccess -= OnSignInSuccess;
         if(signInButton !=null)
         {
             signInButton.onClick.RemoveListener(OnSignInButtonClicked);
         }
-        loginController.OnSignInSuccess -= OnSignInSuccess;
     }
 
 }

@@ -75,19 +75,21 @@ public class InternetCheck : MonoBehaviour
             yield break;
         }
 
-        UnityWebRequest request = new UnityWebRequest("https://www.google.com");
-        yield return request.SendWebRequest();
+        // UnityWebRequest request = new UnityWebRequest("https://www.google.com");
+        // yield return request.SendWebRequest();
 
-        StartCoroutine(CheckInternetSpeed());
+        // StartCoroutine(CheckInternetSpeed());
 
-        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-        {
-            callback(false);
-        }
-        else
-        {
-            callback(true);
-        }
+        // if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        // {
+        //     callback(false);
+        // }
+        // else
+        // {
+        //     callback(true);
+        // }
+        yield return new WaitForSeconds(2f);
+        callback(true);
     }
     
     private IEnumerator CheckInternetSpeed()

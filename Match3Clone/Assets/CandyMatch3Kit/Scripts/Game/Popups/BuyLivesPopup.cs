@@ -67,7 +67,7 @@ namespace GameVanilla.Game.Popups
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        protected override async void Start()
+        protected override void Start()
         {
             base.Start();
             pageTransition = FindAnyObjectByType<PageTransition>().GetComponent<PageTransition>();
@@ -75,7 +75,7 @@ namespace GameVanilla.Game.Popups
             PuzzleMatchManager.instance.livesSystem.Subscribe(OnLivesCountdownUpdated, OnLivesCountdownFinished);
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             // var numLives = PlayerPrefs.GetInt("num_lives");
-            var numLives = await PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
+            var numLives = PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
             if (numLives >= maxLives)
             {
                 DisableRefillButton();

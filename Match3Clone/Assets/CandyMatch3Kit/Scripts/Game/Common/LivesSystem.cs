@@ -33,16 +33,14 @@ namespace GameVanilla.Game.Common
         /// <summary>
         /// Sets the appropriate number of lives according to the general lives counter.
         /// </summary> 
-        private async void Start()
+        private void Start()
         {            
-            await InitializeUnityServices();
-
             Invoke(nameof(CheckLives), 1f);
         }
         /// <summary>
         /// Unity's Update method.
         /// </summary>
-        private async void Update()
+        private void Update()
         {
             if (!runningCountdown)
             {
@@ -55,7 +53,7 @@ namespace GameVanilla.Game.Common
                 accTime = 0.0f;
                 timeSpan = timeSpan.Subtract(TimeSpan.FromSeconds(1));
                 // var numLives = PlayerPrefs.GetInt("num_lives");
-                var numLives = await GetCurrentLives();
+                var numLives = GetCurrentLives();
                 if (onCountdownUpdated != null)
                 {
                     onCountdownUpdated(timeSpan, numLives);
@@ -68,12 +66,11 @@ namespace GameVanilla.Game.Common
             }
         }
 
-        public async Task<int> GetCurrentLives()
+        public int GetCurrentLives()
         {
-            CurrencyDefinition goldCurrencyDefinition = EconomyService.Instance.Configuration.GetCurrency("HEART_ID");
-            PlayerBalance playersGoldBarBalance = await goldCurrencyDefinition.GetPlayerBalanceAsync();
-            var balanceResult = playersGoldBarBalance;
-            return 99999999;
+            var numberOfLives = playerProfile.HeartSystem.Heart;
+            Debug.Log("From GetCurrentLives: " + numberOfLives);
+            return numberOfLives;
         }
 
         /// <summary>
@@ -104,67 +101,47 @@ namespace GameVanilla.Game.Common
                 Debug.Log("No active game to remove a life from.");
             }
         }
-
-
-        private async Task InitializeUnityServices()
-        {
-            try
-            {
-                await UnityServices.InitializeAsync();
-                await EconomyService.Instance.Configuration.SyncConfigurationAsync();
-                Debug.Log("Unity Economy initialized successfully.");
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("Failed to initialize Unity Economy: " + e.Message);
-            }
-        }
-
         private async void CheckLives()
         {
             runningCountdown = false;
+            var numLives = GetCurrentLives();
 
-            CurrencyDefinition goldCurrencyDefinition = EconomyService.Instance.Configuration.GetCurrency("HEART_ID");
-            PlayerBalance playersGoldBarBalance = await goldCurrencyDefinition.GetPlayerBalanceAsync();
-            var balanceResult = playersGoldBarBalance;
-
-            var numLives = (int)balanceResult.Balance;
             Debug.Log("From CheckLives: " + numLives);
+            
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             var timeToNextLife = PuzzleMatchManager.instance.gameConfig.timeToNextLife;
             
-            if (playerProfile.LastHeartTime == "0" && numLives < maxLives)
+            if (playerProfile.HeartSystem.LastHeartTime == "0" && numLives < maxLives)
             {
                 DateTime nextLifeTime = ServerTimeManager.Instance.CurrentTime.AddMinutes(5);
                 // PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
                 // PlayerPrefs.Save();
-                playerProfile.LastHeartTime = nextLifeTime.ToBinary().ToString();
-                Debug.Log($"From Lives System CheckLives: {playerProfile.Level}");
+                playerProfile.HeartSystem.LastHeartTime = nextLifeTime.ToString();
                 await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
 
                 Debug.Log($"Initialized next_life_time: {nextLifeTime}");
             }
-            if (numLives < maxLives && playerProfile.LastHeartTime !="0" )
+            if (numLives < maxLives && playerProfile.HeartSystem.LastHeartTime !="0" )
             {
-                DateTime now;
+                DateTime nowTime;
                 if(ServerTimeManager.Instance.CurrentTime == DateTime.MinValue)
                 {
                     Debug.LogError("Server time not fetched yet.");
-                    now = DateTime.Now;
+                    nowTime = DateTime.Now;
                 }
                 else 
                 {
-                    now = ServerTimeManager.Instance.CurrentTime;
-                    Debug.Log("Server time fetched: " + now);
+                    nowTime = ServerTimeManager.Instance.CurrentTime;
+                    Debug.Log("Server time fetched: " + nowTime);
                 }
 
-                Debug.Log("From CheckLives Now: " + now);
+                Debug.Log("From CheckLives Now: " + nowTime);
                 var savedNextLifeTime = GetSavedNextLifeTime();
                 Debug.Log("From CheckLives savedNextLifeTime: " + savedNextLifeTime);
 
-                if (savedNextLifeTime.Value > now)
+                if (savedNextLifeTime.Value > nowTime)
                 {
-                    var remainingTime = savedNextLifeTime.Value - now;
+                    var remainingTime = savedNextLifeTime.Value - nowTime;
                     if(numLives < maxLives)
                     {
                         StartCountdown((int)remainingTime.TotalSeconds);
@@ -172,13 +149,12 @@ namespace GameVanilla.Game.Common
                 }
                 else
                 {
-                    var elapsedTime = now - savedNextLifeTime.Value;
+                    var elapsedTime = nowTime - savedNextLifeTime.Value;
                     var livesToGive = ((int)elapsedTime.TotalSeconds / timeToNextLife) + 1;
                     numLives = Mathf.Min(numLives + livesToGive, maxLives);
 
-                    await EconomyService.Instance.PlayerBalances.SetBalanceAsync("HEART_ID", numLives);
-
-                    Debug.Log("Here else");
+                    playerProfile.HeartSystem.Heart = numLives;
+                    await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
 
                     if (numLives < maxLives)
                     {
@@ -186,7 +162,6 @@ namespace GameVanilla.Game.Common
 
                         Debug.Log("Here else if");
                     }
-
                     onCountdownFinished?.Invoke(numLives);
                 }
             }
@@ -199,18 +174,24 @@ namespace GameVanilla.Game.Common
         public async void AddLife()
         {
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
-            var numLives = await GetCurrentLives();
+            var numLives = GetCurrentLives();
 
             if (numLives < maxLives)
             {
-                await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync("HEART_ID", 1);
+                playerProfile.HeartSystem.Heart++;
+                numLives = GetCurrentLives();
+                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
 
                 if (!runningCountdown)
                 {
                     var timeToNextLife = PuzzleMatchManager.instance.gameConfig.timeToNextLife;
 
                     Debug.Log("From AddLife: " + timeToNextLife);
-                    StartCountdown(timeToNextLife);
+
+                    if(numLives < maxLives)
+                    {
+                        StartCountdown(timeToNextLife);
+                    }
                 }
             }
             else
@@ -226,13 +207,14 @@ namespace GameVanilla.Game.Common
         /// </summary>
         public async void RemoveLife()
         {
-            var numLives = await GetCurrentLives();
+            var numLives = GetCurrentLives();
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
 
             if (numLives > 0)
             {
-                await EconomyService.Instance.PlayerBalances.DecrementBalanceAsync("HEART_ID", 1);
-                numLives--;
+                playerProfile.HeartSystem.Heart--;
+                numLives = GetCurrentLives();
+                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
             }
 
             if (numLives < maxLives && !runningCountdown)
@@ -258,7 +240,9 @@ namespace GameVanilla.Game.Common
             if (coinBalance.Balance >= refillCost)
             {
                 PuzzleMatchManager.instance.coinsSystem.SpendCoins(refillCost);
-                await EconomyService.Instance.PlayerBalances.SetBalanceAsync("HEART_ID", maxLives);
+                playerProfile.HeartSystem.Heart = maxLives;
+                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+
                 StopCountdown();
             }
         }
@@ -268,7 +252,7 @@ namespace GameVanilla.Game.Common
         /// Starts the countdown to give a free life to the player.
         /// </summary>
         /// <param name="timeToNextLife">The time in seconds until the next free life is given.</param>
-        public async void StartCountdown(int timeToNextLife)
+        public void StartCountdown(int timeToNextLife)
         {
             SetTimeToNextLife(timeToNextLife);
             timeSpan = TimeSpan.FromSeconds(timeToNextLife);
@@ -276,17 +260,17 @@ namespace GameVanilla.Game.Common
 
             if (onCountdownUpdated == null) return;
 
-            var numLives = await GetCurrentLives();
+            var numLives = GetCurrentLives();
             onCountdownUpdated(timeSpan, numLives);
         }
 
         /// <summary>
         /// Stops the countdown to give a free life to the player.
         /// </summary>
-        public async void StopCountdown()
+        public void StopCountdown()
         {
             runningCountdown = false;
-            var numLives = await GetCurrentLives();
+            var numLives = GetCurrentLives();
             if (onCountdownFinished != null)
             {
                 onCountdownFinished(numLives);
@@ -304,12 +288,12 @@ namespace GameVanilla.Game.Common
 
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
             
-            playerProfile.LastHeartTime = nextLifeTime.ToBinary().ToString();
+            playerProfile.HeartSystem.LastHeartTime = nextLifeTime.ToString();
 
             Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.PlayerName}");
             Debug.Log($"From Lives System SaveNextLifeTime is null: {playerProfile == null}");
             Debug.Log($"From Lives System SaveNextLifeTime: {nextLifeTime}");
-            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.LastHeartTime}");
+            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.HeartSystem.LastHeartTime}");
             Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.Level}");
             Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.DailyBonus.DailyBonusDayKey}");
             Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.DailyBonus.DateLastPlayed}");
@@ -319,15 +303,12 @@ namespace GameVanilla.Game.Common
         public DateTime? GetSavedNextLifeTime()
         {
 
-            if (playerProfile.LastHeartTime != "0")
+            if (playerProfile.HeartSystem.LastHeartTime != "0")
             {
                 // string binaryString = PlayerPrefs.GetString("next_life_time");
-                string binaryString = playerProfile.LastHeartTime;
-                Debug.Log($"Retrieved next_life_time: {binaryString}");
-                if (long.TryParse(binaryString, out long binary))
-                {
-                    return DateTime.FromBinary(binary);
-                }
+                string dateString = playerProfile.HeartSystem.LastHeartTime;
+                Debug.Log($"Retrieved next_life_time: {dateString}");
+                return DateTime.Parse(dateString);
             }
             Debug.Log("next_life_time not found in PlayerPrefs.");
             return null;
@@ -338,12 +319,12 @@ namespace GameVanilla.Game.Common
         /// </summary>
         /// <param name="updateCallback">The callback to register for when the number of lives changes.</param>
         /// <param name="finishCallback">The callback to register for when the free life is given.</param>
-        public async void Subscribe(Action<TimeSpan, int> updateCallback, Action<int> finishCallback)
+        public void Subscribe(Action<TimeSpan, int> updateCallback, Action<int> finishCallback)
         {
             onCountdownUpdated += updateCallback;
             onCountdownFinished += finishCallback;
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
-            var numLives = await GetCurrentLives();
+            var numLives = GetCurrentLives();
             if (numLives < maxLives)
             {
                 if (onCountdownUpdated != null)
