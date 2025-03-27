@@ -49,7 +49,7 @@ public class AdUI : MonoBehaviour
 
                 adManager = playerProfile.AdManager.FirstOrDefault(x => x.AdId == ad.AdId);
 
-                Instantiate(adPrefabs, adContainer).GetComponent<AdUIComponent>().SetAdData(ad.AdClicksGoal.ToString(), adManager.AdCounter.ToString(), ad.AdReward.ToString());
+                Instantiate(adPrefabs, adContainer).GetComponent<AdUIComponent>().SetAdData(ad.AdId,ad.AdClicksGoal.ToString(), adManager.AdCounter.ToString(), ad.AdReward.ToString());
                 adUIComponents.Add(adPrefabs);
 
                 continue;
@@ -62,7 +62,7 @@ public class AdUI : MonoBehaviour
                 AdNextTimer = ""
             };
 
-            Instantiate(adPrefabs, adContainer).GetComponent<AdUIComponent>().SetAdData(ad.AdClicksGoal.ToString(), adManager.AdCounter.ToString(), ad.AdReward.ToString());
+            Instantiate(adPrefabs, adContainer).GetComponent<AdUIComponent>().SetAdData(ad.AdId,ad.AdClicksGoal.ToString(), adManager.AdCounter.ToString(), ad.AdReward.ToString());
             adUIComponents.Add(adPrefabs);
             
             playerProfile.AdManager.Add(adManager);

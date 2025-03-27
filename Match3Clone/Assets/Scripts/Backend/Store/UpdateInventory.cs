@@ -48,7 +48,7 @@ public class UpdateInventory : MonoBehaviour
             DateTime expiredDate = DateTime.TryParse(item.DateExpired , out DateTime date) ? date : DateTime.MinValue;
 
             Debug.Log("Expired Date :" + expiredDate);
-            if (expiredDate < DateTime.Now)
+            if (expiredDate < ServerTimeManager.Instance.CurrentTime)
             {
                 Debug.Log("Item Removed: " + item.ConsumableName);
                 consumableItems.Remove(item);
@@ -66,7 +66,7 @@ public class UpdateInventory : MonoBehaviour
         DateTime expiredDate = DateTime.TryParse(primeSubscription.DateExpired, out DateTime date) ? date : DateTime.MinValue;
 
         Debug.Log("Expired Date :" + expiredDate);
-        if (expiredDate < DateTime.Now)
+        if (expiredDate < ServerTimeManager.Instance.CurrentTime)
         {
             consumableItem.DateExpired = "";
             consumableItem.DatePurchased = "";

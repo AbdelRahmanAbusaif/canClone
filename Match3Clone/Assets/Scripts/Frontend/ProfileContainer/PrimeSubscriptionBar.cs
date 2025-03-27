@@ -23,13 +23,13 @@ public class PrimeSubscriptionBar : MonoBehaviour
 
         Debug.Log("Expired Date :" + expiredDate);
 
-        if (expiredDate < DateTime.Now)
+        if (expiredDate < ServerTimeManager.Instance.CurrentTime)
         {
             durationText.text = "0";
         }
         else
         {
-            var timeSpan = expiredDate.Date - DateTime.Now.Date;
+            var timeSpan = expiredDate.Date - ServerTimeManager.Instance.CurrentTime.Date;
             print(timeSpan.Days);
             durationText.text = timeSpan.Days.ToString();
         }

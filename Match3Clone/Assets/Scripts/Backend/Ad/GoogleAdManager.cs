@@ -1,10 +1,13 @@
 using System;
 using GoogleMobileAds.Api;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class GoogleAdManager : MonoBehaviour
 {
+    public Action<string> OnAdLoaded;
+    private AdUIComponent adUIComponent;
     [SerializeField]
     private string bannerId;
     [SerializeField]
@@ -264,6 +267,7 @@ public class GoogleAdManager : MonoBehaviour
         }
 
         Debug.Log("Loading the rewarded ad.");
+        OnAdLoaded?.Invoke(adUIComponent.AdId);
 
         // create our request used to load the ad.
         var adRequest = new AdRequest();
@@ -288,7 +292,7 @@ public class GoogleAdManager : MonoBehaviour
             });
     }
 
-    public void ShowRewardedAd()
+    public void ShowRewardedAd(AdUIComponent adUIComponent)
     {
         const string rewardMsg = "Rewarded ad rewarded the user. Type: {0}, amount: {1}.";
 
@@ -299,6 +303,7 @@ public class GoogleAdManager : MonoBehaviour
                 if (RewardedEndEvent != null)
                     RewardedEndEvent.Invoke();
                 // TODO: Reward the user.
+                this.adUIComponent = adUIComponent;
                 Debug.Log(String.Format(rewardMsg, reward.Type, reward.Amount));
             });
         }
