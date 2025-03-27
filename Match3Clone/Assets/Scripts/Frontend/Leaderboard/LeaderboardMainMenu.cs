@@ -29,8 +29,6 @@ public class LeaderboardMainMenu : MonoBehaviour
         {
             // TestAddScore();
             // Debug.Log("Test Add Score");
-            RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
-            await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
 
             var playerScore = await LeaderboardManager.Instance.GetPlayerProfileScore(leaderboardId);
             leaderboardPlayerProfile.Initializer(playerScore);
@@ -53,7 +51,7 @@ public class LeaderboardMainMenu : MonoBehaviour
         }
     }
 
-    private void ApplyRemoteConfig(ConfigResponse response)
+    public void ApplyRemoteConfig(ConfigResponse response)
     {
         leaderboardText.text = RemoteConfigService.Instance.appConfig.GetString(leaderboardTitleKey);
     }

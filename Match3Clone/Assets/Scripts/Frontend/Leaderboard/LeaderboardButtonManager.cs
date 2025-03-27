@@ -10,13 +10,7 @@ public class LeaderboardButtonManager : MonoBehaviour
 {
     [SerializeField] private List<LeaderboardButton> leaderboardButtons;
     bool isFirstLeaderboardEnable = true;
-    private async void Awake() 
-    {
-        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
-        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
-    }
-
-    private void ApplyRemoteConfig(ConfigResponse response)
+    public void ApplyRemoteConfig(ConfigResponse response)
     {
         // Implement the logic to apply remote config settings to leaderboard buttons
 

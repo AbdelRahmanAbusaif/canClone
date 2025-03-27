@@ -10,9 +10,13 @@ public class AdUIComponent : MonoBehaviour
     public TextMeshProUGUI rewardText;
     public Button adButton;
 
+    private GoogleAdManager googleAdManager;
+
     private void Start()
     {
         adButton.onClick.AddListener(OnClick);
+
+        googleAdManager = FindAnyObjectByType<GoogleAdManager>().GetComponent<GoogleAdManager>();
     }
 
     private void OnClick()
@@ -24,6 +28,7 @@ public class AdUIComponent : MonoBehaviour
     private void OpenAd()
     {
         Debug.Log("Ad Opened");
+        googleAdManager.ShowRewardedAd();
     }
 
     public void SetAdData(string goalClicks, string currentClicks, string reward)

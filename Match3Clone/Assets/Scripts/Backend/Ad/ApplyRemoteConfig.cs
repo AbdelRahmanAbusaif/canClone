@@ -12,6 +12,8 @@ public class ApplyRemoteConfig : MonoBehaviour
     [SerializeField] private RemotelyDownloadAssets remotelyDownloadAssets;
     [SerializeField] private UILogin uILogin;
     [SerializeField] private LoadingManager loadingManager;
+    [SerializeField] private LeaderboardButtonManager leaderboardButtonManager;
+    [SerializeField] private LeaderboardMainMenu[] leaderboardMainMenu;
     private async void Awake() 
     {
         await UnityServices.InitializeAsync();
@@ -41,6 +43,17 @@ public class ApplyRemoteConfig : MonoBehaviour
         if(loadingManager != null)
         {
             loadingManager.ApplyRemoteConfig(response);
+        }
+        if(leaderboardButtonManager != null)
+        {
+            leaderboardButtonManager.ApplyRemoteConfig(response);
+        }
+        if(leaderboardMainMenu != null)
+        {
+            foreach (var leaderboard in leaderboardMainMenu)
+            {
+                leaderboard.ApplyRemoteConfig(response);
+            }
         }
     }
 
