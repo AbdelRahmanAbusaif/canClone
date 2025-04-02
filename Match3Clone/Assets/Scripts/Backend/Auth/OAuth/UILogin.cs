@@ -51,10 +51,10 @@ public class UILogin : MonoBehaviour
         isPurpleLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsPurpleLeaderboard");
     }
 
-    private async void OnSignInButtonClicked()
+    private void OnSignInButtonClicked()
     {
         Debug.Log("Sign in button clicked");
-        await loginController.InitSign();
+        // await loginController.InitSign();
     }
 
     private async void OnSignInSuccess(PlayerProfile playerData)

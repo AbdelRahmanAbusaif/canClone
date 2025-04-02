@@ -140,7 +140,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.3
+  bundleVersion: 0.5.1.8
   preloadedAssets:
   - {fileID: 11400000, guid: 0100449965a8b284fbd169d3a36e9af2, type: 2}
   metroInputSource: 0
@@ -165,14 +165,14 @@ PlayerSettings:
   androidMinAspectRatio: 1
   applicationIdentifier:
     Android: com.CandyProjectTeam.KashkaawanCash
-    Standalone: com.gamevanilla.CandyMatch3Kit
+    Standalone: com.CandyProjectTeam.Kashkaawan-Cash
   buildNumber:
     Standalone: 0
     VisionOS: 0
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
-  AndroidBundleVersionCode: 4
+  AndroidBundleVersionCode: 15
   AndroidMinSdkVersion: 28
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1

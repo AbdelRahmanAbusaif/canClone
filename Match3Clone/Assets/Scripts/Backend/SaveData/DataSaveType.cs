@@ -8,6 +8,7 @@ public class PlayerProfile
     public string PlayerName = "";
     public string Email = "";
     public string PhoneNumber = "";
+    public string PlayerImageUrl = "";
     public string DataPublicProfileImage = "";
     public string DataPublicProfileBorder = "";
     public int Level = 1;

@@ -10,6 +10,7 @@ using Unity.Services.Authentication;
 using SaveData;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.IO.LowLevel.Unsafe;
 
 public class ProfileManager : MonoBehaviour
 {
@@ -35,8 +36,10 @@ public class ProfileManager : MonoBehaviour
 
     private int currentPanelIndex = 0;
 
-
-    private void OnEnable() {
+    private PlayerProfile playerProfile;
+    private async void OnEnable() 
+    {
+        // Here
         updateButton.onClick.AddListener(OnUpdateButtonClicked);
         uploadImageButton.onClick.AddListener(OnUploadImageButtonClicked);
 
@@ -51,6 +54,8 @@ public class ProfileManager : MonoBehaviour
         {
             ActivatePanel(0); // Start with the first panel
         }
+
+        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
     }
 
     private void ActivatePanel(int index)
@@ -102,14 +107,6 @@ public class ProfileManager : MonoBehaviour
 
                     
                     ActivatePanel(currentPanelIndex);
-                }
-                else
-                {
-                    uploadImagePanel.SetActive(true);
-                    updateButton.gameObject.SetActive(true);
-
-                    currentPanel.gameObject.SetActive(false);
-                    Debug.Log("Sign-up process completed!");
                 }
                 switch (currentPanel.Id)
                 {
@@ -202,89 +199,11 @@ public class ProfileManager : MonoBehaviour
     }
 
     private async void OnUpdateButtonClicked()
-    {
-        // // Here will be the code for updating the player profile
-        // if(Validation.IsValidName(playerName))
-        // {
-        //     Debug.Log("Player name is valid");
-        // }
-        // else
-        // {
-        //     Debug.Log("Player name is invalid");
-        //     playerNameWarning.gameObject.SetActive(true);
+    {   
+        // Debug.Log("Updating player profile...");
+        playerProfile.PhoneNumber = phoneNumber;
 
-        //     return;
-        // }
-
-        // if(Validation.IsValidEmail(email))
-        // {
-        //     Debug.Log("Email is valid");
-        // }
-        // else
-        // {
-        //     Debug.Log("Email is invalid");
-
-        //     emailWarning.gameObject.SetActive(true);
-        //     return;
-        // }
-
-        // if(Validation.IsValidPhoneNumber(phoneNumber))
-        // {
-        //     Debug.Log("Phone number is valid");
-        // }
-        // else
-        // {
-        //     Debug.Log("Phone number is invalid");
-
-        //     phoneNumberWarning.gameObject.SetActive(true);
-        //     return;
-        // }
-
-
-        var playerProfile = new PlayerProfile
-        {
-            PlayerId = AuthenticationService.Instance.PlayerId,
-            PlayerName = playerName,
-            Email = email,
-            PhoneNumber = phoneNumber,
-            DataPublicProfileBorder = "",
-            DataPublicProfileImage = "",
-            Level = 1,
-            IsAcceptedTerms = true,
-            DailyBonus = new DailyBonus()
-            {
-                DateLastPlayed = "0",
-                DailyBonusDayKey = "0"
-            },
-            HeartSystem = new HeartSystem()
-            {
-                Heart = 5,
-                LastHeartTime = "0",
-                NextHeartTime = "0"
-            },
-            SpinWheel = new SpinWheel()
-            {
-                DateLastSpin = "0",
-                DailySpinDayKey = "0"
-            },
-            PrimeSubscriptions = new(),
-            LevelsComplete = new(),
-            AdManager = new(),
-            ContainerProfileAvatarImages = new(),
-            ContainerProfileBorders = new(),
-            ContainerProfileCoverImages = new(),
-        };  
-
-        
-        if(String.IsNullOrEmpty(filepath))
-        {
-            await SaveImageInCloud(playerProfile, avatarProfileImageTexture);
-            // playerProfile.ContainerProfileImages.Add("PlayerImageUploaded");
-        }
-        else
-        {
-            await SaveImageInCloud(playerProfile, profileImage.sprite.texture);
-        }
+        await SaveImageInCloud(playerProfile, playerProfile.PlayerImageUrl);
         await cloudSaveManager.SaveDataAsync("PlayerProfile", playerProfile);
         await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
 
@@ -314,6 +233,32 @@ public class ProfileManager : MonoBehaviour
         };
         playerProfile.ContainerProfileAvatarImages.Add(item);
     }
+    private async Task SaveImageInCloud(PlayerProfile playerProfile , string playerProfileUrl)
+    {
+        StartCoroutine(DownloadImage(playerProfileUrl));
+
+        Texture2D texture = profileImage.sprite.texture;
+
+        await cloudSaveManager.SaveImageAsync("PlayerProfileImage", texture);
+        await cloudSaveManager.SaveImageAsync("PlayerProfileBorder", borderProfileImageTexture);
+        await cloudSaveManager.SaveImageAsync("PlayerCoverProfileImage", coverProfileImageTexture);
+
+        await cloudSaveManager.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(texture));
+        await cloudSaveManager.SaveDataAsyncString<string>("PlayerBorderImageUploaded", GetImageBase64(borderProfileImageTexture));
+        await cloudSaveManager.SaveDataAsyncString<string>("PlayerCoverImageUploaded", GetImageBase64(coverProfileImageTexture));
+        
+        Debug.Log($"Player Profile Image: {GetImageBase64(texture)}");
+
+        playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
+        ConsumableItem item = new ConsumableItem()
+        {
+            Id = "PlayerImageUploaded",
+            ConsumableName = "PlayerImageUploaded",
+            DatePurchased = DateTime.MinValue.ToString(),
+            DateExpired = DateTime.MaxValue.ToString()
+        };
+        playerProfile.ContainerProfileAvatarImages.Add(item);
+    }
 
     private string GetImageBase64(Texture2D texture)
     {
@@ -321,6 +266,21 @@ public class ProfileManager : MonoBehaviour
         byte[] bytes = ImageUtility.CompressTexture(resizeTexture, quality: 50);
         
         return Convert.ToBase64String(bytes);
+    }
+    private IEnumerator DownloadImage(string url)
+    {
+        using UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError(request.error);
+        }
+        else
+        {
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+            profileImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        }
     }
     private void OnDisable() 
     {

@@ -7,9 +7,11 @@ using UnityEngine;
 using SaveData;
 using System.Collections.Generic;
 using UnityEngine.SocialPlatforms;
+using TMPro;
 
 public class LoginController : MonoBehaviour
 {
+    public TextMeshProUGUI textMessage;
     public event Action<PlayerProfile>  OnSignInSuccess;
     public static event Action OnSignedOutSuccess;
     public GameObject LoadingPanel;
@@ -23,7 +25,141 @@ public class LoginController : MonoBehaviour
         PlayerAccountService.Instance.SignedIn += OnSignedIn;
         PlayerAccountService.Instance.SignedOut += () => {Debug.Log("Signed out successfully.");};
     }
+    #region  Facebook
+    public async void InitSignFacebook(FacebookGamesUser user)
+    {
+        await SignInFacebookAsync(user);
+    }
+    private async Task SignInFacebookAsync(FacebookGamesUser user)
+    {
+        try
+        {
+            LoadingPanel.SetActive(true);
+            await AuthenticationService.Instance.SignInWithFacebookAsync(user.idToken);
+            var playerProfile = new PlayerProfile
+            {
+                PlayerId = AuthenticationService.Instance.PlayerId,
+                PlayerName = user.name,
+                Email = user.email,
+                PlayerImageUrl = user.ImgUrl,
+                PhoneNumber = "",
+                DataPublicProfileImage = "",
+                DataPublicProfileBorder = "",
+                Level = 1,
+                IsAcceptedTerms = false,
+                HeartSystem = new HeartSystem()
+                {
+                    Heart = 5,
+                    LastHeartTime = "0",
+                    NextHeartTime = "0"
+                },
+                DailyBonus = new DailyBonus()
+                {
+                    DateLastPlayed = "0",
+                    DailyBonusDayKey = "0"
+                },
+                SpinWheel = new SpinWheel()
+                {
+                    DateLastSpin = "0",
+                    DailySpinDayKey = "0"
+                },
+                PrimeSubscriptions = new(),
+                LevelsComplete = new(),
+                AdManager = new List<AdManager>(),
+                ContainerProfileAvatarImages = new List<ConsumableItem>(),
+                ContainerProfileBorders = new List<ConsumableItem>(),
+                ContainerProfileCoverImages = new List<ConsumableItem>()
+            };
 
+            OnSignInSuccess?.Invoke(playerProfile);
+            
+            Debug.Log("Sign in with Facebook succeeded!");
+        }
+        catch (AuthenticationException ex)
+        {
+            Debug.LogException(ex);
+            textMessage.text = "Authentication failed. Please try again. because: " + ex.Message;
+        }
+        catch (RequestFailedException ex)
+        {
+            Debug.LogException(ex);
+        }
+        finally
+        {
+            LoadingPanel.SetActive(false);
+        }
+    }
+    #endregion
+    #region  Google Play Games
+    
+    public async void InitSignGooglePlay(GooglePlayGamesUser user)
+    {
+        await SignInGooglePlayAsync(user);
+    }
+
+    private async Task SignInGooglePlayAsync(GooglePlayGamesUser user)
+    {
+        try
+        {
+            LoadingPanel.SetActive(true);
+            await AuthenticationService.Instance.SignInWithGooglePlayGamesAsync(user.idToken);
+            var playerProfile = new PlayerProfile
+            {
+                PlayerId = AuthenticationService.Instance.PlayerId,
+                PlayerName = user.name,
+                Email = user.email,
+                PlayerImageUrl = user.ImgUrl,
+                PhoneNumber = "",
+                DataPublicProfileImage = "",
+                DataPublicProfileBorder = "",
+                Level = 1,
+                IsAcceptedTerms = false,
+                HeartSystem = new HeartSystem()
+                {
+                    Heart = 5,
+                    LastHeartTime = "0",
+                    NextHeartTime = "0"
+                },
+                DailyBonus = new DailyBonus()
+                {
+                    DateLastPlayed = "0",
+                    DailyBonusDayKey = "0"
+                },
+                SpinWheel = new SpinWheel()
+                {
+                    DateLastSpin = "0",
+                    DailySpinDayKey = "0"
+                },
+                PrimeSubscriptions = new(),
+                LevelsComplete = new(),
+                AdManager = new List<AdManager>(),
+                ContainerProfileAvatarImages = new List<ConsumableItem>(),
+                ContainerProfileBorders = new List<ConsumableItem>(),
+                ContainerProfileCoverImages = new List<ConsumableItem>()
+            };
+
+            OnSignInSuccess?.Invoke(playerProfile);
+            
+            Debug.Log("Sign in with Google Play Games succeeded!");
+        }
+        catch (AuthenticationException ex)
+        {
+            Debug.LogException(ex);
+            textMessage.text = "Authentication failed. Please try again. because: " + ex.Message;
+        }
+        catch (RequestFailedException ex)
+        {
+            Debug.LogException(ex);
+        }
+        finally
+        {
+            LoadingPanel.SetActive(false);
+        }
+    }
+
+    #endregion
+
+    #region  Unity Player Account
     private async void OnSignedIn()
     {
         try
@@ -225,7 +361,7 @@ public class LoginController : MonoBehaviour
             Debug.LogException(ex);
         }  
     }
-
+    #endregion
     private async Task GetPlayerProfileAsync()
     {
         try
