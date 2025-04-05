@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
@@ -8,15 +7,13 @@ using System;
 using Unity.Services.Authentication;
 
 using SaveData;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unity.IO.LowLevel.Unsafe;
 
 public class ProfileManager : MonoBehaviour
 {
     public static Action OnUpdateSuccess;
 
-    [SerializeField] private List<InputProfilePanel> panels;
+    [SerializeField] private InputProfilePanel phonePanel;
     [SerializeField] private Button updateButton;
     [SerializeField] private Button uploadImageButton;
 
@@ -30,8 +27,6 @@ public class ProfileManager : MonoBehaviour
     private CloudSaveManager cloudSaveManager;
 
     private string filepath = "";
-    private string playerName;
-    private string email;
     private string phoneNumber;
 
     private int currentPanelIndex = 0;
@@ -44,92 +39,9 @@ public class ProfileManager : MonoBehaviour
         uploadImageButton.onClick.AddListener(OnUploadImageButtonClicked);
 
         cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
-
-        foreach (var panel in panels)
-        {
-            panel.gameObject.SetActive(false); // Hide all panels initially
-        }
-
-        if (panels.Count > 0)
-        {
-            ActivatePanel(0); // Start with the first panel
-        }
-
         playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
     }
 
-    private void ActivatePanel(int index)
-    {
-        if (index < 0 || index >= panels.Count)
-        {
-            Debug.LogWarning("Invalid panel index.");
-            return;
-        }
-
-        // Deactivate all panels
-        foreach (var panel in panels)
-        {
-            panel.gameObject.SetActive(false);
-        }
-
-        // Activate the current panel
-        var currentPanel = panels[index];
-        currentPanel.gameObject.SetActive(true);
-
-        // Set up the panel-specific logic
-        switch (currentPanel.Id)
-        {
-            case "Username":
-                currentPanel.ValidateInput = ValidateUsername;
-                playerName = currentPanel.inputField.text;
-                Debug.Log(playerName);
-                break;
-            case "Email":
-                currentPanel.ValidateInput = ValidateEmail;
-                email = currentPanel.inputField.text;
-                Debug.Log(email);
-                break;
-            case "Phone":
-                currentPanel.ValidateInput = ValidatePhoneNumber;
-                phoneNumber = currentPanel.inputField.text;
-                Debug.Log(phoneNumber);
-                break;
-        }
-
-        currentPanel.OnNextButtonClickedAction = success =>
-        {
-            if (success)
-            {
-                currentPanelIndex++;
-                if (currentPanelIndex < panels.Count)
-                {
-                    Debug.Log("Moving to the next panel...");
-
-                    
-                    ActivatePanel(currentPanelIndex);
-                }
-                switch (currentPanel.Id)
-                {
-                    case "Username":
-                        playerName = currentPanel.inputField.text;
-                        Debug.Log(playerName);
-                        break;
-                    case "Email":
-                        email = currentPanel.inputField.text;
-                        Debug.Log(email);
-                        break;
-                    case "Phone":
-                        phoneNumber = currentPanel.inputField.text;
-                        Debug.Log(phoneNumber);
-                        break;
-                }
-            }
-            else
-            {
-                Debug.Log("Validation failed. Please check your data.");
-            }
-        };
-    }
     private bool ValidateUsername(string input)
     {
         return !string.IsNullOrEmpty(input) && input.Length >= 3;
@@ -142,7 +54,7 @@ public class ProfileManager : MonoBehaviour
 
     private bool ValidatePhoneNumber(string input)
     {
-        string pattern = @"^07[8-9][0-9]{7}$";
+        string pattern = @"^07[7-9][0-9]{7}$";
         return Regex.IsMatch(input, pattern);
     }
 
@@ -201,13 +113,39 @@ public class ProfileManager : MonoBehaviour
     private async void OnUpdateButtonClicked()
     {   
         // Debug.Log("Updating player profile...");
-        playerProfile.PhoneNumber = phoneNumber;
+        try
+        {
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error get player profile: {e.Message}");
+        }
+        
+        phoneNumber = phonePanel.inputField.text.Trim();
 
-        await SaveImageInCloud(playerProfile, playerProfile.PlayerImageUrl);
+        if(!ValidatePhoneNumber(phoneNumber))
+        {
+            Debug.LogError("Invalid phone number format. Please enter a valid phone number.");
+            return;
+        }
+        playerProfile.PhoneNumber = phoneNumber;
+        Debug.Log($"Player phone number: {playerProfile.PhoneNumber}");
+
+        SaveImageInCloud();
+        Debug.Log($"Player profile image: {playerProfile.PlayerImageUrl}");
+
         await cloudSaveManager.SaveDataAsync("PlayerProfile", playerProfile);
-        await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
+        await AuthenticationService.Instance.UpdatePlayerNameAsync(playerProfile.PlayerName.Replace("+", "").Replace(" ", ""));
 
         Debug.Log("Player profile updated successfully");
+
+        if(playerProfile.PhoneNumber == null)
+        {
+            playerProfile.PhoneNumber = phoneNumber;
+            Debug.LogError("Phone number is null, please enter a valid phone number");
+            return;
+        }
         OnUpdateSuccess?.Invoke();
     }
 
@@ -215,7 +153,7 @@ public class ProfileManager : MonoBehaviour
     {
         await cloudSaveManager.SaveImageAsync("PlayerProfileImage", texture);
         await cloudSaveManager.SaveImageAsync("PlayerProfileBorder", borderProfileImageTexture);
-        await cloudSaveManager.SaveImageAsync("PlayerCoverProfileImage", coverProfileImageTexture);
+        await cloudSaveManager.SaveImageAsync("PlayerProfileCoverImage", coverProfileImageTexture);
 
         await cloudSaveManager.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(texture));
         await cloudSaveManager.SaveDataAsyncString<string>("PlayerBorderImageUploaded", GetImageBase64(borderProfileImageTexture));
@@ -233,21 +171,37 @@ public class ProfileManager : MonoBehaviour
         };
         playerProfile.ContainerProfileAvatarImages.Add(item);
     }
-    private async Task SaveImageInCloud(PlayerProfile playerProfile , string playerProfileUrl)
+    private async void SaveImageInCloud()
     {
-        StartCoroutine(DownloadImage(playerProfileUrl));
+        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        if (playerProfile == null)
+        {
+            Debug.LogError("Player profile is null.");
+            return;
+        }
+        if (string.IsNullOrEmpty(playerProfile.PlayerImageUrl))
+        {
+            Debug.LogError("Player profile URL is null or empty.");
+            return;
+        }
+        if (playerProfile == null)
+        {
+            Debug.LogError("Player profile is null.");
+            return;
+        }
 
-        Texture2D texture = profileImage.sprite.texture;
+        StartCoroutine(DownloadImage(playerProfile.PlayerImageUrl));
+    }
 
-        await cloudSaveManager.SaveImageAsync("PlayerProfileImage", texture);
-        await cloudSaveManager.SaveImageAsync("PlayerProfileBorder", borderProfileImageTexture);
-        await cloudSaveManager.SaveImageAsync("PlayerCoverProfileImage", coverProfileImageTexture);
+    private async void UpdloadedInCloud(Sprite playerImage)
+    {
+        await cloudSaveManager.SaveImageAsync("PlayerProfileImage", playerImage.texture);
+        await cloudSaveManager.SaveImageAsync("PlayerProfileBorderImage", borderProfileImageTexture);
+        await cloudSaveManager.SaveImageAsync("PlayerProfileCoverImage", coverProfileImageTexture);
 
-        await cloudSaveManager.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(texture));
+        await cloudSaveManager.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(playerImage.texture));
         await cloudSaveManager.SaveDataAsyncString<string>("PlayerBorderImageUploaded", GetImageBase64(borderProfileImageTexture));
         await cloudSaveManager.SaveDataAsyncString<string>("PlayerCoverImageUploaded", GetImageBase64(coverProfileImageTexture));
-        
-        Debug.Log($"Player Profile Image: {GetImageBase64(texture)}");
 
         playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
         ConsumableItem item = new ConsumableItem()
@@ -258,6 +212,7 @@ public class ProfileManager : MonoBehaviour
             DateExpired = DateTime.MaxValue.ToString()
         };
         playerProfile.ContainerProfileAvatarImages.Add(item);
+        await cloudSaveManager.SaveDataAsync("PlayerProfile", playerProfile);
     }
 
     private string GetImageBase64(Texture2D texture)
@@ -269,17 +224,27 @@ public class ProfileManager : MonoBehaviour
     }
     private IEnumerator DownloadImage(string url)
     {
+        Debug.Log("Downloading image from Facebook: " + url);
+
         using UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.LogError(request.error);
+            Debug.LogError("Error when download Image from facebook :" + request.error);
+        }
+        else if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Image downloaded successfully from Facebook.");
+
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+            Sprite playerImage = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+            UpdloadedInCloud(playerImage);
         }
         else
         {
-            Texture2D texture = DownloadHandlerTexture.GetContent(request);
-            profileImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            Debug.LogError("Unknown error when downloading image from Facebook.");
         }
     }
     private void OnDisable() 

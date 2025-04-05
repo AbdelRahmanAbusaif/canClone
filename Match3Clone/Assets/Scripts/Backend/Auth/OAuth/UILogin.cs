@@ -101,14 +101,15 @@ public class UILogin : MonoBehaviour
         if(termPanel != null)
         {
             // loginPanel.SetActive(true);
+            await CloudSaveManager.Instance.SaveDataAsync<PlayerProfile>("PlayerProfile", playerData);
+
             termPanel.SetActive(true);
         }
         else
         {
+            // This when the plyer in already accepted the terms and conditions
+            // and when player in loading page
             await CloudSaveManager.Instance.SaveDataAsync<PlayerProfile>("PlayerProfile", playerData);
-            await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileImage", defaultImage);
-            await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileCoverImage", profileCoverImage);
-            await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileBorderImage", borderImage);
 
             OnSignUp?.Invoke();
         }

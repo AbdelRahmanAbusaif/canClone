@@ -28,10 +28,10 @@ public class ProfileEditUI : MonoBehaviour
                 await ChangeImage("PlayerProfileImage", consumableType);
                 break;
             case ConsumableType.PlayerProfileCover:
-                await ChangeImage("PlayerCoverProfileImage", consumableType);
+                await ChangeImage("PlayerProfileCoverImage", consumableType);
                 break;
             case ConsumableType.PlayerProfileBorder:
-                await ChangeImage("PlayerProfileBorder", consumableType);
+                await ChangeImage("PlayerProfileBorderImage", consumableType);
                 break;
         }
 

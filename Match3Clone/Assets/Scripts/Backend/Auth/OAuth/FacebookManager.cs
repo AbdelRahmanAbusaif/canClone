@@ -8,6 +8,7 @@ public class FacebookManager : MonoBehaviour
     private LoginController _loginController;
     public string Token;
     public string Error;
+    public TextMeshProUGUI URLImageText;
 
     // Awake function from Unity's MonoBehaviour
     void Awake()
@@ -64,11 +65,8 @@ public class FacebookManager : MonoBehaviour
             {
                 Token = AccessToken.CurrentAccessToken.TokenString;
                 Debug.Log($"Facebook Login token: {Token}");
-
-                string name = AccessToken.CurrentAccessToken.UserId;
-                string ImgUrl = "https://graph.facebook.com/" + name + "/picture?type=large";
                 
-                FB.API("/me?fields=name,email", HttpMethod.GET, userResult =>
+                FB.API($"/me?fields=name,email,picture.type(large)&access_token={Token}", HttpMethod.GET, userResult =>
                 {
                     if (userResult.Error == null)
                     {
@@ -76,12 +74,18 @@ public class FacebookManager : MonoBehaviour
                         string email = userInfo["email"] as string;
                         string name = userInfo["name"] as string;
 
-                        FacebookGamesUser fbUser = new FacebookGamesUser
+                        // Parse the nested picture dictionary
+                        var pictureDict = userInfo["picture"] as Dictionary<string, object>;
+                        var dataDict = pictureDict["data"] as Dictionary<string, object>;
+                        string pictureUrl = dataDict["url"] as string;
+
+                        Debug.Log($"Facebook User Info: Name: {name}, Email: {email}, Picture URL: {pictureUrl}");
+                        FacebookGamesUser fbUser = new()
                         {
                             idToken = Token,
-                            name = name,
+                            name = name.Replace(" ", ""),
                             email = email,
-                            ImgUrl = ImgUrl
+                            ImgUrl = pictureUrl
                         };
 
                         Debug.Log($"Facebook User Info: Name: {name}, Email: {email}");
@@ -109,4 +113,18 @@ public class FacebookGamesUser
     public string name;
     public string email;
     public string ImgUrl;
+}
+[System.Serializable]
+public class FacebookPictureData
+{
+    public int height;
+    public int width;
+    public bool is_silhouette;
+    public string url;
+}
+
+[System.Serializable]
+public class FacebookPicture
+{
+    public FacebookPictureData data;
 }

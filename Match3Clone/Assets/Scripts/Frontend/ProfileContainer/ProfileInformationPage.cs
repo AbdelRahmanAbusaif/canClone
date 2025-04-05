@@ -26,7 +26,7 @@ public class ProfileInformationPage : MonoBehaviour
         playerPhoneNumber.text = playerProfile.PhoneNumber;
 
         LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", playerImage);
-        LocalSaveManager.Instance.LoadImageAsync("PlayerCoverProfileImage", playerCoverProfileImage);
-        LocalSaveManager.Instance.LoadImageAsync("PlayerProfileBorder", playerBorderImage);
+        LocalSaveManager.Instance.LoadImageAsync("PlayerProfileCoverImage", playerCoverProfileImage);
+        LocalSaveManager.Instance.LoadImageAsync("PlayerProfileBorderImage", playerBorderImage);
     }
 }

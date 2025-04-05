@@ -11,8 +11,8 @@ public class ProfileContainerBar : MonoBehaviour
 
     private void OnEnable() 
     {        
-        LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
-        LocalSaveManager.Instance.LoadImageAsync("PlayerProfileBorder", borderImage);
+        CloudSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
+        CloudSaveManager.Instance.LoadImageAsync("PlayerProfileBorderImage", borderImage);
     }
     private void Awake() 
     {

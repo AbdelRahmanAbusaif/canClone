@@ -143,8 +143,12 @@ namespace GameVanilla.Game.Popups
             costText.enabled = false;
             // PlayerPrefs.SetInt(numSpinsKey, 0);
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-            playerProfile.SpinWheel.DailySpinDayKey = "0";
-            playerProfile.SpinWheel.DateLastSpin = ServerTimeManager.Instance.CurrentTime.ToString();
+
+            SpinWheel spinWheel = playerProfile.SpinWheel;
+
+            spinWheel.DailySpinDayKey = "0";
+            spinWheel.DateLastSpin = ServerTimeManager.Instance.CurrentTime.ToString();
+            playerProfile.SpinWheel = spinWheel;
 
             await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
         }

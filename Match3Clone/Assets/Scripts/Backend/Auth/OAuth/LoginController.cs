@@ -35,6 +35,7 @@ public class LoginController : MonoBehaviour
         try
         {
             LoadingPanel.SetActive(true);
+            Debug.Log("Facebook token: " + user.idToken);
             await AuthenticationService.Instance.SignInWithFacebookAsync(user.idToken);
             var playerProfile = new PlayerProfile
             {

@@ -19,8 +19,8 @@ public class PlayerItemInformationPage : MonoBehaviour
         playerName.text = playerProfile.PlayerName;
 
         LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", playerImage);
-        LocalSaveManager.Instance.LoadImageAsync("PlayerCoverProfileImage", playerCoverProfileImage);
-        LocalSaveManager.Instance.LoadImageAsync("PlayerProfileBorder", playerBorderImage);
+        LocalSaveManager.Instance.LoadImageAsync("PlayerProfileCoverImage", playerCoverProfileImage);
+        LocalSaveManager.Instance.LoadImageAsync("PlayerProfileBorderImage", playerBorderImage);
 
         ProfileEditUI.OnImageChanged += OnImageChanged;
     }

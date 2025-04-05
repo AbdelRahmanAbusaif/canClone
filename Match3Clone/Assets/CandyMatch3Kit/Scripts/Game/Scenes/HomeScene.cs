@@ -120,22 +120,30 @@ namespace GameVanilla.Game.Scenes
             var dateLastPlayedStr = Convert.ToString(dateToday);
 
             Debug.Log($"Date today: {dateToday}");
+
+            DailyBonus dailyBonus = playerProfile.DailyBonus;
             // PlayerPrefs.SetString(dateLastPlayedKey, dateLastPlayedStr);
-            playerProfile.DailyBonus.DateLastPlayed = dateLastPlayedStr;
+            dailyBonus.DateLastPlayed = dateLastPlayedStr;
 
             Debug.Log($"Date last played from Home Screen: {dateLastPlayedStr}");
                         
             // var dailyBonusDay = PlayerPrefs.GetInt(dailyBonusDayKey);
-            var dailyBonusDayString = playerProfile.DailyBonus.DailyBonusDayKey;
+            var dailyBonusDayString = dailyBonus.DailyBonusDayKey;
             var dailyBonusDay = Convert.ToInt32(dailyBonusDayString);
 
             Debug.Log($"Daily bonus day: {dailyBonusDay}");
-            OpenPopup<DailyBonusPopup>("Popups/DailyBonusPopup", popup => { popup.SetInfo(dailyBonusDay); });
-
             var newDailyBonusDay = (dailyBonusDay + 1) % 7;
             // PlayerPrefs.SetInt(dailyBonusDayKey, newDailyBonusDay);
-            playerProfile.DailyBonus.DailyBonusDayKey = newDailyBonusDay.ToString();
+            dailyBonus.DailyBonusDayKey = newDailyBonusDay.ToString();
+
+            playerProfile.DailyBonus = dailyBonus;
+
+            Debug.Log($"New daily bonus day: {newDailyBonusDay}");
+            Debug.Log($"New daily bonus day from Home Screen: {playerProfile.DailyBonus.DailyBonusDayKey}");
+
             await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+
+            OpenPopup<DailyBonusPopup>("Popups/DailyBonusPopup", popup => { popup.SetInfo(dailyBonusDay); });
         }
 
         /// <summary>
