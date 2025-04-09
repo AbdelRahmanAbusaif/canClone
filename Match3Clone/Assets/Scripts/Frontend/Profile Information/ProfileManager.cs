@@ -7,7 +7,7 @@ using System;
 using Unity.Services.Authentication;
 
 using SaveData;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 public class ProfileManager : MonoBehaviour
 {
@@ -24,8 +24,6 @@ public class ProfileManager : MonoBehaviour
 
     [SerializeField] private GameObject uploadImagePanel;
     
-    private CloudSaveManager cloudSaveManager;
-
     private string filepath = "";
     private string phoneNumber;
 
@@ -38,7 +36,6 @@ public class ProfileManager : MonoBehaviour
         updateButton.onClick.AddListener(OnUpdateButtonClicked);
         uploadImageButton.onClick.AddListener(OnUploadImageButtonClicked);
 
-        cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
         playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
     }
 
@@ -135,7 +132,7 @@ public class ProfileManager : MonoBehaviour
         SaveImageInCloud();
         Debug.Log($"Player profile image: {playerProfile.PlayerImageUrl}");
 
-        await cloudSaveManager.SaveDataAsync("PlayerProfile", playerProfile);
+        await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
         await AuthenticationService.Instance.UpdatePlayerNameAsync(playerProfile.PlayerName.Replace("+", "").Replace(" ", ""));
 
         Debug.Log("Player profile updated successfully");
@@ -147,29 +144,6 @@ public class ProfileManager : MonoBehaviour
             return;
         }
         OnUpdateSuccess?.Invoke();
-    }
-
-    private async Task SaveImageInCloud(PlayerProfile playerProfile , Texture2D texture = null)
-    {
-        await cloudSaveManager.SaveImageAsync("PlayerProfileImage", texture);
-        await cloudSaveManager.SaveImageAsync("PlayerProfileBorder", borderProfileImageTexture);
-        await cloudSaveManager.SaveImageAsync("PlayerProfileCoverImage", coverProfileImageTexture);
-
-        await cloudSaveManager.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(texture));
-        await cloudSaveManager.SaveDataAsyncString<string>("PlayerBorderImageUploaded", GetImageBase64(borderProfileImageTexture));
-        await cloudSaveManager.SaveDataAsyncString<string>("PlayerCoverImageUploaded", GetImageBase64(coverProfileImageTexture));
-        
-        Debug.Log($"Player Profile Image: {GetImageBase64(texture)}");
-
-        playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
-        ConsumableItem item = new ConsumableItem()
-        {
-            Id = "PlayerImageUploaded",
-            ConsumableName = "PlayerImageUploaded",
-            DatePurchased = DateTime.MinValue.ToString(),
-            DateExpired = DateTime.MaxValue.ToString()
-        };
-        playerProfile.ContainerProfileAvatarImages.Add(item);
     }
     private async void SaveImageInCloud()
     {
@@ -195,13 +169,13 @@ public class ProfileManager : MonoBehaviour
 
     private async void UpdloadedInCloud(Sprite playerImage)
     {
-        await cloudSaveManager.SaveImageAsync("PlayerProfileImage", playerImage.texture);
-        await cloudSaveManager.SaveImageAsync("PlayerProfileBorderImage", borderProfileImageTexture);
-        await cloudSaveManager.SaveImageAsync("PlayerProfileCoverImage", coverProfileImageTexture);
+        await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileImage", playerImage.texture);
+        await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileBorderImage", borderProfileImageTexture);
+        await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileCoverImage", coverProfileImageTexture);
 
-        await cloudSaveManager.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(playerImage.texture));
-        await cloudSaveManager.SaveDataAsyncString<string>("PlayerBorderImageUploaded", GetImageBase64(borderProfileImageTexture));
-        await cloudSaveManager.SaveDataAsyncString<string>("PlayerCoverImageUploaded", GetImageBase64(coverProfileImageTexture));
+        await CloudSaveManager.Instance.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(playerImage.texture));
+        await CloudSaveManager.Instance.SaveDataAsyncString<string>("PlayerBorderImageUploaded", GetImageBase64(borderProfileImageTexture));
+        await CloudSaveManager.Instance.SaveDataAsyncString<string>("PlayerCoverImageUploaded", GetImageBase64(coverProfileImageTexture));
 
         playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
         ConsumableItem item = new ConsumableItem()
@@ -211,8 +185,10 @@ public class ProfileManager : MonoBehaviour
             DatePurchased = DateTime.MinValue.ToString(),
             DateExpired = DateTime.MaxValue.ToString()
         };
-        playerProfile.ContainerProfileAvatarImages.Add(item);
-        await cloudSaveManager.SaveDataAsync("PlayerProfile", playerProfile);
+
+        var containerProfileAvatarImages = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileAvatarImages");
+        containerProfileAvatarImages.Add(item);
+        await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileAvatarImages", containerProfileAvatarImages);
     }
 
     private string GetImageBase64(Texture2D texture)

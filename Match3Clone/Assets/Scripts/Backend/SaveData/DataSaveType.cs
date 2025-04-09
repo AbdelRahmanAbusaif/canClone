@@ -13,15 +13,15 @@ public class PlayerProfile
     public string DataPublicProfileBorder = "";
     public int Level = 1;
     public bool IsAcceptedTerms = false;
-    public HeartSystem HeartSystem = new();
-    public DailyBonus DailyBonus = new();
-    public SpinWheel SpinWheel = new();
-    public ConsumableItem PrimeSubscriptions = new();
-    public List<AdManager> AdManager = new();
-    public List<LevelComplete> LevelsComplete = new();
-    public List<ConsumableItem> ContainerProfileAvatarImages = new();
-    public List<ConsumableItem> ContainerProfileCoverImages = new();
-    public List<ConsumableItem> ContainerProfileBorders = new();
+    // public HeartSystem HeartSystem = new();
+    // public DailyBonus DailyBonus = new();
+    // public SpinWheel SpinWheel = new();
+    // public ConsumableItem PrimeSubscriptions = new();
+    // public List<AdManager> AdManager = new();
+    // public List<LevelComplete> LevelsComplete = new();
+    // public List<ConsumableItem> ContainerProfileAvatarImages = new();
+    // public List<ConsumableItem> ContainerProfileCoverImages = new();
+    // public List<ConsumableItem> ContainerProfileBorders = new();
 }
 [Serializable]
 public class HeartSystem

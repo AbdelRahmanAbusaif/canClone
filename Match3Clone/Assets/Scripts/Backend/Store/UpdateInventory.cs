@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using SaveData;
 using UnityEngine;
 
@@ -12,54 +14,36 @@ public class UpdateInventory : MonoBehaviour
 
     private PlayerProfile playerProfile;
     private async void OnEnable()
-
     {
-        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        avatarContainer = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileAvatarImages");
+        coverContainer = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileCoverImages");
+        borderContainer = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileBorders");
+        primeSubscription = await LocalSaveManager.Instance.LoadDataAsync<ConsumableItem>("PrimeSubscriptions");
 
-        avatarContainer = playerProfile.ContainerProfileAvatarImages;
-        coverContainer = playerProfile.ContainerProfileCoverImages;
-        borderContainer = playerProfile.ContainerProfileBorders;
-        primeSubscription = playerProfile.PrimeSubscriptions;
+        CheckExpiredList(ref avatarContainer, "ContainerProfileAvatarImages");
+        CheckExpiredList(ref coverContainer, "ContainerProfileCoverImages");
+        CheckExpiredList(ref borderContainer, "ContainerProfileBorders");
+        CheckExpiredItem(ref primeSubscription, "PrimeSubscriptions");
 
-        CheckExpiredList(avatarContainer);
-        CheckExpiredList(coverContainer);
-        CheckExpiredList(borderContainer);
-
-        CheckExpiredItem(primeSubscription);
-
-        playerProfile.ContainerProfileAvatarImages = avatarContainer;
-        playerProfile.ContainerProfileCoverImages = coverContainer;
-        playerProfile.ContainerProfileBorders = borderContainer;
-        playerProfile.PrimeSubscriptions = primeSubscription;
-
-        await CloudSaveManager.Instance.SaveDataAsync<PlayerProfile>("PlayerProfile", playerProfile);
+        await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileAvatarImages", avatarContainer);
+        await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileCoverImages", coverContainer);
+        await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileBorders", borderContainer);
+        await CloudSaveManager.Instance.SaveDataAsync("PrimeSubscriptions", primeSubscription);
     }
 
-    private void CheckExpiredList(List<ConsumableItem> consumableItems)
+    private void CheckExpiredList(ref List<ConsumableItem> consumableItems, string dateKey = "DateExpired")
     {
         if(consumableItems == null || consumableItems.Count == 0)
         {
             return;
         }
-        foreach (var item in consumableItems)
-        {
-            Debug.Log("Item: " + item.ConsumableName);
-
-            DateTime expiredDate = DateTime.TryParse(item.DateExpired , out DateTime date) ? date : DateTime.MinValue;
-
-            Debug.Log("Expired Date :" + expiredDate);
-            if (expiredDate < ServerTimeManager.Instance.CurrentTime)
-            {
-                Debug.Log("Item Removed: " + item.ConsumableName);
-                consumableItems.Remove(item);
-            }
-            else
-            {
-                Debug.Log("Item: " + item.ConsumableName);
-            }
-        }
+        consumableItems = consumableItems
+        .Where(item =>
+            DateTime.TryParse(item.DateExpired, out DateTime date) &&
+            date >= ServerTimeManager.Instance.CurrentTime)
+        .ToList();
     }
-    private void CheckExpiredItem(ConsumableItem consumableItem)
+    private void CheckExpiredItem(ref ConsumableItem consumableItem, string dataKey = "")
     {
         Debug.Log("Prime Subscription: " + consumableItem.ConsumableName);
 

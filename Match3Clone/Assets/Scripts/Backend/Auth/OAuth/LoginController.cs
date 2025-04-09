@@ -48,32 +48,34 @@ public class LoginController : MonoBehaviour
                 DataPublicProfileBorder = "",
                 Level = 1,
                 IsAcceptedTerms = false,
-                HeartSystem = new HeartSystem()
-                {
-                    Heart = 5,
-                    LastHeartTime = "0",
-                    NextHeartTime = "0"
-                },
-                DailyBonus = new DailyBonus()
-                {
-                    DateLastPlayed = "0",
-                    DailyBonusDayKey = "0"
-                },
-                SpinWheel = new SpinWheel()
-                {
-                    DateLastSpin = "0",
-                    DailySpinDayKey = "0"
-                },
-                PrimeSubscriptions = new(),
-                LevelsComplete = new(),
-                AdManager = new List<AdManager>(),
-                ContainerProfileAvatarImages = new List<ConsumableItem>(),
-                ContainerProfileBorders = new List<ConsumableItem>(),
-                ContainerProfileCoverImages = new List<ConsumableItem>()
+            };
+            var heartSystem = new HeartSystem()
+            {
+                Heart = 5,
+                LastHeartTime = "0",
+                NextHeartTime = "0"
+            };
+            var dailyBonus = new DailyBonus()
+            {
+                DateLastPlayed = "0",
+                DailyBonusDayKey = "0"
+            };
+            var spinWheel = new SpinWheel()
+            {
+                DateLastSpin = "0",
+                DailySpinDayKey = "0"
             };
 
+            var primeSubscriptions = new List<PrimeSubscription>();
+            var levelsComplete = new List<LevelComplete>();
+            var adManager = new List<AdManager>();
+            var containerProfileAvatarImages = new List<ConsumableItem>();
+            var containerProfileBorders = new List<ConsumableItem>();
+            var containerProfileCoverImages = new List<ConsumableItem>();
+
+    
             OnSignInSuccess?.Invoke(playerProfile);
-            
+
             Debug.Log("Sign in with Facebook succeeded!");
         }
         catch (AuthenticationException ex)
@@ -115,29 +117,30 @@ public class LoginController : MonoBehaviour
                 DataPublicProfileBorder = "",
                 Level = 1,
                 IsAcceptedTerms = false,
-                HeartSystem = new HeartSystem()
-                {
-                    Heart = 5,
-                    LastHeartTime = "0",
-                    NextHeartTime = "0"
-                },
-                DailyBonus = new DailyBonus()
-                {
-                    DateLastPlayed = "0",
-                    DailyBonusDayKey = "0"
-                },
-                SpinWheel = new SpinWheel()
-                {
-                    DateLastSpin = "0",
-                    DailySpinDayKey = "0"
-                },
-                PrimeSubscriptions = new(),
-                LevelsComplete = new(),
-                AdManager = new List<AdManager>(),
-                ContainerProfileAvatarImages = new List<ConsumableItem>(),
-                ContainerProfileBorders = new List<ConsumableItem>(),
-                ContainerProfileCoverImages = new List<ConsumableItem>()
             };
+            var heartSystem = new HeartSystem()
+            {
+                Heart = 5,
+                LastHeartTime = "0",
+                NextHeartTime = "0"
+            };
+            var dailyBonus = new DailyBonus()
+            {
+                DateLastPlayed = "0",
+                DailyBonusDayKey = "0"
+            };
+            var spinWheel = new SpinWheel()
+            {
+                DateLastSpin = "0",
+                DailySpinDayKey = "0"
+            };
+            
+            var primeSubscriptions = new List<PrimeSubscription>();
+            var levelsComplete = new List<LevelComplete>();
+            var adManager = new List<AdManager>();
+            var containerProfileAvatarImages = new List<ConsumableItem>();
+            var containerProfileBorders = new List<ConsumableItem>();
+            var containerProfileCoverImages = new List<ConsumableItem>();
 
             OnSignInSuccess?.Invoke(playerProfile);
             
@@ -215,39 +218,42 @@ public class LoginController : MonoBehaviour
             LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
 
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            var playerProfile = new PlayerProfile
+             var playerProfile = new PlayerProfile
             {
                 PlayerId = AuthenticationService.Instance.PlayerId,
-                PlayerName = name,
+                PlayerName = AuthenticationService.Instance.PlayerName,
                 Email = "",
+                PlayerImageUrl = "",
                 PhoneNumber = "",
                 DataPublicProfileImage = "",
                 DataPublicProfileBorder = "",
                 Level = 1,
                 IsAcceptedTerms = false,
-                HeartSystem = new HeartSystem()
-                {
-                    Heart = 5,
-                    LastHeartTime = "0",
-                    NextHeartTime = "0"
-                },
-                DailyBonus = new DailyBonus()
-                {
-                    DateLastPlayed = "0",
-                    DailyBonusDayKey = "0"
-                },
-                SpinWheel = new SpinWheel()
-                {
-                    DateLastSpin = "0",
-                    DailySpinDayKey = "0"
-                },
-                PrimeSubscriptions = new(),
-                LevelsComplete = new(),
-                AdManager = new List<AdManager>(),
-                ContainerProfileAvatarImages = new List<ConsumableItem>(),
-                ContainerProfileBorders = new List<ConsumableItem>(),
-                ContainerProfileCoverImages = new List<ConsumableItem>()
             };
+            var heartSystem = new HeartSystem()
+            {
+                Heart = 5,
+                LastHeartTime = "0",
+                NextHeartTime = "0"
+            };
+            var dailyBonus = new DailyBonus()
+            {
+                DateLastPlayed = "0",
+                DailyBonusDayKey = "0"
+            };
+            var spinWheel = new SpinWheel()
+            {
+                DateLastSpin = "0",
+                DailySpinDayKey = "0"
+            };
+            
+            var primeSubscriptions = new List<PrimeSubscription>();
+            var levelsComplete = new List<LevelComplete>();
+            var adManager = new List<AdManager>();
+            var containerProfileAvatarImages = new List<ConsumableItem>();
+            var containerProfileBorders = new List<ConsumableItem>();
+            var containerProfileCoverImages = new List<ConsumableItem>();
+            var PrimeSubscription = new List<ConsumableItem>();
 
             OnSignInSuccess?.Invoke(playerProfile);
             Debug.Log("Sign in anonymously succeeded!");
@@ -265,39 +271,42 @@ public class LoginController : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.SignInWithUnityAsync(accessToken);
-            var playerProfile = new PlayerProfile
+             var playerProfile = new PlayerProfile
             {
                 PlayerId = AuthenticationService.Instance.PlayerId,
-                PlayerName = name,
+                PlayerName = AuthenticationService.Instance.PlayerName,
                 Email = "",
+                PlayerImageUrl = "user.ImgUrl",
                 PhoneNumber = "",
                 DataPublicProfileImage = "",
                 DataPublicProfileBorder = "",
                 Level = 1,
                 IsAcceptedTerms = false,
-                HeartSystem = new HeartSystem()
-                {
-                    Heart = 5,
-                    LastHeartTime = "0",
-                    NextHeartTime = "0"
-                },
-                DailyBonus = new DailyBonus()
-                {
-                    DateLastPlayed = "0",
-                    DailyBonusDayKey = "0"
-                },
-                SpinWheel = new SpinWheel()
-                {
-                    DateLastSpin = "0",
-                    DailySpinDayKey = "0"
-                },
-                PrimeSubscriptions = new(),
-                LevelsComplete = new(),
-                AdManager = new List<AdManager>(),
-                ContainerProfileAvatarImages = new List<ConsumableItem>(),
-                ContainerProfileBorders = new List<ConsumableItem>(),
-                ContainerProfileCoverImages = new List<ConsumableItem>()
             };
+            var heartSystem = new HeartSystem()
+            {
+                Heart = 5,
+                LastHeartTime = "0",
+                NextHeartTime = "0"
+            };
+            var dailyBonus = new DailyBonus()
+            {
+                DateLastPlayed = "0",
+                DailyBonusDayKey = "0"
+            };
+            var spinWheel = new SpinWheel()
+            {
+                DateLastSpin = "0",
+                DailySpinDayKey = "0"
+            };
+            
+            var primeSubscriptions = new List<PrimeSubscription>();
+            var levelsComplete = new List<LevelComplete>();
+            var adManager = new List<AdManager>();
+            var containerProfileAvatarImages = new List<ConsumableItem>();
+            var containerProfileBorders = new List<ConsumableItem>();
+            var containerProfileCoverImages = new List<ConsumableItem>();
+
 
             OnSignInSuccess?.Invoke(playerProfile);
             

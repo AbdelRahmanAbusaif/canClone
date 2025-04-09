@@ -14,9 +14,13 @@ public class PrimeSubscriptionPanel : MonoBehaviour
     [SerializeField] private Button buyButton;
     private PlayerProfile playerProfile;
     private PrimeSubscription primeSubscription;
+
+    private ConsumableItem data;
     private async void OnEnable() 
     {
         playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        data = await LocalSaveManager.Instance.LoadDataAsync<ConsumableItem>("PrimeSubscriptions");
+        
         buyButton.onClick.AddListener(OnClickBuyButton);
     }
 
@@ -29,32 +33,31 @@ public class PrimeSubscriptionPanel : MonoBehaviour
     private void OnClickBuyButton()
     {
         int price = int.Parse(primeSubscription.Price);
-    int coins = PuzzleMatchManager.instance.coinsSystem.Coins;
+        int coins = PuzzleMatchManager.instance.coinsSystem.Coins;
 
-    if(coins < price)
-    {
-        Debug.Log("Not enough coins");
-        return;
-    }
+        if(coins < price)
+        {
+            Debug.Log("Not enough coins");
+            return;
+        }
 
         PuzzleMatchManager.instance.coinsSystem.SpendCoins(price);
-
         switch(primeSubscription.DurationType)
         {
             case Duration.OneDay:
-                Add(playerProfile.PrimeSubscriptions, ServerTimeManager.Instance.CurrentTime.AddDays(1).ToString());
+                Add(data, ServerTimeManager.Instance.CurrentTime.AddDays(1).ToString());
                 break;
             case Duration.SevenDays:
-                Add(playerProfile.PrimeSubscriptions, ServerTimeManager.Instance.CurrentTime.AddDays(7).ToString());
+                Add(data, ServerTimeManager.Instance.CurrentTime.AddDays(7).ToString());
                 break;
             case Duration.ThirtyDays:
-                Add(playerProfile.PrimeSubscriptions, ServerTimeManager.Instance.CurrentTime.AddDays(30).ToString());
+                Add(data, ServerTimeManager.Instance.CurrentTime.AddDays(30).ToString());
                 break;
             case Duration.HalfYear:
-                Add(playerProfile.PrimeSubscriptions, ServerTimeManager.Instance.CurrentTime.AddDays(185).ToString());
+                Add(data, ServerTimeManager.Instance.CurrentTime.AddDays(185).ToString());
                 break;
             case Duration.OneYear:
-                Add(playerProfile.PrimeSubscriptions, ServerTimeManager.Instance.CurrentTime.AddDays(365).ToString());
+                Add(data, ServerTimeManager.Instance.CurrentTime.AddDays(365).ToString());
                 break;
         }
     }
@@ -76,10 +79,10 @@ public class PrimeSubscriptionPanel : MonoBehaviour
         DateTime dateTime = DateTime.Parse(data.DateExpired);
         data.DateExpired = dateTime.AddDays(durationDays.Days).ToString();
 
-        playerProfile.PrimeSubscriptions.DateExpired = data.DateExpired;
-        playerProfile.PrimeSubscriptions.DatePurchased = data.DatePurchased;
+        this.data.DateExpired = data.DateExpired;
+        this.data.DatePurchased = data.DatePurchased;
 
-        await CloudSaveManager.Instance.SaveDataAsync<PlayerProfile>("PlayerProfile", playerProfile);
+        await CloudSaveManager.Instance.SaveDataAsync<ConsumableItem>("PrimeSubscriptions", data);
 
         OnSubscriptionPurchased?.Invoke();
         animationBox.OnClose();

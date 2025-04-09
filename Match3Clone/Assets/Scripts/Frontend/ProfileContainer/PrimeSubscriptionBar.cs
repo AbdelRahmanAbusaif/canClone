@@ -7,19 +7,18 @@ using UnityEngine;
 public class PrimeSubscriptionBar : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI durationText;
-    private PlayerProfile playerProfile;
+    private ConsumableItem primeSubscription;
     private async void OnEnable()
-
     {
         PrimeSubscriptionPanel.OnSubscriptionPurchased += OnPrimeSubscriptionPurchased;
         await UpdateUI();
     }
 
-    private async System.Threading.Tasks.Task UpdateUI()
+    private async Task UpdateUI()
     {
-        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        primeSubscription = await LocalSaveManager.Instance.LoadDataAsync<ConsumableItem>("PrimeSubscriptions");
 
-        DateTime expiredDate = DateTime.TryParse(playerProfile.PrimeSubscriptions.DateExpired , out DateTime date) ? date : DateTime.MinValue;
+        DateTime expiredDate = DateTime.TryParse(primeSubscription.DateExpired , out DateTime date) ? date : DateTime.MinValue;
 
         Debug.Log("Expired Date :" + expiredDate);
 

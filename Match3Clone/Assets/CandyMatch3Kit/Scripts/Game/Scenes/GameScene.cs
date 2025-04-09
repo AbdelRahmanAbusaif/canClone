@@ -15,6 +15,7 @@ using GameVanilla.Game.UI;
 using System.Threading.Tasks;
 using SaveData;
 using System;
+using System.Collections.Generic;
 
 namespace GameVanilla.Game.Scenes
 {
@@ -48,7 +49,8 @@ namespace GameVanilla.Game.Scenes
 		private BuyBoosterButton currentBoosterButton;
 		private int ingameBoosterBgTweenId;
 
-        PlayerProfile playerProfile;
+        private PlayerProfile playerProfile;
+        private List<LevelComplete> levelsComplete;
 	    /// <summary>
 	    /// Unity's Awake method.
 	    /// </summary>
@@ -72,7 +74,7 @@ namespace GameVanilla.Game.Scenes
 			level = gameBoard.level;
             OpenPopup<LevelGoalsPopup>("Popups/LevelGoalsPopup", popup => popup.SetGoals(level.goals));
 
-            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            levelsComplete = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelsComplete");
              Debug.Log("From Start GameScene");
 		}
 
@@ -265,10 +267,10 @@ namespace GameVanilla.Game.Scenes
                     popup.SetStars(0);
                 }
 
-                playerProfile.LevelsComplete.Add(levelComplete);
+                levelsComplete.Add(levelComplete);
 
-                Debug.Log("From GameScene WinPopup : " + playerProfile.LevelsComplete.Count);
-                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                Debug.Log("From GameScene WinPopup : " + levelsComplete.Count);
+                await CloudSaveManager.Instance.SaveDataAsync("LevelsComplete", levelsComplete);
                 
                 popup.SetLevel(level.id);
 

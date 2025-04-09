@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using GameVanilla.Game.Common;
 using SaveData;
@@ -15,21 +16,21 @@ public class AdUIComponent : MonoBehaviour
     public Button adButton;
 
     private GoogleAdManager googleAdManager;
-    private PlayerProfile playerProfile;
+    private List<AdManager> adManagers;
     private AdData adData;
 
     private async void Start()
     {
+        adManagers = await LocalSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManagers");
+
         adButton.onClick.AddListener(OnClick);
 
         googleAdManager = FindAnyObjectByType<GoogleAdManager>().GetComponent<GoogleAdManager>();
         googleAdManager.OnAdLoaded += OnAdLoaded;
 
-        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-
-        if(playerProfile.AdManager.Find(x => x.AdId == AdId) != null)
+        if(adManagers.Find(x => x.AdId == AdId) != null)
         {
-            AdManager adManager = playerProfile.AdManager.Find(x => x.AdId == AdId);
+            AdManager adManager = adManagers.Find(x => x.AdId == AdId);
             if(adManager.AdCounter >= adData.AdClicksGoal)
             {
                 adButton.interactable = false;
@@ -43,7 +44,7 @@ public class AdUIComponent : MonoBehaviour
         {
             Debug.Log("Ad Loaded with ID: " + id + " and AdId: " + AdId + " and AdButton: " + adButton.name + " and AdButtonActive: " + adButton.gameObject.activeSelf);
 
-            AdManager adManager = playerProfile.AdManager.Find(x => x.AdId == AdId);
+            AdManager adManager = adManagers.Find(x => x.AdId == AdId);
             
             if (adManager != null)
             {
@@ -67,11 +68,11 @@ public class AdUIComponent : MonoBehaviour
                 else
                 {
                     // will be plus 1 to the counter and save the data
-                    playerProfile.AdManager[playerProfile.AdManager.FindIndex(x => x.AdId == AdId)] = adManager;
+                    adManagers[adManagers.FindIndex(x => x.AdId == AdId)] = adManager;
 
                 }
                 currentClicksText.text = adManager.AdCounter.ToString();
-                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                await CloudSaveManager.Instance.SaveDataAsync<List<AdManager>>("AdManagers", adManagers);           
             }
         }
     }

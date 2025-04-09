@@ -13,6 +13,7 @@ using GameVanilla.Game.Common;
 using GameVanilla.Game.UI;
 using System.Threading.Tasks;
 using SaveData;
+using System.Collections.Generic;
 
 namespace GameVanilla.Game.Popups
 {
@@ -101,20 +102,22 @@ namespace GameVanilla.Game.Popups
             var level = FileUtils.LoadJsonFile<Level>(serializer, "Levels/" + numLevel);
             levelText.text = "Level " + numLevel;
             // var stars = PlayerPrefs.GetInt("level_stars_" + numLevel);
+            
+            var LevelCompletes = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelCompletes");
             var playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
             LevelComplete levelComplete = new LevelComplete();
             levelComplete.Stars = 0;
             
             var stars = 0;
-
+            
             if(playerProfile.Level == numLevel)
             {
                 stars = levelComplete.Stars;
             }
             else
             {
-                stars = playerProfile.LevelsComplete[numLevel - 1].Stars;
+                stars = LevelCompletes[numLevel - 1].Stars;
             }
 
             if (stars == 1)

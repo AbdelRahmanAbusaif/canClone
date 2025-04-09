@@ -15,9 +15,15 @@ public class BuyPanelUI : MonoBehaviour
     [SerializeField] private AnimationBox animationBox;
     private StoreItem storeItem;
     private PlayerProfile playerProfile;
+    private List<ConsumableItem> avatarContainers = new List<ConsumableItem>();
+    private List<ConsumableItem> coverContainers = new List<ConsumableItem>();
+    private List<ConsumableItem> borderContainers = new List<ConsumableItem>();
     private async void OnEnable() 
     {
-        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        // playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        avatarContainers = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileAvatarImages");
+        coverContainers = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileCoverImages");
+        borderContainers = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileBorders");
     }
     private void Start()
     {
@@ -82,8 +88,11 @@ public class BuyPanelUI : MonoBehaviour
 
     private async System.Threading.Tasks.Task BuyItemWithCoin(int price, string duration)
     {
-        int coins = PuzzleMatchManager.instance.coinsSystem.Coins;
+        var coins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
         
+        Debug.Log("Coins: " + coins);
+        Debug.Log("Price: " + price);
+
         if(coins < price)
         {
             Debug.Log("Not enough coins");
@@ -95,22 +104,21 @@ public class BuyPanelUI : MonoBehaviour
         switch (storeItem.Type)
         {
             case ItemType.ProfileImage:
-                Add(playerProfile.ContainerProfileAvatarImages, duration);
+                Add(coverContainers, duration, "ContainerProfileAvatarImages");
                 break;
             case ItemType.BorderImage:
-                Add(playerProfile.ContainerProfileBorders, duration);
+                Add(borderContainers, duration, "ContainerProfileBorders");
                 break;
             case ItemType.CoverProfileImage:
-                Add(playerProfile.ContainerProfileCoverImages, duration);
+                Add(coverContainers, duration, "ContainerProfileCoverImages");
                 break;
         }
-
-        await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+        
         Debug.Log("Buy button clicked");
     }
 
     // Add the consumable item to the player profile
-    private async void Add(List<ConsumableItem> data , string duration)
+    private async void Add(List<ConsumableItem> data , string duration, string dataKey)
     {
         ConsumableItem consumableItem = new ConsumableItem
         {
@@ -153,6 +161,18 @@ public class BuyPanelUI : MonoBehaviour
         data.Add(consumableItem);
         await CloudSaveManager.Instance.SaveDataAsyncString(consumableItem.Id, GetItemData());
 
+        switch(dataKey)
+        {
+            case "ContainerProfileAvatarImages":
+                await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileAvatarImages", data);
+                break;
+            case "ContainerProfileCoverImages":
+                await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileCoverImages", data);
+                break;
+            case "ContainerProfileBorders":
+                await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileBorders", data);
+                break;
+        }
         animationBox.OnClose();
     }
     public void OnClose()

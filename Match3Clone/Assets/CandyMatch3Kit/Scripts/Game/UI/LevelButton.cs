@@ -12,6 +12,7 @@ using GameVanilla.Game.Scenes;
 using System.Threading.Tasks;
 using SaveData;
 using GameVanilla.Game.Common;
+using System.Collections.Generic;
 
 namespace GameVanilla.Game.UI
 {
@@ -111,8 +112,8 @@ namespace GameVanilla.Game.UI
                 buttonImage.sprite = playedButtonSprite;
                 numLevelTextBlue.gameObject.SetActive(false);
 
-                playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-                var stars = playerProfile.LevelsComplete[numLevel - 1].Stars;
+                var LevelsComplete = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelComplete" + numLevel);
+                var stars = LevelsComplete[numLevel - 1].Stars;
 
                 switch (stars)
                 {

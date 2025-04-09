@@ -62,9 +62,43 @@ public class UILogin : MonoBehaviour
         Debug.Log("Sign in success");
         // Here will be the code for get the player info and save it to the database
         
-        var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerProfile" });
+        // Here will be the code for get the player info and save it to the database
+        // Here will be the Save Data to the database as public data
+        var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerProfile" }, new Unity.Services.CloudSave.Models.Data.Player.LoadOptions(new Unity.Services.CloudSave.Models.Data.Player.PublicReadAccessClassOptions()));
         var dataImage = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PlayerProfileImage" }, new Unity.Services.CloudSave.Models.Data.Player.LoadOptions(new Unity.Services.CloudSave.Models.Data.Player.PublicReadAccessClassOptions()));
 
+        // Here will be the code for get the player info and save it to the database
+        // Here will be the Save Data to the database as private data
+        // Here will be the code for get the player info and save it to the database
+
+        //Seed the default data
+        var heartSystem = new HeartSystem{
+            Heart = 5,
+            LastHeartTime = "",
+            NextHeartTime = "",
+        };
+        var dailyBonus = new DailyBonus{
+            DailyBonusDayKey = "",
+            DateLastPlayed = ""
+        };
+        var spinWheel = new SpinWheel{
+            DailySpinDayKey = "",
+            DateLastSpin = ""
+        };
+        var primeSubscription = new ConsumableItem
+        {
+            Id = "PrimeSubscription",
+            ConsumableName = "PrimeSubscription",
+            DatePurchased = "",
+            DateExpired = ""
+        };
+
+        var containerProfileAvatar = new List<ConsumableItem>();
+        var containerProfileCover = new List<ConsumableItem>();
+        var containerProfileBorder = new List<ConsumableItem>();
+
+        var LevelCompletes = new List<LevelComplete>();
+        
         // LeaderboardManager.Instance.AddScore(0);
         if(isBlueLeaderboard)
         {
@@ -103,6 +137,18 @@ public class UILogin : MonoBehaviour
             // loginPanel.SetActive(true);
             await CloudSaveManager.Instance.SaveDataAsync<PlayerProfile>("PlayerProfile", playerData);
 
+            await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object>
+            {
+                { "HeartSystem", heartSystem },
+                { "DailyBonus", dailyBonus },
+                { "SpinWheel", spinWheel },
+                { "PrimeSubscriptions", primeSubscription },
+                { "ContainerProfileAvatarImages", containerProfileAvatar },
+                { "ContainerProfileCoverImages", containerProfileCover },
+                { "ContainerProfileBorders", containerProfileBorder },
+                { "LevelsComplete", LevelCompletes }
+            });
+            
             termPanel.SetActive(true);
         }
         else

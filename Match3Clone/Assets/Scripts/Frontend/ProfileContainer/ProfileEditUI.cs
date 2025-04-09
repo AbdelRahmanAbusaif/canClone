@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using SaveData;
 using TMPro;
@@ -52,19 +53,22 @@ public class ProfileEditUI : MonoBehaviour
         //     Debug.Log("Signed in anonymously");
         // }
 
-        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        var containerProfileAvatarImages = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileAvatarImages");
+        var containerProfileCoverImages = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileCoverImages");
+        var containerProfileBorders = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileBorders");
+
         ConsumableItem item = null;
         switch(consumableType)
         {
             case ConsumableType.PlayerProfileAvatar:
-            item = playerProfile.ContainerProfileAvatarImages.Find(x => x.Id == itemId);
-            break;
+                item = containerProfileAvatarImages.Find(x => x.Id == itemId);
+                break;
             case ConsumableType.PlayerProfileCover:
-            item = playerProfile.ContainerProfileCoverImages.Find(x => x.Id == itemId);
-            break;
+                item = containerProfileCoverImages.Find(x => x.Id == itemId);
+                break;
             case ConsumableType.PlayerProfileBorder:
-            item = playerProfile.ContainerProfileBorders.Find(x => x.Id == itemId);
-            break;
+                item = containerProfileBorders.Find(x => x.Id == itemId);
+                break;
         }
 
         if (item != null)
@@ -74,7 +78,7 @@ public class ProfileEditUI : MonoBehaviour
             itemName.text = name;
 
             DateTime expirationDate = DateTime.Parse(item.DateExpired);
-            var timeLeft = expirationDate - DateTime.Now;
+            var timeLeft = expirationDate.Date - DateTime.Now.Date;
             
             expiredText.text = timeLeft.Days.ToString();
 

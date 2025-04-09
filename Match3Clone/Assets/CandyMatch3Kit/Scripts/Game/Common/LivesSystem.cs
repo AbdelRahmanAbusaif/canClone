@@ -26,9 +26,11 @@ namespace GameVanilla.Game.Common
         public Action<int> onCountdownFinished;
 
         private PlayerProfile playerProfile;
+        private HeartSystem heartSystem;
         private async void Awake() 
         {
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            heartSystem = await LocalSaveManager.Instance.LoadDataAsync<HeartSystem>("HeartSystem");    
         }
         /// <summary>
         /// Sets the appropriate number of lives according to the general lives counter.
@@ -68,7 +70,7 @@ namespace GameVanilla.Game.Common
 
         public int GetCurrentLives()
         {
-            var numberOfLives = playerProfile.HeartSystem.Heart;
+            var numberOfLives = heartSystem.Heart;
             Debug.Log("From GetCurrentLives: " + numberOfLives);
             return numberOfLives;
         }
@@ -111,17 +113,17 @@ namespace GameVanilla.Game.Common
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             var timeToNextLife = PuzzleMatchManager.instance.gameConfig.timeToNextLife;
             
-            if (playerProfile.HeartSystem.LastHeartTime == "0" && numLives < maxLives)
+            if (heartSystem.LastHeartTime == "0" && numLives < maxLives)
             {
                 DateTime nextLifeTime = ServerTimeManager.Instance.CurrentTime.AddMinutes(5);
                 // PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
                 // PlayerPrefs.Save();
-                playerProfile.HeartSystem.LastHeartTime = nextLifeTime.ToString();
-                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                heartSystem.LastHeartTime = nextLifeTime.ToString();
+                await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
 
                 Debug.Log($"Initialized next_life_time: {nextLifeTime}");
             }
-            if (numLives < maxLives && playerProfile.HeartSystem.LastHeartTime !="0" )
+            if (numLives < maxLives && heartSystem.LastHeartTime !="0" )
             {
                 DateTime nowTime;
                 if(ServerTimeManager.Instance.CurrentTime == DateTime.MinValue)
@@ -153,8 +155,8 @@ namespace GameVanilla.Game.Common
                     var livesToGive = ((int)elapsedTime.TotalSeconds / timeToNextLife) + 1;
                     numLives = Mathf.Min(numLives + livesToGive, maxLives);
 
-                    playerProfile.HeartSystem.Heart = numLives;
-                    await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                    heartSystem.Heart = numLives;
+                    await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
 
                     if (numLives < maxLives)
                     {
@@ -178,9 +180,9 @@ namespace GameVanilla.Game.Common
 
             if (numLives < maxLives)
             {
-                playerProfile.HeartSystem.Heart++;
+                heartSystem.Heart++;
                 numLives = GetCurrentLives();
-                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
 
                 if (!runningCountdown)
                 {
@@ -212,9 +214,9 @@ namespace GameVanilla.Game.Common
 
             if (numLives > 0)
             {
-                playerProfile.HeartSystem.Heart--;
+                heartSystem.Heart--;
                 numLives = GetCurrentLives();
-                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
             }
 
             if (numLives < maxLives && !runningCountdown)
@@ -240,8 +242,8 @@ namespace GameVanilla.Game.Common
             if (coinBalance.Balance >= refillCost)
             {
                 PuzzleMatchManager.instance.coinsSystem.SpendCoins(refillCost);
-                playerProfile.HeartSystem.Heart = maxLives;
-                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                heartSystem.Heart = maxLives;
+                await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
 
                 StopCountdown();
             }
@@ -288,25 +290,23 @@ namespace GameVanilla.Game.Common
 
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
             
-            playerProfile.HeartSystem.LastHeartTime = nextLifeTime.ToString();
+            heartSystem.LastHeartTime = nextLifeTime.ToString();
 
             Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.PlayerName}");
             Debug.Log($"From Lives System SaveNextLifeTime is null: {playerProfile == null}");
             Debug.Log($"From Lives System SaveNextLifeTime: {nextLifeTime}");
-            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.HeartSystem.LastHeartTime}");
+            Debug.Log($"From Lives System SaveNextLifeTime: {heartSystem.LastHeartTime}");
             Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.Level}");
-            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.DailyBonus.DailyBonusDayKey}");
-            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.DailyBonus.DateLastPlayed}");
 
             await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
         }
         public DateTime? GetSavedNextLifeTime()
         {
 
-            if (playerProfile.HeartSystem.LastHeartTime != "0")
+            if (heartSystem.LastHeartTime != "0")
             {
                 // string binaryString = PlayerPrefs.GetString("next_life_time");
-                string dateString = playerProfile.HeartSystem.LastHeartTime;
+                string dateString = heartSystem.LastHeartTime;
                 Debug.Log($"Retrieved next_life_time: {dateString}");
                 return DateTime.Parse(dateString);
             }

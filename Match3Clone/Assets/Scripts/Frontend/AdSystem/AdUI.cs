@@ -19,9 +19,9 @@ public class AdUI : MonoBehaviour
     [SerializeField] private List<GameObject> adUIComponents;
     private int adCounter = 0;
     private DateTime adTimer;
+    private List<AdManager> adManagers;
     private TimeSpan adTimerSpan = new TimeSpan(0, 0, 0);
 
-    private PlayerProfile playerProfile;
     private async void Awake()
     {
         if(!AuthenticationService.Instance.IsSignedIn)
@@ -33,8 +33,8 @@ public class AdUI : MonoBehaviour
     {
         Debug.Log("Remote Config Fetched Successfully! (AdUI)");
         Debug.Log("Name of this Object " + gameObject.name);
-        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");   
-        
+        adManagers = await LocalSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManagers");
+
         var jsonData = RemoteConfigService.Instance.appConfig.GetJson("AdRewards");
         adData = JsonConvert.DeserializeObject<List<AdData>>(jsonData);
 
@@ -43,11 +43,11 @@ public class AdUI : MonoBehaviour
         {
             AdData ad = adData[i];
             AdManager adManager;
-            if (playerProfile.AdManager.Any(x => x.AdId == ad.AdId))
+            if (adManagers.Any(x => x.AdId == ad.AdId))
             {
                 Debug.Log($"Ad Found With ID {ad.AdId}");
 
-                adManager = playerProfile.AdManager.FirstOrDefault(x => x.AdId == ad.AdId);
+                adManager = adManagers.FirstOrDefault(x => x.AdId == ad.AdId);
 
                 Instantiate(adPrefabs, adContainer).GetComponent<AdUIComponent>().SetAdData(ad.AdId,ad.AdClicksGoal.ToString(), adManager.AdCounter.ToString(), ad.AdReward.ToString());
                 adUIComponents.Add(adPrefabs);
@@ -65,11 +65,11 @@ public class AdUI : MonoBehaviour
             Instantiate(adPrefabs, adContainer).GetComponent<AdUIComponent>().SetAdData(ad.AdId,ad.AdClicksGoal.ToString(), adManager.AdCounter.ToString(), ad.AdReward.ToString());
             adUIComponents.Add(adPrefabs);
             
-            playerProfile.AdManager.Add(adManager);
+            adManagers.Add(adManager);
 
             Debug.Log("Ad Added");
         }
-        await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+        await CloudSaveManager.Instance.SaveDataAsync("AdManagers", adManagers);
     }
 }
 [Serializable]

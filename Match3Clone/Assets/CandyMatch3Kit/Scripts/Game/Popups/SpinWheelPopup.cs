@@ -80,6 +80,7 @@ namespace GameVanilla.Game.Popups
         private int spinCost;
 
         private PlayerProfile playerProfile;
+        private SpinWheel spinWheel;
 
         /// <summary>
         /// Unity's Awake method.
@@ -107,15 +108,16 @@ namespace GameVanilla.Game.Popups
         {
             base.Start();
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            spinWheel = await LocalSaveManager.Instance.LoadDataAsync<SpinWheel>("SpinWheel");
             pageTransition = FindAnyObjectByType<PageTransition>().GetComponent<PageTransition>();
 
-            if (String.Equals(playerProfile.SpinWheel.DateLastSpin, "0"))
+            if (String.Equals(spinWheel.DateLastSpin, "0"))
             {
                 SetFreeSpin();
             }
             else
             {
-                var dateLastSpinStr = playerProfile.SpinWheel.DateLastSpin;
+                var dateLastSpinStr = spinWheel.DateLastSpin;
                 var dateLastSpin = Convert.ToDateTime(dateLastSpinStr);
 
                 var dateNow = ServerTimeManager.Instance.CurrentTime;
@@ -143,14 +145,12 @@ namespace GameVanilla.Game.Popups
             costText.enabled = false;
             // PlayerPrefs.SetInt(numSpinsKey, 0);
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-
-            SpinWheel spinWheel = playerProfile.SpinWheel;
+            spinWheel = await LocalSaveManager.Instance.LoadDataAsync<SpinWheel>("SpinWheel");
 
             spinWheel.DailySpinDayKey = "0";
             spinWheel.DateLastSpin = ServerTimeManager.Instance.CurrentTime.ToString();
-            playerProfile.SpinWheel = spinWheel;
 
-            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+            await CloudSaveManager.Instance.SaveDataAsync("SpinWheel", spinWheel);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace GameVanilla.Game.Popups
         {
             var gameConfig = PuzzleMatchManager.instance.gameConfig;
             // var numSpins = PlayerPrefs.GetInt(numSpinsKey);
-            var numSpins = Convert.ToInt16(playerProfile.SpinWheel.DailySpinDayKey);
+            var numSpins = Convert.ToInt16(spinWheel.DailySpinDayKey);
             
             spinCost = gameConfig.spinWheelCost;
             spinCost += (numSpins - 1) * gameConfig.spinWheelCostIncrement;
@@ -244,15 +244,15 @@ namespace GameVanilla.Game.Popups
                 }
                 playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
                 // var numSpins = PlayerPrefs.GetInt(numSpinsKey);
-                var numSpins = Convert.ToInt16(playerProfile.SpinWheel.DailySpinDayKey);
+                var numSpins = Convert.ToInt16(spinWheel.DailySpinDayKey);
                 numSpins += 1;
 
                 // PlayerPrefs.SetInt(numSpinsKey, numSpins);
                 // PlayerPrefs.SetString(dateLastSpinKey, Convert.ToString(DateTime.Today, CultureInfo.InvariantCulture));
                 
-                playerProfile.SpinWheel.DailySpinDayKey = numSpins.ToString();
+                spinWheel.DailySpinDayKey = numSpins.ToString();
 
-                await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                await CloudSaveManager.Instance.SaveDataAsync("SpinWheel", spinWheel);
             }
             else
             {

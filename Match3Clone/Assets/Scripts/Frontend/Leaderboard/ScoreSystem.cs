@@ -17,11 +17,10 @@ public class ScoreSystem : MonoBehaviour
 
     [SerializeField] private List<Score> scores;
 
-    private PlayerProfile playerProfile;    
-
+    private List<LevelComplete> levelsComplete;
     private async void Start()
     {   
-        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        levelsComplete = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelsComplete");
         
         RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
         await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
@@ -53,7 +52,7 @@ public class ScoreSystem : MonoBehaviour
 
         foreach (var score in scores)
         {
-            if (score.isScoreAvailable && playerProfile.LevelsComplete.Find(L => L.NumberLevel == gameScene.level.id) == null)
+            if (score.isScoreAvailable && levelsComplete.Find(L => L.NumberLevel == gameScene.level.id) == null)
             {
                 LeaderboardManager.Instance.AddScore(score.leaderboardId, score.score);
                 Debug.Log($"Score for {score.candyColor} candy is {score.score}");

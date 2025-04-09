@@ -6,18 +6,16 @@ using UnityEngine;
 
 public class CheckAdTimer : MonoBehaviour
 {
-    private PlayerProfile playerProfile;
+    private List<AdManager> adManagers;
     private async void Awake() 
     {
-        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        adManagers = await LocalSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManagers");
 
         CheckAds();
     }
 
     private async void CheckAds()
     {
-        List<AdManager> adManagers = playerProfile.AdManager;
-
         foreach(var ad in adManagers)
         {
             DateTime expiredDate = DateTime.TryParse(ad.AdNextTimer , out DateTime date) ? date : DateTime.MinValue;
@@ -31,8 +29,7 @@ public class CheckAdTimer : MonoBehaviour
             }
         }
 
-        playerProfile.AdManager = adManagers;
-        await CloudSaveManager.Instance.SaveDataAsync<PlayerProfile>("PlayerProfile", playerProfile);
+        await CloudSaveManager.Instance.SaveDataAsync<List<AdManager>>("AdManagers", adManagers);
     }
 
 }

@@ -30,6 +30,7 @@ namespace GameVanilla.Game.Scenes
         private AnimatedButton musicButton;
 
         private PlayerProfile playerProfile;
+        private DailyBonus dailyBonus;
 #pragma warning restore 649
 
         private readonly string dateLastPlayedKey = "date_last_played";
@@ -43,7 +44,7 @@ namespace GameVanilla.Game.Scenes
             Assert.IsNotNull(soundButton);
             Assert.IsNotNull(musicButton);
 
-            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            dailyBonus = await LocalSaveManager.Instance.LoadDataAsync<DailyBonus>("DailyBonus");
         }
 
         /// <summary>
@@ -60,7 +61,8 @@ namespace GameVanilla.Game.Scenes
         /// </summary>
         private async void CheckDailyBonus()
         {
-            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            dailyBonus = await LocalSaveManager.Instance.LoadDataAsync<DailyBonus>("DailyBonus");
+
             StartCoroutine(CheckDailyBonusAsync());
         }
 
@@ -74,7 +76,7 @@ namespace GameVanilla.Game.Scenes
             // GetPlayerProfile();
             // yield return new WaitUntil(() => playerProfile != null);
 
-            var date_last_played = playerProfile.DailyBonus.DateLastPlayed;
+            var date_last_played = dailyBonus.DateLastPlayed;
             if (date_last_played == "0")
             {
                 AwardDailyBonus();
@@ -101,9 +103,10 @@ namespace GameVanilla.Game.Scenes
                 }
                 else
                 {
-                    playerProfile.DailyBonus.DateLastPlayed = "0";
-                    playerProfile.DailyBonus.DailyBonusDayKey = "0";
-                    yield return CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                    dailyBonus.DateLastPlayed = "0";
+                    dailyBonus.DailyBonusDayKey = "0";
+
+                    yield return CloudSaveManager.Instance.SaveDataAsync("DailyBonus", dailyBonus);
 
                     AwardDailyBonus();
                 }
@@ -121,7 +124,6 @@ namespace GameVanilla.Game.Scenes
 
             Debug.Log($"Date today: {dateToday}");
 
-            DailyBonus dailyBonus = playerProfile.DailyBonus;
             // PlayerPrefs.SetString(dateLastPlayedKey, dateLastPlayedStr);
             dailyBonus.DateLastPlayed = dateLastPlayedStr;
 
@@ -136,12 +138,10 @@ namespace GameVanilla.Game.Scenes
             // PlayerPrefs.SetInt(dailyBonusDayKey, newDailyBonusDay);
             dailyBonus.DailyBonusDayKey = newDailyBonusDay.ToString();
 
-            playerProfile.DailyBonus = dailyBonus;
 
             Debug.Log($"New daily bonus day: {newDailyBonusDay}");
-            Debug.Log($"New daily bonus day from Home Screen: {playerProfile.DailyBonus.DailyBonusDayKey}");
 
-            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+            await CloudSaveManager.Instance.SaveDataAsync("DailyBonus", dailyBonus);
 
             OpenPopup<DailyBonusPopup>("Popups/DailyBonusPopup", popup => { popup.SetInfo(dailyBonusDay); });
         }

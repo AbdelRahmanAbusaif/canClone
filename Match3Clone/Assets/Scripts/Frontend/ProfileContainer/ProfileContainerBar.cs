@@ -9,13 +9,11 @@ public class ProfileContainerBar : MonoBehaviour
     [SerializeField] private Image borderImage;
     [SerializeField] private Image avatarImage;
 
-    private void OnEnable() 
-    {        
-        CloudSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
-        CloudSaveManager.Instance.LoadImageAsync("PlayerProfileBorderImage", borderImage);
-    }
     private void Awake() 
-    {
+    {        
+        LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
+        LocalSaveManager.Instance.LoadImageAsync("PlayerProfileBorderImage", borderImage);
+
         ProfileEditUI.OnImageChanged += OnImageChanged;
     }
 

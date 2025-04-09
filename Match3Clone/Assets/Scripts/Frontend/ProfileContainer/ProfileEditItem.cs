@@ -33,7 +33,7 @@ public class ProfileEditItem : MonoBehaviour
             switch (item.ListItemId)
             {
                 case ConsumableType.PlayerProfileAvatar:
-                    List<ConsumableItem> containerProfileAvatarImages = playerProfile.ContainerProfileAvatarImages;
+                    List<ConsumableItem> containerProfileAvatarImages = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileAvatarImages");
                     foreach (var containerProfileAvatarImage in containerProfileAvatarImages)
                     {
                         item.ItemValues.Add(containerProfileAvatarImage);
@@ -43,7 +43,7 @@ public class ProfileEditItem : MonoBehaviour
                     }
                     break;
                 case ConsumableType.PlayerProfileCover:
-                    List<ConsumableItem> containerProfileCoverImages = playerProfile.ContainerProfileCoverImages;
+                    List<ConsumableItem> containerProfileCoverImages = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileCoverImages");
                     foreach (var containerProfileCoverImage in containerProfileCoverImages)
                     {
                         item.ItemValues.Add(containerProfileCoverImage);
@@ -53,7 +53,7 @@ public class ProfileEditItem : MonoBehaviour
                     }
                     break;
                 case ConsumableType.PlayerProfileBorder:
-                    List<ConsumableItem> containerProfileBorders = playerProfile.ContainerProfileBorders;
+                    List<ConsumableItem> containerProfileBorders = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileBorders");
                     foreach (var containerProfileBorder in containerProfileBorders)
                     {
                         item.ItemValues.Add(containerProfileBorder);
