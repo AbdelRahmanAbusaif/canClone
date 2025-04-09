@@ -36,7 +36,7 @@ public class ProfileEditUI : MonoBehaviour
                 break;
         }
 
-        await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+        await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerProfile);
     }
 
     private async Task ChangeImage(string key,ConsumableType consumableType)

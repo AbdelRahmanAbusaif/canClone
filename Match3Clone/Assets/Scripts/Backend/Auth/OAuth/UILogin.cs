@@ -74,28 +74,29 @@ public class UILogin : MonoBehaviour
         //Seed the default data
         var heartSystem = new HeartSystem{
             Heart = 5,
-            LastHeartTime = "",
-            NextHeartTime = "",
+            LastHeartTime = "0",
+            NextHeartTime = "0",
         };
         var dailyBonus = new DailyBonus{
-            DailyBonusDayKey = "",
-            DateLastPlayed = ""
+            DailyBonusDayKey = "0",
+            DateLastPlayed = "0"
         };
         var spinWheel = new SpinWheel{
-            DailySpinDayKey = "",
-            DateLastSpin = ""
+            DailySpinDayKey = "0",
+            DateLastSpin = "0"
         };
         var primeSubscription = new ConsumableItem
         {
             Id = "PrimeSubscription",
             ConsumableName = "PrimeSubscription",
-            DatePurchased = "",
-            DateExpired = ""
+            DatePurchased = "0",
+            DateExpired = "0"
         };
 
         var containerProfileAvatar = new List<ConsumableItem>();
         var containerProfileCover = new List<ConsumableItem>();
         var containerProfileBorder = new List<ConsumableItem>();
+        var AdManagers = new List<AdManager>();
 
         var LevelCompletes = new List<LevelComplete>();
         
@@ -134,28 +135,26 @@ public class UILogin : MonoBehaviour
         }
         if(termPanel != null)
         {
-            // loginPanel.SetActive(true);
-            await CloudSaveManager.Instance.SaveDataAsync<PlayerProfile>("PlayerProfile", playerData);
-
-            await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object>
-            {
-                { "HeartSystem", heartSystem },
-                { "DailyBonus", dailyBonus },
-                { "SpinWheel", spinWheel },
-                { "PrimeSubscriptions", primeSubscription },
-                { "ContainerProfileAvatarImages", containerProfileAvatar },
-                { "ContainerProfileCoverImages", containerProfileCover },
-                { "ContainerProfileBorders", containerProfileBorder },
-                { "LevelsComplete", LevelCompletes }
-            });
             
+            await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
+            await CloudSaveManager.Instance.SaveDataAsync("DailyBonus", dailyBonus);
+            await CloudSaveManager.Instance.SaveDataAsync("SpinWheel", spinWheel);
+            await CloudSaveManager.Instance.SaveDataAsync("PrimeSubscriptions", primeSubscription);
+            await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileAvatarImages", containerProfileAvatar);
+            await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileCoverImages", containerProfileCover);
+            await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileBorders", containerProfileBorder);
+            await CloudSaveManager.Instance.SaveDataAsync("LevelsComplete", LevelCompletes);
+            await CloudSaveManager.Instance.SaveDataAsync("AdManager", AdManagers);
+
+            await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerData);
+
             termPanel.SetActive(true);
         }
         else
         {
             // This when the plyer in already accepted the terms and conditions
             // and when player in loading page
-            await CloudSaveManager.Instance.SaveDataAsync<PlayerProfile>("PlayerProfile", playerData);
+            await CloudSaveManager.Instance.SavePublicDataAsync<PlayerProfile>("PlayerProfile", playerData);
 
             OnSignUp?.Invoke();
         }

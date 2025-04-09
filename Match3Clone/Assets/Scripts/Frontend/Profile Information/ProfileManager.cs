@@ -132,7 +132,7 @@ public class ProfileManager : MonoBehaviour
         SaveImageInCloud();
         Debug.Log($"Player profile image: {playerProfile.PlayerImageUrl}");
 
-        await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+        await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerProfile);
         await AuthenticationService.Instance.UpdatePlayerNameAsync(playerProfile.PlayerName.Replace("+", "").Replace(" ", ""));
 
         Debug.Log("Player profile updated successfully");

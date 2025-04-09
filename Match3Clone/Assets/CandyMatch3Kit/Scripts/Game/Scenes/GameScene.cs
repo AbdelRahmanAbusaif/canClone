@@ -75,6 +75,7 @@ namespace GameVanilla.Game.Scenes
             OpenPopup<LevelGoalsPopup>("Popups/LevelGoalsPopup", popup => popup.SetGoals(level.goals));
 
             levelsComplete = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelsComplete");
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
              Debug.Log("From Start GameScene");
 		}
 
@@ -191,7 +192,7 @@ namespace GameVanilla.Game.Scenes
                     playerProfile.Level++;
 
                     Debug.Log("From CheckEndGame GameScene : " + playerProfile.Level);
-                    await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+                    await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerProfile);
 
                     PuzzleMatchManager.instance.coinsSystem.BuyCoins(10);
                     
@@ -293,7 +294,7 @@ namespace GameVanilla.Game.Scenes
             PuzzleMatchManager.instance.livesSystem.RemoveLife();
 
             Debug.Log("From OpenLosePopup GameScene" + playerProfile.Level);
-            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+            await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerProfile);
             OpenPopup<LosePopup>("Popups/LosePopup", popup =>
             {
                 popup.SetLevel(level.id);

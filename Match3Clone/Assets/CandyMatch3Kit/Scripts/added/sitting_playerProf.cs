@@ -45,7 +45,6 @@ namespace GameVanilla.Game.Popups
             await UnityServices.Instance.InitializeAsync();
 
             // if player Sign in with unity account, load the player profile images
-            cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
 
             // cloudSaveManager.LoadImageAsync("PlayerProfileImage", avatarImage);
             // playerProfile = await cloudSaveManager.LoadDataAsync<PlayerProfile>("PlayerProfile");

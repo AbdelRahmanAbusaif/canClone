@@ -77,8 +77,13 @@ namespace GameVanilla.Game.Scenes
             // yield return new WaitUntil(() => playerProfile != null);
 
             var date_last_played = dailyBonus.DateLastPlayed;
-            if (date_last_played == "0")
+            Debug.Log($"Date last played from Home Screen: {date_last_played}");
+
+            if (date_last_played == "0" || string.IsNullOrEmpty(date_last_played))
             {
+                dailyBonus.DateLastPlayed = "0";
+                dailyBonus.DailyBonusDayKey = "0";
+                
                 AwardDailyBonus();
 
                 yield break;

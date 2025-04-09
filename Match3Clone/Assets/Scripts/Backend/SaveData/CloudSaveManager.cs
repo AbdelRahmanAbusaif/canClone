@@ -26,13 +26,28 @@ namespace SaveData
         }
         public async Task SaveDataAsync<T>(string key, T data)
         {
-            string jsonData = JsonUtility.ToJson(data);
             try
             {
                 await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object>
                 {
-                    { key, jsonData }
+                    { key, data }
                 });
+                await LocalSaveManager.Instance.SaveDataAsync(data, key);
+                Debug.Log($"{key} saved successfully.");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Error saving {key}: {e.Message}");
+            }
+        }
+        public async Task SavePublicDataAsync<T>(string key, T data)
+        {
+            try
+            {
+                await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object>
+                {
+                    { key, data }
+                }, new Unity.Services.CloudSave.Models.Data.Player.SaveOptions(new PublicWriteAccessClassOptions()));
                 await LocalSaveManager.Instance.SaveDataAsync(data, key);
                 Debug.Log($"{key} saved successfully.");
             }
@@ -71,9 +86,34 @@ namespace SaveData
                     Debug.Log(jsonData);
 
                     T profileData = JsonUtility.FromJson<T>(jsonData);
-                    await LocalSaveManager.Instance.SaveDataAsync(profileData, key);
+                    await LocalSaveManager.Instance.SaveDataAsync(item, key);
                 
-                    return JsonUtility.FromJson<T>(jsonData);
+                    return item.Value.GetAs<T>();
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Error loading {key}: {e.Message}");
+            }
+
+            return new T(); // Return default object if no data found
+        }
+        public async Task<T> LoadPublicDataAsync<T>(string key) where T : new()
+        {
+            try
+            {
+                var savedData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { key }, new LoadOptions(new PublicReadAccessClassOptions()));
+                if (savedData.TryGetValue(key, out var item))
+                {
+                    string jsonData = item.Value.GetAs<string>();
+                
+                    Debug.Log($"{key} loaded successfully.");
+                    Debug.Log(jsonData);
+
+                    T profileData = JsonUtility.FromJson<T>(jsonData);
+                    await LocalSaveManager.Instance.SaveDataAsync(item, key);
+                
+                    return item.Value.GetAs<T>();
                 }
             }
             catch (System.Exception e)

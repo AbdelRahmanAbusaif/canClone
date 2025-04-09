@@ -15,11 +15,8 @@ public class LoginController : MonoBehaviour
     public event Action<PlayerProfile>  OnSignInSuccess;
     public static event Action OnSignedOutSuccess;
     public GameObject LoadingPanel;
-    private CloudSaveManager cloudSaveManager;    
     async private void Awake() 
-    {
-        cloudSaveManager = FindAnyObjectByType<CloudSaveManager>().GetComponent<CloudSaveManager>();
-
+    {    
         await UnityServices.Instance.InitializeAsync();
 
         PlayerAccountService.Instance.SignedIn += OnSignedIn;
@@ -376,7 +373,7 @@ public class LoginController : MonoBehaviour
     {
         try
         {
-            var playerProfile =  await cloudSaveManager.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            var playerProfile =  await CloudSaveManager.Instance.LoadPublicDataAsync<PlayerProfile>("PlayerProfile");
             OnSignInSuccess?.Invoke(playerProfile);
         }
         catch (Exception ex)

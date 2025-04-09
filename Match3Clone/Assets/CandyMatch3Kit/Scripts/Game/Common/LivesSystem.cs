@@ -25,11 +25,9 @@ namespace GameVanilla.Game.Common
         public Action<TimeSpan, int> onCountdownUpdated;
         public Action<int> onCountdownFinished;
 
-        private PlayerProfile playerProfile;
         private HeartSystem heartSystem;
         private async void Awake() 
         {
-            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
             heartSystem = await LocalSaveManager.Instance.LoadDataAsync<HeartSystem>("HeartSystem");    
         }
         /// <summary>
@@ -113,7 +111,7 @@ namespace GameVanilla.Game.Common
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             var timeToNextLife = PuzzleMatchManager.instance.gameConfig.timeToNextLife;
             
-            if (heartSystem.LastHeartTime == "0" && numLives < maxLives)
+            if (heartSystem.LastHeartTime == "0" && string.IsNullOrEmpty(heartSystem.LastHeartTime) &&numLives < maxLives)
             {
                 DateTime nextLifeTime = ServerTimeManager.Instance.CurrentTime.AddMinutes(5);
                 // PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
@@ -123,7 +121,7 @@ namespace GameVanilla.Game.Common
 
                 Debug.Log($"Initialized next_life_time: {nextLifeTime}");
             }
-            if (numLives < maxLives && heartSystem.LastHeartTime !="0" )
+            if (numLives < maxLives && heartSystem.LastHeartTime !="0" && !string.IsNullOrEmpty(heartSystem.LastHeartTime))
             {
                 DateTime nowTime;
                 if(ServerTimeManager.Instance.CurrentTime == DateTime.MinValue)
@@ -287,29 +285,23 @@ namespace GameVanilla.Game.Common
         {
             // PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
             // PlayerPrefs.Save();
-
-            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            heartSystem = await LocalSaveManager.Instance.LoadDataAsync<HeartSystem>("HeartSystem");
             
             heartSystem.LastHeartTime = nextLifeTime.ToString();
 
-            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.PlayerName}");
-            Debug.Log($"From Lives System SaveNextLifeTime is null: {playerProfile == null}");
-            Debug.Log($"From Lives System SaveNextLifeTime: {nextLifeTime}");
-            Debug.Log($"From Lives System SaveNextLifeTime: {heartSystem.LastHeartTime}");
-            Debug.Log($"From Lives System SaveNextLifeTime: {playerProfile.Level}");
-
-            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+            await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
         }
         public DateTime? GetSavedNextLifeTime()
         {
 
-            if (heartSystem.LastHeartTime != "0")
+            if (heartSystem.LastHeartTime != "0" && !string.IsNullOrEmpty(heartSystem.LastHeartTime))
             {
                 // string binaryString = PlayerPrefs.GetString("next_life_time");
                 string dateString = heartSystem.LastHeartTime;
                 Debug.Log($"Retrieved next_life_time: {dateString}");
                 return DateTime.Parse(dateString);
             }
+            
             Debug.Log("next_life_time not found in PlayerPrefs.");
             return null;
         }
