@@ -33,7 +33,7 @@ public class AdUI : MonoBehaviour
     {
         Debug.Log("Remote Config Fetched Successfully! (AdUI)");
         Debug.Log("Name of this Object " + gameObject.name);
-        adManagers = await LocalSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManagers");
+        adManagers = await LocalSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManager");
 
         var jsonData = RemoteConfigService.Instance.appConfig.GetJson("AdRewards");
         adData = JsonConvert.DeserializeObject<List<AdData>>(jsonData);
@@ -69,7 +69,7 @@ public class AdUI : MonoBehaviour
 
             Debug.Log("Ad Added");
         }
-        await CloudSaveManager.Instance.SaveDataAsync("AdManagers", adManagers);
+        await CloudSaveManager.Instance.SaveDataAsync("AdManager", adManagers);
     }
 }
 [Serializable]

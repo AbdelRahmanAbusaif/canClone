@@ -42,9 +42,12 @@ namespace SaveData
         {
             string saveDataFilePath = Path.Combine(Application.persistentDataPath, key + ".json");
 
-            string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented);
+            string jsonData = JsonConvert.SerializeObject(data);
             try
             {
+                Debug.Log("Saving data to local storage with name. " + key);
+                Debug.Log(jsonData);
+
                 // await File.WriteAllTextAsync(saveDataFilePath, jsonData);
 
                 await EncryptionHelper.EncryptAndSaveFile(saveDataFilePath, Encoding.UTF8.GetBytes(jsonData));
@@ -68,9 +71,14 @@ namespace SaveData
                     // var bytes = await File.ReadAllBytesAsync(saveDataFilePath);
                     string jsonData = Encoding.UTF8.GetString(bytes);
 
-                    Debug.Log("Data loaded successfully from local storage.");
+                    Debug.Log("Data loaded successfully from local storage with name. " + key);
                     Debug.Log(jsonData);
                     
+                    if(string.IsNullOrEmpty(jsonData))
+                    {
+                        Debug.LogError($"No data found for key: {key}");
+                        return new T(); // Return default object if no data found
+                    }
                     return JsonConvert.DeserializeObject<T>(jsonData);
                 }
                 

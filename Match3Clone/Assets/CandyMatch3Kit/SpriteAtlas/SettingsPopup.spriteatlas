@@ -51,6 +51,7 @@ SpriteAtlas:
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
     - 99f6d8c0578354553a996a1a14cc98cb: 21300000
+    - 027479f06d88ef94199d025375011f2d: 21300000
     - cdcd18714c84d1b4da0e5a4124a4fc64: 21300000
     - 777769325413d4803b8cee6112d2943a: 21300000
     - dad010563a75c467b945cfde6925b721: 21300000
@@ -76,6 +77,7 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 99f6d8c0578354553a996a1a14cc98cb, type: 3}
+  - {fileID: 21300000, guid: 027479f06d88ef94199d025375011f2d, type: 3}
   - {fileID: 21300000, guid: cdcd18714c84d1b4da0e5a4124a4fc64, type: 3}
   - {fileID: 21300000, guid: 777769325413d4803b8cee6112d2943a, type: 3}
   - {fileID: 21300000, guid: dad010563a75c467b945cfde6925b721, type: 3}
@@ -100,6 +102,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c17f5f8f12891405cbec05e2867ce558, type: 3}
   m_PackedSpriteNamesToIndex:
   - AvatarBorderBlue
+  - cbimage
   - ButtonResetGrey
   - AvatarGirl
   - CloseButton

@@ -21,7 +21,7 @@ public class AdUIComponent : MonoBehaviour
 
     private async void Start()
     {
-        adManagers = await LocalSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManagers");
+        adManagers = await LocalSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManager");
 
         adButton.onClick.AddListener(OnClick);
 
@@ -72,7 +72,7 @@ public class AdUIComponent : MonoBehaviour
 
                 }
                 currentClicksText.text = adManager.AdCounter.ToString();
-                await CloudSaveManager.Instance.SaveDataAsync<List<AdManager>>("AdManagers", adManagers);           
+                await CloudSaveManager.Instance.SaveDataAsync<List<AdManager>>("AdManager", adManagers);           
             }
         }
     }

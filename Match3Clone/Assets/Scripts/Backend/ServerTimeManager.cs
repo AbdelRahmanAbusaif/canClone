@@ -23,7 +23,7 @@ public class ServerTimeManager : MonoBehaviour
         }
     }
 
-    private const string TimeApiUrl = "https://www.timeapi.io/api/time/current/zone?timeZone=Asia%2FAmman";
+    private const string TimeApiUrl = "www.google.com";
 
     public DateTime CurrentTime
     {
@@ -64,13 +64,19 @@ public class ServerTimeManager : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            string json = request.downloadHandler.text;
-            Debug.Log($"Server response JSON: {json}");
-
-            ServerTimeResponse response = JsonUtility.FromJson<ServerTimeResponse>(json);
+            string dateHeader = request.GetResponseHeader("Date");
+            if (!string.IsNullOrEmpty(dateHeader))
+            {
+                DateTime serverTime = DateTime.Parse(dateHeader);
+                dateTime = serverTime;
+                Debug.Log("Server Time (UTC): " + serverTime);
+            }
+            else
+            {
+                Debug.LogWarning("No Date header found.");
+            }
             
             OnServerInitialized?.Invoke(true);
-            dateTime = DateTime.Parse(response.dateTime);
         }
         else
         {

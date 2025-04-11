@@ -1489,6 +1489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e16672b1c30cfa41809f46c3d074da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMessage: {fileID: 0}
   LoadingPanel: {fileID: 1843694721}
 --- !u!114 &567607538
 MonoBehaviour:

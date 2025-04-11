@@ -63,7 +63,13 @@ public class LoginController : MonoBehaviour
                 DailySpinDayKey = "0"
             };
 
-            var primeSubscriptions = new List<PrimeSubscription>();
+            var primeSubscriptions = new ConsumableItem()
+            {
+                Id = "PrimeSubscription",
+                ConsumableName = "PrimeSubscription",
+                DatePurchased = "0",
+                DateExpired = "0"
+            };
             var levelsComplete = new List<LevelComplete>();
             var adManager = new List<AdManager>();
             var containerProfileAvatarImages = new List<ConsumableItem>();
@@ -132,7 +138,13 @@ public class LoginController : MonoBehaviour
                 DailySpinDayKey = "0"
             };
             
-            var primeSubscriptions = new List<PrimeSubscription>();
+            var primeSubscriptions = new ConsumableItem()
+            {
+                Id = "PrimeSubscription",
+                ConsumableName = "PrimeSubscription",
+                DatePurchased = "0",
+                DateExpired = "0"
+            };
             var levelsComplete = new List<LevelComplete>();
             var adManager = new List<AdManager>();
             var containerProfileAvatarImages = new List<ConsumableItem>();
@@ -189,6 +201,16 @@ public class LoginController : MonoBehaviour
             PlayerAccountService.Instance.SignOut();
 
             LocalSaveManager.Instance.DeleteData("PlayerProfile");
+            LocalSaveManager.Instance.DeleteData("DailyBonus");
+            LocalSaveManager.Instance.DeleteData("SpinWheel");
+            LocalSaveManager.Instance.DeleteData("HeartSystem");
+            LocalSaveManager.Instance.DeleteData("AdManager");
+            LocalSaveManager.Instance.DeleteData("LevelsComplete");
+            LocalSaveManager.Instance.DeleteData("PrimeSubscriptions");
+            LocalSaveManager.Instance.DeleteData("ContainerProfileAvatarImages");
+            LocalSaveManager.Instance.DeleteData("ContainerProfileCoverImages");
+            LocalSaveManager.Instance.DeleteData("ContainerProfileBorders");
+
             LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
 
             OnSignedOutSuccess?.Invoke();
@@ -211,6 +233,8 @@ public class LoginController : MonoBehaviour
     {
         try
         {
+            Debug.Log("Signing in anonymously...");
+
             LocalSaveManager.Instance.DeleteData("PlayerProfile");
             LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
 
@@ -250,7 +274,24 @@ public class LoginController : MonoBehaviour
             var containerProfileAvatarImages = new List<ConsumableItem>();
             var containerProfileBorders = new List<ConsumableItem>();
             var containerProfileCoverImages = new List<ConsumableItem>();
-            var PrimeSubscription = new List<ConsumableItem>();
+            var primeSubscription = new ConsumableItem
+            {
+                Id = "PrimeSubscription",
+                ConsumableName = "PrimeSubscription",
+                DatePurchased = "0",
+                DateExpired = "0"
+            };
+
+            await CloudSaveManager.Instance.SaveDataAsync("DailyBonus", dailyBonus);
+            await CloudSaveManager.Instance.SaveDataAsync("SpinWheel", spinWheel);
+            await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
+            await CloudSaveManager.Instance.SaveDataAsync("AdManager", adManager);
+            await CloudSaveManager.Instance.SaveDataAsync("LevelsComplete", levelsComplete);
+            await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileAvatarImages", containerProfileAvatarImages);
+            await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileCoverImages", containerProfileCoverImages);
+            await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileBorders", containerProfileBorders);
+            await CloudSaveManager.Instance.SaveDataAsync("PrimeSubscriptions", primeSubscription);
+
 
             OnSignInSuccess?.Invoke(playerProfile);
             Debug.Log("Sign in anonymously succeeded!");
@@ -344,6 +385,15 @@ public class LoginController : MonoBehaviour
         try
         {
             LocalSaveManager.Instance.DeleteData("PlayerProfile");
+            LocalSaveManager.Instance.DeleteData("DailyBonus");
+            LocalSaveManager.Instance.DeleteData("SpinWheel");
+            LocalSaveManager.Instance.DeleteData("HeartSystem");
+            LocalSaveManager.Instance.DeleteData("AdManager");
+            LocalSaveManager.Instance.DeleteData("LevelsComplete");
+            LocalSaveManager.Instance.DeleteData("PrimeSubscriptions");
+            LocalSaveManager.Instance.DeleteData("ContainerProfileAvatarImages");
+            LocalSaveManager.Instance.DeleteData("ContainerProfileCoverImages");
+            LocalSaveManager.Instance.DeleteData("ContainerProfileBorders");
             LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
             
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
@@ -374,6 +424,18 @@ public class LoginController : MonoBehaviour
         try
         {
             var playerProfile =  await CloudSaveManager.Instance.LoadPublicDataAsync<PlayerProfile>("PlayerProfile");
+
+            var dailyBonus = await CloudSaveManager.Instance.LoadDataAsync<DailyBonus>("DailyBonus");
+            var containerPlayerImage = await CloudSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileAvatarImages");
+            var containerPlayerCoverImage = await CloudSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileCoverImages");
+            var containerPlayerBorderImage = await CloudSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileBorders");
+
+            var primeSubscription = await CloudSaveManager.Instance.LoadDataAsync<ConsumableItem>("PrimeSubscriptions");
+            var heartSystem = await CloudSaveManager.Instance.LoadDataAsync<HeartSystem>("HeartSystem");
+            var spinWheel = await CloudSaveManager.Instance.LoadDataAsync<SpinWheel>("SpinWheel");
+            var adManager = await CloudSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManager");
+            var levelsComplete = await CloudSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelsComplete");
+                        
             OnSignInSuccess?.Invoke(playerProfile);
         }
         catch (Exception ex)
