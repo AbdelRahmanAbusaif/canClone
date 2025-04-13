@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
@@ -14,12 +15,31 @@ public class ApplyRemoteConfig : MonoBehaviour
     [SerializeField] private LoadingManager loadingManager;
     [SerializeField] private LeaderboardButtonManager leaderboardButtonManager;
     [SerializeField] private LeaderboardMainMenu[] leaderboardMainMenu;
-    private async void Awake() 
+    private async void Start() 
     {
-        await UnityServices.InitializeAsync();
-
-        RemoteConfigService.Instance.FetchCompleted += Apply;
-        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+        try
+        {
+            await UnityServices.InitializeAsync();
+            
+            Debug.Log("Unity Services Initialized");
+    
+            if(AuthenticationService.Instance.IsSignedIn)
+            {
+                Debug.Log("Already Signed In");
+            }
+            else
+            {
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                Debug.Log("Signed In Anonymously");
+            }
+    
+            RemoteConfigService.Instance.FetchCompleted += Apply;
+            await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to initialize Unity Services: {ex.Message}");
+        }
     }
 
     private void Apply(ConfigResponse response)
