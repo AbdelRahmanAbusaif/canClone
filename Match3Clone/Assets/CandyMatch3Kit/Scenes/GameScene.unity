@@ -298,7 +298,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f8978fd31a96542c98d6c37a3390dbd6, type: 3}
   - {fileID: 8300000, guid: 06bad3cef25a447d5aa580cc57b9ef73, type: 3}
   - {fileID: 8300000, guid: 318103f526ece4934bcb644f591ae8f3, type: 3}
-  testLevel: 1
+  testLevel: 2
   currentLimit: 0
 --- !u!4 &27524763
 Transform:
@@ -817,6 +817,50 @@ MonoBehaviour:
     candyColor: 3
     scoreText: {fileID: 0}
     scorePanel: {fileID: 494763786}
+--- !u!1 &181894259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 181894261}
+  - component: {fileID: 181894260}
+  m_Layer: 0
+  m_Name: SaveData.LocalSaveManager (Singleton)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &181894260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181894259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072928273a4178146bbf4235699dd005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &181894261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181894259}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &214273439
 GameObject:
   m_ObjectHideFlags: 0
@@ -9732,3 +9776,4 @@ SceneRoots:
   - {fileID: 1168213279}
   - {fileID: 147815045}
   - {fileID: 1766537352}
+  - {fileID: 181894261}

@@ -75,7 +75,7 @@ namespace GameVanilla.Game.UI
 			if (amount == 0)
 			{
 				amountGroup.SetActive(false);
-				moreGroup.SetActive(true);
+				//moreGroup.SetActive(true);
 			}
 			else
 			{
