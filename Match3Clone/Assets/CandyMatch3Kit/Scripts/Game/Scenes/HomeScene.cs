@@ -14,6 +14,7 @@ using GameVanilla.Game.Popups;
 using SaveData;
 using System.Threading.Tasks;
 using GameVanilla.Game.Common;
+using System.Collections.Generic;
 
 namespace GameVanilla.Game.Scenes
 {
@@ -39,19 +40,18 @@ namespace GameVanilla.Game.Scenes
         /// <summary>
         /// Unity's Awake method.
         /// </summary>
-        private async void Awake()
+        private void Awake()
         {
             Assert.IsNotNull(soundButton);
             Assert.IsNotNull(musicButton);
-
-            dailyBonus = await LocalSaveManager.Instance.LoadDataAsync<DailyBonus>("DailyBonus");
         }
 
         /// <summary>
         /// Unity's Start method.
         /// </summary>
-        private void Start()
+        private async void Start()
         {
+            dailyBonus = await LocalSaveManager.Instance.LoadDataAsync<DailyBonus>("DailyBonus");
             CheckDailyBonus();
             UpdateButtons();
         }
@@ -59,10 +59,8 @@ namespace GameVanilla.Game.Scenes
         /// <summary>
         /// Checks the daily bonus.
         /// </summary>
-        private async void CheckDailyBonus()
+        private void CheckDailyBonus()
         {
-            dailyBonus = await LocalSaveManager.Instance.LoadDataAsync<DailyBonus>("DailyBonus");
-
             StartCoroutine(CheckDailyBonusAsync());
         }
 

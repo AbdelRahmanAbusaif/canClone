@@ -37,6 +37,11 @@ public class LoadingManager : MonoBehaviour
 
     private void Start()
     {
+        PlayerPrefs.SetInt("IsFirstTime", 1);
+        PlayerPrefs.SetInt("IsFirstTimeVideoAd", 1);
+        PlayerPrefs.Save();
+
+        
         remoteAssetDownloader.OnDownloadCompleted += (bool isAssetsDownloaded) => {
             if(isAssetsDownloaded)
             {
@@ -118,11 +123,6 @@ public class LoadingManager : MonoBehaviour
 
         }
 
-        // Hide loading spinner
-        if (LoadingSpinner != null)
-        {
-            LoadingSpinner.SetActive(false);
-        }
 
         if (isAssetsDownloaded && isAPIDataFetched)
         {
@@ -131,6 +131,7 @@ public class LoadingManager : MonoBehaviour
         else
         {
             LoadingBar.SetActive(false);
+            LoadingSpinner.SetActive(false);
             RetryPanel.SetActive(true);
         }
     }
@@ -142,6 +143,12 @@ public class LoadingManager : MonoBehaviour
         if (AuthenticationService.Instance.SessionTokenExists)
         {
             loginController.InitSignInCachedUser();
+
+            // Hide loading spinner
+            if (LoadingSpinner != null)
+            {
+                LoadingSpinner.SetActive(false);
+            }
             // SceneManager.LoadSceneAsync(HomePageScene);
         }
         else

@@ -9,7 +9,7 @@ public class CheckAdTimer : MonoBehaviour
     private List<AdManager> adManagers;
     private async void Awake() 
     {
-        adManagers = await LocalSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManagers");
+        adManagers = await LocalSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManager");
 
         CheckAds();
     }

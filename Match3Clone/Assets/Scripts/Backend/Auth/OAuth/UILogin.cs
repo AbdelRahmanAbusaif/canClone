@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using GameVanilla.Core;
 using SaveData;
+using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
@@ -130,12 +131,22 @@ public class UILogin : MonoBehaviour
         {
             Debug.Log("Player profile already exists");
 
+            playerData = await CloudSaveManager.Instance.LoadPublicDataAsync<PlayerProfile>("PlayerProfile");
+            heartSystem = await CloudSaveManager.Instance.LoadDataAsync<HeartSystem>("HeartSystem");
+            dailyBonus = await CloudSaveManager.Instance.LoadDataAsync<DailyBonus>("DailyBonus");
+            spinWheel = await CloudSaveManager.Instance.LoadDataAsync<SpinWheel>("SpinWheel");
+            primeSubscription = await CloudSaveManager.Instance.LoadDataAsync<ConsumableItem>("PrimeSubscriptions");
+            containerProfileAvatar = await CloudSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileAvatarImages");
+            containerProfileCover = await CloudSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileCoverImages");
+            containerProfileBorder = await CloudSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileBorders");
+            LevelCompletes = await CloudSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelsComplete");
+            AdManagers = await CloudSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManager");
+
             OnSignIn?.Invoke();
             return;
         }
         if(termPanel != null)
         {
-            
             await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
             await CloudSaveManager.Instance.SaveDataAsync("DailyBonus", dailyBonus);
             await CloudSaveManager.Instance.SaveDataAsync("SpinWheel", spinWheel);
@@ -147,15 +158,12 @@ public class UILogin : MonoBehaviour
             await CloudSaveManager.Instance.SaveDataAsync("AdManager", AdManagers);
 
             await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerData);
+            
 
             termPanel.SetActive(true);
         }
         else
         {
-            // This when the plyer in already accepted the terms and conditions
-            // and when player in loading page
-            await CloudSaveManager.Instance.SavePublicDataAsync<PlayerProfile>("PlayerProfile", playerData);
-
             OnSignUp?.Invoke();
         }
     }

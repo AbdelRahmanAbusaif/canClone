@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Unity.Services.CloudSave;
 using Unity.Services.CloudSave.Models.Data.Player;
 using UnityEngine;
@@ -28,9 +29,10 @@ namespace SaveData
         {
             try
             {
+                string json = JsonConvert.SerializeObject(data);
                 await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object>
                 {
-                    { key, data }
+                    { key, json }
                 });
                 await LocalSaveManager.Instance.SaveDataAsync(data, key);
                 Debug.Log($"{key} saved successfully.");
@@ -44,9 +46,10 @@ namespace SaveData
         {
             try
             {
+                string json = JsonConvert.SerializeObject(data);
                 await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object>
                 {
-                    { key, data }
+                    { key, json }
                 }, new Unity.Services.CloudSave.Models.Data.Player.SaveOptions(new PublicWriteAccessClassOptions()));
                 await LocalSaveManager.Instance.SaveDataAsync(data, key);
                 Debug.Log($"{key} saved successfully.");
@@ -81,14 +84,15 @@ namespace SaveData
                 if (savedData.TryGetValue(key,out var item))
                 {
                     string jsonData = item.Value.GetAs<string>();
-                
+
                     Debug.Log($"{key} loaded successfully.");
                     Debug.Log(jsonData);
 
-                    T profileData = JsonUtility.FromJson<T>(jsonData);
-                    await LocalSaveManager.Instance.SaveDataAsync(item, key);
-                
-                    return item.Value.GetAs<T>();
+                    var data = JsonConvert.DeserializeObject<T>(jsonData);
+                    await LocalSaveManager.Instance.SaveDataAsync(data, key);
+
+                    Debug.Log($"Data loaded: {data}");
+                    return data;
                 }
             }
             catch (System.Exception e)
@@ -100,40 +104,40 @@ namespace SaveData
         }
         public async Task<T> LoadPublicDataAsync<T>(string key) where T : new()
         {
+            string jsonData = string.Empty;
             try
             {
                 var savedData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { key }, new LoadOptions(new PublicReadAccessClassOptions()));
+                Debug.Log($"savedData: {savedData}");
                 if (savedData.TryGetValue(key, out var item))
                 {
-                    string jsonData = item.Value.GetAs<string>();
-                
+                    jsonData = item.Value.GetAs<string>();
+
                     Debug.Log($"{key} loaded successfully.");
                     Debug.Log(jsonData);
 
-                    T profileData = JsonUtility.FromJson<T>(jsonData);
-                    await LocalSaveManager.Instance.SaveDataAsync(item, key);
-                
-                    return item.Value.GetAs<T>();
+                    T data = JsonConvert.DeserializeObject<T>(jsonData);
+                    await LocalSaveManager.Instance.SaveDataAsync(data, key);
+
+                    return data;
                 }
             }
             catch (System.Exception e)
             {
-                Debug.LogError($"Error loading {key}: {e.Message}");
+                Debug.LogError($"Error loading {key}: {e.Message} with data {jsonData}");
             }
 
             return new T(); // Return default object if no data found
         }
         public async Task SaveImageAsync(string key, Texture2D texture)
         {
-            Texture2D resizedTexture = ImageUtility.ResizeTexture(texture, 128, 128);
-
-            byte[] imageData = ImageUtility.CompressTexture(resizedTexture, quality: 50);
+            var byteArray = texture.EncodeToPNG();
 
             try
             {
                 var data = new Dictionary<string, object>
                 {
-                    { key, Convert.ToBase64String(imageData) }
+                    { key, Convert.ToBase64String(byteArray) }
                 };
 
                 await CloudSaveService.Instance.Data.Player.SaveAsync(data, new Unity.Services.CloudSave.Models.Data.Player.SaveOptions(new PublicWriteAccessClassOptions()));
@@ -172,6 +176,8 @@ namespace SaveData
                         new Rect(0, 0, texture.width, texture.height),
                         new Vector2(0.5f, 0.5f)
                     );
+
+                    await LocalSaveManager.Instance.SaveImageAsync(texture, key);
                     Debug.Log("Image loaded successfully from Unity Cloud Save.");
                 }
             }
