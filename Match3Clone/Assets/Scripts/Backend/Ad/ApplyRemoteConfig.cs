@@ -23,16 +23,6 @@ public class ApplyRemoteConfig : MonoBehaviour
             
             Debug.Log("Unity Services Initialized");
     
-            if(AuthenticationService.Instance.IsSignedIn)
-            {
-                Debug.Log("Already Signed In");
-            }
-            else
-            {
-                await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                Debug.Log("Signed In Anonymously");
-            }
-    
             RemoteConfigService.Instance.FetchCompleted += Apply;
             await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
         }

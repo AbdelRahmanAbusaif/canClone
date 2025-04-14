@@ -26,7 +26,12 @@ public class AirshipAdManager : MonoBehaviour
 
         if(PlayerPrefs.GetInt("IsFirstTime",1) == 1)
         {
+            Debug.Log("First time airship ad.");
             ApplyRemoteConfig(ConfigRequestStatus.Success);
+        }
+        else
+        {
+            Debug.Log("Not First time airship ad.");
         }
     }
     private void Update() 
@@ -45,7 +50,7 @@ public class AirshipAdManager : MonoBehaviour
                 Debug.Log("Airship Image URL: " + airAdComponent.AirShipAd.AirShipImageUrl);
                 waitingAds.Remove(airAdComponent);
             }
-            Debug.Log("Current Time: " + DateTime.Now.ToString() + " TimeToShow: " + airAdComponent.TimeToShow + "true or false: " + (DateTime.Now.ToString() == airAdComponent.TimeToShow));
+            Debug.Log(" AirShip Current Time: " + DateTime.Now.ToString() + " TimeToShow: " + airAdComponent.TimeToShow + "true or false: " + (DateTime.Now.ToString() == airAdComponent.TimeToShow));
             if(DateTime.Now.ToString() == airAdComponent.TimeToShow)
             {
                 Debug.Log("Ad Show");
@@ -89,11 +94,17 @@ public class AirshipAdManager : MonoBehaviour
     {
         while (airShipAds.Count > 0)
         {
+            while (!AdCoordinator.Instance.CanShowAd())
+            {
+                Debug.Log("Another ad is showing. Delaying airship ad.");
+                yield return null; // wait until other ad finishes
+            }
             var ad = airShipAds.Dequeue();
             Debug.Log("Ad Name: " + ad.AdName);
             Debug.Log("Ad URL: " + ad.Url);
             Debug.Log("Airship Image URL: " + ad.AirShipImageUrl);
 
+            AdCoordinator.Instance.NotifyAdStarted(); // Notify ad start
             // Instantiate the ad prefab and set its data
             var adInstance = Instantiate(adPrefab, transform);
             var adUIComponent = adInstance.GetComponent<AirshipAdUI>();
@@ -109,7 +120,8 @@ public class AirshipAdManager : MonoBehaviour
                 continue;
             }
 
-            yield return new WaitForSeconds(10f); // Show the ad for 5 seconds
+            yield return new WaitForSeconds(10f); // Show the 
+            AdCoordinator.Instance.NotifyAdEnded();
             var airshipAdComponent = new AirAdComponent
             {
                 AirShipAd = ad,
@@ -124,6 +136,7 @@ public class AirshipAdManager : MonoBehaviour
         // Clean up the queue and waiting ads
         waitingAds.Clear();
         PlayerPrefs.DeleteKey("IsFirstTime");
+        PlayerPrefs.Save();
         airAdComponent = null;
         isFirstTime = true;
     }

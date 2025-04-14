@@ -37,6 +37,11 @@ public class LoadingManager : MonoBehaviour
 
     private void Start()
     {
+        PlayerPrefs.SetInt("IsFirstTime", 1);
+        PlayerPrefs.SetInt("IsFirstTimeVideoAd", 1);
+        PlayerPrefs.Save();
+
+        
         remoteAssetDownloader.OnDownloadCompleted += (bool isAssetsDownloaded) => {
             if(isAssetsDownloaded)
             {
