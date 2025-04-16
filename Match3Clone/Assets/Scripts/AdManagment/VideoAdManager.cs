@@ -20,6 +20,7 @@ public class VideoAdManager : MonoBehaviour
     [SerializeField] private Button closedButton;
     [SerializeField] private Button linkButton;
     [SerializeField] private TextMeshProUGUI closeTimeText;
+    [SerializeField] private Slider progressBar;
 
     private VideoAd video;
     private static VideoAdComponent videoAdComponent = null;
@@ -56,11 +57,13 @@ public class VideoAdManager : MonoBehaviour
         {
             closeTimeText.text = "00:00";
             closedButton.interactable = true;
+            progressBar.value = 0f;
         }
         else
         {
             closedButton.interactable = false;
             closeTimeText.text = TimeSpan.FromSeconds((timeToClose - DateTime.Now).TotalSeconds).ToString(@"mm\:ss");
+            progressBar.value = (float)(timeToClose - DateTime.Now).TotalSeconds / 5f;
         }
         if(waitingAds.Count > 0 || videoAdComponent != null)
         {
