@@ -53,11 +53,11 @@ public class ApplyRemoteConfig : MonoBehaviour
             Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for AdUI!");
             adUI.ApplyRemoteConfig(response);
         }
-        if(storePageManager != null)
-        {
-            Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for StorePageManager!");
-            storePageManager.ApplyRemoteConfig(response);
-        }
+        // if(storePageManager != null)
+        // {
+        //     Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for StorePageManager!");
+        //     storePageManager.ApplyRemoteConfig();
+        // }
     }
 
 

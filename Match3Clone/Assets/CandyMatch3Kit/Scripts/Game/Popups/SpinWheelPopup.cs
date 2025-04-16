@@ -148,7 +148,7 @@ namespace GameVanilla.Game.Popups
             spinWheel = await LocalSaveManager.Instance.LoadDataAsync<SpinWheel>("SpinWheel");
 
             spinWheel.DailySpinDayKey = "0";
-            spinWheel.DateLastSpin = ServerTimeManager.Instance.CurrentTime.ToString();
+            spinWheel.DateLastSpin = ServerTimeManager.Instance.CurrentTime.Date.ToString();
 
             await CloudSaveManager.Instance.SaveDataAsync("SpinWheel", spinWheel);
         }

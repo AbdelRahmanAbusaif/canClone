@@ -91,7 +91,7 @@ namespace GameVanilla.Game.Scenes
             var dateLastPlayed = Convert.ToDateTime(dateLastPlayedStr);
             Debug.Log($"Date last played: {dateLastPlayed}");
 
-            var dateNow = ServerTimeManager.Instance.CurrentTime;
+            var dateNow = ServerTimeManager.Instance.CurrentTime.Date;
 
             Debug.Log($"Date now from Home Screen: {dateNow}");
             var diff = dateNow.Subtract(dateLastPlayed);
@@ -121,7 +121,7 @@ namespace GameVanilla.Game.Scenes
         /// </summary>
         private async void AwardDailyBonus()
         {
-            var dateToday = ServerTimeManager.Instance.CurrentTime;
+            var dateToday = ServerTimeManager.Instance.CurrentTime.Date;
             Debug.Log($"Date today DateTime: {dateToday}");
             var dateLastPlayedStr = Convert.ToString(dateToday);
 

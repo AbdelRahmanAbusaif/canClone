@@ -9,7 +9,6 @@ using UnityEngine;
 public class ProfileEditItem : MonoBehaviour
 {
     [SerializeField] private List<ProfileEditItemData> profileEditItemData;
-    private PlayerProfile playerProfile;
     private async void Awake() 
     {
         
@@ -25,9 +24,19 @@ public class ProfileEditItem : MonoBehaviour
             Debug.Log("Signed in anonymously");
         }
     }
-    private async void Start()
+    private async void OnEnable()
     {
-        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        foreach (var item in profileEditItemData)
+        {
+            foreach (Transform child in item.ItemContainer.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            
+            item.ItemValues?.Clear();
+            item.emptyItem.SetActive(false);
+
+        }
         foreach (var item in profileEditItemData)
         {
             switch (item.ListItemId)

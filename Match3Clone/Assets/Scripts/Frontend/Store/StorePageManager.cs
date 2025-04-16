@@ -3,6 +3,7 @@ using Unity.Services.RemoteConfig;
 using UnityEngine;
 using System.Linq;
 using Unity.Services.Core;
+using Newtonsoft.Json;
 
 
 public class StorePageManager : MonoBehaviour
@@ -24,11 +25,11 @@ public class StorePageManager : MonoBehaviour
     [SerializeField] private Transform primeSubscriptionContent;
 
     [SerializeField] private GameObject loadingPanel;
-    private async void Start()
+    private void OnEnable()
     {
         loadingPanel.SetActive(true);
 
-        await UnityServices.Instance.InitializeAsync();
+        ApplyRemoteConfig();
         // if(!AuthenticationService.Instance.IsSignedIn)
         // await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
@@ -55,11 +56,34 @@ public class StorePageManager : MonoBehaviour
     }
 
 
-    public void ApplyRemoteConfig(ConfigResponse response)
+    public void ApplyRemoteConfig()
     {
         var jsonData = RemoteConfigService.Instance.appConfig.GetJson("StoreItems");
-        var storeItems = JsonUtility.FromJson<StoreItems>(jsonData);
+        var storeItems = JsonConvert.DeserializeObject<StoreItems>(jsonData);
 
+        foreach (var child in avatarContent.GetComponentsInChildren<StoreItemUI>())
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (var child in borderContent.GetComponentsInChildren<StoreItemUI>())
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (var child in coverProfileContent.GetComponentsInChildren<StoreItemUI>())
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (var child in primeSubscriptionContent.GetComponentsInChildren<StoreItemUI>())
+        {
+            Destroy(child.gameObject);
+        }
+        
+
+        avatarItems?.Clear();
+        borderItems?.Clear();
+        coverProfileItems?.Clear();
+        primeSubscriptionItems?.Clear();
+        
         avatarItems = storeItems.AvatarItems;
         borderItems = storeItems.BorderItems;
         coverProfileItems = storeItems.CoverProfileItems;
