@@ -15,6 +15,7 @@ public class GoogleManager : MonoBehaviour
 
     void Awake()
     {
+        PlayGamesPlatform.Activate();
         loginController = FindAnyObjectByType<LoginController>().GetComponent<LoginController>();
         StartClientService();
     }

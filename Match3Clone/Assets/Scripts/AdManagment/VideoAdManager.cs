@@ -38,6 +38,9 @@ public class VideoAdManager : MonoBehaviour
         closedButton.onClick.AddListener(ClosedClicked);
         linkButton.onClick.AddListener(LinkButtonClicked);
 
+        closedButton.interactable = false;
+        vertexImage.gameObject.SetActive(false);
+
         backGroundMusicSource = FindAnyObjectByType<AudioSource>().GetComponent<AudioSource>();
 
         if(PlayerPrefs.GetInt("IsFirstTimeVideoAd", 1) == 1)

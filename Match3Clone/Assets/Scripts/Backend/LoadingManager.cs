@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Threading.Tasks;
 using GameVanilla.Core;
 using TMPro;
 using Unity.Services.Authentication;
+using Unity.Services.Core;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -35,8 +37,10 @@ public class LoadingManager : MonoBehaviour
     public bool isAPIDataFetched = false;
     
 
-    private void Start()
+    private async void Start()
     {
+        await UnityServices.InitializeAsync();
+
         PlayerPrefs.SetInt("IsFirstTime", 1);
         PlayerPrefs.SetInt("IsFirstTimeVideoAd", 1);
         PlayerPrefs.Save();
