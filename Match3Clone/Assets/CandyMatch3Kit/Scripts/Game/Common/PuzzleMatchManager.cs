@@ -79,10 +79,9 @@ namespace GameVanilla.Game.Common
             // }
 
         }
-        private async void OnEnable() 
+        private void OnEnable() 
         {
             RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
-            await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
         }
         private void ApplyRemoteConfig(ConfigResponse response)
         {

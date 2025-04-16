@@ -423,6 +423,7 @@ public class LoginController : MonoBehaviour
     {
         try
         {
+            LoadingPanel.SetActive(true);
             var playerProfile =  await CloudSaveManager.Instance.LoadPublicDataAsync<PlayerProfile>("PlayerProfile");
 
             var dailyBonus = await CloudSaveManager.Instance.LoadDataAsync<DailyBonus>("DailyBonus");
@@ -435,8 +436,9 @@ public class LoginController : MonoBehaviour
             var spinWheel = await CloudSaveManager.Instance.LoadDataAsync<SpinWheel>("SpinWheel");
             var adManager = await CloudSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManager");
             var levelsComplete = await CloudSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelsComplete");
-                        
+
             OnSignInSuccess?.Invoke(playerProfile);
+            LoadingPanel.SetActive(false);
         }
         catch (Exception ex)
         {

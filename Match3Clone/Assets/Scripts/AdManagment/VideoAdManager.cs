@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine.Video;
 using UnityEngine.UI;
 using Unity.Services.Core;
-using static RemotelyDownloadAssets;
 using Unity.Services.RemoteConfig;
 using Newtonsoft.Json;
 using System.Linq;
@@ -27,10 +26,10 @@ public class VideoAdManager : MonoBehaviour
     private DateTime timeToClose;
     private AudioSource backGroundMusicSource;
 
-    private async void Start()
+    private void Start()
     {
-        await UnityServices.InitializeAsync();
-        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
+        closedButton.interactable = false;
+        vertexImage.gameObject.SetActive(false);
 
         videoPlayer.loopPointReached += OnVideoEnd;
         videoPlayer.prepareCompleted += OnVideoPrepared;
@@ -38,8 +37,6 @@ public class VideoAdManager : MonoBehaviour
         closedButton.onClick.AddListener(ClosedClicked);
         linkButton.onClick.AddListener(LinkButtonClicked);
 
-        closedButton.interactable = false;
-        vertexImage.gameObject.SetActive(false);
 
         backGroundMusicSource = FindAnyObjectByType<AudioSource>().GetComponent<AudioSource>();
 
@@ -67,17 +64,15 @@ public class VideoAdManager : MonoBehaviour
         }
         if(waitingAds.Count > 0 || videoAdComponent != null)
         {
-            if( waitingAds.Count > 0 && string.IsNullOrEmpty(videoAdComponent.TimeToShow))
+            if( waitingAds.Count > 0 && videoAdComponent == null)
             {
                 Debug.Log("Video Ad is null");
                 videoAdComponent = waitingAds.FirstOrDefault();
             }
             if(videoAdComponent != null && waitingAds.Contains(videoAdComponent))
             {
-                
                 waitingAds.Remove(videoAdComponent);
             }
-            Debug.Log(" Video Current Time: " + DateTime.Now.ToString() + " TimeToShow: " + videoAdComponent.TimeToShow + "true or false: " + (DateTime.Now.ToString() == videoAdComponent.TimeToShow));
             if(DateTime.Now.ToString() == videoAdComponent.TimeToShow)
             {
                 Debug.Log("Ad Show");

@@ -22,13 +22,6 @@ public class AdUI : MonoBehaviour
     private List<AdManager> adManagers;
     private TimeSpan adTimerSpan = new TimeSpan(0, 0, 0);
 
-    private async void Awake()
-    {
-        if(!AuthenticationService.Instance.IsSignedIn)
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-    }
-
     public async void ApplyRemoteConfig(ConfigResponse response)
     {
         Debug.Log("Remote Config Fetched Successfully! (AdUI)");

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ArabicSupporter;
 using Facebook.Unity;
 using TMPro;
 using UnityEngine;
@@ -73,6 +74,11 @@ public class FacebookManager : MonoBehaviour
                         var userInfo = Facebook.MiniJSON.Json.Deserialize(userResult.RawResult) as Dictionary<string, object>;
                         string email = userInfo["email"] as string;
                         string name = userInfo["name"] as string;
+
+                        if(ArabicSupport.IsArabicString(name))
+                        {
+                            name = ArabicSupport.Fix(name);
+                        }
 
                         // Parse the nested picture dictionary
                         var pictureDict = userInfo["picture"] as Dictionary<string, object>;

@@ -38,6 +38,7 @@ public class UILogin : MonoBehaviour
         }
 
         loginController.OnSignInSuccess += OnSignInSuccess;
+        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
     }
 
     public void ApplyRemoteConfig(ConfigResponse response)

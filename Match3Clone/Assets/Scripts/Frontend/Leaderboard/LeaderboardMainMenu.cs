@@ -11,12 +11,11 @@ public class LeaderboardMainMenu : MonoBehaviour
 {
     [SerializeField] private string leaderboardId;
     [SerializeField] private string leaderboardTitleKey;
-    [SerializeField] private int playerPerPage = 10;
-    [SerializeField] private List<LeaderboardItem> leaderboardItemPrefab;
-    [SerializeField] private TextMeshProUGUI leaderboardText;
-    [SerializeField] private LeaderboardItem leaderboardPlayerProfile;
+    [SerializeField] private int playerPerPage = 9;
+    [SerializeField] private LeaderboardItem leaderboardItemPrefab;
     [SerializeField] private RectTransform playerContainer;
     
+    [SerializeField] private List<LeaderboardItem> leaderboardItems = new List<LeaderboardItem>();
     private void TestAddScore()
     {
         LeaderboardManager.Instance.AddScore(leaderboardId,Random.Range(0, 1000));
@@ -27,22 +26,34 @@ public class LeaderboardMainMenu : MonoBehaviour
 
         try
         {
-            // TestAddScore();
-            // Debug.Log("Test Add Score");
-
-            var playerScore = await LeaderboardManager.Instance.GetPlayerProfileScore(leaderboardId);
-            leaderboardPlayerProfile.Initializer(playerScore);
-
             ClearPlayer();
+           
+            var playerScore = await LeaderboardManager.Instance.GetPlayerProfileScore(leaderboardId);
             var scoreResponse = await LeaderboardManager.Instance.GetPlayerScore(leaderboardId);
 
-            for (int i = 0; i < scoreResponse.Results.Count && i < playerPerPage ; i++)
+            for (int i = 3; i < scoreResponse.Results.Count && i < playerPerPage; i++)
             {
-                int prefabIndex = Mathf.Min(i, leaderboardItemPrefab.Count - 1);
-                LeaderboardItem leaderboardItem = Instantiate(leaderboardItemPrefab[prefabIndex], playerContainer);
+                if (scoreResponse.Results[i].PlayerId == playerScore.PlayerId)
+                    continue;
+                LeaderboardItem leaderboardItem = Instantiate(leaderboardItemPrefab, playerContainer);
+                playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + leaderboardItem.GetComponent<RectTransform>().sizeDelta.y + 30f);
 
                 leaderboardItem.Initializer(scoreResponse.Results[i]);
             }
+
+            var playerMainProfile = Instantiate(leaderboardItemPrefab, playerContainer);
+
+            playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
+            playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
+            playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
+            
+            playerMainProfile.Initializer(playerScore);
+
+            foreach (var leaderboardItem in leaderboardItems)
+            {
+                leaderboardItem.Initializer(scoreResponse.Results[leaderboardItems.IndexOf(leaderboardItem)]);
+            }
+
         }
         catch (Exception e) when (e is TaskCanceledException || e is TimeoutException)
         {
@@ -50,14 +61,9 @@ public class LeaderboardMainMenu : MonoBehaviour
             throw;
         }
     }
-
-    public void ApplyRemoteConfig(ConfigResponse response)
-    {
-        leaderboardText.text = RemoteConfigService.Instance.appConfig.GetString(leaderboardTitleKey);
-    }
-
     private void ClearPlayer()
     {
+        playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, 0);
         foreach (Transform child in playerContainer)
         {
             Destroy(child.gameObject);

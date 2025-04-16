@@ -79,6 +79,8 @@ public class LoadingManager : MonoBehaviour
             // PlayerAccountService.Instance.SignOut();
             Transition.LoadLevel(LoginPageScene,1f,Color.black);
         };
+
+        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
         StartCoroutine(LoadGameData());
     }
     public void ApplyRemoteConfig(ConfigResponse response)
@@ -103,6 +105,7 @@ public class LoadingManager : MonoBehaviour
             LoadingSpinner.SetActive(true);
         }
 
+        yield return new WaitForSeconds(2);
         Debug.Log("Downloading assets...");
         yield return ServerTimeManager.Instance.FetchServerTimeAsync();
 
@@ -162,8 +165,9 @@ public class LoadingManager : MonoBehaviour
         }
     }
 
-    private void OnDestroy() {
-
+    private void OnDestroy() 
+    {
+        RetryButton.onClick.RemoveAllListeners();
         remoteAssetDownloader.OnDownloadCompleted -= (bool isAssetsDownloaded) => {
             if(isAssetsDownloaded)
             {

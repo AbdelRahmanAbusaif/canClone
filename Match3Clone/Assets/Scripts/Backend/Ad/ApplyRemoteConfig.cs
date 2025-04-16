@@ -14,7 +14,6 @@ public class ApplyRemoteConfig : MonoBehaviour
     [SerializeField] private UILogin uILogin;
     [SerializeField] private LoadingManager loadingManager;
     [SerializeField] private LeaderboardButtonManager leaderboardButtonManager;
-    [SerializeField] private LeaderboardMainMenu[] leaderboardMainMenu;
     private async void Start() 
     {
         try
@@ -34,36 +33,30 @@ public class ApplyRemoteConfig : MonoBehaviour
 
     private void Apply(ConfigResponse response)
     {
-        if(uILogin != null)
-        {
-            uILogin.ApplyRemoteConfig(response);
-        }
-        if(adUI != null)
-        {
-            adUI.ApplyRemoteConfig(response);
-        }
-        if(storePageManager != null)
-        {
-            storePageManager.ApplyRemoteConfig(response);
-        }
         if(remotelyDownloadAssets != null)
         {
+            Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for RemotelyDownloadAssets!");
             remotelyDownloadAssets.ApplyRemoteConfig(response);
         }
         if(loadingManager != null)
         {
+            Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for LoadingManager!");
             loadingManager.ApplyRemoteConfig(response);
         }
         if(leaderboardButtonManager != null)
         {
+            Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for LeaderboardButtonManager!");
             leaderboardButtonManager.ApplyRemoteConfig(response);
         }
-        if(leaderboardMainMenu != null)
+        if(adUI != null)
         {
-            foreach (var leaderboard in leaderboardMainMenu)
-            {
-                leaderboard.ApplyRemoteConfig(response);
-            }
+            Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for AdUI!");
+            adUI.ApplyRemoteConfig(response);
+        }
+        if(storePageManager != null)
+        {
+            Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for StorePageManager!");
+            storePageManager.ApplyRemoteConfig(response);
         }
     }
 
@@ -73,3 +66,5 @@ public class ApplyRemoteConfig : MonoBehaviour
         RemoteConfigService.Instance.FetchCompleted -= Apply;
     }
 }
+ public struct UserAttributes { }
+public struct AppAttributes { }

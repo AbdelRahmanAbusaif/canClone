@@ -90,7 +90,7 @@ namespace GameVanilla.Game.UI
             
             var nextLevel = 0;
 
-            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
             nextLevel = playerProfile.Level;
 
             if (nextLevel == 0)

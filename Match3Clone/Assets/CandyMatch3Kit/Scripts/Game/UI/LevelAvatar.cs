@@ -54,7 +54,7 @@ namespace GameVanilla.Game.UI
             // {
             //     LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
             // }
-            LocalSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
+            CloudSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
 
         }
 

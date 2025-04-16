@@ -2,12 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System;
 using Unity.Services.RemoteConfig;
 using Newtonsoft.Json;
-using static RemotelyDownloadAssets;
 using Unity.Services.Core;
 
 public class AirshipAdManager : MonoBehaviour
@@ -19,11 +16,8 @@ public class AirshipAdManager : MonoBehaviour
 
     [SerializeField] private static AirAdComponent airAdComponent = null;
     public bool isFirstTime = true;
-    async void Start()
+    private void Start()
     {
-        await UnityServices.InitializeAsync();
-        await RemoteConfigService.Instance.FetchConfigsAsync(new UserAttributes(), new AppAttributes());
-
         if(PlayerPrefs.GetInt("IsFirstTime",1) == 1)
         {
             Debug.Log("First time airship ad.");
@@ -50,7 +44,6 @@ public class AirshipAdManager : MonoBehaviour
                 Debug.Log("Airship Image URL: " + airAdComponent.AirShipAd.AirShipImageUrl);
                 waitingAds.Remove(airAdComponent);
             }
-            Debug.Log(" AirShip Current Time: " + DateTime.Now.ToString() + " TimeToShow: " + airAdComponent.TimeToShow + "true or false: " + (DateTime.Now.ToString() == airAdComponent.TimeToShow));
             if(DateTime.Now.ToString() == airAdComponent.TimeToShow)
             {
                 Debug.Log("Ad Show");

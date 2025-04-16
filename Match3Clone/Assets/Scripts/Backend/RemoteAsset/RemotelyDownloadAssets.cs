@@ -20,11 +20,13 @@ public class RemotelyDownloadAssets : MonoBehaviour
     {
         savePath = Path.Combine(Application.persistentDataPath, "DownloadedAssets");
         Directory.CreateDirectory(savePath);
+
+        RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
     }
+
     public void ApplyRemoteConfig(ConfigResponse response)
     {
         Debug.Log("Remote Config Fetched Successfully!");
-
         var assetKeys = new Dictionary<string, string>
             {
                 { "logo.png", "LogoURL" },
@@ -132,7 +134,4 @@ public class RemotelyDownloadAssets : MonoBehaviour
     private void OnDestroy() {
         RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
     }
-
-    public struct UserAttributes { }
-    public struct AppAttributes { }
 }
