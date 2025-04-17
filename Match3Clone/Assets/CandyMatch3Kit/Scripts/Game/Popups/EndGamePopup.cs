@@ -93,7 +93,7 @@ namespace GameVanilla.Game.Popups
         /// <param name="level">The level text.</param>
         public void SetLevel(int level)
         {
-            levelText.text = "Level " + level;
+           // levelText.text = "Level " + level;
         }
 
         /// <summary>

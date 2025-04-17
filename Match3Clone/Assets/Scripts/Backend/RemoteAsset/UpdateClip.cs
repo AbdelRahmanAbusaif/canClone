@@ -22,8 +22,15 @@ public class UpdateClip : MonoBehaviour
             Debug.LogError("AudioSource object is not assigned.");
             return;
         }
+
         string clipPath = Path.Combine("DownloadedAssets", clipKey);
 
+        if (!File.Exists(clipPath))
+        {
+            Debug.LogError($"Audio file not found at path: {clipPath}");
+            return;
+        }
+     
         AudioClip audioClip = await LocalSaveManager.Instance.LoadClipAsync(clipPath);
         audioClip.name = clipKey;
 

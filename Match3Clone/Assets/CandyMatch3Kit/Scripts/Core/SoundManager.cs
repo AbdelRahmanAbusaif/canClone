@@ -160,3 +160,21 @@ namespace GameVanilla.Core
         }
     }
 }
+/*
+ element 0 :button
+element 1 :buy coins
+element  2: coins popUp
+element 3 : lose
+element 4: pop close
+element 5: pop close button
+element 6: pop open 
+element 7: pop close button
+element 8: pop open woosh
+element 9: Rain
+element 10: win
+element 11: star
+element 12: award
+elemnt 13 : no moves
+*/
+
+
