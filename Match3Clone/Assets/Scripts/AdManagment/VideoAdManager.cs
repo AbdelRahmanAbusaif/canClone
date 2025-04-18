@@ -104,6 +104,7 @@ public class VideoAdManager : MonoBehaviour
             videoPlayer.Stop();
             vertexImage.gameObject.SetActive(false);
             videoPlayer.clip = null;
+            backGroundMusicSource.mute = false;
             AdCoordinator.Instance.NotifyAdEnded(); // Notify end
             PlayVideo();
         }

@@ -70,7 +70,7 @@ namespace GameVanilla.Game.Common
         {
             var numberOfLives = heartSystem.Heart;
             Debug.Log("From GetCurrentLives: " + numberOfLives);
-            return numberOfLives;
+            return 999999;
         }
 
         /// <summary>
