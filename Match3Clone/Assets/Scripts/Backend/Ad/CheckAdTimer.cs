@@ -29,7 +29,7 @@ public class CheckAdTimer : MonoBehaviour
             }
         }
 
-        await CloudSaveManager.Instance.SaveDataAsync<List<AdManager>>("AdManagers", adManagers);
+        await CloudSaveManager.Instance.SaveDataAsync<List<AdManager>>("AdManager", adManagers);
     }
 
 }

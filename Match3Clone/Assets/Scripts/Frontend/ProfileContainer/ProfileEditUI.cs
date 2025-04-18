@@ -15,7 +15,6 @@ public class ProfileEditUI : MonoBehaviour
     [SerializeField] private Button itemButton;
     [SerializeField] private ConsumableType consumableType;
 
-    private PlayerProfile playerProfile;
     private void Start() 
     {
         itemButton.onClick.AddListener(OnItemButtonClicked);
@@ -35,8 +34,6 @@ public class ProfileEditUI : MonoBehaviour
                 await ChangeImage("PlayerProfileBorderImage", consumableType);
                 break;
         }
-
-        await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerProfile);
     }
 
     private async Task ChangeImage(string key,ConsumableType consumableType)
