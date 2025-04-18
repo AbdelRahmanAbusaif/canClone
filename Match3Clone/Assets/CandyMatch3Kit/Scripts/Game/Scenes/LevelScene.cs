@@ -12,6 +12,8 @@ using GameVanilla.Game.Popups;
 using GameVanilla.Game.UI;
 using System.Threading.Tasks;
 using SaveData;
+using System;
+
 
 namespace GameVanilla.Game.Scenes
 {
@@ -65,8 +67,8 @@ namespace GameVanilla.Game.Scenes
            
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
-            // var nextLevel = PlayerPrefs.GetInt("next_level");
-            var nextLevel = playerProfile.Level;
+            var nextLevel = Math.Max(PlayerPrefs.GetInt("next_level"), playerProfile.Level);
+           
             Debug.Log("nextLevel: " + nextLevel);
 
             if (nextLevel == 0)

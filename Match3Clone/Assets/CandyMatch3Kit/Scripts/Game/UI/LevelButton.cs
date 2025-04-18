@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using SaveData;
 using GameVanilla.Game.Common;
 using System.Collections.Generic;
+using System;
 
 namespace GameVanilla.Game.UI
 {
@@ -94,12 +95,13 @@ namespace GameVanilla.Game.UI
 
             numLevelTextBlue.text = numLevel.ToString();
             numLevelTextPink.text = numLevel.ToString();
-            //var nextLevel = PlayerPrefs.GetInt("next_level");
+           
             
            // var nextLevel = 0;
 
             playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-           var  nextLevel = playerProfile.Level;
+          
+            var nextLevel = Math.Max(PlayerPrefs.GetInt("next_level"), playerProfile.Level);
 
             if (nextLevel == 0)
             {
@@ -142,7 +144,7 @@ namespace GameVanilla.Game.UI
                 }
             }
             else
-            {
+            {/*
                 buttonImage.sprite = lockedButtonSprite;
                 numLevelTextBlue.gameObject.SetActive(false);
                 numLevelTextPink.gameObject.SetActive(false);
@@ -150,14 +152,14 @@ namespace GameVanilla.Game.UI
                 star2.SetActive(false);
                 star3.SetActive(false);
                 
-                /*
+                */
                 buttonImage.sprite = currentButtonSprite;
                 star1.SetActive(false);
                 star2.SetActive(false);
                 star3.SetActive(false);
                 shineAnimation.SetActive(true);
-                numLevelTextPink.gameObject.SetActive(false);
-                */
+                numLevelTextPink.gameObject.SetActive(true);
+                
             }
             
         }
