@@ -1,17 +1,9 @@
 {
-    "id": 400,
+    "id": 387,
     "width": 9,
     "height": 9,
     "tiles": [
         {
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.HoleTile"
-        },
-        {
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.HoleTile"
-        },
-        {
             "type": "RandomCandy",
             "elementType": "None",
             "$type": "GameVanilla.Game.Common.CandyTile"
@@ -32,283 +24,27 @@
             "$type": "GameVanilla.Game.Common.CandyTile"
         },
         {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.HoleTile"
-        },
-        {
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.HoleTile"
-        },
-        {
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.HoleTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.HoleTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "Cherry",
-            "elementType": "Ice",
-            "$type": "GameVanilla.Game.Common.CollectableTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "Cherry",
-            "elementType": "Ice",
-            "$type": "GameVanilla.Game.Common.CollectableTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "Cherry",
-            "elementType": "Ice",
-            "$type": "GameVanilla.Game.Common.CollectableTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "Cherry",
-            "elementType": "Ice",
-            "$type": "GameVanilla.Game.Common.CollectableTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "Unbreakable",
+            "type": "Marshmallow",
             "elementType": "None",
             "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
-            "type": "RandomCandy",
-            "elementType": "Ice",
-            "$type": "GameVanilla.Game.Common.CandyTile"
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
-            "type": "RandomCandy",
-            "elementType": "Ice",
-            "$type": "GameVanilla.Game.Common.CandyTile"
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
-            "type": "RandomCandy",
-            "elementType": "Ice",
-            "$type": "GameVanilla.Game.Common.CandyTile"
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
-            "type": "RandomCandy",
-            "elementType": "Ice",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "Ice",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "Ice",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "RandomCandy",
-            "elementType": "Ice",
-            "$type": "GameVanilla.Game.Common.CandyTile"
-        },
-        {
-            "type": "Unbreakable",
+            "type": "Marshmallow",
             "elementType": "None",
             "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
@@ -321,6 +57,226 @@
             "type": "RandomCandy",
             "elementType": "None",
             "$type": "GameVanilla.Game.Common.CandyTile"
+        },
+        {
+            "type": "RandomCandy",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.CandyTile"
+        },
+        {
+            "type": "RandomCandy",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.CandyTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "RandomCandy",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.CandyTile"
+        },
+        {
+            "type": "RandomCandy",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.CandyTile"
+        },
+        {
+            "type": "RandomCandy",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.CandyTile"
+        },
+        {
+            "type": "RandomCandy",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.CandyTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
             "type": "Chocolate",
@@ -348,9 +304,9 @@
             "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
-            "type": "RandomCandy",
+            "type": "Marshmallow",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
             "type": "RandomCandy",
@@ -363,9 +319,39 @@
             "$type": "GameVanilla.Game.Common.CandyTile"
         },
         {
-            "type": "RandomCandy",
+            "type": "Marshmallow",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Chocolate",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
             "type": "RandomCandy",
@@ -378,19 +364,39 @@
             "$type": "GameVanilla.Game.Common.CandyTile"
         },
         {
-            "type": "RandomCandy",
+            "type": "Marshmallow",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
-            "type": "RandomCandy",
+            "type": "Marshmallow",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
-            "type": "RandomCandy",
+            "type": "Marshmallow",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.CandyTile"
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
+        },
+        {
+            "type": "Marshmallow",
+            "elementType": "None",
+            "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
             "type": "RandomCandy",
@@ -404,13 +410,8 @@
         }
     ],
     "limitType": "Moves",
-    "limit": 17,
+    "limit": 22,
     "goals": [
-        {
-            "collectableType": "Cherry",
-            "amount": 4,
-            "$type": "GameVanilla.Game.Common.CollectCollectableGoal"
-        },
         {
             "completed": false,
             "$type": "GameVanilla.Game.Common.DestroyAllChocolateGoal"
@@ -424,11 +425,11 @@
         "Red",
         "Yellow"
     ],
-    "score1": 750,
-    "score2": 900,
-    "score3": 1400,
+    "score1": 850,
+    "score2": 1300,
+    "score3": 1600,
     "awardSpecialCandies": true,
-    "awardedSpecialCandyType": "Striped",
+    "awardedSpecialCandyType": "Wrapped",
     "collectableChance": 0,
     "availableBoosters": {
         "Lollipop": true,

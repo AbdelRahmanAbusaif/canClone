@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.19, y: 1}
+  m_AnchoredPosition: {x: -0.7, y: 32.2}
   m_SizeDelta: {x: 257.25, y: 211.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222007451260946772
@@ -70,11 +70,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3011b7cb67ad345f49b941e52cb5c6ec, type: 3}
-    m_FontSize: 110
+    m_FontSize: 194
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
-    m_MaxSize: 120
+    m_MaxSize: 194
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -311,7 +311,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.18945599, y: 0.99967194}
+  m_AnchoredPosition: {x: -1.589502, y: 31.29707}
   m_SizeDelta: {x: 257.25, y: 211.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222449746050015118
@@ -344,11 +344,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3011b7cb67ad345f49b941e52cb5c6ec, type: 3}
-    m_FontSize: 110
+    m_FontSize: 194
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
-    m_MaxSize: 120
+    m_MaxSize: 194
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -424,7 +424,7 @@ RectTransform:
   m_GameObject: {fileID: 1513490435131422}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 224604817105170866}
@@ -452,11 +452,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numLevel: 0
-  currentButtonSprite: {fileID: 21300000, guid: 3e7a0c1ebfec03840b9f59f9a74f022b,
+  currentButtonSprite: {fileID: 21300000, guid: 8568c6f006c11417eae65f5d58771af1,
     type: 3}
-  playedButtonSprite: {fileID: 21300000, guid: 3e7a0c1ebfec03840b9f59f9a74f022b, type: 3}
-  lockedButtonSprite: {fileID: -8282268888292447359, guid: 937bd9b56e3fc1e419c226ac709bf825,
-    type: 3}
+  playedButtonSprite: {fileID: 21300000, guid: 396d7509000fa4ed683fe01b209e3b50, type: 3}
+  lockedButtonSprite: {fileID: 21300000, guid: de9095547c6574cf69f0f304bf1ff203, type: 3}
   yellowStarSprite: {fileID: 21300000, guid: d59110858bec10441b3b546e7246a45d, type: 3}
   buttonImage: {fileID: 114332174766268264}
   numLevelTextBlue: {fileID: 114795001090927596}
@@ -645,7 +644,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3e7a0c1ebfec03840b9f59f9a74f022b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 396d7509000fa4ed683fe01b209e3b50, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

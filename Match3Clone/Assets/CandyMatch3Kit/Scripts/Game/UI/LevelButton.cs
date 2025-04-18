@@ -22,6 +22,9 @@ namespace GameVanilla.Game.UI
     public class LevelButton : MonoBehaviour
     {
         public int numLevel;
+        
+
+      
 
 #pragma warning disable 649
         [SerializeField]
@@ -84,14 +87,19 @@ namespace GameVanilla.Game.UI
         /// </summary>
         private async void Start()
         {
+           
+            int index = transform.GetSiblingIndex();
+            numLevel = index + 1;
+
+
             numLevelTextBlue.text = numLevel.ToString();
             numLevelTextPink.text = numLevel.ToString();
-            // var nextLevel = PlayerPrefs.GetInt("next_level");
+            //var nextLevel = PlayerPrefs.GetInt("next_level");
             
-            var nextLevel = 0;
+           // var nextLevel = 0;
 
             playerProfile = await CloudSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-            nextLevel = playerProfile.Level;
+           var  nextLevel = playerProfile.Level;
 
             if (nextLevel == 0)
             {
@@ -134,22 +142,24 @@ namespace GameVanilla.Game.UI
                 }
             }
             else
-            {/*
+            {
                 buttonImage.sprite = lockedButtonSprite;
                 numLevelTextBlue.gameObject.SetActive(false);
                 numLevelTextPink.gameObject.SetActive(false);
                 star1.SetActive(false);
                 star2.SetActive(false);
                 star3.SetActive(false);
-                */
-
+                
+                /*
                 buttonImage.sprite = currentButtonSprite;
                 star1.SetActive(false);
                 star2.SetActive(false);
                 star3.SetActive(false);
                 shineAnimation.SetActive(true);
                 numLevelTextPink.gameObject.SetActive(false);
+                */
             }
+            
         }
 
         /// <summary>
@@ -157,15 +167,15 @@ namespace GameVanilla.Game.UI
         /// </summary>
         public void OnButtonPressed()
         {
-           /* if (buttonImage.sprite == lockedButtonSprite)
+            if (buttonImage.sprite == lockedButtonSprite)
             {
                 return;
-            }*/
+            }
 
             var scene = GameObject.Find("LevelScene").GetComponent<LevelScene>();
             if (scene != null)
             {
-                // var numLives = PlayerPrefs.GetInt("num_lives");
+               // var numLives = PlayerPrefs.GetInt("num_lives");
                 var numLives = PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
                 if (numLives > 0)
                 {
