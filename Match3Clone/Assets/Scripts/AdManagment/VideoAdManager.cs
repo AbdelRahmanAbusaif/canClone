@@ -9,6 +9,9 @@ using Unity.Services.RemoteConfig;
 using Newtonsoft.Json;
 using System.Linq;
 using TMPro;
+using UnityEngine.Networking;
+using System.IO;
+using System.Threading.Tasks;
 
 
 public class VideoAdManager : MonoBehaviour
@@ -27,8 +30,9 @@ public class VideoAdManager : MonoBehaviour
     private DateTime timeToClose;
     private AudioSource backGroundMusicSource;
 
-    private void Start()
+    private async void Start()
     {
+        await UnityServices.InitializeAsync();
         closedButton.interactable = false;
         vertexImage.gameObject.SetActive(false);
 
@@ -37,7 +41,6 @@ public class VideoAdManager : MonoBehaviour
 
         closedButton.onClick.AddListener(ClosedClicked);
         linkButton.onClick.AddListener(LinkButtonClicked);
-
 
         backGroundMusicSource = FindAnyObjectByType<AudioSource>().GetComponent<AudioSource>();
 
@@ -139,6 +142,7 @@ public class VideoAdManager : MonoBehaviour
         }
     }
 
+
     private void ApplyRemoteConfig(ConfigRequestStatus success)
     {
         if (success == ConfigRequestStatus.Success)
@@ -181,9 +185,10 @@ public class VideoAdManager : MonoBehaviour
                 TimeToShow = DateTime.Now.AddMinutes(video.Duration).ToString(),
             });
 
-            videoPlayer.url = video.Url;
-            vertexImage.gameObject.SetActive(true);
             AdCoordinator.Instance.NotifyAdStarted(); // Notify start
+            videoPlayer.url = video.Url;
+            Debug.Log("Video URL: " + video.Url);
+            vertexImage.gameObject.SetActive(true);
             videoPlayer.Prepare();
             videoPlayer.prepareCompleted += OnVideoPrepared;
         }
@@ -191,6 +196,39 @@ public class VideoAdManager : MonoBehaviour
         {
             Debug.Log("No more ads to show.");
             vertexImage.gameObject.SetActive(false);
+        }
+    }
+
+    private IEnumerator DownloadVideoAd()
+    {
+        using UnityWebRequest request = UnityWebRequest.Get(video.Url);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("Error downloading video: " + request.error);
+            yield break;
+        }
+
+        Debug.Log("Video downloaded successfully.");
+        byte[] videoData = request.downloadHandler.data;
+        string videoPath = Path.Combine(Application.persistentDataPath, "video.mp4");
+
+        File.WriteAllBytes(videoPath, videoData);
+
+        
+    }
+    private void DeleteVideoFile()
+    {
+        string videoPath = Path.Combine(Application.persistentDataPath, "video.mp4");
+        if (File.Exists(videoPath))
+        {
+            File.Delete(videoPath);
+            Debug.Log("Video file deleted: " + videoPath);
+        }
+        else
+        {
+            Debug.LogError("Video file not found: " + videoPath);
         }
     }
 

@@ -233,6 +233,8 @@ public class LoginController : MonoBehaviour
     {
         try
         {
+            LoadingPanel.SetActive(true);
+            
             Debug.Log("Signing in anonymously...");
 
             LocalSaveManager.Instance.DeleteData("PlayerProfile");
@@ -292,7 +294,7 @@ public class LoginController : MonoBehaviour
             await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileBorders", containerProfileBorders);
             await CloudSaveManager.Instance.SaveDataAsync("PrimeSubscriptions", primeSubscription);
 
-
+            LoadingPanel.SetActive(false);
             OnSignInSuccess?.Invoke(playerProfile);
             Debug.Log("Sign in anonymously succeeded!");
         }

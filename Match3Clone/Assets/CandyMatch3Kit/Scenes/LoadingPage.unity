@@ -1081,7 +1081,6 @@ MonoBehaviour:
   uILogin: {fileID: 567607538}
   loadingManager: {fileID: 567607536}
   leaderboardButtonManager: {fileID: 0}
-  leaderboardMainMenu: []
 --- !u!4 &377167679
 Transform:
   m_ObjectHideFlags: 0
@@ -1473,7 +1472,7 @@ MonoBehaviour:
   RetryButton: {fileID: 1092929926}
   uILogin: {fileID: 567607538}
   HomePageScene: HomePage
-  LoginPageScene: LoginPage
+  LoginPageScene: HomeScene
   App_Updated_Number: 
   isAssetsDownloaded: 0
   isAPIDataFetched: 0

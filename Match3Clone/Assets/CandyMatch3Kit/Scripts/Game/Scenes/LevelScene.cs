@@ -67,7 +67,8 @@ namespace GameVanilla.Game.Scenes
            
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
-            var nextLevel = Math.Max(PlayerPrefs.GetInt("next_level"), playerProfile.Level);
+            // var nextLevel = Math.Max(PlayerPrefs.GetInt("next_level"), playerProfile.Level);
+            var nextLevel = playerProfile.Level;
            
             Debug.Log("nextLevel: " + nextLevel);
 

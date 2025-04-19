@@ -48,11 +48,11 @@ public class ApplyRemoteConfig : MonoBehaviour
             Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for LeaderboardButtonManager!");
             leaderboardButtonManager.ApplyRemoteConfig(response);
         }
-        if(adUI != null)
-        {
-            Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for AdUI!");
-            adUI.ApplyRemoteConfig(response);
-        }
+        // if(adUI != null)
+        // {
+        //     Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for AdUI!");
+        //     adUI.ApplyRemoteConfig(response);
+        // }
         // if(storePageManager != null)
         // {
         //     Debug.Log("Remote Config Fetched Successfully in ApplyRemoteConfig for StorePageManager!");

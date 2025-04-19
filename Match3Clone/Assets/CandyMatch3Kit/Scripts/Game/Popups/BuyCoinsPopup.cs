@@ -60,6 +60,17 @@ namespace GameVanilla.Game.Popups
             foreach (var item in PuzzleMatchManager.instance.gameConfig.iapItems)
             {
                 var row = Instantiate(iapRowPrefab);
+                
+                if(transform.parent.GetComponent<VerticalLayoutGroup>() != null)
+                {
+                    GetComponent<RectTransform>().sizeDelta = new Vector2(GetComponent<RectTransform>().sizeDelta.x, GetComponent<RectTransform>().sizeDelta.y + 130f);
+                    GetComponent<RectTransform>().localPosition = new Vector3(GetComponent<RectTransform>().localPosition.x, 0, GetComponent<RectTransform>().localPosition.z);
+
+                    transform.parent.GetComponent<RectTransform>().sizeDelta = new Vector2(transform.GetComponent<RectTransform>().sizeDelta.x, transform.GetComponent<RectTransform>().sizeDelta.y + 20f);
+                    transform.parent.GetComponent<VerticalLayoutGroup>().enabled = false;
+                    transform.parent.GetComponent<VerticalLayoutGroup>().enabled = true;
+                }
+
                 row.transform.SetParent(iapItemsParent.transform, false);
                 row.GetComponent<IapRow>().Fill(item);
                 row.GetComponent<IapRow>().buyCoinsPopup = this;

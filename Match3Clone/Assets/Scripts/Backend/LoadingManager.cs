@@ -160,8 +160,8 @@ public class LoadingManager : MonoBehaviour
         }
         else
         {
-            Transition.LoadLevel(LoginPageScene,1f,Color.black);
-            // loginController.InitSignAnonymous();
+            // Transition.LoadLevel(LoginPageScene,1f,Color.black);
+            loginController.InitSignAnonymous();
         }
     }
 

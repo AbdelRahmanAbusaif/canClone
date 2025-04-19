@@ -44,12 +44,10 @@ namespace GameVanilla.Game.Popups
         protected override void Awake()
         {
             base.Awake();
-            Assert.IsNotNull(levelText);
             Assert.IsNotNull(scoreText);
             Assert.IsNotNull(goalGroup);
             Assert.IsNotNull(scoreOnlyReachedText);
             Assert.IsNotNull(girl);
-            Assert.IsNotNull(boy);
         }
         
         /// <summary>
@@ -58,11 +56,7 @@ namespace GameVanilla.Game.Popups
         protected override void Start()
         {
             base.Start();
-            var avatarSelected = PlayerPrefs.GetInt("avatar_selected");
-            if (avatarSelected == 0)
-                boy.SetActive(false);
-            else
-                girl.SetActive(false);
+            girl.SetActive(false);
         }
 
         /// <summary>

@@ -27,6 +27,21 @@ public class ScoreSystem : MonoBehaviour
 
         fxPool.OnExplode += OnCandyExplode;
         gameScene.OnWinPopupOpened += OnGameWin;
+        gameScene.OnRestartGameButtonPressed += OnRestartGameButtonPressed;
+    }
+
+    private void OnRestartGameButtonPressed()
+    {
+        foreach (var score in scores)
+        {
+            if(!score.isScoreAvailable)
+            {
+                continue;
+            }
+            score.score = 0;
+            score.scoreText.text = score.score.ToString();
+        }
+        Debug.Log("Restart game button pressed. Scores reset.");
     }
 
     private void ApplyRemoteConfig(ConfigResponse response)
@@ -81,6 +96,7 @@ public class ScoreSystem : MonoBehaviour
 
         fxPool.OnExplode -= OnCandyExplode;
         gameScene.OnWinPopupOpened -= OnGameWin;
+        gameScene.OnRestartGameButtonPressed -= OnRestartGameButtonPressed;
     }
     [Serializable]
     public class Score

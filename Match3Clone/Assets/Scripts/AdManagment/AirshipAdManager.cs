@@ -113,7 +113,7 @@ public class AirshipAdManager : MonoBehaviour
                 continue;
             }
 
-            yield return new WaitForSeconds(10f); // Show the 
+            yield return new WaitForSeconds(14f); // Show the 
             AdCoordinator.Instance.NotifyAdEnded();
             var airshipAdComponent = new AirAdComponent
             {

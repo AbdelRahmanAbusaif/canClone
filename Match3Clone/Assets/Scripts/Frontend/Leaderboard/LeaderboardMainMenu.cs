@@ -40,14 +40,17 @@ public class LeaderboardMainMenu : MonoBehaviour
 
                 leaderboardItem.Initializer(scoreResponse.Results[i]);
             }
-
-            var playerMainProfile = Instantiate(leaderboardItemPrefab, playerContainer);
-
-            playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
-            playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
-            playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
             
-            playerMainProfile.Initializer(playerScore);
+            if(scoreResponse.Results.Find(x => x.PlayerId == playerScore.PlayerId).PlayerId != playerScore.PlayerId)
+            {
+                var playerMainProfile = Instantiate(leaderboardItemPrefab, playerContainer);
+
+                playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
+                playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
+                playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
+                
+                playerMainProfile.Initializer(playerScore);
+            }
 
             foreach (var leaderboardItem in leaderboardItems)
             {

@@ -21,15 +21,34 @@ public class AdUI : MonoBehaviour
     private DateTime adTimer;
     private List<AdManager> adManagers;
     private TimeSpan adTimerSpan = new TimeSpan(0, 0, 0);
+    private void OnEnable() 
+    {
+        ApplyRemoteConfig();
+    }
 
-    public async void ApplyRemoteConfig(ConfigResponse response)
+    public async void ApplyRemoteConfig()
     {
         Debug.Log("Remote Config Fetched Successfully! (AdUI)");
         Debug.Log("Name of this Object " + gameObject.name);
         adManagers = await LocalSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManager");
 
-        var jsonData = RemoteConfigService.Instance.appConfig.GetJson("AdRewards");
-        adData = JsonConvert.DeserializeObject<List<AdData>>(jsonData);
+        if(adData.Count == 0)
+        {
+            var jsonData = RemoteConfigService.Instance.appConfig.GetJson("AdRewards");
+            adData = JsonConvert.DeserializeObject<List<AdData>>(jsonData);
+            Debug.Log("Ad Data Loaded from Remote Config: " + jsonData);
+        }
+        else
+        {
+            adUIComponents.Clear();
+            foreach(var child in adContainer.GetComponentsInChildren<Transform>())
+            {
+                if(child != adContainer)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
 
         Debug.Log($"Ad Data Count: {adData.Count}");
         for (int i = 0; i < adData.Count; i++)
@@ -42,8 +61,9 @@ public class AdUI : MonoBehaviour
 
                 adManager = adManagers.FirstOrDefault(x => x.AdId == ad.AdId);
 
-                Instantiate(adPrefabs, adContainer).GetComponent<AdUIComponent>().SetAdData(ad.AdId,ad.AdClicksGoal.ToString(), adManager.AdCounter.ToString(), ad.AdReward.ToString());
-                adUIComponents.Add(adPrefabs);
+                var adUI =  Instantiate(adPrefabs, adContainer); 
+                adUI.GetComponent<AdUIComponent>().SetAdData(ad.AdId,ad.AdClicksGoal.ToString(), adManager.AdCounter.ToString(), ad.AdReward.ToString());
+                adUIComponents.Add(adUI);
 
                 continue;
             }
@@ -55,8 +75,9 @@ public class AdUI : MonoBehaviour
                 AdNextTimer = ""
             };
 
-            Instantiate(adPrefabs, adContainer).GetComponent<AdUIComponent>().SetAdData(ad.AdId,ad.AdClicksGoal.ToString(), adManager.AdCounter.ToString(), ad.AdReward.ToString());
-            adUIComponents.Add(adPrefabs);
+            var adUIClone =  Instantiate(adPrefabs, adContainer); 
+            adUIClone.GetComponent<AdUIComponent>().SetAdData(ad.AdId,ad.AdClicksGoal.ToString(), adManager.AdCounter.ToString(), ad.AdReward.ToString());
+            adUIComponents.Add(adUIClone);
             
             adManagers.Add(adManager);
 

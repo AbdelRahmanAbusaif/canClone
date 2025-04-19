@@ -26,6 +26,7 @@ namespace GameVanilla.Game.Scenes
 	{
         // when call this event will be added score to player profile
         public Action OnWinPopupOpened;
+        public Action OnRestartGameButtonPressed;
 		public GameBoard gameBoard;
 
 		public GameUi gameUi;
@@ -134,6 +135,7 @@ namespace GameVanilla.Game.Scenes
 	    /// </summary>
 		public void RestartGame()
 		{
+            OnRestartGameButtonPressed?.Invoke();
 		    gameStarted = false;
 		    gameFinished = false;
 		    gameBoard.ResetLevelData();

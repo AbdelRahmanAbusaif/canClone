@@ -17,7 +17,7 @@ namespace GameVanilla.Core
         public static SoundManager instance;
 
         private ObjectPool soundPool;
-        private readonly Dictionary<string, AudioClip> nameToSound = new Dictionary<string, AudioClip>();
+        private static readonly Dictionary<string, AudioClip> nameToSound = new Dictionary<string, AudioClip>();
 
         private BackgroundMusic bgMusic;
 
@@ -31,22 +31,23 @@ namespace GameVanilla.Core
                 Destroy(gameObject);
                 return;
             }
+            foreach (var sound in sounds)
+            {
+                if(nameToSound.ContainsKey(sound.name))
+                {
+                    Debug.Log("Sound " + sound.name + " already exists in the dictionary. Please check for duplicates.");
+                }
+                else
+                {
+                    Debug.Log("Adding sound: " + sound.name);
+                    nameToSound.Add(sound.name, sound);
+                }
+            }
+            bgMusic = FindFirstObjectByType<BackgroundMusic>();
             instance = this;
             DontDestroyOnLoad(gameObject);
 
             soundPool = GetComponent<ObjectPool>();
-        }
-
-        /// <summary>
-        /// Unity's Start method.
-        /// </summary>
-        private void Start()
-        {
-            foreach (var sound in sounds)
-            {
-                nameToSound.Add(sound.name, sound);
-            }
-            bgMusic = FindFirstObjectByType<BackgroundMusic>();
         }
 
         /// <summary>
@@ -99,6 +100,18 @@ namespace GameVanilla.Core
         /// <param name="loop">True if the sound should be looped; false otherwise.</param>
         public void PlaySound(string soundName, bool loop = false)
         {
+            foreach (var sound in sounds)
+            {
+                if(nameToSound.ContainsKey(sound.name))
+                {
+                    Debug.Log("Sound " + sound.name + " already exists in the dictionary. Please check for duplicates.");
+                }
+                else
+                {
+                    Debug.Log("Adding sound: " + sound.name);
+                    nameToSound.Add(sound.name, sound);
+                }
+            }
             var clip = nameToSound[soundName];
             if (clip != null)
             {
