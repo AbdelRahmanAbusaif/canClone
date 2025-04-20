@@ -16,12 +16,12 @@ public class NavigationBarButton : MonoBehaviour
         if(targetObjectPage.activeInHierarchy)
         {
             GetComponent<RectTransform>().localScale = new Vector3(1.1f, 1.1f, 1.1f);
-            imageButton.color = Color.gray;
+          //  imageButton.color = Color.gray;
         }
         else
         {
             GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
-            imageButton.color = Color.black;
+          //  imageButton.color = Color.black;
         }
     }
 }
