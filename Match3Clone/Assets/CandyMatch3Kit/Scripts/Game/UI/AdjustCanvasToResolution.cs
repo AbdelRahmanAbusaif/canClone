@@ -22,7 +22,7 @@ namespace GameVanilla.Game.UI
 		/// <summary>
 		/// Unity's Start method.
 		/// </summary>
-		private void Start()
+		private void OnEnable()
 		{
 			canvasScaler = GetComponent<CanvasScaler>();
 			
@@ -30,11 +30,9 @@ namespace GameVanilla.Game.UI
 			canvasScaler.matchWidthOrHeight = gameConfig.defaultCanvasScalingMatch;
 			foreach (var resolution in gameConfig.resolutionOverrides)
 			{
-				if (resolution.width == Screen.width && resolution.height == Screen.height)
-				{
-					canvasScaler.matchWidthOrHeight = resolution.canvasScalingMatch;
-					break;
-				}
+				Debug.Log("Resolution: " + resolution.ToString() + " - Match: " + resolution.canvasScalingMatch.ToString());
+				Debug.Log("Current: " + Screen.width + "x" + Screen.height);
+				canvasScaler.matchWidthOrHeight = resolution.canvasScalingMatch;
 			}
 		}
 	}

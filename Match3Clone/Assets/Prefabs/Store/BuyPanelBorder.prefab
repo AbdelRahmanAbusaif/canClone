@@ -2414,6 +2414,8 @@ MonoBehaviour:
   itemNameText: {fileID: 6317565714288625104}
   itemImage: {fileID: 5206133555854936795}
   animationBox: {fileID: 7686237203313128701}
+  loadingSpinner: {fileID: 1705508171135630, guid: e4d337a24aa0e4088aab50817ad772b8,
+    type: 3}
 --- !u!114 &7686237203313128701
 MonoBehaviour:
   m_ObjectHideFlags: 0

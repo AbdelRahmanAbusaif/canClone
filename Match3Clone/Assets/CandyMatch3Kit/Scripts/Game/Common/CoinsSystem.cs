@@ -12,6 +12,7 @@ public class CoinsSystem : MonoBehaviour
     private const string COIN_CURRENCY_ID = "TOKEN_COIN";
     
     public int Coins { get; private set; }
+    public GameObject loadingSpinner;
     private async void Start()
     {
         await InitializeUnityServices();
@@ -43,10 +44,12 @@ public class CoinsSystem : MonoBehaviour
     {
         try
         {
+            loadingSpinner.SetActive(true);
             await EconomyService.Instance.PlayerBalances.IncrementBalanceAsync(COIN_CURRENCY_ID, amount);
             long newBalance = await GetCurrentCoins();
             onCoinsUpdated?.Invoke(newBalance);
 
+            loadingSpinner.SetActive(false);
             Coins = (int)newBalance;
         }
         catch (Exception e)
@@ -63,6 +66,7 @@ public class CoinsSystem : MonoBehaviour
     {
         try
         {
+            loadingSpinner.SetActive(true);
             long currentBalance = await GetCurrentCoins();
             if (currentBalance >= amount)
             {
@@ -76,6 +80,7 @@ public class CoinsSystem : MonoBehaviour
             {
                 Debug.LogWarning("Not enough coins to spend.");
             }
+            loadingSpinner.SetActive(false);
         }
         catch (Exception e)
         {

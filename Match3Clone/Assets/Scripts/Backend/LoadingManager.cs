@@ -41,8 +41,9 @@ public class LoadingManager : MonoBehaviour
     {
         await UnityServices.InitializeAsync();
 
-        PlayerPrefs.SetInt("IsFirstTime", 1);
-        PlayerPrefs.SetInt("IsFirstTimeVideoAd", 1);
+        PlayerPrefs.DeleteKey("IsFirstTime");
+        PlayerPrefs.SetInt("IsFirstTimeVideoAd",1);
+        PlayerPrefs.DeleteKey("TimeToShowInSecond");
         PlayerPrefs.Save();
 
         

@@ -12,13 +12,12 @@ public class PrimeSubscriptionPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private AnimationBox animationBox;
     [SerializeField] private Button buyButton;
-    private PlayerProfile playerProfile;
+    [SerializeField] private GameObject loadingSpinner;
     private PrimeSubscription primeSubscription;
 
     private ConsumableItem data;
     private async void OnEnable() 
     {
-        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         data = await LocalSaveManager.Instance.LoadDataAsync<ConsumableItem>("PrimeSubscriptions");
         
         buyButton.onClick.AddListener(OnClickBuyButton);
@@ -32,6 +31,7 @@ public class PrimeSubscriptionPanel : MonoBehaviour
     }
     private void OnClickBuyButton()
     {
+        loadingSpinner.SetActive(true);
         int price = int.Parse(primeSubscription.Price);
         int coins = PuzzleMatchManager.instance.coinsSystem.Coins;
 
@@ -85,6 +85,7 @@ public class PrimeSubscriptionPanel : MonoBehaviour
         await CloudSaveManager.Instance.SaveDataAsync<ConsumableItem>("PrimeSubscriptions", data);
 
         OnSubscriptionPurchased?.Invoke();
+        loadingSpinner.SetActive(false);
         animationBox.OnClose();
     }
 

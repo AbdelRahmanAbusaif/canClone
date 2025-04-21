@@ -23,14 +23,14 @@ public class UpdateClip : MonoBehaviour
             return;
         }
 
-        string clipPath = Path.Combine("DownloadedAssets", clipKey);
+        string clipPath = Path.Combine(Application.persistentDataPath,"DownloadedAssets", clipKey);
 
-        if (!File.Exists(clipPath))
+        if (!File.Exists(clipPath+".wav"))
         {
-            Debug.LogError($"Audio file not found at path: {clipPath}");
+            Debug.LogError($"Audio file not found at path: {clipPath}.wav");
             return;
         }
-     
+
         AudioClip audioClip = await LocalSaveManager.Instance.LoadClipAsync(clipPath);
         audioClip.name = clipKey;
 

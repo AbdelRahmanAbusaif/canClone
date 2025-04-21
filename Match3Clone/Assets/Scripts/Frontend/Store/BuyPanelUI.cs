@@ -13,8 +13,8 @@ public class BuyPanelUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private Image itemImage;
     [SerializeField] private AnimationBox animationBox;
+    [SerializeField] private GameObject loadingSpinner;
     private StoreItem storeItem;
-    private PlayerProfile playerProfile;
     private List<ConsumableItem> avatarContainers = new List<ConsumableItem>();
     private List<ConsumableItem> coverContainers = new List<ConsumableItem>();
     private List<ConsumableItem> borderContainers = new List<ConsumableItem>();
@@ -88,6 +88,7 @@ public class BuyPanelUI : MonoBehaviour
 
     private async System.Threading.Tasks.Task BuyItemWithCoin(int price, string duration)
     {
+        loadingSpinner.SetActive(true);
         var coins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
         
         Debug.Log("Coins: " + coins);
@@ -173,6 +174,7 @@ public class BuyPanelUI : MonoBehaviour
                 await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileBorders", data);
                 break;
         }
+        loadingSpinner.SetActive(false);
         animationBox.OnClose();
     }
     public void OnClose()

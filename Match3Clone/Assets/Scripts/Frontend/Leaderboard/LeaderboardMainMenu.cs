@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TMPro;
-using Unity.Services.RemoteConfig;
 using UnityEngine;
-using static RemotelyDownloadAssets;
 using Random = UnityEngine.Random;
 
 public class LeaderboardMainMenu : MonoBehaviour
@@ -13,6 +10,7 @@ public class LeaderboardMainMenu : MonoBehaviour
     [SerializeField] private string leaderboardTitleKey;
     [SerializeField] private int playerPerPage = 9;
     [SerializeField] private LeaderboardItem leaderboardItemPrefab;
+    [SerializeField] private LeaderboardItem myLeaderboardItemPrefab;
     [SerializeField] private RectTransform playerContainer;
     
     [SerializeField] private List<LeaderboardItem> leaderboardItems = new List<LeaderboardItem>();
@@ -40,10 +38,13 @@ public class LeaderboardMainMenu : MonoBehaviour
 
                 leaderboardItem.Initializer(scoreResponse.Results[i]);
             }
-            
-            if(scoreResponse.Results.Find(x => x.PlayerId == playerScore.PlayerId).PlayerId != playerScore.PlayerId)
+            foreach (var leaderboardItem in leaderboardItems)
             {
-                var playerMainProfile = Instantiate(leaderboardItemPrefab, playerContainer);
+                leaderboardItem.Initializer(scoreResponse.Results[leaderboardItems.IndexOf(leaderboardItem)]);
+            }
+            if(scoreResponse.Results.Find(x => x.PlayerId == playerScore.PlayerId).PlayerId != playerScore.PlayerId && leaderboardItems.Find(x=> x.player.PlayerId == playerScore.PlayerId) == null)
+            {
+                var playerMainProfile = Instantiate(myLeaderboardItemPrefab, playerContainer);
 
                 playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
                 playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
@@ -51,12 +52,24 @@ public class LeaderboardMainMenu : MonoBehaviour
                 
                 playerMainProfile.Initializer(playerScore);
             }
-
-            foreach (var leaderboardItem in leaderboardItems)
+            if(scoreResponse.Results.Count < playerPerPage)
             {
-                leaderboardItem.Initializer(scoreResponse.Results[leaderboardItems.IndexOf(leaderboardItem)]);
+                for (int i = scoreResponse.Results.Count; i < playerPerPage; i++)
+                {
+                    LeaderboardItem leaderboardItem = Instantiate(leaderboardItemPrefab, playerContainer);
+                    
+                    Names names = (Names)Random.Range(0, Enum.GetValues(typeof(Names)).Length);
+                    MYLeaderboardEntry leaderboardEntry = new MYLeaderboardEntry
+                    {
+                        PlayerId = System.Guid.NewGuid().ToString(),
+                        PlayerName = names.ToString(),
+                        Score = 0,
+                        Rank = i + 1
+                    };
+                    leaderboardItem.SetFakeData(leaderboardEntry);
+                    playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + leaderboardItem.GetComponent<RectTransform>().sizeDelta.y + 30f);
+                }
             }
-
         }
         catch (Exception e) when (e is TaskCanceledException || e is TimeoutException)
         {
@@ -72,4 +85,36 @@ public class LeaderboardMainMenu : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+}
+
+public class MYLeaderboardEntry
+{
+    public string PlayerId { get; set; }
+    public string PlayerName { get; set; }
+    public int Score { get; set; }
+    public int Rank { get; set; }
+}
+public enum Names
+{
+    Mohammad,
+    Ali,
+    Reza,
+    Sara,
+    Fatemeh,
+    Niloofar,
+    Mahsa,
+    Parisa,
+    Yasaman,
+    Narges,
+    Shirin,
+    Leila,
+    Samira,
+    Setareh,
+    Shadi,
+    Yasmin,
+    Zeynab,
+    Zahra,
+    Mahin,
+    AbdelRahman,
+    Ahmed,
 }

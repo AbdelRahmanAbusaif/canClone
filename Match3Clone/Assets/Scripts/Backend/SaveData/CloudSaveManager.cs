@@ -187,11 +187,11 @@ namespace SaveData
             }
         }
 
-        public async void LoadImageUsePlayerId(string playerId, Image targetImage)
+        public async void LoadImageUsePlayerId(string playerId,string imageKey, Image targetImage)
         {
             try
             {
-                var imageData = await LoadPublicDataByPlayerId(playerId, "PlayerProfileImage");
+                var imageData = await LoadPublicDataByPlayerId(playerId,imageKey);
 
                 byte[] imageDataBytes = System.Convert.FromBase64String(imageData);
                 Texture2D texture = new Texture2D(2, 2);

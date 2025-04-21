@@ -51,10 +51,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 939313186940228444}
+  textContainer: {fileID: 4293426573855362378}
   itemName: {fileID: 274317456279611029}
   expiredText: {fileID: 8680269372817265127}
   itemButton: {fileID: 4041934223550570905}
   consumableType: 1
+  loadingSpinner: {fileID: 1705508171135630, guid: e4d337a24aa0e4088aab50817ad772b8,
+    type: 3}
 --- !u!1 &3037859838879833753
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,6 @@ using System.Linq;
 using System;
 using Unity.Services.RemoteConfig;
 using Newtonsoft.Json;
-using Unity.Services.Core;
 
 public class AirshipAdManager : MonoBehaviour
 {
@@ -89,7 +88,6 @@ public class AirshipAdManager : MonoBehaviour
         {
             while (!AdCoordinator.Instance.CanShowAd())
             {
-                Debug.Log("Another ad is showing. Delaying airship ad.");
                 yield return null; // wait until other ad finishes
             }
             var ad = airShipAds.Dequeue();
@@ -118,7 +116,7 @@ public class AirshipAdManager : MonoBehaviour
             var airshipAdComponent = new AirAdComponent
             {
                 AirShipAd = ad,
-                TimeToShow = DateTime.Now.AddSeconds(315).ToString() // Set the time to show the ad
+                TimeToShow = DateTime.Now.AddSeconds(30).ToString() // Set the time to show the ad
             };
             waitingAds.Add(airshipAdComponent);
             Destroy(adInstance); // Destroy the ad instance after showing

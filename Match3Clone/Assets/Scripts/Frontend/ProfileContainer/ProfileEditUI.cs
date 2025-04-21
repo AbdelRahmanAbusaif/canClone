@@ -10,10 +10,12 @@ public class ProfileEditUI : MonoBehaviour
 {
     public static event Action<ConsumableType,Sprite> OnImageChanged;
     [SerializeField] private Image itemImage;
+    [SerializeField] private Image textContainer;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI expiredText;
     [SerializeField] private Button itemButton;
     [SerializeField] private ConsumableType consumableType;
+    [SerializeField] private GameObject loadingSpinner;
 
     private void Start() 
     {
@@ -38,8 +40,10 @@ public class ProfileEditUI : MonoBehaviour
 
     private async Task ChangeImage(string key,ConsumableType consumableType)
     {
+        loadingSpinner.SetActive(true);
         await CloudSaveManager.Instance.SaveImageAsync(key, itemImage.sprite.texture);
         OnImageChanged?.Invoke(consumableType, itemImage.sprite);
+        loadingSpinner.SetActive(false);
     }
 
     public async void SetItemData(string itemId, string name, ConsumableType consumableType)
@@ -76,8 +80,22 @@ public class ProfileEditUI : MonoBehaviour
 
             DateTime expirationDate = DateTime.Parse(item.DateExpired);
             var timeLeft = expirationDate.Date - DateTime.Now.Date;
-            
-            expiredText.text = timeLeft.Days.ToString();
+
+            if(timeLeft.Days < 0)
+            {
+                timeLeft = expirationDate - ServerTimeManager.Instance.CurrentTime;
+                expiredText.text = "hh:mm";
+            }
+            else if(timeLeft.Days >= 1000f)
+            {
+                expiredText.text = "";
+                textContainer.gameObject.SetActive(false);
+
+            }
+            else
+            {
+                expiredText.text = timeLeft.Days.ToString();
+            }
 
             CloudSaveManager.Instance.LoadImageAsync(item.Id, itemImage, false);
         }

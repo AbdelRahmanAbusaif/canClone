@@ -188,10 +188,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 4834554491729548049}
+  textContainer: {fileID: 5144360375017245709}
   itemName: {fileID: 274317456279611029}
   expiredText: {fileID: 6054534482667784721}
   itemButton: {fileID: 4041934223550570905}
   consumableType: 2
+  loadingSpinner: {fileID: 1705508171135630, guid: e4d337a24aa0e4088aab50817ad772b8,
+    type: 3}
 --- !u!1 &2211055829899180378
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,7 +784,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy
+  m_text: Use
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 015573da50ed04390be9f20287a541d6, type: 2}
   m_sharedMaterial: {fileID: -2237749729835323621, guid: 015573da50ed04390be9f20287a541d6,
