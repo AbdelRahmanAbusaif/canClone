@@ -116,7 +116,7 @@ public class AirshipAdManager : MonoBehaviour
             var airshipAdComponent = new AirAdComponent
             {
                 AirShipAd = ad,
-                TimeToShow = DateTime.Now.AddSeconds(30).ToString() // Set the time to show the ad
+                TimeToShow = DateTime.Now.AddSeconds(315).ToString() // Set the time to show the ad
             };
             waitingAds.Add(airshipAdComponent);
             Destroy(adInstance); // Destroy the ad instance after showing

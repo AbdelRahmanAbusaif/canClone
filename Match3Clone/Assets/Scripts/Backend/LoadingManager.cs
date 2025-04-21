@@ -43,7 +43,7 @@ public class LoadingManager : MonoBehaviour
         await UnityServices.InitializeAsync();
 
         PlayerPrefs.DeleteKey("IsFirstTime");
-        PlayerPrefs.SetInt("TimeToShowInSecond",10);
+        PlayerPrefs.SetInt("TimeToShowInSecond",120);
         PlayerPrefs.Save();
 
         File.Delete(Path.Combine(Application.persistentDataPath,"waitingVideo.json"));
