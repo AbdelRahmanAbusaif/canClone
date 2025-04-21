@@ -1,4 +1,5 @@
 using System.Collections;
+using System.IO;
 using System.Threading.Tasks;
 using GameVanilla.Core;
 using TMPro;
@@ -42,10 +43,10 @@ public class LoadingManager : MonoBehaviour
         await UnityServices.InitializeAsync();
 
         PlayerPrefs.DeleteKey("IsFirstTime");
-        PlayerPrefs.SetInt("IsFirstTimeVideoAd",1);
-        PlayerPrefs.DeleteKey("TimeToShowInSecond");
+        PlayerPrefs.SetInt("TimeToShowInSecond",10);
         PlayerPrefs.Save();
 
+        File.Delete(Path.Combine(Application.persistentDataPath,"waitingVideo.json"));
         
         remoteAssetDownloader.OnDownloadCompleted += (bool isAssetsDownloaded) => {
             if(isAssetsDownloaded)

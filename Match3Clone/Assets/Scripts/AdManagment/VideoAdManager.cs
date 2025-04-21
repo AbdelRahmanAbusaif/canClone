@@ -11,12 +11,14 @@ using TMPro;
 using UnityEngine.Networking;
 using System.IO;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
+using UnityEngine.Purchasing.MiniJSON;
 
 
 public class VideoAdManager : MonoBehaviour
 {
     [Header("Required Components")]
-    [SerializeField] private List<VideoAdComponent> waitingAds = new List<VideoAdComponent>();
+    [SerializeField] private Queue<VideoAdComponent> waitingAds = new();
     [SerializeField] private VideoPlayer videoPlayer;
     [SerializeField] private RawImage vertexImage;
     [SerializeField] private Button closedButton;
@@ -25,7 +27,8 @@ public class VideoAdManager : MonoBehaviour
     [SerializeField] private Slider progressBar;
     private Queue<VideoAd> videoAds = new Queue<VideoAd>();
     private VideoAd video;
-    private VideoAdComponent videoAdComponent = null;
+    private List<VideoAd> videoAdComponents = new List<VideoAd>();
+    private VideoAdComponent videoAdComponent;
     private DateTime timeToClose;
     private AudioSource backGroundMusicSource;
 
@@ -45,32 +48,32 @@ public class VideoAdManager : MonoBehaviour
 
         backGroundMusicSource = FindAnyObjectByType<AudioSource>().GetComponent<AudioSource>();
 
-        ApplyRemoteConfig(ConfigRequestStatus.Success);
-        if(PlayerPrefs.GetInt("IsFirstTimeVideoAd",1) == 1)
+        if(File.Exists(Path.Combine(Application.persistentDataPath,"waitingVideo.json")))
         {
-            Debug.Log("Not First time video ad.");
+            var jsonFile = File.ReadAllText(Path.Combine(Application.persistentDataPath,"waitingVideo.json"));
+            waitingAds = JsonConvert.DeserializeObject<Queue<VideoAdComponent>>(jsonFile);
+            Debug.Log("Waiting ads loaded from file.");
+            Debug.Log("Waiting ads count: " + waitingAds.Count);
+            Debug.Log("Json file: " + jsonFile);
+            foreach(var waitingAd in waitingAds)
+            {
+                videoAds.Enqueue(waitingAd.videoAd);
 
-            PlayerPrefs.SetInt("IsFirstTimeVideoAd", 0);
-            PlayerPrefs.SetInt("TimeToShowInSecond", 10);
-            PlayerPrefs.Save();
-            
-            timeToShowInSecond = PlayerPrefs.GetInt("TimeToShowInSecond");
-            StartCoroutine(CheckTimer());
+            }
+            Debug.Log("Video ads count: " + videoAds.Count);
+
+            Debug.Log("Video file exists.");
+            StartCoroutine(PlayAdAgain());
         }
-        else if(PlayerPrefs.GetInt("IsFirstTimeVideoAd") == 2)
+        else
         {
-            Debug.Log("Not First time video ad.");
-            timeToShowInSecond = PlayerPrefs.GetInt("TimeToShowInSecond");
-            StartCoroutine(CheckTimer());
+            Debug.Log("Video file does not exist.");
+            ApplyRemoteConfig(ConfigRequestStatus.Success);
         }
     }
     private void Update() 
     {
-        if(SceneManager.GetActiveScene().name != "LevelScene")
-        {
-            return;
-        }
-        if(timeToClose < DateTime.Now)
+        if(videoAdComponent != null && waitingAds.Count > 0)
         {
             closeTimeText.text = "00:00";
             closedButton.interactable = true;
@@ -82,110 +85,7 @@ public class VideoAdManager : MonoBehaviour
             closeTimeText.text = TimeSpan.FromSeconds((timeToClose - DateTime.Now).TotalSeconds).ToString(@"mm\:ss");
             progressBar.value = (float)(timeToClose - DateTime.Now).TotalSeconds / 5f;
         }
-        if(waitingAds.Count > 0 || videoAdComponent != null)
-        {
-            if( waitingAds.Count > 0 && videoAdComponent == null)
-            {
-                Debug.Log("Video Ad is null");
-                videoAdComponent = waitingAds.FirstOrDefault();
-            }
-            if(videoAdComponent != null && waitingAds.Contains(videoAdComponent))
-            {
-                waitingAds.Remove(videoAdComponent);
-            }
-            if(DateTime.Now.ToString() == videoAdComponent.TimeToShow)
-            {
-                Debug.Log("Ad Show");
-                videoAds.Enqueue(videoAdComponent.videoAd);
-                videoAdComponent = null;
-                StartCoroutine(PlayVideo());
-            }
-        }   
     }
-    private void LinkButtonClicked()
-    {
-        if(video != null)
-        {
-            Application.OpenURL(video.LinkUrl);
-        }
-        else
-        {
-            Debug.LogError("Video is null.");
-        }
-    }
-
-    private IEnumerator CheckTimer()
-    {
-        Debug.Log("Checking timer for video ad.");
-        Debug.Log("Time to show in second: " + timeToShowInSecond);
-        while(timeToShowInSecond > 0)
-        {
-            timeToShowInSecond--;
-            Debug.Log("Time to show in second: " + timeToShowInSecond);
-            PlayerPrefs.SetInt("TimeToShowInSecond", timeToShowInSecond);
-            PlayerPrefs.SetInt("IsFirstTimeVideoAd", 2);
-            PlayerPrefs.Save();
-            yield return new WaitForSeconds(1f);
-        }
-        if(timeToShowInSecond <= 0)
-        {
-            Debug.Log("Time to show video ad is up.");
-            timeToShowInSecond = 0;
-            PlayerPrefs.SetInt("TimeToShowInSecond", timeToShowInSecond);
-            PlayerPrefs.SetInt("IsFirstTimeVideoAd", 3);
-            PlayerPrefs.Save();
-            StartCoroutine(PlayVideo());
-        }
-        yield return null;
-    }
-
-
-    private void ClosedClicked()
-    {
-        if(timeToClose < DateTime.Now)
-        {
-            videoPlayer.Stop();
-            vertexImage.gameObject.SetActive(false);
-            videoPlayer.clip = null;
-            backGroundMusicSource.mute = false;
-            AdCoordinator.Instance.NotifyAdEnded(); // Notify end
-            StartCoroutine(PlayVideo());
-        }
-        else
-        {
-            Debug.Log("Video is still playing.");
-        }
-    }
-
-    private void OnVideoPrepared(VideoPlayer source)
-    {
-        videoPlayer.prepareCompleted -= OnVideoPrepared;
-        videoPlayer.Play();
-        backGroundMusicSource.mute = true;
-        closedButton.interactable = false;
-        timeToClose = DateTime.Now.AddSeconds(5);
-    }
-
-    private void OnVideoEnd(VideoPlayer source)
-    {
-        Debug.Log("Video ended.");
-
-        AdCoordinator.Instance.NotifyAdEnded(); // Notify end
-
-        videoPlayer.Stop();
-        backGroundMusicSource.mute = false;
-        vertexImage.gameObject.SetActive(false);
-        videoPlayer.clip = null;
-
-        DeleteVideoFile(); // delete video file after playing
-
-        if (videoAds.Count > 0)
-        {
-            StartCoroutine(PlayVideo()); // attempt next ad if possible
-        }
-    }
-
-
     private void ApplyRemoteConfig(ConfigRequestStatus success)
     {
         if (success == ConfigRequestStatus.Success)
@@ -198,19 +98,65 @@ public class VideoAdManager : MonoBehaviour
                 return;
             }
 
-            List<VideoAd> videoAdComponents = JsonConvert.DeserializeObject<List<VideoAd>>(json);
+            videoAdComponents = JsonConvert.DeserializeObject<List<VideoAd>>(json);
             Debug.Log("VideoAdConfig: " + json);
+            StartCoroutine(CheckTimer());
+        }
+    }
+    private IEnumerator PlayAdAgain()
+    {
+        Debug.Log("Playing ad Again.");
+        
+        DateTime timeToShow = DateTime.Parse(waitingAds.Peek().TimeToShow);
+        double timeToShowAgain = timeToShow.Subtract(DateTime.Now).TotalSeconds;
+        Debug.Log("Time to show again: " + timeToShowAgain);
+        while(timeToShowAgain > 0)
+        {
+            timeToShowAgain--;
+            Debug.Log("Time to show again: " + timeToShowAgain);
+            yield return new WaitForSeconds(1f);
+        }
+        StartCoroutine(CheckTimer());
+    }
+
+    private IEnumerator CheckTimer()
+    {
+        Debug.Log("Checking timer for video ad.");
+        timeToShowInSecond = PlayerPrefs.GetInt("TimeToShowInSecond");
+        Debug.Log("Time to show in second: " + timeToShowInSecond);
+        while(timeToShowInSecond > 0)
+        {
+            timeToShowInSecond--;
+            Debug.Log("Time to show in second: " + timeToShowInSecond);
+            PlayerPrefs.SetInt("TimeToShowInSecond", timeToShowInSecond);
+            yield return new WaitForSeconds(1f);
+        }
+        if(timeToShowInSecond <= 0)
+        {
+            Debug.Log("Time to show video ad is up.");
+            timeToShowInSecond = 0;
+            PlayerPrefs.SetInt("TimeToShowInSecond", timeToShowInSecond);
+            PlayerPrefs.Save();
+
             foreach(var videoAdComponent in videoAdComponents)
             {
                 videoAds.Enqueue(videoAdComponent);
+                waitingAds.Enqueue(new VideoAdComponent
+                {
+                    videoAd = videoAdComponent,
+                    TimeToShow = DateTime.Now.AddMinutes(videoAdComponent.Duration).ToString(),
+                });
             }
+            File.WriteAllTextAsync(Path.Combine(Application.persistentDataPath,"waitingVideo.json"), JsonConvert.SerializeObject(waitingAds));
+
+            StartCoroutine(PlayVideo());
         }
+        yield return null;
     }
+
 
     private IEnumerator PlayVideo()
     {
-        PlayerPrefs.SetInt("IsFirstTimeVideoAd", 4);
-        PlayerPrefs.Save();
         while(!AdCoordinator.Instance.CanShowAd())
         {
             Debug.Log("Another ad is showing. Delaying video ad.");
@@ -218,13 +164,9 @@ public class VideoAdManager : MonoBehaviour
         }
         if (videoAds.Count > 0)
         {
-            video = videoAds.Dequeue();
 
-            waitingAds.Add(new VideoAdComponent
-            {
-                videoAd = video,
-                TimeToShow = DateTime.Now.AddMinutes(video.Duration).ToString(),
-            });
+            video = videoAds.Dequeue();
+            videoAdComponent = waitingAds.Dequeue();
 
             AdCoordinator.Instance.NotifyAdStarted(); // Notify start
             
@@ -245,7 +187,6 @@ public class VideoAdManager : MonoBehaviour
             File.WriteAllBytes(videoPath, videoData);
 
             videoPlayer.prepareCompleted += OnVideoPrepared;
-            videoPlayer.loopPointReached += OnVideoEnd;
 
             videoPlayer.url = videoPath;
             Debug.Log("Video URL: " + video.Url);
@@ -259,6 +200,45 @@ public class VideoAdManager : MonoBehaviour
             vertexImage.gameObject.SetActive(false);
         }
     }
+    private void OnVideoPrepared(VideoPlayer source)
+    {
+        videoPlayer.prepareCompleted -= OnVideoPrepared;
+        videoPlayer.Play();
+        if(PlayerPrefs.GetInt("sound_enabled")==1)
+        {
+            backGroundMusicSource.mute = true;
+        }
+        closedButton.interactable = false;
+        timeToClose = DateTime.Now.AddSeconds(5);
+    }
+
+    private void OnVideoEnd(VideoPlayer source)
+    {
+        Debug.Log("Video ended.");
+
+        AdCoordinator.Instance.NotifyAdEnded(); // Notify end
+
+        videoPlayer.Stop();
+        if(PlayerPrefs.GetInt("sound_enabled")==1)
+        {
+            backGroundMusicSource.mute = true;
+        }
+        vertexImage.gameObject.SetActive(false);
+        videoPlayer.clip = null;
+
+        videoAdComponent.TimeToShow = DateTime.Now.AddMinutes(video.Duration).ToString(); // Set the time to show the ad again
+        waitingAds.Enqueue(videoAdComponent); // add video ad to waiting ads
+        File.WriteAllTextAsync(Path.Combine(Application.persistentDataPath,"waitingVideo.json"), JsonConvert.SerializeObject(waitingAds)); // save waiting ads to file
+        videoAdComponent = null;
+
+        DeleteVideoFile(); // delete video file after playing
+
+        if (videoAds.Count > 0)
+        {
+            StartCoroutine(PlayVideo()); // attempt next ad if possible
+        }
+    }
+
 
     private void DeleteVideoFile()
     {
@@ -273,17 +253,53 @@ public class VideoAdManager : MonoBehaviour
             Debug.LogError("Video file not found: " + videoPath);
         }
     }
-
+    private void LinkButtonClicked()
+    {
+        if(video != null)
+        {
+            Application.OpenURL(video.LinkUrl);
+        }
+        else
+        {
+            Debug.LogError("Video is null.");
+        }
+    }
+    private void ClosedClicked()
+    {
+        if(timeToClose < DateTime.Now)
+        {
+            videoPlayer.Stop();
+            vertexImage.gameObject.SetActive(false);
+            videoPlayer.clip = null;
+            if(PlayerPrefs.GetInt("sound_enabled")==1)
+            {
+                backGroundMusicSource.mute = false;
+            }
+            AdCoordinator.Instance.NotifyAdEnded(); // Notify end
+            StartCoroutine(PlayVideo());
+        }
+        else
+        {
+            Debug.Log("Video is still playing.");
+        }
+    }
     private void OnApplicationQuit() 
     {
         vertexImage.gameObject.SetActive(false);
         videoPlayer.Stop();
         videoPlayer.clip = null;
         videoPlayer.url = null;
-        videoAdComponent = null;
         video = null;
         videoAds.Clear();
         waitingAds.Clear();
+        File.Delete(Path.Combine(Application.persistentDataPath,"waitingVideo.json"));
+    }
+    private void OnDisable() 
+    {
+        closedButton.onClick.RemoveListener(ClosedClicked);
+        linkButton.onClick.RemoveListener(LinkButtonClicked);
+        videoPlayer.loopPointReached -= OnVideoEnd;
+        videoPlayer.prepareCompleted -= OnVideoPrepared;
     }
 }
 [Serializable]
