@@ -582,7 +582,6 @@ MonoBehaviour:
   uILogin: {fileID: 935876691}
   loadingManager: {fileID: 0}
   leaderboardButtonManager: {fileID: 0}
-  leaderboardMainMenu: []
 --- !u!1001 &218077980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -958,7 +957,7 @@ PrefabInstance:
     - target: {fileID: 241167478101553468, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}
       propertyPath: m_onClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SignInButton
+      value: SignIn
       objectReference: {fileID: 0}
     - target: {fileID: 241167478101553468, guid: 84bc6c82c81a2364f99ff675ea6bf768,
         type: 3}

@@ -25,6 +25,7 @@ public class VideoAdManager : MonoBehaviour
     [SerializeField] private Button linkButton;
     [SerializeField] private TextMeshProUGUI closeTimeText;
     [SerializeField] private Slider progressBar;
+    [SerializeField] private GameObject notificationPrefab;
     private Queue<VideoAd> videoAds = new Queue<VideoAd>();
     private VideoAd video;
     private List<VideoAd> videoAdComponents = new List<VideoAd>();
@@ -116,13 +117,15 @@ public class VideoAdManager : MonoBehaviour
             Debug.Log("Time to show again: " + timeToShowAgain);
             yield return new WaitForSeconds(1f);
         }
-        StartCoroutine(CheckTimer());
+        StartCoroutine(PlayVideo());
     }
 
     private IEnumerator CheckTimer()
     {
         Debug.Log("Checking timer for video ad.");
         timeToShowInSecond = PlayerPrefs.GetInt("TimeToShowInSecond");
+
+        
         Debug.Log("Time to show in second: " + timeToShowInSecond);
         while(timeToShowInSecond > 0)
         {
@@ -138,6 +141,7 @@ public class VideoAdManager : MonoBehaviour
             PlayerPrefs.SetInt("TimeToShowInSecond", timeToShowInSecond);
             PlayerPrefs.Save();
 
+            Debug.Log("No more ads to show.");
             foreach(var videoAdComponent in videoAdComponents)
             {
                 videoAds.Enqueue(videoAdComponent);
@@ -147,8 +151,7 @@ public class VideoAdManager : MonoBehaviour
                     TimeToShow = DateTime.Now.AddMinutes(videoAdComponent.Duration).ToString(),
                 });
             }
-            File.WriteAllTextAsync(Path.Combine(Application.persistentDataPath,"waitingVideo.json"), JsonConvert.SerializeObject(waitingAds));
-
+            
             StartCoroutine(PlayVideo());
         }
         yield return null;
@@ -162,6 +165,30 @@ public class VideoAdManager : MonoBehaviour
             Debug.Log("Another ad is showing. Delaying video ad.");
             yield return new WaitForSeconds(1f);
         }
+        var videoAd = waitingAds.Peek();
+        var timeToShow = DateTime.Parse(videoAd.TimeToShow);
+        Debug.Log("Time to show video ad: " + timeToShow.ToString());
+        var timeToShowInSecond = timeToShow.Subtract(DateTime.Now).TotalSeconds;
+        while((timeToShow > DateTime.Now) && AdCoordinator.Instance.CanShowAd() && timeToShowInSecond != 5 && PlayerPrefs.GetInt("IsFirstTimeVideoAd") != 0)
+        {
+            Debug.Log("Video ad is not ready to show yet.");
+            yield return new WaitForSeconds(1f);
+        }
+        notificationPrefab.SetActive(true);
+        while(AdCoordinator.Instance.CanShowAd() && timeToShowInSecond <= 0  && PlayerPrefs.GetInt("IsFirstTimeVideoAd") != 0)
+        {
+            yield return new WaitForSeconds(1f);
+        }
+        var fiveSeconds = 5;
+        Debug.Log("PlayerPrefs: " + PlayerPrefs.GetInt("IsFirstTimeVideoAd"));
+        Debug.Log("Five seconds: " + fiveSeconds);
+        while(PlayerPrefs.GetInt("IsFirstTimeVideoAd") == 0 && fiveSeconds >= 0)
+        {
+            Debug.Log("Video ad is not ready to show yet.");
+            fiveSeconds--;
+            yield return new WaitForSeconds(1f);
+        }
+        notificationPrefab.SetActive(false);
         if (videoAds.Count > 0)
         {
 
@@ -196,7 +223,9 @@ public class VideoAdManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No more ads to show.");
+            File.WriteAllTextAsync(Path.Combine(Application.persistentDataPath,"waitingVideo.json"), JsonConvert.SerializeObject(waitingAds));
+            PlayerPrefs.SetInt("IsFirstTimeVideoAd", 1);
+            PlayerPrefs.Save();
             vertexImage.gameObject.SetActive(false);
         }
     }

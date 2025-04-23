@@ -18,6 +18,6 @@ public class TermOfServicePage : MonoBehaviour
     public void OnOpenWebButtonClicked()
     {
         Debug.Log("Open web button clicked.");
-        Application.OpenURL("https://lavender-weasel-165279.hostingersite.com/privacy-policy-2/");
+        Application.OpenURL("https://www.kashkawaan.com/privacy.html");
     }
 }
