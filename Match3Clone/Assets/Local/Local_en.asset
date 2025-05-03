@@ -23,7 +23,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 669416556384256
-    m_Localized: Google Play Account
+    m_Localized: Sign in
     m_Metadata:
       m_Items: []
   - m_Id: 670035337859072
@@ -303,7 +303,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 17017474227425280
-    m_Localized: Player Sign-up
+    m_Localized: Player Login
     m_Metadata:
       m_Items: []
   - m_Id: 20236540457209856
@@ -316,6 +316,35 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 22927164725743616
     m_Localized: After the 5 second Ad will show up.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26713767874973696
+    m_Localized: Sign In
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26713942722924544
+    m_Localized: Don't have Account?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26714356465848320
+    m_Localized: "Forget Password\u061F"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26775518435921920
+    m_Localized: Sign Up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26794828936040448
+    m_Localized: Verify Email
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26797179574996992
+    m_Localized: We email you VERIFICATION in your email. Please verify and click
+      the Verify button to continue.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26797814504542208
+    m_Localized: Resend Verivication
     m_Metadata:
       m_Items: []
   references:

@@ -8,6 +8,8 @@ using SaveData;
 using System.Collections.Generic;
 using UnityEngine.SocialPlatforms;
 using TMPro;
+using System.Security.Cryptography;
+using System.Text;
 
 public class LoginController : MonoBehaviour
 {
@@ -22,6 +24,118 @@ public class LoginController : MonoBehaviour
         PlayerAccountService.Instance.SignedIn += OnSignedIn;
         PlayerAccountService.Instance.SignedOut += () => {Debug.Log("Signed out successfully.");};
     }
+    #region Username and Password
+    public async void InitSignUpWithUsernameAndPassword(string email, string password)
+    {
+        await SignUpWithUsernameAndPasswordAsync(email, password);
+    }
+
+    private async Task SignUpWithUsernameAndPasswordAsync(string email, string password)
+    {
+        string baseName = email.Split('@')[0];
+
+        // Get 4-character hash suffix
+        string hashSuffix = GetShortHash(email, 4);
+
+        // Trim baseName if needed
+        int maxBaseLength = 20 - hashSuffix.Length;
+        if (baseName.Length > maxBaseLength)
+            baseName = baseName.Substring(0, maxBaseLength);
+
+        string username = baseName + hashSuffix;
+
+        Debug.Log("Generated username: " + username);
+
+        try
+        {
+            LoadingPanel.SetActive(true);
+            await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, username + "*9jJ");
+            var playerProfile = new PlayerProfile
+            {
+                PlayerId = AuthenticationService.Instance.PlayerId,
+                PlayerName = AuthenticationService.Instance.PlayerName,
+                Email = email,
+                PlayerImageUrl = "",
+                PhoneNumber = "",
+                DataPublicProfileImage = "",
+                DataPublicProfileBorder = "",
+                Level = 1,
+                IsAcceptedTerms = false,
+            };
+            OnSignInSuccess?.Invoke(playerProfile);
+            Debug.Log("Sign in with username and password succeeded!");
+        }
+        catch (AuthenticationException ex)
+        {
+            Debug.LogException(ex);
+            textMessage.text = "Authentication failed. Please try again. because: " + ex.Message;
+        }
+        catch (RequestFailedException ex)
+        {
+            Debug.LogException(ex);
+        }
+        finally
+        {
+            LoadingPanel.SetActive(false);
+
+        }
+    }
+
+    public async void InitSignInWithUsernameAndPassword(string email, string password)
+    {
+        await SignInWithUsernameAndPasswordAsync(email, password);
+    }
+    private async Task SignInWithUsernameAndPasswordAsync(string email, string password)
+    {
+        string baseName = email.Split('@')[0];
+
+        // Get 4-character hash suffix
+        string hashSuffix = GetShortHash(email, 4);
+
+        // Trim baseName if needed
+        int maxBaseLength = 20 - hashSuffix.Length;
+        if (baseName.Length > maxBaseLength)
+            baseName = baseName.Substring(0, maxBaseLength);
+
+        string username = baseName + hashSuffix;
+
+        Debug.Log("Username: " + username);
+
+        try
+        {
+            LoadingPanel.SetActive(true);
+            await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, username + "*9jJ");
+            var playerProfile = new PlayerProfile
+            {
+                PlayerId = AuthenticationService.Instance.PlayerId,
+                PlayerName = AuthenticationService.Instance.PlayerName,
+                Email = email,
+                PlayerImageUrl = "",
+                PhoneNumber = "",
+                DataPublicProfileImage = "",
+                DataPublicProfileBorder = "",
+                Level = 1,
+                IsAcceptedTerms = false,
+            };
+            OnSignInSuccess?.Invoke(playerProfile);
+            Debug.Log("Sign in with username and password succeeded!");
+        }
+        catch (AuthenticationException ex)
+        {
+            Debug.LogException(ex);
+            textMessage.text = "Authentication failed. Please try again. because: " + ex.Message;
+        }
+        catch (RequestFailedException ex)
+        {
+            Debug.LogException(ex);
+        }
+        finally
+        {
+            LoadingPanel.SetActive(false);
+        }
+    }
+
+    #endregion
     #region  Facebook
     public async void InitSignFacebook(FacebookGamesUser user)
     {
@@ -451,5 +565,20 @@ public class LoginController : MonoBehaviour
     {
         PlayerAccountService.Instance.SignedIn -= OnSignedIn;
         PlayerAccountService.Instance.SignedOut -= () => {Debug.Log("Signed out successfully.");};
+    }
+    private string GetShortHash(string input, int length)
+    {
+        using (SHA256 sha = SHA256.Create())
+        {
+            byte[] bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(input));
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < bytes.Length && sb.Length < length; i++)
+            {
+                sb.Append(bytes[i].ToString("x2")); // hex format
+            }
+
+            return sb.ToString().Substring(0, length);
+        }
     }
 }
