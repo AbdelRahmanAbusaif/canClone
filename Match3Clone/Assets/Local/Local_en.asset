@@ -347,6 +347,24 @@ MonoBehaviour:
     m_Localized: Resend Verivication
     m_Metadata:
       m_Items: []
+  - m_Id: 27113437490745344
+    m_Localized: Sign In Leter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27129392333754368
+    m_Localized: Reset Password!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27138125679988736
+    m_Localized: Cauation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27139776432214016
+    m_Localized: '- The password is case sensitive; it requires a minimum of 8 and
+      a maximum of 30 characters and at least 1 lowercase letter, 1 uppercase letter,
+      1 number, and 1 symbol.'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

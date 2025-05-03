@@ -4,6 +4,7 @@ using Firebase.Extensions;
 using System;
 using TMPro;
 using UnityEngine.UI;
+using Unity.Services.Authentication;
 
 
 public class FirebaseManager : MonoBehaviour
@@ -41,7 +42,6 @@ public class FirebaseManager : MonoBehaviour
     {
         auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
 
-        signInPanel.signInButton.onClick.AddListener(() => SignIn(signInPanel.emailField.text, signInPanel.passwordField.text));
         signUpPanel.signUpButton.onClick.AddListener(() => SignUp(signUpPanel.emailField.text, signUpPanel.passwordField.text, signUpPanel.confirmPasswordField.text));
 
         verifyEmail.onClick.AddListener(() =>
@@ -72,6 +72,14 @@ public class FirebaseManager : MonoBehaviour
             signUpPage.SetActive(true);
             Debug.Log("User signed out.");
         });
+
+        if (signInPanel.signInButton == null)
+        {
+            Debug.LogError("SignIn button is not assigned in the inspector.");
+            return;
+        }
+
+        signInPanel.signInButton.onClick.AddListener(() => SignIn(signInPanel.emailField.text, signInPanel.passwordField.text));
 
         resetPassword.onClick.AddListener(() =>
         {
@@ -227,9 +235,18 @@ public class FirebaseManager : MonoBehaviour
             if (user.IsEmailVerified)
             {
                 Debug.Log("Email verified! Proceeding...");
+
+                // Link Account 
+                if (AuthenticationService.Instance.IsSignedIn)
+                {
+                    Debug.Log("User is already signed in with a different provider. Linking account...");
+                    loginController.InitLinkAccountWithUsernamePassword(Email, Password);
+                }
+                else
+                {
+                    loginController.InitSignUpWithUsernameAndPassword(Email, Password);
+                }
                 animationBox.OnClose();
-                loginController.InitSignUpWithUsernameAndPassword(Email, Password);
-                // Navigate to main game/menu
             }
             else
             {
@@ -262,7 +279,9 @@ public class FirebaseManager : MonoBehaviour
             }
             else
             {
+                onErrorShow?.Invoke("Password reset email sent successfully. Please check your inbox.");
                 resetPasswordPage.SetActive(false);
+                signInPage.SetActive(true);
             }
 
         });

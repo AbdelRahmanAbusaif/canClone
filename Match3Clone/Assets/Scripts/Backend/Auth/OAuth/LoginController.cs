@@ -15,6 +15,7 @@ public class LoginController : MonoBehaviour
 {
     public TextMeshProUGUI textMessage;
     public event Action<PlayerProfile>  OnSignInSuccess;
+    public event Action OnLinkedAccount;
     public static event Action OnSignedOutSuccess;
     public GameObject LoadingPanel;
     async private void Awake() 
@@ -62,6 +63,10 @@ public class LoginController : MonoBehaviour
                 Level = 1,
                 IsAcceptedTerms = false,
             };
+
+            PlayerPrefs.SetInt("IsLinkAccount", 1);
+            PlayerPrefs.Save();
+
             OnSignInSuccess?.Invoke(playerProfile);
             Debug.Log("Sign in with username and password succeeded!");
         }
@@ -117,6 +122,10 @@ public class LoginController : MonoBehaviour
                 Level = 1,
                 IsAcceptedTerms = false,
             };
+
+            PlayerPrefs.SetInt("IsLinkAccount", 1);
+            PlayerPrefs.Save();
+
             OnSignInSuccess?.Invoke(playerProfile);
             Debug.Log("Sign in with username and password succeeded!");
         }
@@ -135,6 +144,58 @@ public class LoginController : MonoBehaviour
         }
     }
 
+    public async void InitLinkAccountWithUsernamePassword(string email, string password)
+    {
+        await LinkAccountWithUsernamePasswordAsync(email, password);
+    }
+
+    private async Task LinkAccountWithUsernamePasswordAsync(string email, string password)
+    {
+        LoadingPanel.SetActive(true);
+        try
+        {
+            string baseName = email.Split('@')[0];
+
+            // Get 4-character hash suffix
+            string hashSuffix = GetShortHash(email, 4);
+
+            // Trim baseName if needed
+            int maxBaseLength = 20 - hashSuffix.Length;
+            if (baseName.Length > maxBaseLength)
+                baseName = baseName.Substring(0, maxBaseLength);
+
+            string username = baseName + hashSuffix;
+
+            Debug.Log("Username: " + username);
+
+            await AuthenticationService.Instance.AddUsernamePasswordAsync(username, username + "*9jJ");
+
+            var playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+
+            playerProfile.Email = email;
+            playerProfile.PlayerName = username;
+
+            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+
+            PlayerPrefs.SetInt("IsLinkAccount", 1);
+            PlayerPrefs.Save();
+
+            OnLinkedAccount?.Invoke();
+        }
+        catch (AuthenticationException ex)
+        {
+            Debug.LogException(ex);
+
+        }
+        catch (RequestFailedException ex)
+        {
+            Debug.LogException(ex);
+        }
+        finally
+        {
+            LoadingPanel.SetActive(false);
+        }
+    }
     #endregion
     #region  Facebook
     public async void InitSignFacebook(FacebookGamesUser user)
@@ -355,7 +416,8 @@ public class LoginController : MonoBehaviour
             LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
 
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-             var playerProfile = new PlayerProfile
+
+            var playerProfile = new PlayerProfile
             {
                 PlayerId = AuthenticationService.Instance.PlayerId,
                 PlayerName = AuthenticationService.Instance.PlayerName,
@@ -397,6 +459,9 @@ public class LoginController : MonoBehaviour
                 DatePurchased = "0",
                 DateExpired = "0"
             };
+
+            PlayerPrefs.SetInt("IsLinkAccount", 0);
+            PlayerPrefs.Save();
 
             await CloudSaveManager.Instance.SaveDataAsync("DailyBonus", dailyBonus);
             await CloudSaveManager.Instance.SaveDataAsync("SpinWheel", spinWheel);

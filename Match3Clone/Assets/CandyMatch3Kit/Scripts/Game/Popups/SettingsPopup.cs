@@ -42,7 +42,10 @@ namespace GameVanilla.Game.Popups
         
         [SerializeField]
         private int anonymousValue;
-
+        [SerializeField]
+        private GameObject linkAccountButton;
+        [SerializeField]
+        private LoginController loginController;
 #pragma warning restore 649
 
         private int currentAvatar;
@@ -68,6 +71,18 @@ namespace GameVanilla.Game.Popups
             CloudSaveManager.Instance.LoadImageAsync("PlayerProfileImage", avatarImage);
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
+            loginController.OnLinkedAccount += () =>
+            {
+                if (PlayerPrefs.GetInt("IsLinkAccount") == 1)
+                {
+                    linkAccountButton.gameObject.SetActive(false);
+                }
+                else
+                {
+                    linkAccountButton.gameObject.SetActive(true);
+                }
+            };
+
             //else load the default avatar
         }
 
@@ -84,6 +99,14 @@ namespace GameVanilla.Game.Popups
             if (music == 1) {musicSlider.value = 1;}
             else musicSlider.value = 0;
 
+            if(PlayerPrefs.GetInt("IsLinkAccount") == 1)
+            {
+                linkAccountButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                linkAccountButton.gameObject.SetActive(true);
+            }
 
         }
 
@@ -180,6 +203,23 @@ namespace GameVanilla.Game.Popups
         public void OnMusicSliderValueChanged()
         {
             currentMusic = (int) musicSlider.value;
+        }
+        private void OnDestroy()
+        {
+            if (loginController != null)
+            {
+                loginController.OnLinkedAccount -= () =>
+                {
+                    if (PlayerPrefs.GetInt("IsLinkAccount") == 1)
+                    {
+                        linkAccountButton.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        linkAccountButton.gameObject.SetActive(true);
+                    }
+                };
+            }
         }
     }
 }

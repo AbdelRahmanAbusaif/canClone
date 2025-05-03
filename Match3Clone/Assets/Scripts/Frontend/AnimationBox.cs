@@ -22,29 +22,17 @@ public class AnimationBox : MonoBehaviour
             case AnimationType.Move:
                 DOTween.Sequence()
                 .Append(boxForAnimation.transform.DOLocalMoveY(endPosY, duration))
-                .Append(blackScreen.DOFade(0.5f, 0.5f))
-                .OnComplete(() =>
-                {
-                    blackScreen.raycastTarget = false;
-                });
+                .Append(blackScreen.DOFade(0.5f, 0.5f));
                 break;
             case AnimationType.Fade:
                 DOTween.Sequence()
                 .Append(boxForAnimation.GetComponent<CanvasGroup>().DOFade(1, duration))
-                .Append(blackScreen.DOFade(0.5f, 0.5f))
-                .OnComplete(() =>
-                {
-                    blackScreen.raycastTarget = false;
-                });
+                .Append(blackScreen.DOFade(0.5f, 0.5f));
                 break;
             case AnimationType.Scale:
                 DOTween.Sequence()
                 .Append(boxForAnimation.transform.DOScale(Vector3.one, duration))
-                .Append(blackScreen.DOFade(0.5f, 0.5f))
-                .OnComplete(() =>
-                {
-                    blackScreen.raycastTarget = false;
-                });
+                .Append(blackScreen.DOFade(0.5f, 0.5f));
                 break;
         }
         
