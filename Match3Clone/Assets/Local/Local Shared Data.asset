@@ -15,292 +15,344 @@ MonoBehaviour:
   m_TableCollectionName: Local
   m_TableCollectionNameGuidString: 58f0f652f9b00564ba34bb75de15f7de
   m_Entries:
-  - m_Id: 672472262037504
-    m_Key: WarningUsername
-    m_Metadata:
-      m_Items: []
-  - m_Id: 676806324441088
-    m_Key: WarningPhoneNumber
-    m_Metadata:
-      m_Items: []
-  - m_Id: 674485695729664
-    m_Key: WarningEmailPanel
-    m_Metadata:
-      m_Items: []
-  - m_Id: 671670961229824
-    m_Key: UsernameSignUpProfile
-    m_Metadata:
-      m_Items: []
-  - m_Id: 670997251149824
-    m_Key: UpdateImageButton
-    m_Metadata:
-      m_Items: []
-  - m_Id: 677276413644800
-    m_Key: UpdateButton
-    m_Metadata:
-      m_Items: []
-  - m_Id: 669416556384256
-    m_Key: UnityAccountButton
-    m_Metadata:
-      m_Items: []
-  - m_Id: 705286063837184
-    m_Key: TryAgainButton
-    m_Metadata:
-      m_Items: []
-  - m_Id: 670518685257728
-    m_Key: TItlePlayerProfile
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1789261821825024
-    m_Key: StoreText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 662548291309568
-    m_Key: SignInUsing
-    m_Metadata:
-      m_Items: []
-  - m_Id: 743811475886080
-    m_Key: ScoreText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 745369605296128
-    m_Key: ReachText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 745160586350592
-    m_Key: ReachScoreText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 677924454584320
-    m_Key: PolicyTermTitle
-    m_Metadata:
-      m_Items: []
-  - m_Id: 678068990300160
-    m_Key: PolicyTermSupport
-    m_Metadata:
-      m_Items: []
-  - m_Id: 678521484398592
-    m_Key: PolicyTermDescriptiion
-    m_Metadata:
-      m_Items: []
-  - m_Id: 679939654078464
-    m_Key: PolicyTermButtonLink
-    m_Metadata:
-      m_Items: []
-  - m_Id: 675162559926272
-    m_Key: PhoneNumberTitle
-    m_Metadata:
-      m_Items: []
-  - m_Id: 673165911838720
-    m_Key: NextButton
-    m_Metadata:
-      m_Items: []
-  - m_Id: 704742419124224
-    m_Key: BorderText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 744251022168064
-    m_Key: MoveText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 671235068186624
-    m_Key: ImageProfileTitle
-    m_Metadata:
-      m_Items: []
-  - m_Id: 744526030098432
-    m_Key: GoalText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 670035337859072
-    m_Key: 'FacebookAccountButton '
-    m_Metadata:
-      m_Items: []
-  - m_Id: 673602270449664
-    m_Key: EmailSignupPage
-    m_Metadata:
-      m_Items: []
-  - m_Id: 704793300226048
-    m_Key: CuationDiscription
-    m_Metadata:
-      m_Items: []
-  - m_Id: 704479759224832
-    m_Key: CuationButton
-    m_Metadata:
-      m_Items: []
-  - m_Id: 680430073073664
-    m_Key: CloseButton
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1785830050680832
-    m_Key: CancelButtonText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1785889630769152
-    m_Key: BuyButtonText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 1789442105593856
-    m_Key: AvatarText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 680716837638144
-    m_Key: AcceotButton
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2952984951312384
-    m_Key: PathText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2953231840628736
-    m_Key: LeaderboardText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2953422144589824
-    m_Key: CashBattle
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3203212229005312
-    m_Key: ComingSoonText
-    m_Metadata:
-      m_Items: []
   - m_Id: 3954876112228352
     m_Key: 1DayText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 3955730143825920
-    m_Key: 7DaysText
     m_Metadata:
       m_Items: []
   - m_Id: 3956140871045120
     m_Key: 30DaysText
     m_Metadata:
       m_Items: []
-  - m_Id: 3970928346976256
-    m_Key: ChoiceYourBundleText
+  - m_Id: 3955730143825920
+    m_Key: 7DaysText
     m_Metadata:
       m_Items: []
-  - m_Id: 4266013643034624
-    m_Key: CoverProfileText
+  - m_Id: 680716837638144
+    m_Key: AcceotButton
     m_Metadata:
       m_Items: []
-  - m_Id: 4318242441842688
-    m_Key: SubscriptionText
+  - m_Id: 22927164725743616
+    m_Key: adNotificationText
     m_Metadata:
       m_Items: []
-  - m_Id: 4328412098121728
-    m_Key: DecorationText
+  - m_Id: 27113437490745344
+    m_Key: AnynomuseSignInText
     m_Metadata:
       m_Items: []
-  - m_Id: 5003151867170816
-    m_Key: ExtraText
+  - m_Id: 1789442105593856
+    m_Key: AvatarText
     m_Metadata:
       m_Items: []
   - m_Id: 5003484546781184
     m_Key: BestDealText
     m_Metadata:
       m_Items: []
-  - m_Id: 5003651861762048
-    m_Key: UserChoiceText
+  - m_Id: 704742419124224
+    m_Key: BorderText
     m_Metadata:
       m_Items: []
-  - m_Id: 5021590337933312
-    m_Key: FreeCoinAdText
+  - m_Id: 1785889630769152
+    m_Key: BuyButtonText
     m_Metadata:
       m_Items: []
-  - m_Id: 6165049228709888
-    m_Key: PrimeSubText
+  - m_Id: 1785830050680832
+    m_Key: CancelButtonText
     m_Metadata:
       m_Items: []
-  - m_Id: 6165788063748096
-    m_Key: ConfirmText
+  - m_Id: 2953422144589824
+    m_Key: CashBattle
     m_Metadata:
       m_Items: []
-  - m_Id: 6521516800659456
-    m_Key: MyProfileText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6521796460072960
-    m_Key: FriendListText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6614449285550080
-    m_Key: MyItemsText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6617556241403904
-    m_Key: PhoneNumberText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6618736782790656
-    m_Key: EmailText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6619312597815296
-    m_Key: PlayerLevelText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6884128243634176
-    m_Key: UseButtonText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 7557641866629120
-    m_Key: GoToStoreButtonText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 7557859450343424
-    m_Key: ThereIsNothingText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 7564269621923840
-    m_Key: SettingText
+  - m_Id: 27138125679988736
+    m_Key: CauationText
     m_Metadata:
       m_Items: []
   - m_Id: 7564488572981248
     m_Key: ChangeLanguageButtonText
     m_Metadata:
       m_Items: []
-  - m_Id: 7564640335482880
-    m_Key: SaveButtonText
+  - m_Id: 3970928346976256
+    m_Key: ChoiceYourBundleText
     m_Metadata:
       m_Items: []
-  - m_Id: 7565689364467712
-    m_Key: MusicText
+  - m_Id: 680430073073664
+    m_Key: CloseButton
     m_Metadata:
       m_Items: []
-  - m_Id: 7565949390344192
-    m_Key: SoundText
+  - m_Id: 3203212229005312
+    m_Key: ComingSoonText
     m_Metadata:
       m_Items: []
-  - m_Id: 10110888229785600
-    m_Key: DiscriptionContentDownloadText
+  - m_Id: 6165788063748096
+    m_Key: ConfirmText
     m_Metadata:
       m_Items: []
-  - m_Id: 10113875736055808
-    m_Key: LoadingText
+  - m_Id: 4266013643034624
+    m_Key: CoverProfileText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704479759224832
+    m_Key: CuationButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704793300226048
+    m_Key: CuationDiscription
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4328412098121728
+    m_Key: DecorationText
     m_Metadata:
       m_Items: []
   - m_Id: 10844249143431168
     m_Key: DiscriptionAssetPageText
     m_Metadata:
       m_Items: []
-  - m_Id: 10844750736052224
-    m_Key: UpdateTextButton
+  - m_Id: 10110888229785600
+    m_Key: DiscriptionContentDownloadText
     m_Metadata:
       m_Items: []
-  - m_Id: 17017474227425280
-    m_Key: SignUpText
+  - m_Id: 673602270449664
+    m_Key: EmailSignupPage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6618736782790656
+    m_Key: EmailText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5003151867170816
+    m_Key: ExtraText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 670035337859072
+    m_Key: 'FacebookAccountButton '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26714356465848320
+    m_Key: ForgetPasswordText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5021590337933312
+    m_Key: FreeCoinAdText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6521796460072960
+    m_Key: FriendListText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744526030098432
+    m_Key: GoalText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7557641866629120
+    m_Key: GoToStoreButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 671235068186624
+    m_Key: ImageProfileTitle
     m_Metadata:
       m_Items: []
   - m_Id: 20236540457209856
     m_Key: knowMoreText
     m_Metadata:
       m_Items: []
+  - m_Id: 2953231840628736
+    m_Key: LeaderboardText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10113875736055808
+    m_Key: LoadingText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 744251022168064
+    m_Key: MoveText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7565689364467712
+    m_Key: MusicText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6614449285550080
+    m_Key: MyItemsText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6521516800659456
+    m_Key: MyProfileText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27139270410407936
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27139289876172800
+    m_Key: New Entry 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 673165911838720
+    m_Key: NextButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27139776432214016
+    m_Key: PasswordGuidelineText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2952984951312384
+    m_Key: PathText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6617556241403904
+    m_Key: PhoneNumberText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 675162559926272
+    m_Key: PhoneNumberTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6619312597815296
+    m_Key: PlayerLevelText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 679939654078464
+    m_Key: PolicyTermButtonLink
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678521484398592
+    m_Key: PolicyTermDescriptiion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678068990300160
+    m_Key: PolicyTermSupport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 677924454584320
+    m_Key: PolicyTermTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6165049228709888
+    m_Key: PrimeSubText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745160586350592
+    m_Key: ReachScoreText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 745369605296128
+    m_Key: ReachText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26797814504542208
+    m_Key: ResendTextButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7564640335482880
+    m_Key: SaveButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743811475886080
+    m_Key: ScoreText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27129392333754368
+    m_Key: SendMailText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7564269621923840
+    m_Key: SettingText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26713767874973696
+    m_Key: SignInButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 662548291309568
+    m_Key: SignInUsing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26713942722924544
+    m_Key: SignUpButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17017474227425280
+    m_Key: SignUpText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26775518435921920
+    m_Key: SignUpTextButton
+    m_Metadata:
+      m_Items: []
   - m_Id: 21085919904747520
     m_Key: skipAdText
     m_Metadata:
       m_Items: []
-  - m_Id: 22927164725743616
-    m_Key: adNotificationText
+  - m_Id: 7565949390344192
+    m_Key: SoundText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1789261821825024
+    m_Key: StoreText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4318242441842688
+    m_Key: SubscriptionText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7557859450343424
+    m_Key: ThereIsNothingText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 670518685257728
+    m_Key: TItlePlayerProfile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 705286063837184
+    m_Key: TryAgainButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 669416556384256
+    m_Key: UnityAccountButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 677276413644800
+    m_Key: UpdateButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 670997251149824
+    m_Key: UpdateImageButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10844750736052224
+    m_Key: UpdateTextButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6884128243634176
+    m_Key: UseButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5003651861762048
+    m_Key: UserChoiceText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 671670961229824
+    m_Key: UsernameSignUpProfile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26797179574996992
+    m_Key: VerificationWarningText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26794828936040448
+    m_Key: VerifyButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 674485695729664
+    m_Key: WarningEmailPanel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 676806324441088
+    m_Key: WarningPhoneNumber
+    m_Metadata:
+      m_Items: []
+  - m_Id: 672472262037504
+    m_Key: WarningUsername
     m_Metadata:
       m_Items: []
   m_Metadata:

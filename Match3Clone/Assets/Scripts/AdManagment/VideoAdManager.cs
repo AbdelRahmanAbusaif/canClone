@@ -233,7 +233,7 @@ public class VideoAdManager : MonoBehaviour
     {
         videoPlayer.prepareCompleted -= OnVideoPrepared;
         videoPlayer.Play();
-        if(PlayerPrefs.GetInt("sound_enabled")==1)
+        if(PlayerPrefs.GetInt("sound_enabled") == 1)
         {
             backGroundMusicSource.mute = true;
         }
@@ -248,9 +248,9 @@ public class VideoAdManager : MonoBehaviour
         AdCoordinator.Instance.NotifyAdEnded(); // Notify end
 
         videoPlayer.Stop();
-        if(PlayerPrefs.GetInt("sound_enabled")==1)
+        if(PlayerPrefs.GetInt("sound_enabled") == 1)
         {
-            backGroundMusicSource.mute = true;
+            backGroundMusicSource.mute = false;
         }
         vertexImage.gameObject.SetActive(false);
         videoPlayer.clip = null;

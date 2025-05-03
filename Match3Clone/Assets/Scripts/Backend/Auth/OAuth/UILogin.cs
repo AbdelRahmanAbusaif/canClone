@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using GameVanilla.Core;
 using SaveData;
 using Unity.Services.Authentication;
@@ -13,7 +14,7 @@ public class UILogin : MonoBehaviour
 {
     public static Action OnSignIn;
     public Action OnSignUp;
-    [SerializeField] private Button signInButton;
+    [SerializeField] private Button signInAnynoumuse;
     [SerializeField] private SceneTransition sceneTransition;
     [SerializeField] private LoginController loginController;
     [SerializeField] private GameObject loginPanel;
@@ -32,9 +33,9 @@ public class UILogin : MonoBehaviour
     private void OnEnable() 
     {
 
-        if(signInButton !=null)
+        if(signInAnynoumuse != null)
         {
-            signInButton.onClick.AddListener(OnSignInButtonClicked);
+            signInAnynoumuse.onClick.AddListener(OnSignInButtonClicked);
         }
 
         loginController.OnSignInSuccess += OnSignInSuccess;
@@ -55,7 +56,7 @@ public class UILogin : MonoBehaviour
 
     private void OnSignInButtonClicked()
     {
-        Debug.Log("Sign in button clicked");
+        loginController.InitSignAnonymous();
         // await loginController.InitSign();
     }
 
@@ -174,9 +175,9 @@ public class UILogin : MonoBehaviour
 
         RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
         loginController.OnSignInSuccess -= OnSignInSuccess;
-        if(signInButton !=null)
+        if(signInAnynoumuse !=null)
         {
-            signInButton.onClick.RemoveListener(OnSignInButtonClicked);
+            signInAnynoumuse.onClick.RemoveListener(OnSignInButtonClicked);
         }
     }
 

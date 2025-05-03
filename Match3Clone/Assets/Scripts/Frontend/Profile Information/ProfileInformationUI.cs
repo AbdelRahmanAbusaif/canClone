@@ -58,4 +58,8 @@ public class ProfileInformationUI : MonoBehaviour
             Debug.Log("User is not signed in");
         }
     }
+    private bool ValidateEmail(string input)
+    {
+        return System.Text.RegularExpressions.Regex.IsMatch(input, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+    }
 }
