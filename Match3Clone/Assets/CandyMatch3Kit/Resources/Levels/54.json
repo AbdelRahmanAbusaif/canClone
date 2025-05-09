@@ -400,7 +400,7 @@
         }
     ],
     "limitType": "Moves",
-    "limit": 50,
+    "limit": 40,
     "goals": [
         {
             "collectableType": "Cherry",
@@ -422,8 +422,8 @@
         "Yellow"
     ],
     "score1": 500,
-    "score2": 1000,
-    "score3": 3000,
+    "score2": 1250,
+    "score3": 2500,
     "awardSpecialCandies": true,
     "awardedSpecialCandyType": "Striped",
     "collectableChance": 0,

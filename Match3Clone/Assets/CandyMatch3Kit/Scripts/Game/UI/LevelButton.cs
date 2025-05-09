@@ -62,6 +62,11 @@ namespace GameVanilla.Game.UI
         private GameObject shineAnimation;
 
         PlayerProfile playerProfile;
+
+
+
+
+        int index;
 #pragma warning restore 649
 
         /// <summary>
@@ -89,12 +94,8 @@ namespace GameVanilla.Game.UI
         private async void Start()
         {
            
-            int index = transform.GetSiblingIndex();
-            numLevel = index + 1;
-
-
-            numLevelTextBlue.text = numLevel.ToString();
-            numLevelTextPink.text = numLevel.ToString();
+            index = transform.GetSiblingIndex();
+            
            
             
            // var nextLevel = 0;
@@ -165,10 +166,31 @@ namespace GameVanilla.Game.UI
             
         }
 
-        /// <summary>
-        /// Called when the button is pressed.
-        /// </summary>
-        public void OnButtonPressed()
+        public void Update() {
+
+            int loopValue=0;
+
+            LoopingScroll parent = GetComponentInParent<LoopingScroll>();
+            if (parent != null)
+            {
+                 loopValue = parent.loop;
+            }
+            else
+            {
+                Debug.LogWarning("ParentScript not found in parent!");
+            }
+
+            numLevel = index + (200 * loopValue)+ 1;
+
+
+            numLevelTextBlue.text = numLevel.ToString();
+            numLevelTextPink.text = numLevel.ToString(); 
+        }
+
+            /// <summary>
+            /// Called when the button is pressed.
+            /// </summary>
+            public void OnButtonPressed()
         {
             if (buttonImage.sprite == lockedButtonSprite)
             {

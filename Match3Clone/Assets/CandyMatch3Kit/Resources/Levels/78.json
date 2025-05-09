@@ -219,9 +219,9 @@
             "$type": "GameVanilla.Game.Common.SpecialBlockTile"
         },
         {
-            "type": "ColorBomb",
+            "type": "RandomCandy",
             "elementType": "None",
-            "$type": "GameVanilla.Game.Common.SpecialCandyTile"
+            "$type": "GameVanilla.Game.Common.CandyTile"
         },
         {
             "type": "ColorBomb",

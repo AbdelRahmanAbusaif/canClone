@@ -404,7 +404,17 @@
     ],
     "limitType": "Moves",
     "limit": 20,
-    "goals": [],
+    "goals": [
+        {
+            "completed": false,
+            "$type": "GameVanilla.Game.Common.DestroyAllChocolateGoal"
+        },
+        {
+            "collectableType": "Cherry",
+            "amount": 1,
+            "$type": "GameVanilla.Game.Common.CollectCollectableGoal"
+        }
+    ],
     "availableColors": [
         "Blue",
         "Green",

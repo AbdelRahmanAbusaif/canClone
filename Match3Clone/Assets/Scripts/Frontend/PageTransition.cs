@@ -7,9 +7,10 @@ using UnityEngine.UI;
 using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.UI;
+using TMPro;
 
 
-    public class PageTransition : MonoBehaviour
+public class PageTransition : MonoBehaviour
     {
         [SerializeField] private List<GameObject> pages;
         [SerializeField] private List<GameObject> holder;
@@ -66,9 +67,11 @@ using GameVanilla.Game.UI;
             for (int i = 0; i < holder.Count; i++)
             {
                 holder[i].GetComponent<RectTransform>().sizeDelta = new Vector2(originSize.x, originSize.y);
-            }
+                holder[i].GetComponentInChildren<TextMeshProUGUI>().fontSize = 45f;
+             }
             holder[targetPageIndex].GetComponent<RectTransform>().sizeDelta *= new Vector2((float)1.5, (float)1.5);
-        }
+            holder[targetPageIndex].GetComponentInChildren<TextMeshProUGUI>().fontSize = 60f;
+    }
 
         private void FinalizeTransition(int targetPageIndex)
         {
