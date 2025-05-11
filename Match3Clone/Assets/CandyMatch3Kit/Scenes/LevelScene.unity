@@ -56643,10 +56643,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: {fileID: 1589531056}
   MaxThreshold: 26667
-  resetAfterMax: -25766
+  resetAfterMax: -23891.29
   MinThreshold: -26667
-  resetAfterMin: 25889
+  resetAfterMin: 23521.81
   loop: 0
+  newLoop: 0
 --- !u!1 &2018507072
 GameObject:
   m_ObjectHideFlags: 0
