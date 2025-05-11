@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System;
 
 public class LoopingScroll : MonoBehaviour
 {
-    public RectTransform content; // Reference to the Content object inside the ScrollView
+    public RectTransform content;
     public float MaxThreshold = 7000f;
     public float resetAfterMax = -7800f;
 
@@ -11,33 +13,45 @@ public class LoopingScroll : MonoBehaviour
     public float resetAfterMin = -7800f;
 
     public int loop;
+    public bool newLoop = false;
 
-    void start()
+    private bool isResetting = false;
+
+    private async void Start()
     {
-        loop = 0;
+        var playerProfile = await SaveData.LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        var nextLevel = playerProfile.Level;
+        loop = nextLevel / 200;
     }
 
     void Update()
     {
         Debug.Log(loop);
-        
-        if (content.anchoredPosition.y > MaxThreshold && loop>0)
-        {
-            Vector2 pos = content.anchoredPosition;
-            pos.y = resetAfterMax;
-            content.anchoredPosition = pos;
+        if (isResetting) return;
 
-            loop -=1;
-           
-        }
-        if (content.anchoredPosition.y < MinThreshold)
+        if (content.anchoredPosition.y > MaxThreshold && loop > 0)
         {
-            Vector2 pos = content.anchoredPosition;
-            pos.y = resetAfterMin;
-            content.anchoredPosition = pos;
-
-            loop += 1;
-          
+            StartCoroutine(ResetScrollAfterDelay(resetAfterMax, -1));
         }
+        else if (content.anchoredPosition.y < MinThreshold)
+        {
+            StartCoroutine(ResetScrollAfterDelay(resetAfterMin, 1));
+        }
+    }
+
+    IEnumerator ResetScrollAfterDelay(float newYPosition, int loopDelta)
+    {
+        isResetting = true;
+
+        yield return new WaitForSeconds(3f); // Wait 3 seconds
+
+        Vector2 pos = content.anchoredPosition;
+        pos.y = newYPosition;
+        content.anchoredPosition = pos;
+
+        loop += loopDelta;
+        newLoop = true;
+
+        isResetting = false;
     }
 }

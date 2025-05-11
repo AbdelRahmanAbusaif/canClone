@@ -23,9 +23,9 @@ namespace GameVanilla.Game.UI
     public class LevelButton : MonoBehaviour
     {
         public int numLevel;
-        
 
-      
+    
+
 
 #pragma warning disable 649
         [SerializeField]
@@ -64,9 +64,13 @@ namespace GameVanilla.Game.UI
         PlayerProfile playerProfile;
 
 
-
+        
 
         int index;
+        int loopValue;
+        int prevLoop;
+
+
 #pragma warning restore 649
 
         /// <summary>
@@ -94,81 +98,19 @@ namespace GameVanilla.Game.UI
         private async void Start()
         {
            
-            index = transform.GetSiblingIndex();
-            
-           
-            
-           // var nextLevel = 0;
+          updateButton();
 
-            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-            
-            // var nextLevel = playerProfile.Level;
-            var nextLevel = playerProfile.Level;
+         prevLoop = 0;
 
-            if (nextLevel == 0)
-            {
-                nextLevel = 1;
-            }
-
-            if (numLevel == nextLevel)
-            {
-                buttonImage.sprite = currentButtonSprite;
-                star1.SetActive(false);
-                star2.SetActive(false);
-                star3.SetActive(false);
-                shineAnimation.SetActive(true);
-                numLevelTextPink.gameObject.SetActive(false);
-            }
-            else if (numLevel < nextLevel)
-            {
-                buttonImage.sprite = playedButtonSprite;
-                numLevelTextBlue.gameObject.SetActive(false);
-
-                var LevelsComplete = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelComplete" + numLevel);
-                var stars = LevelsComplete[numLevel - 1].Stars;
-
-                switch (stars)
-                {
-                    case 1:
-                        star1.GetComponent<Image>().sprite = yellowStarSprite;
-                        break;
-
-                    case 2:
-                        star1.GetComponent<Image>().sprite = yellowStarSprite;
-                        star2.GetComponent<Image>().sprite = yellowStarSprite;
-                        break;
-
-                    case 3:
-                        star1.GetComponent<Image>().sprite = yellowStarSprite;
-                        star2.GetComponent<Image>().sprite = yellowStarSprite;
-                        star3.GetComponent<Image>().sprite = yellowStarSprite;
-                        break;
-                }
-            }
-            else
-            {/*
-                buttonImage.sprite = lockedButtonSprite;
-                numLevelTextBlue.gameObject.SetActive(false);
-                numLevelTextPink.gameObject.SetActive(false);
-                star1.SetActive(false);
-                star2.SetActive(false);
-                star3.SetActive(false);
-                
-                */
-                buttonImage.sprite = currentButtonSprite;
-                star1.SetActive(false);
-                star2.SetActive(false);
-                star3.SetActive(false);
-                shineAnimation.SetActive(true);
-                numLevelTextPink.gameObject.SetActive(true);
-                
-            }
-            
         }
 
         public void Update() {
 
-            int loopValue=0;
+            if (prevLoop != loopValue)
+            {
+                updateButton();
+                prevLoop = loopValue;
+            }
 
             LoopingScroll parent = GetComponentInParent<LoopingScroll>();
             if (parent != null)
@@ -178,13 +120,15 @@ namespace GameVanilla.Game.UI
             else
             {
                 Debug.LogWarning("ParentScript not found in parent!");
+                loopValue = 0;
             }
-
+           
             numLevel = index + (200 * loopValue)+ 1;
 
 
             numLevelTextBlue.text = numLevel.ToString();
-            numLevelTextPink.text = numLevel.ToString(); 
+            numLevelTextPink.text = numLevel.ToString();
+
         }
 
             /// <summary>
@@ -222,6 +166,79 @@ namespace GameVanilla.Game.UI
                     scene.OpenPopup<BuyLivesPopup>("Popups/BuyLivesPopup");
                 }
             }
+        }
+
+        private async void updateButton()
+        {
+            
+            index = transform.GetSiblingIndex();
+
+
+
+            // var nextLevel = 0;
+
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+
+            // var nextLevel = playerProfile.Level;
+            var nextLevel = playerProfile.Level;
+
+
+
+
+            if (nextLevel == 0)
+            {
+                nextLevel = 1;
+            }
+
+            if (numLevel == nextLevel)
+            {
+                buttonImage.sprite = currentButtonSprite;
+                star1.SetActive(false);
+                star2.SetActive(false);
+                star3.SetActive(false);
+                shineAnimation.SetActive(true);
+                numLevelTextPink.gameObject.SetActive(false);
+            }
+            else if (numLevel < nextLevel)
+            {
+                buttonImage.sprite = playedButtonSprite;
+                numLevelTextBlue.gameObject.SetActive(false);
+                numLevelTextPink.gameObject.SetActive(true);
+
+                var LevelsComplete = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelComplete" + numLevel);
+                var stars = LevelsComplete[numLevel - 1].Stars;
+
+                switch (stars)
+                {
+                    case 1:
+                        star1.GetComponent<Image>().sprite = yellowStarSprite;
+                        break;
+
+                    case 2:
+                        star1.GetComponent<Image>().sprite = yellowStarSprite;
+                        star2.GetComponent<Image>().sprite = yellowStarSprite;
+                        break;
+
+                    case 3:
+                        star1.GetComponent<Image>().sprite = yellowStarSprite;
+                        star2.GetComponent<Image>().sprite = yellowStarSprite;
+                        star3.GetComponent<Image>().sprite = yellowStarSprite;
+                        break;
+                }
+            }
+            else
+            {
+                buttonImage.sprite = lockedButtonSprite;
+                numLevelTextBlue.gameObject.SetActive(true);
+                numLevelTextPink.gameObject.SetActive(false);
+                star1.SetActive(false);
+                star2.SetActive(false);
+                star3.SetActive(false);
+
+               
+
+            }
+
         }
     }
 }
