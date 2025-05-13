@@ -69,7 +69,9 @@ namespace GameVanilla.Game.Scenes
 
             // var nextLevel = Math.Max(PlayerPrefs.GetInt("next_level"), playerProfile.Level);
             var nextLevel = playerProfile.Level;
+
            
+
             Debug.Log("nextLevel: " + nextLevel);
 
             if (nextLevel == 0)
@@ -141,7 +143,7 @@ namespace GameVanilla.Game.Scenes
                 sequence.append(() => avatar.GetComponent<LevelAvatar>().StartFloatingAnimation());
                 sequence.append(() => scrollRect.vertical = true);
             }
-            else
+            else 
             {
                 avatar.transform.position = targetPos;
                 avatar.GetComponent<LevelAvatar>().StartFloatingAnimation();

@@ -181,6 +181,7 @@ namespace GameVanilla.Game.UI
 
             // var nextLevel = playerProfile.Level;
             var nextLevel = playerProfile.Level;
+            
 
 
 
@@ -198,6 +199,8 @@ namespace GameVanilla.Game.UI
                 star3.SetActive(false);
                 shineAnimation.SetActive(true);
                 numLevelTextPink.gameObject.SetActive(false);
+                numLevelTextPink.gameObject.SetActive(true);
+
             }
             else if (numLevel < nextLevel)
             {
@@ -234,8 +237,9 @@ namespace GameVanilla.Game.UI
                 star1.SetActive(false);
                 star2.SetActive(false);
                 star3.SetActive(false);
+                shineAnimation.SetActive(false);
 
-               
+
 
             }
 
