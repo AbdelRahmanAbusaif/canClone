@@ -238,9 +238,6 @@ namespace GameVanilla.Game.UI
                 star2.SetActive(false);
                 star3.SetActive(false);
                 shineAnimation.SetActive(false);
-
-
-
             }
 
         }

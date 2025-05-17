@@ -60,19 +60,21 @@ namespace GameVanilla.Game.Scenes
         /// </summary>
         private async void Start()
         {
+           
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+
+           
+            var nextLevel = playerProfile.Level;
+
+
+           Debug.Log("nextLevel from levelstart: " + nextLevel);
+
             scrollRect.vertical = false;
 
             var avatar = Instantiate(avatarPrefab);
             avatar.transform.SetParent(scrollView.transform, false);
-           
-            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
-            // var nextLevel = Math.Max(PlayerPrefs.GetInt("next_level"), playerProfile.Level);
-            var nextLevel = playerProfile.Level;
-
-           
-
-            Debug.Log("nextLevel: " + nextLevel);
+            
 
             if (nextLevel == 0)
             {
@@ -91,14 +93,14 @@ namespace GameVanilla.Game.Scenes
             var levelButtons = scrollView.GetComponentsInChildren<LevelButton>();
             foreach (var button in levelButtons)
             {
-                if (button.numLevel != nextLevel)
+                if (button.numLevel != nextLevel %200)
                 {
                     continue;
                 }
                 currentButton = button;
                 break;
             }
-
+            
             if (currentButton == null)
             {
                  currentButton = levelButtons[levelButtons.Length - 1];
@@ -162,6 +164,10 @@ namespace GameVanilla.Game.Scenes
         public void OnLeaderBoardPressed()
         {
             // OpenPopup<BuyCoinsPopup>("Popups/LB_popup");
+        }
+        void Update()
+        {
+            Debug.Log("nextLevel from levelUpdate: " + playerProfile.Level);
         }
     }
 }

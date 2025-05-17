@@ -30,6 +30,7 @@ public class LoopingScroll : MonoBehaviour
         loop = nextLevel / 200;
         trans = page.GetComponent<Animator>();
         originLoop=loop;
+        
     }
 
     void Update()
