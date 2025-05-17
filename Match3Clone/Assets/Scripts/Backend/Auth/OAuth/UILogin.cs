@@ -102,9 +102,9 @@ public class UILogin : MonoBehaviour
         var AdManagers = new List<AdManager>();
 
         var LevelCompletes = new List<LevelComplete>();
-        
-        // LeaderboardManager.Instance.AddScore(0);
-        if(isBlueLeaderboard)
+
+		// LeaderboardManager.Instance.AddScore(0);
+		if (isBlueLeaderboard)
         {
             LeaderboardManager.Instance.AddScore("BLUE_LEADERBOARD",0);
         }
@@ -144,7 +144,7 @@ public class UILogin : MonoBehaviour
             LevelCompletes = await CloudSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelsComplete");
             AdManagers = await CloudSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManager");
 
-            OnSignIn?.Invoke();
+			OnSignIn?.Invoke();
             return;
         }
         if(termPanel != null)
@@ -160,9 +160,8 @@ public class UILogin : MonoBehaviour
             await CloudSaveManager.Instance.SaveDataAsync("AdManager", AdManagers);
 
             await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerData);
-            
-
-            termPanel.SetActive(true);
+           
+			termPanel.SetActive(true);
         }
         else
         {

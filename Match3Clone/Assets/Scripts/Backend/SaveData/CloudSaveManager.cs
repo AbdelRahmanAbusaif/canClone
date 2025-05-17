@@ -223,27 +223,43 @@ namespace SaveData
                 return null;
             }
         }
-        // public async void LoadPlayerProfileImage(string playerId, Image avatarImage)
-        // {
-        //     // Load the profile image from Cloud Save
-        //     // var data = await CloudSaveService.Instance.Files.Player.LoadBytesAsync(new HashSet<string> { $"{playerId}_profileImage" });
-        //     if (data.TryGetValue($"{playerId}_profileImage", out var base64Image))
-        //     {
-        //         byte[] avatarBytes = System.Convert.FromBase64String(base64Image.ToString());
-        //         Texture2D texture = new Texture2D(2, 2);
-        //         texture.LoadImage(avatarBytes); // Convert bytes to texture
-                
-        //         // Apply the texture to the Image component
-        //         avatarImage.sprite = Sprite.Create(
-        //             texture,
-        //             new Rect(0, 0, texture.width, texture.height),
-        //             new Vector2(0.5f, 0.5f)
-        //         );
-        //     }
-        //     else
-        //     {
-        //         Debug.LogError($"No profile image found for player: {playerId}");
-        //     }
-        // }
-    }
+		public async Task<T> LoadPublicDataByPlayerIdAsync<T>(string playerId, string key) where T : new()
+		{
+
+			var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { key }, new LoadOptions(new PublicReadAccessClassOptions(playerId)));
+			if (playerData.TryGetValue(key, out var keyName))
+			{
+				Debug.Log($"keyName: {keyName.Value.GetAs<string>()}");
+				string jsonData = keyName.Value.GetAs<string>();
+				return JsonConvert.DeserializeObject<T>(jsonData);
+			}
+			else
+			{
+				Debug.LogError($"No data found for key: {key}");
+				return new T();
+			}
+		}
+		// public async void LoadPlayerProfileImage(string playerId, Image avatarImage)
+		// {
+		//     // Load the profile image from Cloud Save
+		//     // var data = await CloudSaveService.Instance.Files.Player.LoadBytesAsync(new HashSet<string> { $"{playerId}_profileImage" });
+		//     if (data.TryGetValue($"{playerId}_profileImage", out var base64Image))
+		//     {
+		//         byte[] avatarBytes = System.Convert.FromBase64String(base64Image.ToString());
+		//         Texture2D texture = new Texture2D(2, 2);
+		//         texture.LoadImage(avatarBytes); // Convert bytes to texture
+
+		//         // Apply the texture to the Image component
+		//         avatarImage.sprite = Sprite.Create(
+		//             texture,
+		//             new Rect(0, 0, texture.width, texture.height),
+		//             new Vector2(0.5f, 0.5f)
+		//         );
+		//     }
+		//     else
+		//     {
+		//         Debug.LogError($"No profile image found for player: {playerId}");
+		//     }
+		// }
+	}
 }
