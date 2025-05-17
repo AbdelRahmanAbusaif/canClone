@@ -576,8 +576,10 @@ public class LoginController : MonoBehaviour
             LocalSaveManager.Instance.DeleteData("ContainerProfileCoverImages");
             LocalSaveManager.Instance.DeleteData("ContainerProfileBorders");
             LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
-            
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            LocalSaveManager.Instance.DeleteImage("FriendList");
+			LocalSaveManager.Instance.DeleteImage("FriendRequests");
+
+			await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log("Sign in anonymously succeeded!");
 
             await GetPlayerProfileAsync();
@@ -618,7 +620,7 @@ public class LoginController : MonoBehaviour
             var adManager = await CloudSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManager");
             var levelsComplete = await CloudSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelsComplete");
 
-            OnSignInSuccess?.Invoke(playerProfile);
+			OnSignInSuccess?.Invoke(playerProfile);
             LoadingPanel.SetActive(false);
         }
         catch (Exception ex)

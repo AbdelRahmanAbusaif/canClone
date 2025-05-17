@@ -25,6 +25,7 @@ public class LeaderboardItem : MonoBehaviour
         nameText.text = player.PlayerName;
         scoreText.text = player.Score.ToString();
 
+        Debug.Log($"Loading images for {player.PlayerId}");
         CloudSaveManager.Instance.LoadImageUsePlayerId(player.PlayerId,"PlayerProfileImage", avatarImage);
         CloudSaveManager.Instance.LoadImageUsePlayerId(player.PlayerId,"PlayerProfileBorderImage", borderImage);
     }

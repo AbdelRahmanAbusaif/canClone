@@ -14,15 +14,6 @@ public class PlayerProfile
     public int Level { get; set; } = 1;
     public bool IsAcceptedTerms { get; set; } = false;
 
-    // public HeartSystem HeartSystem { get; set; } = new();
-    // public DailyBonus DailyBonus { get; set; } = new();
-    // public SpinWheel SpinWheel { get; set; } = new();
-    // public ConsumableItem PrimeSubscriptions { get; set; } = new();
-    // public List<AdManager> AdManager { get; set; } = new();
-    // public List<LevelComplete> LevelsComplete { get; set; } = new();
-    // public List<ConsumableItem> ContainerProfileAvatarImages { get; set; } = new();
-    // public List<ConsumableItem> ContainerProfileCoverImages { get; set; } = new();
-    // public List<ConsumableItem> ContainerProfileBorders { get; set; } = new();
 }
 
 [System.Serializable]
