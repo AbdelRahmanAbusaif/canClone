@@ -179,18 +179,19 @@ public class VideoAdManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
         }
-        var fiveSeconds = 5;
-        Debug.Log("PlayerPrefs: " + PlayerPrefs.GetInt("IsFirstTimeVideoAd"));
-        Debug.Log("Five seconds: " + fiveSeconds);
-        while(PlayerPrefs.GetInt("IsFirstTimeVideoAd") == 0 && fiveSeconds >= 0)
-        {
-            Debug.Log("Video ad is not ready to show yet.");
-            fiveSeconds--;
-            yield return new WaitForSeconds(1f);
-        }
-        notificationPrefab.SetActive(false);
+       
         if (videoAds.Count > 0)
         {
+             var fiveSeconds = 5;
+            Debug.Log("PlayerPrefs: " + PlayerPrefs.GetInt("IsFirstTimeVideoAd"));
+            Debug.Log("Five seconds: " + fiveSeconds);
+            while(PlayerPrefs.GetInt("IsFirstTimeVideoAd") == 0 && fiveSeconds >= 0)
+            {
+                Debug.Log("Video ad is not ready to show yet.");
+                fiveSeconds--;
+                yield return new WaitForSeconds(1f);
+            }
+            notificationPrefab.SetActive(false);
 
             video = videoAds.Dequeue();
             videoAdComponent = waitingAds.Dequeue();
@@ -308,6 +309,7 @@ public class VideoAdManager : MonoBehaviour
                 backGroundMusicSource.mute = false;
             }
             AdCoordinator.Instance.NotifyAdEnded(); // Notify end
+            notificationPrefab.SetActive(false);
             StartCoroutine(PlayVideo());
         }
         else

@@ -97,14 +97,15 @@ namespace GameVanilla.Game.UI
         /// </summary>
         private async void Start()
         {
-           
-          updateButton();
 
-         prevLoop = 0;
+            updateButton();
 
+            prevLoop = 0;
+
+            InvokeRepeating(nameof(UpdateScroller), 0.1f, 2f);
         }
 
-        public void Update() {
+        public void UpdateScroller() {
 
             if (prevLoop != loopValue)
             {
