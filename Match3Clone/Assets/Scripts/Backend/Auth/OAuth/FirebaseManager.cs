@@ -289,6 +289,7 @@ public class FirebaseManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         auth.SignOut();
+        loginController.InitSignOut();
     }
     private void OnDestroy()
     {
