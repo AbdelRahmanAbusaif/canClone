@@ -1090,7 +1090,7 @@ Transform:
   m_GameObject: {fileID: 377167677}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.19144832, y: -0.022074755, z: 96.044586}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1502,7 +1502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e039d3341daa5f449f2d7cf7d40bbac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  signInButton: {fileID: 0}
+  signInAnynoumuse: {fileID: 0}
   sceneTransition: {fileID: 1647710681}
   loginController: {fileID: 567607537}
   loginPanel: {fileID: 0}
