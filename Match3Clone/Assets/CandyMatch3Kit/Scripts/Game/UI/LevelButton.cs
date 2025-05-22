@@ -1,7 +1,3 @@
-// Copyright (C) 2017 gamevanilla. All rights reserved.
-// This code can only be used under the standard Unity Asset Store End User License Agreement,
-// a copy of which is available at http://unity3d.com/company/legal/as_terms.
-
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -9,73 +5,36 @@ using UnityEngine.UI;
 using GameVanilla.Core;
 using GameVanilla.Game.Popups;
 using GameVanilla.Game.Scenes;
-using System.Threading.Tasks;
 using SaveData;
 using GameVanilla.Game.Common;
 using System.Collections.Generic;
-using System;
 
 namespace GameVanilla.Game.UI
 {
-    /// <summary>
-    /// This class manages the level buttons that are displayed on the level scene.
-    /// </summary>
     public class LevelButton : MonoBehaviour
     {
         public int numLevel;
 
-    
+        [SerializeField] private Sprite currentButtonSprite;
+        [SerializeField] private Sprite playedButtonSprite;
+        [SerializeField] private Sprite lockedButtonSprite;
+        [SerializeField] private Sprite yellowStarSprite;
+        [SerializeField] private Image buttonImage;
+        [SerializeField] private Text numLevelTextBlue;
+        [SerializeField] private Text numLevelTextPink;
+        [SerializeField] private GameObject star1;
+        [SerializeField] private GameObject star2;
+        [SerializeField] private GameObject star3;
+        [SerializeField] private GameObject shineAnimation;
 
+        private PlayerProfile playerProfile;
+        private List<LevelComplete> levelCompleteList;
+        private LoopingScroll loopingScroll;
 
-#pragma warning disable 649
-        [SerializeField]
-        private Sprite currentButtonSprite;
+        private int index;
+        private int loopValue;
+        private int prevLoop = -1;
 
-        [SerializeField]
-        private Sprite playedButtonSprite;
-
-        [SerializeField]
-        private Sprite lockedButtonSprite;
-
-        [SerializeField]
-        private Sprite yellowStarSprite;
-
-        [SerializeField]
-        private Image buttonImage;
-
-        [SerializeField]
-        private Text numLevelTextBlue;
-
-        [SerializeField]
-        private Text numLevelTextPink;
-
-        [SerializeField]
-        private GameObject star1;
-
-        [SerializeField]
-        private GameObject star2;
-
-        [SerializeField]
-        private GameObject star3;
-
-        [SerializeField]
-        private GameObject shineAnimation;
-
-        PlayerProfile playerProfile;
-
-
-        
-
-        int index;
-        int loopValue;
-        int prevLoop;
-
-
-#pragma warning restore 649
-
-        /// <summary>
-        /// Unity's Awake method.
-        /// </summary>
         private void Awake()
         {
             Assert.IsNotNull(currentButtonSprite);
@@ -89,77 +48,70 @@ namespace GameVanilla.Game.UI
             Assert.IsNotNull(star2);
             Assert.IsNotNull(star3);
             Assert.IsNotNull(shineAnimation);
-
         }
 
-        /// <summary>
-        /// Unity's Start method.
-        /// </summary>
         private async void Start()
         {
+            loopingScroll = GetComponentInParent<LoopingScroll>();
+            index = transform.GetSiblingIndex();
 
-            updateButton();
+          
+            loopValue = loopingScroll != null ? loopingScroll.loop : 0;
+            numLevel = index + (200 * loopValue) + 1;
 
-            prevLoop = 0;
+            //
+            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            levelCompleteList = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelComplete" + numLevel);
 
-            InvokeRepeating(nameof(UpdateScroller), 0.1f, 2f);
+            UpdateButton(); // 
+
+            InvokeRepeating(nameof(UpdateScroll), 0.5f, 0.5f); // 
         }
-
-        public void UpdateScroller() {
-
-            if (prevLoop != loopValue)
-            {
-                updateButton();
-                prevLoop = loopValue;
-            }
-
-            LoopingScroll parent = GetComponentInParent<LoopingScroll>();
-            if (parent != null)
-            {
-                 loopValue = parent.loop;
-            }
-            else
-            {
-                Debug.LogWarning("ParentScript not found in parent!");
-                loopValue = 0;
-            }
-           
-            numLevel = index + (200 * loopValue)+ 1;
-
-
-            numLevelTextBlue.text = numLevel.ToString();
-            numLevelTextPink.text = numLevel.ToString();
-
-        }
-
-            /// <summary>
-            /// Called when the button is pressed.
-            /// </summary>
-            public void OnButtonPressed()
+        void Update()
         {
-            if (buttonImage.sprite == lockedButtonSprite)
+           
+        }
+        public void UpdateScroll()
+        {
+            if (loopingScroll == null) return;
+
+            int currentLoop = loopingScroll.loop;
+            if (currentLoop != prevLoop)
             {
-                return;
+                prevLoop = currentLoop;
+                loopValue = currentLoop;
+                numLevel = index + (200 * loopValue) + 1;
+                UpdateButton();
             }
 
-            var scene = GameObject.Find("LevelScene").GetComponent<LevelScene>();
+           
+            string levelStr = numLevel.ToString();
+            if (numLevelTextBlue.text != levelStr)
+            {
+                numLevelTextBlue.text = levelStr;
+                numLevelTextPink.text = levelStr;
+            }
+        }
+
+        public void OnButtonPressed()
+        {
+            if (buttonImage.sprite == lockedButtonSprite) return;
+
+            var scene = GameObject.Find("LevelScene")?.GetComponent<LevelScene>();
             if (scene != null)
             {
-               // var numLives = PlayerPrefs.GetInt("num_lives");
                 var numLives = PuzzleMatchManager.instance.livesSystem.GetCurrentLives();
                 if (numLives > 0)
                 {
                     if (!FileUtils.FileExists("Levels/" + numLevel))
                     {
-                        scene.OpenPopup<AlertPopup>("Popups/AlertPopup",
-                            popup => popup.SetText("This level does not exist."));
+                        scene.OpenPopup<AlertPopup>("Popups/AlertPopup", popup =>
+                            popup.SetText("This level does not exist."));
                     }
                     else
                     {
                         scene.OpenPopup<StartGamePopup>("Popups/StartGamePopup", popup =>
-                        {
-                            popup.LoadLevelData(numLevel);
-                        });
+                            popup.LoadLevelData(numLevel));
                     }
                 }
                 else
@@ -169,28 +121,16 @@ namespace GameVanilla.Game.UI
             }
         }
 
-        private async void updateButton()
+        private void UpdateButton()
         {
-            
-            index = transform.GetSiblingIndex();
+            if (playerProfile == null)
+                return;
 
+            int nextLevel = playerProfile.Level > 0 ? playerProfile.Level : 1;
 
-
-            // var nextLevel = 0;
-
-            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-
-            // var nextLevel = playerProfile.Level;
-            var nextLevel = playerProfile.Level;
-            
-
-
-
-
-            if (nextLevel == 0)
-            {
-                nextLevel = 1;
-            }
+            string levelStr = numLevel.ToString();
+            numLevelTextBlue.text = levelStr;
+            numLevelTextPink.text = levelStr;
 
             if (numLevel == nextLevel)
             {
@@ -199,36 +139,32 @@ namespace GameVanilla.Game.UI
                 star2.SetActive(false);
                 star3.SetActive(false);
                 shineAnimation.SetActive(true);
-                numLevelTextPink.gameObject.SetActive(false);
                 numLevelTextPink.gameObject.SetActive(true);
-
+                numLevelTextBlue.gameObject.SetActive(false);
             }
             else if (numLevel < nextLevel)
             {
                 buttonImage.sprite = playedButtonSprite;
-                numLevelTextBlue.gameObject.SetActive(false);
                 numLevelTextPink.gameObject.SetActive(true);
+                numLevelTextBlue.gameObject.SetActive(false);
+                shineAnimation.SetActive(false);
 
-                var LevelsComplete = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelComplete" + numLevel);
-                var stars = LevelsComplete[numLevel - 1].Stars;
+                int stars = levelCompleteList != null && numLevel - 1 < levelCompleteList.Count
+                    ? levelCompleteList[numLevel - 1].Stars
+                    : 0;
 
-                switch (stars)
-                {
-                    case 1:
-                        star1.GetComponent<Image>().sprite = yellowStarSprite;
-                        break;
+                // Reset all stars first
+                star1.SetActive(false);
+                star2.SetActive(false);
+                star3.SetActive(false);
 
-                    case 2:
-                        star1.GetComponent<Image>().sprite = yellowStarSprite;
-                        star2.GetComponent<Image>().sprite = yellowStarSprite;
-                        break;
+                if (stars >= 1) star1.GetComponent<Image>().sprite = yellowStarSprite;
+                if (stars >= 2) star2.GetComponent<Image>().sprite = yellowStarSprite;
+                if (stars == 3) star3.GetComponent<Image>().sprite = yellowStarSprite;
 
-                    case 3:
-                        star1.GetComponent<Image>().sprite = yellowStarSprite;
-                        star2.GetComponent<Image>().sprite = yellowStarSprite;
-                        star3.GetComponent<Image>().sprite = yellowStarSprite;
-                        break;
-                }
+                star1.SetActive(stars >= 1);
+                star2.SetActive(stars >= 2);
+                star3.SetActive(stars == 3);
             }
             else
             {
@@ -240,7 +176,6 @@ namespace GameVanilla.Game.UI
                 star3.SetActive(false);
                 shineAnimation.SetActive(false);
             }
-
         }
     }
 }

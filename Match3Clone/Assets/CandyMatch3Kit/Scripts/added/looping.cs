@@ -16,26 +16,46 @@ public class LoopingScroll : MonoBehaviour
 
     public int loop;
     public int originLoop;
+    GameObject target;
 
     public bool newLoop = false;
 
     private bool isResetting = false;
 
+    PlayerProfile playerProfile;
+
     private async void Start()
     {
-        
-        var playerProfile = await SaveData.LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        trans = page.GetComponent<Animator>();
+        playerProfile = await SaveData.LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         var nextLevel = playerProfile.Level;
+
+       
+       
+
        
         loop = nextLevel / 200;
-        trans = page.GetComponent<Animator>();
-        originLoop=loop;
-        
+        originLoop =loop;
+
+
     }
 
     void Update()
     {
-        Debug.Log(originLoop);
+        
+
+        Debug.Log("Origin" + originLoop);
+        Debug.Log("currnt" + loop);
+        Debug.Log("next" + playerProfile.Level);
+
+
+      
+
+        if (target == null)
+        {
+              target = GameObject.Find("LevelMapAvatar(Clone)");
+        }
+       
         if (isResetting) return;
 
         if (content.anchoredPosition.y > MaxThreshold && loop > 0)
@@ -50,26 +70,7 @@ public class LoopingScroll : MonoBehaviour
             StartCoroutine(ResetScrollAfterDelay(resetAfterMin, 1));
            
         }
-        if (originLoop==loop)
-        {
-            GameObject target = GameObject.Find("LevelMapAvatar(Clone)");
-
-            if (target != null)
-            {
-               target.SetActive(true);
-            }
-            
-        }
-        else
-        {
-
-            GameObject target = GameObject.Find("LevelMapAvatar(Clone)");
-
-            if (target != null)
-            {
-                target.SetActive(false);
-            }
-        }
+       
     }
 
     IEnumerator ResetScrollAfterDelay(float newYPosition, int loopDelta)
@@ -86,5 +87,25 @@ public class LoopingScroll : MonoBehaviour
         newLoop = true;
 
         isResetting = false;
+        if (originLoop == loop)
+        {
+           
+
+            if (target != null)
+            {
+                target.SetActive(true);
+            }
+
+        }
+        else
+        {
+
+           
+
+            if (target != null)
+            {
+                target.SetActive(false);
+            }
+        }
     }
 }
