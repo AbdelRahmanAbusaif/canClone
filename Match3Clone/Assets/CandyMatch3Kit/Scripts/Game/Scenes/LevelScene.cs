@@ -127,8 +127,7 @@ namespace GameVanilla.Game.Scenes
                 {
                     if (button.numLevel != PuzzleMatchManager.instance.lastSelectedLevel)
                     {
-                        // continue;
-                       
+                        continue;
                     }
                     prevButton = button;
                     break;
