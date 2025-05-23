@@ -2,10 +2,9 @@
 // This code can only be used under the standard Unity Asset Store End User License Agreement,
 // a copy of which is available at http://unity3d.com/company/legal/as_terms.
 
+using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
-
 using GameVanilla.Core;
 
 namespace GameVanilla.Game.Common
@@ -15,6 +14,7 @@ namespace GameVanilla.Game.Common
     /// </summary>
     public class ColorBombWithCandyCombo : ColorBombCombo
     {
+
         /// <summary>
         /// Resolves this combo.
         /// </summary>
@@ -24,6 +24,14 @@ namespace GameVanilla.Game.Common
         public override void Resolve(GameBoard board, List<GameObject> tiles, FxPool fxPool)
         {
             base.Resolve(board, tiles, fxPool);
+            board.StartCoroutine(ResolveWithDelay(board, tiles));
+           // Animator anim = GameObject.GetComponent<Animator>();
+        }
+
+        private IEnumerator ResolveWithDelay(GameBoard board, List<GameObject> tiles)
+        {
+            yield return new WaitForSeconds(2f);
+            
 
             var candy = tileA.GetComponent<Candy>() != null ? tileA : tileB;
 
@@ -34,6 +42,7 @@ namespace GameVanilla.Game.Common
                     tile.GetComponent<Candy>().color == candy.GetComponent<Candy>().color)
                 {
                     board.ExplodeTileNonRecursive(tile);
+                    yield return new WaitForSeconds(0.04f); // Wait  between each explosion
                 }
             }
 

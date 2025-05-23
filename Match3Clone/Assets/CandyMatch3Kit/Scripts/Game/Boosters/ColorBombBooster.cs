@@ -3,7 +3,7 @@
 // a copy of which is available at http://unity3d.com/company/legal/as_terms.
 
 using UnityEngine;
-using System.Collections; // مهم عشان نستخدم IEnumerator
+using System.Collections; // 
 
 namespace GameVanilla.Game.Common
 {
@@ -19,17 +19,12 @@ namespace GameVanilla.Game.Common
         /// <param name="tile">The tile in which to apply the booster.</param>
         public override void Resolve(GameBoard board, GameObject tile)
         {
-            board.StartCoroutine(DelayedColorBomb(board, tile));
-        }
-
-        private IEnumerator DelayedColorBomb(GameBoard board, GameObject tile)
-        {
-            yield return new WaitForSeconds(2f); // تأخير ثانيتين
-
             var x = tile.GetComponent<Tile>().x;
             var y = tile.GetComponent<Tile>().y;
             board.ExplodeTile(tile);
             board.CreateColorBomb(x, y);
         }
+
+        
     }
 }

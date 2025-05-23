@@ -148,7 +148,6 @@ SpriteAtlas:
     - 0711583a6f2ce4d7392160f611e0d769: 21300000
     - 729fcb6a5564a4310b7aa22fe5884ce1: 21300000
     - aff2feaa5a0374eeabc9fc208fe40f74: 21300000
-    - ee2cebcaec5884514ad332d5868c0a6e: 21300000
     - 6a2cf3da33d9f4c33b2bcbc99c83efac: 21300000
     - f9b415da30072484f8481dd032b181fd: 21300000
     - 613d4bda69faf47c2bead12c9408d81b: 21300000
@@ -263,7 +262,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0711583a6f2ce4d7392160f611e0d769, type: 3}
   - {fileID: 21300000, guid: 729fcb6a5564a4310b7aa22fe5884ce1, type: 3}
   - {fileID: 21300000, guid: aff2feaa5a0374eeabc9fc208fe40f74, type: 3}
-  - {fileID: 21300000, guid: ee2cebcaec5884514ad332d5868c0a6e, type: 3}
   - {fileID: 21300000, guid: 6a2cf3da33d9f4c33b2bcbc99c83efac, type: 3}
   - {fileID: 21300000, guid: f9b415da30072484f8481dd032b181fd, type: 3}
   - {fileID: 21300000, guid: 613d4bda69faf47c2bead12c9408d81b, type: 3}
@@ -310,7 +308,7 @@ SpriteAtlas:
   - Syrup1-2_0
   - ArmL
   - YellowItemWrapped
-  - BoosterColorBomb
+  - BoosterColorBomb1
   - Tick
   - OrangeItem
   - BlueItemHorizontal
@@ -377,7 +375,6 @@ SpriteAtlas:
   - Head
   - PopupBackground
   - PauseButton
-  - ColorBomb
   - SoundButton
   - EyesClosed
   - Neck
