@@ -25,7 +25,7 @@ namespace GameVanilla.Game.Common
         {
             base.Resolve(board, tiles, fxPool);
             board.StartCoroutine(ResolveWithDelay(board, tiles));
-           // Animator anim = GameObject.GetComponent<Animator>();
+          
         }
 
         private IEnumerator ResolveWithDelay(GameBoard board, List<GameObject> tiles)
