@@ -44,7 +44,7 @@ namespace GameVanilla.Core
         /// <param name="spriteEnabled">True if the sprite should be enabled; false otherwise.</param>
         public void SetEnabled(bool spriteEnabled)
         {
-            image.sprite = spriteEnabled ? enabledSprite : disabledSprite;
+            // image.sprite = spriteEnabled ? enabledSprite : disabledSprite;
         }
     }
 }

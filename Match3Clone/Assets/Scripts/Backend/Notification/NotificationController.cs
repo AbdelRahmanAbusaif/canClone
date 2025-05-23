@@ -1,4 +1,5 @@
 #if UNITY_ANDROID
+using System;
 using Unity.Notifications.Android;
 #elif UNITY_IOS
 using Unity.Notifications.iOS;
@@ -19,16 +20,17 @@ public class NotificationController : MonoBehaviour
         StartCoroutine(iosNotificationSettings.RequestAuthorization());
 #endif
     }
-    public void ScheduleNotification(string title, string message, int seconds)
+    public void ScheduleNotification(string title, string message, DateTime fireTime)
     {
+        
+        Debug.Log("Scheduling notification");
 #if UNITY_ANDROID
         // Cancel all displayed notifications
-        AndroidNotificationCenter.CancelAllScheduledNotifications();
         AndroidNotificationCenter.CancelAllDisplayedNotifications();
-        androidNotificationSettings.SendNotification(title, message, seconds);
+        androidNotificationSettings.SendNotification(title, message, fireTime);
 #elif UNITY_IOS
         iOSNotificationCenter.RemoveAllScheduledNotifications();
-        iosNotificationSettings.SendNotification(title, message, seconds);
+        iosNotificationSettings.SendNotification(title, message, fireTime);
 #endif
         Debug.Log("Notification scheduled");
     }

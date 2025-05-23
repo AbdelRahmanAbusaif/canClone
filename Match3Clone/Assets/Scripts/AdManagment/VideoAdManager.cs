@@ -309,8 +309,8 @@ public class VideoAdManager : MonoBehaviour
                 backGroundMusicSource.mute = false;
             }
             AdCoordinator.Instance.NotifyAdEnded(); // Notify end
-            notificationPrefab.SetActive(false);
             StartCoroutine(PlayVideo());
+            notificationPrefab.SetActive(false);
         }
         else
         {

@@ -150,6 +150,8 @@ namespace GameVanilla.Game.Popups
             spinWheel.DailySpinDayKey = "0";
             spinWheel.DateLastSpin = ServerTimeManager.Instance.CurrentTime.Date.ToString();
 
+            PuzzleMatchManager.instance.notificationController.ScheduleNotification("تعال في جولة", "جرب حظك في عجلة الحظ", ServerTimeManager.Instance.CurrentTime.Date.AddDays(1));
+
             await CloudSaveManager.Instance.SaveDataAsync("SpinWheel", spinWheel);
         }
 

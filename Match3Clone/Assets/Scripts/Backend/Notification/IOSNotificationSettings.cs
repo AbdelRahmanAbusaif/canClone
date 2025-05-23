@@ -34,11 +34,11 @@ public class IOSNotificationSettings : MonoBehaviour
             Debug.Log("Notification permission request failed");
         }
     }
-    public void SendNotification(string title, string text, int seconds)
+    public void SendNotification(string title, string text, DateTime fireTime)
     {
         var timeTrigger = new iOSNotificationTimeIntervalTrigger
         {
-            TimeInterval = TimeSpan.FromSeconds(seconds),
+            TimeInterval = fireTime.Subtract(DateTime.Now),
             Repeats = false
         };
 

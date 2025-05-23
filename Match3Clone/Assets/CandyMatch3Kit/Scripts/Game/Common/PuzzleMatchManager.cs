@@ -42,6 +42,10 @@ namespace GameVanilla.Game.Common
         /// </summary>
         private async void Awake()
         {
+
+            RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
+            RemoteConfigService.Instance.FetchConfigs(new UserAttributes(), new AppAttributes());
+            
             if (instance == null)
             {
                 instance = this;
@@ -82,7 +86,6 @@ namespace GameVanilla.Game.Common
         }
         private void OnEnable() 
         {
-            RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
         }
         private void ApplyRemoteConfig(ConfigResponse response)
         {

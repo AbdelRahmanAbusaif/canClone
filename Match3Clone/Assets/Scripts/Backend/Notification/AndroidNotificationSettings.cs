@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+
 #if UNITY_ANDROID
 using Unity.Notifications.Android;
 using UnityEngine.Android;
@@ -28,7 +30,7 @@ public class AndroidNotificationSettings : MonoBehaviour
         };
         AndroidNotificationCenter.RegisterNotificationChannel(channel);
     }
-    public void SendNotification(string title, string text, int seconds)
+    public void SendNotification(string title, string text, DateTime fireTime)
     {
         var notification = new AndroidNotification()
         {
@@ -36,20 +38,21 @@ public class AndroidNotificationSettings : MonoBehaviour
             Text = text,
             SmallIcon = "icon_0",
             LargeIcon = "icon_1",
-            FireTime = System.DateTime.Now.AddSeconds(seconds),
+            FireTime = fireTime,
         };
         var id = AndroidNotificationCenter.SendNotification(notification, "default_channel");
 
-        // if (AndroidNotificationCenter.CheckScheduledNotificationStatus(id) == NotificationStatus.Scheduled)
-        // {
-        //     Debug.Log("Notification scheduled");
-        //     AndroidNotificationCenter.CancelAllDisplayedNotifications();
-        //     AndroidNotificationCenter.SendNotification(notification, "default_channel");
-        // }
-        // else
-        // {
-        //     Debug.Log("Failed to schedule notification");
-        // }
+        if (AndroidNotificationCenter.CheckScheduledNotificationStatus(id) == NotificationStatus.Scheduled)
+        {
+            Debug.Log("Notification scheduled");
+            AndroidNotificationCenter.CancelAllDisplayedNotifications();
+            AndroidNotificationCenter.CancelNotification(id);
+            AndroidNotificationCenter.SendNotification(notification, "default_channel");
+        }
+        else
+        {
+            Debug.Log("Failed to schedule notification");
+        }
     }
     #endif
 }

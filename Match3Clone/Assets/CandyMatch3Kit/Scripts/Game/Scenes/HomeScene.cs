@@ -141,9 +141,15 @@ namespace GameVanilla.Game.Scenes
             // PlayerPrefs.SetInt(dailyBonusDayKey, newDailyBonusDay);
             dailyBonus.DailyBonusDayKey = newDailyBonusDay.ToString();
 
-
             Debug.Log($"New daily bonus day: {newDailyBonusDay}");
 
+            // Only the first 7 days are available for the daily bonus
+            int key = Int32.Parse(dailyBonus.DailyBonusDayKey);
+            if (key <= 7)
+            {
+                PuzzleMatchManager.instance.notificationController.ScheduleNotification("يوم جديد", "لا تنسى الحصول على مكافأتك اليومية!", DateTime.Parse(dailyBonus.DateLastPlayed).AddDays(1));
+            }
+            
             await CloudSaveManager.Instance.SaveDataAsync("DailyBonus", dailyBonus);
 
             OpenPopup<DailyBonusPopup>("Popups/DailyBonusPopup", popup => { popup.SetInfo(dailyBonusDay); });

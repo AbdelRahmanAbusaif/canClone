@@ -121,15 +121,18 @@ namespace GameVanilla.Game.Common
 
                 Debug.Log($"Initialized next_life_time: {nextLifeTime}");
             }
-            if (numLives < maxLives && heartSystem.LastHeartTime !="0" && !string.IsNullOrEmpty(heartSystem.LastHeartTime))
+            Debug.Log("From CheckLives heartSystem.LastHeartTime: " + heartSystem.LastHeartTime);
+            Debug.Log("From CheckLives maxLives: " + maxLives);
+            Debug.Log("From CheckLives numLives: " + numLives);
+            if (numLives < maxLives && heartSystem.LastHeartTime != "0" && !string.IsNullOrEmpty(heartSystem.LastHeartTime))
             {
                 DateTime nowTime;
-                if(ServerTimeManager.Instance.CurrentTime == DateTime.MinValue)
+                if (ServerTimeManager.Instance.CurrentTime == DateTime.MinValue)
                 {
                     Debug.LogError("Server time not fetched yet.");
                     nowTime = DateTime.Now;
                 }
-                else 
+                else
                 {
                     nowTime = ServerTimeManager.Instance.CurrentTime;
                     Debug.Log("Server time fetched: " + nowTime);
@@ -142,7 +145,7 @@ namespace GameVanilla.Game.Common
                 if (savedNextLifeTime.Value > nowTime)
                 {
                     var remainingTime = savedNextLifeTime.Value - nowTime;
-                    if(numLives < maxLives)
+                    if (numLives < maxLives)
                     {
                         StartCountdown((int)remainingTime.TotalSeconds);
                     }
@@ -214,6 +217,22 @@ namespace GameVanilla.Game.Common
             {
                 heartSystem.Heart--;
                 numLives = GetCurrentLives();
+                if (heartSystem.Heart == 4)
+                {
+                    heartSystem.NextHeartTime = ServerTimeManager.Instance.CurrentTime.AddSeconds(PuzzleMatchManager.instance.gameConfig.timeToNextLife).ToString();
+                }
+                else
+                {
+                    DateTime lastHeartTime = DateTime.Parse(heartSystem.LastHeartTime);
+                    heartSystem.NextHeartTime = lastHeartTime.AddSeconds(PuzzleMatchManager.instance.gameConfig.timeToNextLife).ToString();
+                }
+                
+                Debug.Log("Send Notification");
+                var nextLifeTime = DateTime.Parse(heartSystem.NextHeartTime);
+                Debug.Log("From RemoveLife nextLifeTime: " + nextLifeTime);
+                PuzzleMatchManager.instance.notificationController.ScheduleNotification("القلووووب فلل!", "تعال في قلوووب جديييييدة بانتظارك!", nextLifeTime);
+                PuzzleMatchManager.instance.notificationController.ScheduleNotification("تعال في قلب جديد!", "تعال اجاك قلب جديد! تعال كمل لعب!!", ServerTimeManager.Instance.CurrentTime.AddMinutes(5));
+
                 await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
             }
 
@@ -221,7 +240,6 @@ namespace GameVanilla.Game.Common
             {
                 var timeToNextLife = PuzzleMatchManager.instance.gameConfig.timeToNextLife;
                 StartCountdown(timeToNextLife);
-                PuzzleMatchManager.instance.notificationController.ScheduleNotification("القلووووب فلل!", "تعال في قلوووب جديييييدة بانتظارك!", timeToNextLife);
             }
         }
 
