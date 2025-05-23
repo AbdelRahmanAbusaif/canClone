@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 114440977651962760}
   - component: {fileID: 114903634578139318}
   - component: {fileID: 8393762374588120423}
+  - component: {fileID: -2716698507889834258}
+  - component: {fileID: 1566664474686688280}
+  - component: {fileID: -4638082733677662439}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -105,5 +108,43 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3ed35fd639644acf86e1685d49b5da3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2716698507889834258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193228960034462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bc22a8abb7cd8b41ac8d0b440ebedbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  androidNotificationSettings: {fileID: 1566664474686688280}
+  iosNotificationSettings: {fileID: -4638082733677662439}
+--- !u!114 &1566664474686688280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193228960034462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9ffc6d8dd18f0340aad02cf9ab13e5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4638082733677662439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193228960034462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5beae5a0ed3708a48ac49237fcd0b214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

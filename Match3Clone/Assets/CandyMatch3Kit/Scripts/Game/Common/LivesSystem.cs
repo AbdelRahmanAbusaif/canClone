@@ -70,7 +70,7 @@ namespace GameVanilla.Game.Common
         {
             var numberOfLives = heartSystem.Heart;
             Debug.Log("From GetCurrentLives: " + numberOfLives);
-            return 999999;
+            return numberOfLives;
         }
 
         /// <summary>
@@ -221,6 +221,7 @@ namespace GameVanilla.Game.Common
             {
                 var timeToNextLife = PuzzleMatchManager.instance.gameConfig.timeToNextLife;
                 StartCountdown(timeToNextLife);
+                PuzzleMatchManager.instance.notificationController.ScheduleNotification("القلووووب فلل!", "تعال في قلوووب جديييييدة بانتظارك!", timeToNextLife);
             }
         }
 

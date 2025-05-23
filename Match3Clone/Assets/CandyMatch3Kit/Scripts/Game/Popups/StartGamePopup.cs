@@ -103,7 +103,7 @@ namespace GameVanilla.Game.Popups
             levelText.text = "Level " + numLevel;
             // var stars = PlayerPrefs.GetInt("level_stars_" + numLevel);
             
-            var LevelCompletes = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelCompletes");
+            var LevelCompletes = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelsComplete");
             var playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
             LevelComplete levelComplete = new LevelComplete();

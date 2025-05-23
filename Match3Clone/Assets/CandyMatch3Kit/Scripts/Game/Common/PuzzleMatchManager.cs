@@ -28,6 +28,7 @@ namespace GameVanilla.Game.Common
 
         public LivesSystem livesSystem;
         public CoinsSystem coinsSystem;
+        public NotificationController notificationController;
 
         public int lastSelectedLevel;
         public bool unlockedNextLevel;

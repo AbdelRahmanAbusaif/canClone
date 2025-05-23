@@ -18,18 +18,17 @@ public class NotificationController : MonoBehaviour
 #elif UNITY_IOS
         StartCoroutine(iosNotificationSettings.RequestAuthorization());
 #endif
-        ScheduleNotification();
     }
-    private void ScheduleNotification()
+    public void ScheduleNotification(string title, string message, int seconds)
     {
 #if UNITY_ANDROID
         // Cancel all displayed notifications
         AndroidNotificationCenter.CancelAllScheduledNotifications();
         AndroidNotificationCenter.CancelAllDisplayedNotifications();
-        androidNotificationSettings.SendNotification("Full Lives", "You have full lives now!", 1);
+        androidNotificationSettings.SendNotification(title, message, seconds);
 #elif UNITY_IOS
         iOSNotificationCenter.RemoveAllScheduledNotifications();
-        iosNotificationSettings.SendNotification("Full Lives", "You have full lives now!", 1);
+        iosNotificationSettings.SendNotification(title, message, seconds);
 #endif
         Debug.Log("Notification scheduled");
     }

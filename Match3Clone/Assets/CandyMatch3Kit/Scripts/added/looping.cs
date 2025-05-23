@@ -42,15 +42,6 @@ public class LoopingScroll : MonoBehaviour
 
     void Update()
     {
-        
-
-        Debug.Log("Origin" + originLoop);
-        Debug.Log("currnt" + loop);
-        Debug.Log("next" + playerProfile.Level);
-
-
-      
-
         if (target == null)
         {
               target = GameObject.Find("LevelMapAvatar(Clone)");

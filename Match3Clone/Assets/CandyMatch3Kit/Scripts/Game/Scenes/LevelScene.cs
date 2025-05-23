@@ -165,9 +165,5 @@ namespace GameVanilla.Game.Scenes
         {
             // OpenPopup<BuyCoinsPopup>("Popups/LB_popup");
         }
-        void Update()
-        {
-            Debug.Log("nextLevel from levelUpdate: " + playerProfile.Level);
-        }
     }
 }

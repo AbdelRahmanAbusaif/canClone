@@ -8,6 +8,8 @@ using GameVanilla.Game.Scenes;
 using SaveData;
 using GameVanilla.Game.Common;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GameVanilla.Game.UI
 {
@@ -61,7 +63,7 @@ namespace GameVanilla.Game.UI
 
             //
             playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-            levelCompleteList = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelComplete" + numLevel);
+            levelCompleteList = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelsComplete");
 
             UpdateButton(); // 
 
@@ -121,7 +123,7 @@ namespace GameVanilla.Game.UI
             }
         }
 
-        private void UpdateButton()
+        private async void UpdateButton()
         {
             if (playerProfile == null)
                 return;
@@ -149,14 +151,9 @@ namespace GameVanilla.Game.UI
                 numLevelTextBlue.gameObject.SetActive(false);
                 shineAnimation.SetActive(false);
 
-                int stars = levelCompleteList != null && numLevel - 1 < levelCompleteList.Count
-                    ? levelCompleteList[numLevel - 1].Stars
-                    : 0;
-
-                // Reset all stars first
-                star1.SetActive(false);
-                star2.SetActive(false);
-                star3.SetActive(false);
+                int stars = levelCompleteList != null && levelCompleteList.FirstOrDefault(x => x.NumberLevel == numLevel) != null
+                ? levelCompleteList.FirstOrDefault(x => x.NumberLevel == numLevel).Stars 
+                : 0;
 
                 if (stars >= 1) star1.GetComponent<Image>().sprite = yellowStarSprite;
                 if (stars >= 2) star2.GetComponent<Image>().sprite = yellowStarSprite;
@@ -167,7 +164,7 @@ namespace GameVanilla.Game.UI
                 star3.SetActive(stars == 3);
             }
             else
-            {
+            { 
                 buttonImage.sprite = lockedButtonSprite;
                 numLevelTextBlue.gameObject.SetActive(true);
                 numLevelTextPink.gameObject.SetActive(false);

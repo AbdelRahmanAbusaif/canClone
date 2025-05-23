@@ -28,7 +28,7 @@ public class AndroidNotificationSettings : MonoBehaviour
         };
         AndroidNotificationCenter.RegisterNotificationChannel(channel);
     }
-    public void SendNotification(string title, string text, int minutes)
+    public void SendNotification(string title, string text, int seconds)
     {
         var notification = new AndroidNotification()
         {
@@ -36,7 +36,7 @@ public class AndroidNotificationSettings : MonoBehaviour
             Text = text,
             SmallIcon = "icon_0",
             LargeIcon = "icon_1",
-            FireTime = System.DateTime.Now.AddSeconds(10),
+            FireTime = System.DateTime.Now.AddSeconds(seconds),
         };
         var id = AndroidNotificationCenter.SendNotification(notification, "default_channel");
 
