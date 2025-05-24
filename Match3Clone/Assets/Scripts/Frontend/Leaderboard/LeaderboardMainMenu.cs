@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -32,32 +33,62 @@ public class LeaderboardMainMenu : MonoBehaviour
             for (int i = 3; i < scoreResponse.Results.Count && i < playerPerPage; i++)
             {
                 if (scoreResponse.Results[i].PlayerId == playerScore.PlayerId)
+                {
+                    var playerMainProfile = Instantiate(myLeaderboardItemPrefab, playerContainer);
+
+                    playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
+                    playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
+                    playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
+                    
+                    playerMainProfile.Initializer(playerScore);
                     continue;
+                }
                 LeaderboardItem leaderboardItem = Instantiate(leaderboardItemPrefab, playerContainer);
                 playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + leaderboardItem.GetComponent<RectTransform>().sizeDelta.y + 30f);
 
                 leaderboardItem.Initializer(scoreResponse.Results[i]);
             }
+            int count = 0;
             foreach (var leaderboardItem in leaderboardItems)
             {
+                count++;
+                if (scoreResponse.Results.Count <= leaderboardItems.IndexOf(leaderboardItem))
+                {
+                    Debug.Log("Skipping leaderboard item initialization due to insufficient scores.");
+                    MYLeaderboardEntry mYLeaderboardEntry = new MYLeaderboardEntry
+                    {
+                        PlayerId = System.Guid.NewGuid().ToString(),
+                        PlayerName = ((Names)Random.Range(0, Enum.GetValues(typeof(Names)).Length)).ToString(),
+                        Score = 0,
+                        Rank = count
+                    };
+                    leaderboardItem.SetFakeData(mYLeaderboardEntry);
+                    continue;
+                }
                 leaderboardItem.Initializer(scoreResponse.Results[leaderboardItems.IndexOf(leaderboardItem)]);
             }
-            if(scoreResponse.Results.Find(x => x.PlayerId == playerScore.PlayerId).PlayerId != playerScore.PlayerId && leaderboardItems.Find(x=> x.player.PlayerId == playerScore.PlayerId) == null)
+            Debug.Log("Player Id " + playerScore.PlayerId);
+
+            if (leaderboardItems.
+            FirstOrDefault(x => x.player.PlayerId == playerScore.PlayerId) == null)
             {
+
                 var playerMainProfile = Instantiate(myLeaderboardItemPrefab, playerContainer);
 
                 playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
                 playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
                 playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
-                
+
                 playerMainProfile.Initializer(playerScore);
+                return;
             }
-            if(scoreResponse.Results.Count < playerPerPage)
+            
+            if (scoreResponse.Results.Count < playerPerPage)
             {
                 for (int i = scoreResponse.Results.Count; i < playerPerPage; i++)
                 {
                     LeaderboardItem leaderboardItem = Instantiate(leaderboardItemPrefab, playerContainer);
-                    
+
                     Names names = (Names)Random.Range(0, Enum.GetValues(typeof(Names)).Length);
                     MYLeaderboardEntry leaderboardEntry = new MYLeaderboardEntry
                     {

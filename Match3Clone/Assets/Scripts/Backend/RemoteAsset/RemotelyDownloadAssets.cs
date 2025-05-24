@@ -29,9 +29,10 @@ public class RemotelyDownloadAssets : MonoBehaviour
         Debug.Log("Remote Config Fetched Successfully!");
         var assetKeys = new Dictionary<string, string>
             {
+                { "BackGroundMusic.wav", "BackgroundMusicURL" },
+                {"ColorBomb.wav", "ColorBombSoundURL" },
                 { "logo.png", "LogoURL" },
                 { "background.png", "BackgroundURL" },
-                { "BackGroundMusic.wav", "BackgroundMusicURL" },
                 { "PurpleCandy.png", "PurpleCandyURL" },
                 { "RedCandy.png", "RedCandyURL" },
                 { "GreenCandy.png", "GreenCandyURL" },

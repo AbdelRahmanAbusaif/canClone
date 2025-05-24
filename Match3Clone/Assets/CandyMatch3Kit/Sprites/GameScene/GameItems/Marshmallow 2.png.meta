@@ -1,14 +1,10 @@
 fileFormatVersion: 2
-guid: 2e7e91b6ad122b240b5b7a6d783eaa41
-AssetOrigin:
-  serializedVersion: 1
-  productId: 111083
-  packageName: Candy Match 3 Kit
-  packageVersion: 2.8.0
-  assetPath: Assets/CandyMatch3Kit/Sprites/GameScene/GameItems/Marshmallow.png
-  uploadId: 701267
+guid: b20ddbb5294d5e244914d9b40b39d782
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 6165139657964470395
+    second: Marshmallow 2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -70,9 +66,9 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -141,12 +137,34 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Marshmallow 2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7045a7cad9fe8550800000000000000
+      internalID: 6165139657964470395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -155,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Marshmallow 2_0: 6165139657964470395
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

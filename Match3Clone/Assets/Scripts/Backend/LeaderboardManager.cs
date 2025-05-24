@@ -36,6 +36,8 @@ public class LeaderboardManager : MonoBehaviour
             new GetScoresOptions { IncludeMetadata = true }
         );
 
+        Debug.Log( "Score respawn:" + JsonConvert.SerializeObject(scoreResponse));
+
         return scoreResponse;
     }
     public async Task<LeaderboardEntry> GetPlayerProfileScore(string leaderboardId)
@@ -44,8 +46,6 @@ public class LeaderboardManager : MonoBehaviour
         .GetPlayerScoreAsync(
             leaderboardId
         );
-
-        Debug.Log(JsonConvert.SerializeObject(scoreResponse));
 
         return scoreResponse;
     }

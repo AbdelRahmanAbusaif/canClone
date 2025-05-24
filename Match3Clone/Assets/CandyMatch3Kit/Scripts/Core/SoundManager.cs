@@ -3,7 +3,8 @@
 // a copy of which is available at http://unity3d.com/company/legal/as_terms.
 
 using System.Collections.Generic;
-
+using System.IO;
+using SaveData;
 using UnityEngine;
 
 namespace GameVanilla.Core
@@ -14,6 +15,7 @@ namespace GameVanilla.Core
     public class SoundManager : MonoBehaviour
     {
         public List<AudioClip> sounds;
+        public string colorBombSoundName = "ColorBomb";
         public static SoundManager instance;
 
         private ObjectPool soundPool;
@@ -24,16 +26,29 @@ namespace GameVanilla.Core
         /// <summary>
         /// Unity's Awake method.
         /// </summary>
-        private void Awake()
+        private async void Awake()
         {
             if (instance != null)
             {
                 Destroy(gameObject);
                 return;
             }
+            
+            string clipPath = Path.Combine(Application.persistentDataPath,"DownloadedAssets", colorBombSoundName);
+
+            if (!File.Exists(clipPath+".wav"))
+            {
+                Debug.LogError($"Audio file not found at path: {clipPath}.wav");
+                return;
+            }
+
+            AudioClip audioClip = await LocalSaveManager.Instance.LoadClipAsync(clipPath);
+            audioClip.name = colorBombSoundName;
+            sounds.Add(audioClip);
+
             foreach (var sound in sounds)
             {
-                if(nameToSound.ContainsKey(sound.name))
+                if (nameToSound.ContainsKey(sound.name))
                 {
                     Debug.Log("Sound " + sound.name + " already exists in the dictionary. Please check for duplicates.");
                 }
@@ -58,6 +73,11 @@ namespace GameVanilla.Core
         {
             foreach (var sound in soundsToAdd)
             {
+                if(nameToSound.ContainsKey(sound.name))
+                {
+                    Debug.Log("Sound " + sound.name + " already exists in the dictionary. Please check for duplicates.");
+                    continue;
+                }
                 nameToSound.Add(sound.name, sound);
             }
         }
