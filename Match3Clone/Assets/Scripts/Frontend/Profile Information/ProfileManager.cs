@@ -226,6 +226,7 @@ public class ProfileManager : MonoBehaviour
         Debug.Log($"Player phone number: {playerProfile.PhoneNumber}");
 
         await AuthenticationService.Instance.UpdatePlayerNameAsync(playerProfile.PlayerName.Replace("+", "").Replace(" ", ""));
+        playerProfile.PlayerName = AuthenticationService.Instance.PlayerName;
         await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerProfile);
 
         SaveImageInCloud();

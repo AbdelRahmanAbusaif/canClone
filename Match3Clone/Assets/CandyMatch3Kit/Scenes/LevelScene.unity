@@ -47145,6 +47145,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Store 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6050569179407206235, guid: d116991191835f548be2c5cca207ba03,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 6808518376823886172, guid: d116991191835f548be2c5cca207ba03,
         type: 3}
       propertyPath: airShipAdManager
@@ -59795,6 +59800,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -60.64295
       objectReference: {fileID: 0}
+    - target: {fileID: 1473637724197866448, guid: d328a51987a45f54aa1f9e8e9fb0bc74,
+        type: 3}
+      propertyPath: m_UpdateString.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2687040495657101913, guid: d328a51987a45f54aa1f9e8e9fb0bc74,
         type: 3}
       propertyPath: m_IsActive
@@ -59940,6 +59950,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5391408456610093158, guid: d328a51987a45f54aa1f9e8e9fb0bc74,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6041674772180207767, guid: d328a51987a45f54aa1f9e8e9fb0bc74,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -60080,7 +60095,9 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2583823161199604583, guid: d328a51987a45f54aa1f9e8e9fb0bc74, type: 3}
+    - {fileID: 1473637724197866448, guid: d328a51987a45f54aa1f9e8e9fb0bc74, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2035150153532906350, guid: d328a51987a45f54aa1f9e8e9fb0bc74,

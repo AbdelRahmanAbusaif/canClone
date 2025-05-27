@@ -41,7 +41,7 @@ public class FirebaseManager : MonoBehaviour
     void Start()
     {
         auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
-
+        Debug.Log("Firebase Auth initialized.");
         signUpPanel.signUpButton.onClick.AddListener(() => SignUp(signUpPanel.emailField.text, signUpPanel.passwordField.text, signUpPanel.confirmPasswordField.text));
 
         verifyEmail.onClick.AddListener(() =>
@@ -89,7 +89,7 @@ public class FirebaseManager : MonoBehaviour
     }
     public void SignUp(string mail,string password,string confirmPassword)
     {
-       
+        Debug.Log("SignUp called with email: " + mail);
         loadingSpinner.SetActive(true);
 
         if (string.IsNullOrEmpty(mail) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword))
@@ -138,7 +138,7 @@ public class FirebaseManager : MonoBehaviour
             if (task.IsFaulted)
             {
                 Debug.Log("Error creating user: " + task.Exception);
-                onErrorShow?.Invoke("Error creating user: " + task.Exception);
+                onErrorShow?.Invoke("Error creating user: " + task.Exception.Message);
 
                 loadingSpinner.SetActive(false);
             }
@@ -155,22 +155,8 @@ public class FirebaseManager : MonoBehaviour
 
                     loadingSpinner.SetActive(false);
 
-                    signUpPage.SetActive(false);
-                    verifyCodePage.SetActive(true);
-
-                    // Send verification email
-                    newUser.SendEmailVerificationAsync().ContinueWithOnMainThread(verifyTask =>
-
-                    {
-                        if (verifyTask.IsCompleted)
-                        {
-                            Debug.Log("Verification email sent.");
-                        }
-                        else
-                        {
-                            Debug.LogError("Failed to send verification email.");
-                        }
-                    });
+                    loginController.InitSignUpWithUsernameAndPassword(mail, password);
+                    animationBox.OnClose();
                 }
                 catch (Exception e)
                 {
@@ -288,7 +274,11 @@ public class FirebaseManager : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        auth.SignOut();
+        if(auth != null)
+        {
+            Debug.Log("Application is quitting, signing out user.");
+            auth.SignOut();
+        }
         loginController.InitSignOut();
     }
     private void OnDestroy()

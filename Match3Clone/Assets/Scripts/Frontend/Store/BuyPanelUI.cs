@@ -14,11 +14,12 @@ public class BuyPanelUI : MonoBehaviour
     [SerializeField] private Image itemImage;
     [SerializeField] private AnimationBox animationBox;
     [SerializeField] private GameObject loadingSpinner;
+    [SerializeField] private GameObject notEnoughCoinsPanel;
     private StoreItem storeItem;
     private List<ConsumableItem> avatarContainers = new List<ConsumableItem>();
     private List<ConsumableItem> coverContainers = new List<ConsumableItem>();
     private List<ConsumableItem> borderContainers = new List<ConsumableItem>();
-    private async void OnEnable() 
+    private async void OnEnable()
     {
         // playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         avatarContainers = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileAvatarImages");
@@ -29,7 +30,7 @@ public class BuyPanelUI : MonoBehaviour
     {
         foreach (var bundle in bundles)
         {
-            switch(bundle.DurationType)
+            switch (bundle.DurationType)
             {
                 case Duration.OneDay:
                     bundle.buyButton.onClick.AddListener(OnBuyOneDayButtonClicked);
@@ -49,9 +50,9 @@ public class BuyPanelUI : MonoBehaviour
 
         itemNameText.text = item.Title;
 
-        foreach(var bundle in bundles)
+        foreach (var bundle in bundles)
         {
-            switch(bundle.DurationType)
+            switch (bundle.DurationType)
             {
                 case Duration.OneDay:
                     bundle.piceText.text = item.PriceForOneDay;
@@ -70,42 +71,59 @@ public class BuyPanelUI : MonoBehaviour
 
         itemImage.sprite = image.sprite;
     }
-    private async void OnBuyOneDayButtonClicked()
+    private void OnBuyOneDayButtonClicked()
     {
         var bundle = bundles.FirstOrDefault(x => x.DurationType == Duration.OneDay);
-        await BuyItemWithCoin(bundle.price, ServerTimeManager.Instance.CurrentTime.AddDays(1).ToString());
+        bundle.buyButton.interactable = false; // Disable the button to prevent multiple clicks
+        BuyItemWithCoin(bundle.price, ServerTimeManager.Instance.CurrentTime.AddDays(1).ToString());
+        bundle.buyButton.interactable = true; // Re-enable the button after the purchase
     }
-    private async void OnBuySevenDaysButtonClicked()
-    {        
+    private void OnBuySevenDaysButtonClicked()
+    {
         var bundle = bundles.FirstOrDefault(x => x.DurationType == Duration.SevenDays);
-        await BuyItemWithCoin(bundle.price , ServerTimeManager.Instance.CurrentTime.AddDays(7).ToString());
+        bundle.buyButton.interactable = false; // Disable the button to prevent multiple clicks
+        BuyItemWithCoin(bundle.price, ServerTimeManager.Instance.CurrentTime.AddDays(7).ToString());
+        bundle.buyButton.interactable = true; // Re-enable the button after the purchase
     }
-    private async void OnBuyThirtyDaysButtonClicked()
+    private void OnBuyThirtyDaysButtonClicked()
     {
         var bundle = bundles.FirstOrDefault(x => x.DurationType == Duration.ThirtyDays);
-        await BuyItemWithCoin(bundle.price , ServerTimeManager.Instance.CurrentTime.AddDays(30).ToString());
+        bundle.buyButton.interactable = false; // Disable the button to prevent multiple clicks
+        BuyItemWithCoin(bundle.price, ServerTimeManager.Instance.CurrentTime.AddDays(30).ToString());
+        bundle.buyButton.interactable = true; // Re-enable the button after the purchase
     }
 
-    private async System.Threading.Tasks.Task BuyItemWithCoin(int price, string duration)
+    private async void BuyItemWithCoin(int price, string duration)
     {
+
         loadingSpinner.SetActive(true);
         var coins = await PuzzleMatchManager.instance.coinsSystem.GetCurrentCoins();
-        
+
         Debug.Log("Coins: " + coins);
         Debug.Log("Price: " + price);
 
-        if(coins < price)
+        if (coins < price)
         {
             Debug.Log("Not enough coins");
+
+            foreach (var bundle in bundles)
+            {
+                bundle.buyButton.onClick.RemoveAllListeners();
+            }
+            
+            notEnoughCoinsPanel.SetActive(true);
+            Invoke(nameof(DisableNotification), 5f);
+            OnClose();
+            
             return;
         }
-        
+
         PuzzleMatchManager.instance.coinsSystem.SpendCoins(price);
 
         switch (storeItem.Type)
         {
             case ItemType.ProfileImage:
-                Add(coverContainers, duration, "ContainerProfileAvatarImages");
+                Add(avatarContainers, duration, "ContainerProfileAvatarImages");
                 break;
             case ItemType.BorderImage:
                 Add(borderContainers, duration, "ContainerProfileBorders");
@@ -114,12 +132,17 @@ public class BuyPanelUI : MonoBehaviour
                 Add(coverContainers, duration, "ContainerProfileCoverImages");
                 break;
         }
-        
+
         Debug.Log("Buy button clicked");
     }
 
+    private void DisableNotification()
+    {
+        notEnoughCoinsPanel.SetActive(false);
+    }
+
     // Add the consumable item to the player profile
-    private async void Add(List<ConsumableItem> data , string duration, string dataKey)
+    private async void Add(List<ConsumableItem> data, string duration, string dataKey)
     {
         ConsumableItem consumableItem = new ConsumableItem
         {
@@ -137,7 +160,7 @@ public class BuyPanelUI : MonoBehaviour
             //item already owned
             //then update the date purchased and date expired
             consumableItem = data.FirstOrDefault(x => x.Id == consumableItem.Id);
-            consumableItem.DatePurchased  = ServerTimeManager.Instance.CurrentTime.ToString();
+            consumableItem.DatePurchased = ServerTimeManager.Instance.CurrentTime.ToString();
 
             DateTime durationDate = DateTime.Parse(duration);
             var durationDays = durationDate - ServerTimeManager.Instance.CurrentTime; // Extract the day component
@@ -154,7 +177,7 @@ public class BuyPanelUI : MonoBehaviour
             // item not owned
             // then add the item to the list
             Debug.Log("Adding item to the list");
-            
+
             consumableItem.DatePurchased = ServerTimeManager.Instance.CurrentTime.ToString();
             consumableItem.DateExpired = duration;
         }
@@ -162,7 +185,7 @@ public class BuyPanelUI : MonoBehaviour
         data.Add(consumableItem);
         await CloudSaveManager.Instance.SaveDataAsyncString(consumableItem.Id, GetItemData());
 
-        switch(dataKey)
+        switch (dataKey)
         {
             case "ContainerProfileAvatarImages":
                 await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileAvatarImages", data);
@@ -176,6 +199,7 @@ public class BuyPanelUI : MonoBehaviour
         }
         loadingSpinner.SetActive(false);
         animationBox.OnClose();
+        OnClose();
     }
     public void OnClose()
     {

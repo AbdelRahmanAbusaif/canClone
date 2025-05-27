@@ -107,11 +107,11 @@ namespace GameVanilla.Game.Common
             var numLives = GetCurrentLives();
 
             Debug.Log("From CheckLives: " + numLives);
-            
+
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
             var timeToNextLife = PuzzleMatchManager.instance.gameConfig.timeToNextLife;
-            
-            if (heartSystem.LastHeartTime == "0" && string.IsNullOrEmpty(heartSystem.LastHeartTime) &&numLives < maxLives)
+
+            if (heartSystem.LastHeartTime == "0" && string.IsNullOrEmpty(heartSystem.LastHeartTime) && numLives < maxLives)
             {
                 DateTime nextLifeTime = ServerTimeManager.Instance.CurrentTime.AddMinutes(5);
                 // PlayerPrefs.SetString("next_life_time", nextLifeTime.ToBinary().ToString());
@@ -167,6 +167,13 @@ namespace GameVanilla.Game.Common
                     }
                     onCountdownFinished?.Invoke(numLives);
                 }
+            }
+            if (numLives < 0)
+            {
+                Debug.Log("From CheckLives: numLives < 0, resetting to 0");
+                heartSystem.Heart = 0;
+                await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
+                numLives = 0;
             }
         }
 
@@ -231,7 +238,6 @@ namespace GameVanilla.Game.Common
                 var nextLifeTime = DateTime.Parse(heartSystem.NextHeartTime);
                 Debug.Log("From RemoveLife nextLifeTime: " + nextLifeTime);
                 PuzzleMatchManager.instance.notificationController.ScheduleNotification("القلووووب فلل!", "تعال في قلوووب جديييييدة بانتظارك!", nextLifeTime);
-                PuzzleMatchManager.instance.notificationController.ScheduleNotification("تعال في قلب جديد!", "تعال اجاك قلب جديد! تعال كمل لعب!!", ServerTimeManager.Instance.CurrentTime.AddMinutes(5));
 
                 await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
             }

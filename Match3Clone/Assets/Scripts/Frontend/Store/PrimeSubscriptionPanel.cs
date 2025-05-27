@@ -13,6 +13,7 @@ public class PrimeSubscriptionPanel : MonoBehaviour
     [SerializeField] private AnimationBox animationBox;
     [SerializeField] private Button buyButton;
     [SerializeField] private GameObject loadingSpinner;
+    [SerializeField] private GameObject notEnoughCoinsPanel;
     private PrimeSubscription primeSubscription;
 
     private ConsumableItem data;
@@ -38,6 +39,13 @@ public class PrimeSubscriptionPanel : MonoBehaviour
         if(coins < price)
         {
             Debug.Log("Not enough coins");
+
+            buyButton.onClick.RemoveAllListeners();
+            notEnoughCoinsPanel.SetActive(true);
+
+            Invoke(nameof(DisableNotEnoughCoinsPanel), 2f);
+
+            OnClose();
             return;
         }
 
@@ -61,6 +69,12 @@ public class PrimeSubscriptionPanel : MonoBehaviour
                 break;
         }
     }
+
+    private void DisableNotEnoughCoinsPanel()
+    {
+        notEnoughCoinsPanel.SetActive(false);
+    }
+
     private async void Add(ConsumableItem data , string duration)
     {
         data.DatePurchased = ServerTimeManager.Instance.CurrentTime.ToString();

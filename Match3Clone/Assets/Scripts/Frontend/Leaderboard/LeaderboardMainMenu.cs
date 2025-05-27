@@ -35,16 +35,12 @@ public class LeaderboardMainMenu : MonoBehaviour
                 if (scoreResponse.Results[i].PlayerId == playerScore.PlayerId)
                 {
                     var playerMainProfile = Instantiate(myLeaderboardItemPrefab, playerContainer);
-
-                    playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
-                    playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
-                    playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + playerMainProfile.GetComponent<RectTransform>().sizeDelta.y + 30f);
                     
                     playerMainProfile.Initializer(playerScore);
                     continue;
                 }
                 LeaderboardItem leaderboardItem = Instantiate(leaderboardItemPrefab, playerContainer);
-                playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + leaderboardItem.GetComponent<RectTransform>().sizeDelta.y + 30f);
+                playerContainer.sizeDelta = new Vector2(playerContainer.sizeDelta.x, playerContainer.sizeDelta.y + leaderboardItem.GetComponent<RectTransform>().sizeDelta.y + 100f);
 
                 leaderboardItem.Initializer(scoreResponse.Results[i]);
             }
@@ -69,8 +65,8 @@ public class LeaderboardMainMenu : MonoBehaviour
             }
             Debug.Log("Player Id " + playerScore.PlayerId);
 
-            if (leaderboardItems.
-            FirstOrDefault(x => x.player.PlayerId == playerScore.PlayerId) == null)
+            if (scoreResponse.Results.
+            FirstOrDefault(x => x.PlayerId == playerScore.PlayerId) == null)
             {
 
                 var playerMainProfile = Instantiate(myLeaderboardItemPrefab, playerContainer);

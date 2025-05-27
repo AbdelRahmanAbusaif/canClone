@@ -12,6 +12,7 @@ using UnityEngine.UI;
 using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using System.Threading.Tasks;
+using SaveData;
 
 namespace GameVanilla.Game.Popups
 {
@@ -70,7 +71,11 @@ namespace GameVanilla.Game.Popups
         protected override void Start()
         {
             base.Start();
-            pageTransition = FindAnyObjectByType<PageTransition>().GetComponent<PageTransition>();
+            pageTransition = FindFirstObjectByType<PageTransition>();
+            if (pageTransition != null)
+            {
+                pageTransition = FindAnyObjectByType<PageTransition>().GetComponent<PageTransition>();
+            }
 
             PuzzleMatchManager.instance.livesSystem.Subscribe(OnLivesCountdownUpdated, OnLivesCountdownFinished);
             var maxLives = PuzzleMatchManager.instance.gameConfig.maxLives;
@@ -113,16 +118,23 @@ namespace GameVanilla.Game.Popups
                 {
                     scene.CloseCurrentPopup();
                     SoundManager.instance.PlaySound("Button");
-                    pageTransition.TransitionToPage(0);
-                    // scene.OpenPopup<BuyCoinsPopup>("Popups/BuyCoinsPopup",
-                    //     popup =>
-                    //     {
-                    //         popup.onClose.AddListener(
-                    //             () =>
-                    //             {
-                    //                 scene.OpenPopup<BuyLivesPopup>("Popups/BuyLivesPopup");
-                    //             });
-                    //     });
+
+                    if (pageTransition != null)
+                    {
+                        pageTransition.TransitionToPage(0);
+                    }
+                    else
+                    {
+                        scene.OpenPopup<BuyCoinsPopup>("Popups/BuyCoinsPopup",
+                            popup =>
+                            {
+                                popup.onClose.AddListener(
+                                    () =>
+                                    {
+                                        scene.OpenPopup<BuyLivesPopup>("Popups/BuyLivesPopup");
+                                    });
+                            });
+                    }
                 }
             }
         }
@@ -142,6 +154,7 @@ namespace GameVanilla.Game.Popups
         /// <param name="lives">The current number of lives.</param>
         private void OnLivesCountdownUpdated(TimeSpan timeSpan, int lives)
         {
+            Debug.Log($"Lives countdown updated: {timeSpan}, Lives: {lives}");
             timeToNextLifeText.text = string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
             UpdateLifeSprites(lives);
         }
