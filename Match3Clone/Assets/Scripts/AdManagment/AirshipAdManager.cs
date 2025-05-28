@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System;
+using System.IO;
 using Unity.Services.RemoteConfig;
 using Newtonsoft.Json;
 
@@ -10,48 +11,32 @@ public class AirshipAdManager : MonoBehaviour
 {
     // public static Action<>
     private Queue<AirShipAd> airShipAds = new Queue<AirShipAd>();
-    [SerializeField] private static List<AirAdComponent> waitingAds = new List<AirAdComponent>();
+    [SerializeField] private Queue<AirAdComponent> waitingAds = new();
     [SerializeField] private GameObject adPrefab;
 
     [SerializeField] private static AirAdComponent airAdComponent = null;
     public bool isFirstTime = true;
     private void Start()
     {
-        if(PlayerPrefs.GetInt("IsFirstTime",1) == 1)
+        if (File.Exists(Path.Combine(Application.persistentDataPath, "AirshipAdConfig.json")))
         {
-            Debug.Log("First time airship ad.");
-            ApplyRemoteConfig(ConfigRequestStatus.Success);
+            var jsonFile = File.ReadAllText(Path.Combine(Application.persistentDataPath, "AirshipAdConfig.json"));
+            var newList = JsonConvert.DeserializeObject<List<AirAdComponent>>(jsonFile);
+
+            foreach (var airShip in newList)
+            {
+                waitingAds.Enqueue(airShip);
+            }
+            
+            Debug.Log("AirshipAdManager Start");
+            StartCoroutine(PlayAgain());
         }
         else
         {
-            Debug.Log("Not First time airship ad.");
+            ApplyRemoteConfig(ConfigRequestStatus.Success);
         }
     }
-    private void Update() 
-    {
-        if(waitingAds.Count > 0 || airAdComponent != null)
-        {
-            if(airAdComponent == null)
-            {
-                Debug.Log("AirAdComponent is null");
-                airAdComponent = waitingAds.FirstOrDefault();
-            }
-            if(airAdComponent != null && waitingAds.Contains(airAdComponent))
-            {
-                Debug.Log("Ad Name: " + airAdComponent.AirShipAd.AdName);
-                Debug.Log("Ad URL: " + airAdComponent.AirShipAd.Url);
-                Debug.Log("Airship Image URL: " + airAdComponent.AirShipAd.AirShipImageUrl);
-                waitingAds.Remove(airAdComponent);
-            }
-            if(DateTime.Now.ToString() == airAdComponent.TimeToShow)
-            {
-                Debug.Log("Ad Show");
-                airShipAds.Enqueue(airAdComponent.AirShipAd);
-                airAdComponent = null;
-                StartCoroutine(ShowAds());
-            }
-        }   
-    }
+    
     public void ApplyRemoteConfig(ConfigRequestStatus response)
     {
         if (response == ConfigRequestStatus.Success)
@@ -67,6 +52,8 @@ public class AirshipAdManager : MonoBehaviour
                 {
                     airShipAds.Enqueue(ad);
                 }
+                
+                StartCoroutine(ShowAds());
             }
         }
         else
@@ -110,17 +97,47 @@ public class AirshipAdManager : MonoBehaviour
                 Destroy(adInstance);
                 continue;
             }
-
-            yield return new WaitForSeconds(14f); // Show the 
-            AdCoordinator.Instance.NotifyAdEnded();
+            
             var airshipAdComponent = new AirAdComponent
             {
                 AirShipAd = ad,
-                TimeToShow = DateTime.Now.AddSeconds(315).ToString() // Set the time to show the ad
+                TimeToShow = DateTime.Now.AddSeconds(30).ToString() // Set the time to show the ad
             };
-            waitingAds.Add(airshipAdComponent);
+            waitingAds.Enqueue(airshipAdComponent);
+            File.WriteAllText(Path.Combine(Application.persistentDataPath, "AirshipAdConfig.json"),
+                JsonConvert.SerializeObject(waitingAds));
+            
+            yield return new WaitForSeconds(315f); // Show the 
+            AdCoordinator.Instance.NotifyAdEnded();
             Destroy(adInstance); // Destroy the ad instance after showing
         }
+    }
+    private IEnumerator PlayAgain()
+    {
+        DateTime timeToShow = DateTime.Parse(waitingAds.Peek().TimeToShow);
+        double timeToShowAgain = timeToShow.Subtract(DateTime.Now).TotalSeconds;
+        
+        Debug.Log("Time To Show Again: " + timeToShowAgain);
+
+        while (timeToShowAgain > 0)
+        {
+            timeToShowAgain--;
+            yield return new WaitForSeconds(1);
+            Debug.Log("Time To Show Again: " + timeToShowAgain);
+
+            if (timeToShowAgain <= 0)
+            {
+                break;
+            }
+        }
+        
+        Debug.Log("AirshipAdManager Start");
+        
+        foreach (var waiting in waitingAds)
+        {
+            airShipAds.Enqueue(waiting.AirShipAd);
+        }
+        StartCoroutine(ShowAds());
     }
     private void OnApplicationQuit() 
     {

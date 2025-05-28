@@ -18,6 +18,7 @@ public class UILogin : MonoBehaviour
     [SerializeField] private SceneTransition sceneTransition;
     [SerializeField] private LoginController loginController;
     [SerializeField] private GameObject loginPanel;
+    [SerializeField] private GameObject loadingPanel;
     [SerializeField] private GameObject termPanel;
     [SerializeField] private Texture2D defaultImage;
     [SerializeField] private Texture2D borderImage;
@@ -149,6 +150,8 @@ public class UILogin : MonoBehaviour
         }
         if(termPanel != null)
         {
+            loadingPanel.SetActive(true);
+            
             await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
             await CloudSaveManager.Instance.SaveDataAsync("DailyBonus", dailyBonus);
             await CloudSaveManager.Instance.SaveDataAsync("SpinWheel", spinWheel);
@@ -162,6 +165,7 @@ public class UILogin : MonoBehaviour
             await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerData);
            
 			termPanel.SetActive(true);
+            loadingPanel.SetActive(false);
         }
         else
         {

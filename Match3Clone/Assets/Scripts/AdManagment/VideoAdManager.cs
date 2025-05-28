@@ -52,7 +52,13 @@ public class VideoAdManager : MonoBehaviour
         if(File.Exists(Path.Combine(Application.persistentDataPath,"waitingVideo.json")))
         {
             var jsonFile = File.ReadAllText(Path.Combine(Application.persistentDataPath,"waitingVideo.json"));
-            waitingAds = JsonConvert.DeserializeObject<Queue<VideoAdComponent>>(jsonFile);
+            var newList = JsonConvert.DeserializeObject<List<VideoAdComponent>>(jsonFile);
+
+            foreach (var videoAd in newList)
+            {
+                waitingAds.Enqueue(videoAd);
+            }
+            
             Debug.Log("Waiting ads loaded from file.");
             Debug.Log("Waiting ads count: " + waitingAds.Count);
             Debug.Log("Json file: " + jsonFile);
@@ -116,6 +122,11 @@ public class VideoAdManager : MonoBehaviour
             timeToShowAgain--;
             Debug.Log("Time to show again: " + timeToShowAgain);
             yield return new WaitForSeconds(1f);
+            
+            if (timeToShowAgain <= 0)
+            {
+                break;
+            }
         }
         StartCoroutine(PlayVideo());
     }
@@ -175,14 +186,10 @@ public class VideoAdManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
         notificationPrefab.SetActive(true);
-        while(AdCoordinator.Instance.CanShowAd() && timeToShowInSecond <= 0  && PlayerPrefs.GetInt("IsFirstTimeVideoAd") != 0)
-        {
-            yield return new WaitForSeconds(1f);
-        }
        
         if (videoAds.Count > 0)
         {
-             var fiveSeconds = 5;
+            var fiveSeconds = 5;
             Debug.Log("PlayerPrefs: " + PlayerPrefs.GetInt("IsFirstTimeVideoAd"));
             Debug.Log("Five seconds: " + fiveSeconds);
             while(PlayerPrefs.GetInt("IsFirstTimeVideoAd") == 0 && fiveSeconds >= 0)
@@ -224,6 +231,7 @@ public class VideoAdManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("End of Ad");
             File.WriteAllTextAsync(Path.Combine(Application.persistentDataPath,"waitingVideo.json"), JsonConvert.SerializeObject(waitingAds));
             PlayerPrefs.SetInt("IsFirstTimeVideoAd", 1);
             PlayerPrefs.Save();
@@ -266,6 +274,11 @@ public class VideoAdManager : MonoBehaviour
         if (videoAds.Count > 0)
         {
             StartCoroutine(PlayVideo()); // attempt next ad if possible
+        }
+        else
+        {
+            PlayerPrefs.SetInt("IsFirstTimeVideoAd", 1);
+            PlayerPrefs.Save();
         }
     }
 

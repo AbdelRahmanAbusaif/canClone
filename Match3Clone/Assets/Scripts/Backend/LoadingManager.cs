@@ -47,7 +47,9 @@ public class LoadingManager : MonoBehaviour
         PlayerPrefs.SetInt("TimeToShowInSecond",10);
         PlayerPrefs.Save();
 
-        File.Delete(Path.Combine(Application.persistentDataPath,"waitingVideo.json"));
+        File.Delete(Path.Combine(Application.persistentDataPath, "waitingVideo.json"));
+        File.Delete(Path.Combine(Application.persistentDataPath,"AirshipAdConfig.json"));
+
         
         remoteAssetDownloader.OnDownloadCompleted += (bool isAssetsDownloaded) => {
             if(isAssetsDownloaded)

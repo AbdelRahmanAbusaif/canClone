@@ -32,6 +32,7 @@ public class FirebaseVerificationCode : MonoBehaviour
         else
         {
             Debug.Log("No user is currently signed in.");
+            return;
         }
 
         if (user.IsEmailVerified)
