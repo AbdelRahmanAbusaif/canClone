@@ -21,19 +21,27 @@ public class VideoAdManager : MonoBehaviour
     [SerializeField] private Queue<VideoAdComponent> waitingAds = new();
     [SerializeField] private VideoPlayer videoPlayer;
     [SerializeField] private RawImage vertexImage;
+    [Header("UI Components")]
     [SerializeField] private Button closedButton;
     [SerializeField] private Button linkButton;
     [SerializeField] private TextMeshProUGUI closeTimeText;
     [SerializeField] private Slider progressBar;
+    [Header("Notification Section")]
     [SerializeField] private GameObject notificationPrefab;
+    [SerializeField] private TextMeshProUGUI secondRemaningText;
+    [SerializeField] private Slider secondRemaningSlider;
+    
     private Queue<VideoAd> videoAds = new Queue<VideoAd>();
     private VideoAd video;
     private List<VideoAd> videoAdComponents = new List<VideoAd>();
     private VideoAdComponent videoAdComponent;
     private DateTime timeToClose;
     private AudioSource backGroundMusicSource;
-
+    
     private int timeToShowInSecond;
+    private float remainingTime;
+    private float oneSecond = 1f;
+    
     private void OnEnable()
     {
         Debug.Log("VideoAdManager started.");
@@ -91,6 +99,30 @@ public class VideoAdManager : MonoBehaviour
             closedButton.interactable = false;
             closeTimeText.text = TimeSpan.FromSeconds((timeToClose - DateTime.Now).TotalSeconds).ToString(@"mm\:ss");
             progressBar.value = (float)(timeToClose - DateTime.Now).TotalSeconds / 5f;
+        }
+
+        if (notificationPrefab.activeInHierarchy)
+        {
+            oneSecond -= Time.deltaTime;
+
+            if (oneSecond <= 0)
+            {
+                oneSecond = 1f;
+                remainingTime--;
+                secondRemaningText.text = remainingTime.ToString("0");
+            }
+    
+            secondRemaningSlider.value = remainingTime - (1f - oneSecond);
+    
+            if (remainingTime < 0)
+            {
+                notificationPrefab.SetActive(false);
+            }
+        }
+        else
+        {
+            oneSecond = 1f;
+            remainingTime = 5;
         }
     }
     private void ApplyRemoteConfig(ConfigRequestStatus success)
@@ -192,7 +224,8 @@ public class VideoAdManager : MonoBehaviour
             var fiveSeconds = 5;
             Debug.Log("PlayerPrefs: " + PlayerPrefs.GetInt("IsFirstTimeVideoAd"));
             Debug.Log("Five seconds: " + fiveSeconds);
-            while(PlayerPrefs.GetInt("IsFirstTimeVideoAd") == 0 && fiveSeconds >= 0)
+            secondRemaningText.text = fiveSeconds.ToString("0");
+            while(PlayerPrefs.GetInt("IsFirstTimeVideoAd") == 0 && fiveSeconds > 0)
             {
                 Debug.Log("Video ad is not ready to show yet.");
                 fiveSeconds--;
