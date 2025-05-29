@@ -54,28 +54,28 @@ public class AirshipAdManager : MonoBehaviour
                 }
                 
                 StartCoroutine(ShowAds());
+                
+                isFirstTime = false;
+
+                PlayerPrefs.SetInt("IsFirstTime",0);
+                PlayerPrefs.Save();
             }
         }
         else
         {
             Debug.Log("Remote Config Fetch Failed!");
         }
-
-        // Start the coroutine to show ads
-        StartCoroutine(ShowAds());
-        isFirstTime = false;
-
-        PlayerPrefs.SetInt("IsFirstTime",0);
-        PlayerPrefs.Save();
     }
 
     private IEnumerator ShowAds()
     {
+        Debug.Log("Show Ad with count: " + airShipAds.Count);
         while (airShipAds.Count > 0)
         {
-            while (!AdCoordinator.Instance.CanShowAd())
+            while(!AdCoordinator.Instance.CanShowAd())
             {
-                yield return null; // wait until other ad finishes
+                Debug.Log("Another ad is showing. Delaying Airship ad.");
+                yield return new WaitForSeconds(1f);
             }
             var ad = airShipAds.Dequeue();
             Debug.Log("Ad Name: " + ad.AdName);
@@ -101,16 +101,16 @@ public class AirshipAdManager : MonoBehaviour
             var airshipAdComponent = new AirAdComponent
             {
                 AirShipAd = ad,
-                TimeToShow = DateTime.Now.AddSeconds(30).ToString() // Set the time to show the ad
+                TimeToShow = DateTime.Now.AddSeconds(315).ToString() // Set the time to show the ad
             };
             waitingAds.Enqueue(airshipAdComponent);
-            File.WriteAllText(Path.Combine(Application.persistentDataPath, "AirshipAdConfig.json"),
-                JsonConvert.SerializeObject(waitingAds));
             
-            yield return new WaitForSeconds(315f); // Show the 
+            yield return new WaitForSeconds(15f); // Show the 
             AdCoordinator.Instance.NotifyAdEnded();
             Destroy(adInstance); // Destroy the ad instance after showing
         }
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, "AirshipAdConfig.json"),
+            JsonConvert.SerializeObject(waitingAds));
     }
     private IEnumerator PlayAgain()
     {
@@ -147,6 +147,12 @@ public class AirshipAdManager : MonoBehaviour
         PlayerPrefs.Save();
         airAdComponent = null;
         isFirstTime = true;
+    }
+
+    private void OnDestroy()
+    {
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, "AirshipAdConfig.json"),
+            JsonConvert.SerializeObject(waitingAds));
     }
 }
 
