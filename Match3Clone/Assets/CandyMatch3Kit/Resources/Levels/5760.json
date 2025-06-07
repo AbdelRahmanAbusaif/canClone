@@ -9,16 +9,6 @@
       "$type": "GameVanilla.Game.Common.CandyTile"
     },
     {
-      "type": "Watermelon",
-      "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CollectableTile"
-    },
-    {
-      "type": "Watermelon",
-      "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CollectableTile"
-    },
-    {
       "type": "RandomCandy",
       "elementType": "None",
       "$type": "GameVanilla.Game.Common.CandyTile"
@@ -29,19 +19,19 @@
       "$type": "GameVanilla.Game.Common.CandyTile"
     },
     {
-      "type": "Cherry",
+      "type": "RedCandyWrapped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CollectableTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
-      "type": "RandomCandy",
+      "type": "GreenCandyVerticalStriped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CandyTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
-      "type": "Cherry",
+      "type": "OrangeCandyWrapped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CollectableTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
       "type": "RandomCandy",
@@ -64,9 +54,9 @@
       "$type": "GameVanilla.Game.Common.CandyTile"
     },
     {
-      "type": "RandomCandy",
+      "type": "OrangeCandyWrapped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CandyTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
       "type": "RandomCandy",
@@ -119,9 +109,9 @@
       "$type": "GameVanilla.Game.Common.CandyTile"
     },
     {
-      "type": "RandomCandy",
+      "type": "RedCandyVerticalStriped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CandyTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
       "type": "RandomCandy",
@@ -204,9 +194,9 @@
       "$type": "GameVanilla.Game.Common.CandyTile"
     },
     {
-      "type": "RandomCandy",
+      "type": "GreenCandyVerticalStriped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CandyTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
       "type": "RandomCandy",
@@ -214,9 +204,9 @@
       "$type": "GameVanilla.Game.Common.CandyTile"
     },
     {
-      "type": "RandomCandy",
+      "type": "YellowCandyVerticalStriped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CandyTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
       "type": "RandomCandy",
@@ -224,14 +214,14 @@
       "$type": "GameVanilla.Game.Common.CandyTile"
     },
     {
-      "type": "RandomCandy",
+      "type": "PurpleCandyWrapped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CandyTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
-      "type": "RandomCandy",
+      "type": "BlueCandyHorizontalStriped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CandyTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
       "type": "RandomCandy",
@@ -264,14 +254,14 @@
       "$type": "GameVanilla.Game.Common.CandyTile"
     },
     {
-      "type": "RandomCandy",
+      "type": "OrangeCandyHorizontalStriped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CandyTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
-      "type": "RandomCandy",
+      "type": "YellowCandyHorizontalStriped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CandyTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
       "type": "RandomCandy",
@@ -304,9 +294,9 @@
       "$type": "GameVanilla.Game.Common.CandyTile"
     },
     {
-      "type": "RandomCandy",
+      "type": "OrangeCandyHorizontalStriped",
       "elementType": "None",
-      "$type": "GameVanilla.Game.Common.CandyTile"
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
       "type": "RandomCandy",
@@ -342,6 +332,11 @@
       "type": "RandomCandy",
       "elementType": "None",
       "$type": "GameVanilla.Game.Common.CandyTile"
+    },
+    {
+      "type": "RedCandyWrapped",
+      "elementType": "None",
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
       "type": "RandomCandy",
@@ -367,6 +362,11 @@
       "type": "RandomCandy",
       "elementType": "None",
       "$type": "GameVanilla.Game.Common.CandyTile"
+    },
+    {
+      "type": "GreenCandyHorizontalStriped",
+      "elementType": "None",
+      "$type": "GameVanilla.Game.Common.SpecialCandyTile"
     },
     {
       "type": "RandomCandy",
@@ -410,19 +410,8 @@
     }
   ],
   "limitType": "Moves",
-  "limit": 24,
-  "goals": [
-    {
-      "collectableType": "Cherry",
-      "amount": 2,
-      "$type": "GameVanilla.Game.Common.CollectCollectableGoal"
-    },
-    {
-      "collectableType": "Watermelon",
-      "amount": 2,
-      "$type": "GameVanilla.Game.Common.CollectCollectableGoal"
-    }
-  ],
+  "limit": 27,
+  "goals": [],
   "availableColors": [
     "Red",
     "Blue",
