@@ -1325,6 +1325,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxForAnimation: {fileID: 4779706718727932915}
   blackScreen: {fileID: 320087196002366023}
+  animationType: 0
+  startPosY: 5000
+  endPosY: 0
+  duration: 0.5
 --- !u!114 &4064686284766586352
 MonoBehaviour:
   m_ObjectHideFlags: 0
