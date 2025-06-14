@@ -221,7 +221,7 @@ public class ProfileManager : MonoBehaviour
         }
 
         playerProfile.PhoneNumber = phoneNumber;
-        playerProfile.PlayerName = playerName;
+        // playerProfile.PlayerName = playerName;
 
         Debug.Log($"Player phone number: {playerProfile.PhoneNumber}");
 
@@ -327,6 +327,11 @@ public class ProfileManager : MonoBehaviour
     {
         updateButton.onClick.RemoveListener(OnUpdateButtonClicked);
         uploadImageButton.onClick.RemoveListener(OnUploadImageButtonClicked);
+    }
+
+    private void OnDestroy()
+    {
+        AuthenticationService.Instance.SignOut();
     }
 }
 

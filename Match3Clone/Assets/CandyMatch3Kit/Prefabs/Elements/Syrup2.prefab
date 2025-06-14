@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4115515356386936}
   - component: {fileID: 212194445928561852}
+  - component: {fileID: 5420990901349966816}
   m_Layer: 0
   m_Name: Syrup2
   m_TagString: Untagged
@@ -87,3 +88,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5420990901349966816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380951460432540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1337d8c8ae2bc14ca00a866f66122f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureKey: Syrup2
+  sprite: {fileID: 212194445928561852}

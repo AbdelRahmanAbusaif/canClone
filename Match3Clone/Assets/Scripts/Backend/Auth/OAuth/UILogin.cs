@@ -48,9 +48,9 @@ public class UILogin : MonoBehaviour
         Debug.Log("Remote Config Fetched Successfully!");
         
         isBlueLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsBlueLeaderboard");
-        isRedLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsRedLeaderboard");
+        isRedLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsRedLeaerboard");
         isGreenLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsGreenLeaderboard");
-        isOrangeLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsOrangeLeaderboard");
+        isOrangeLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsOrangeLeadeboard");
         isYellowLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsYellowLeaderboard");
         isPurpleLeaderboard = RemoteConfigService.Instance.appConfig.GetBool("IsPurpleLeaderboard");
     }

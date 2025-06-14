@@ -27,7 +27,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 670035337859072
-    m_Localized: Facebook Account
+    m_Localized: Login with Facebook
     m_Metadata:
       m_Items: []
   - m_Id: 670518685257728
@@ -408,6 +408,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 36536357031940096
     m_Localized: 'Ad will be show after:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42397332683526144
+    m_Localized: Sign out
     m_Metadata:
       m_Items: []
   references:

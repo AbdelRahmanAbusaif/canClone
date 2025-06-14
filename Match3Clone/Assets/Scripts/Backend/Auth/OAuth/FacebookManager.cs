@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using ArabicSupporter;
 using Facebook.Unity;
 using TMPro;
+using Unity.Services.Authentication;
 using UnityEngine;
 
 public class FacebookManager : MonoBehaviour
@@ -9,7 +10,6 @@ public class FacebookManager : MonoBehaviour
     private LoginController _loginController;
     public string Token;
     public string Error;
-    public TextMeshProUGUI URLImageText;
 
     // Awake function from Unity's MonoBehaviour
     void Awake()
@@ -95,7 +95,15 @@ public class FacebookManager : MonoBehaviour
                         };
 
                         Debug.Log($"Facebook User Info: Name: {name}, Email: {email}");
-                        _loginController.InitSignFacebook(fbUser);
+
+                        if (AuthenticationService.Instance.IsSignedIn)
+                        {
+                            _loginController.InitLinkAccountWithFacebook(fbUser);
+                        }
+                        else
+                        {
+                           _loginController.InitSignFacebook(fbUser);
+                        }
                     }
                     else
                     {

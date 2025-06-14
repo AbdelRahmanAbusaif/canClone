@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ArabicSupporter;
 using TMPro;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
@@ -38,7 +39,18 @@ public class LeaderboardButtonManager : MonoBehaviour
                     image.color = new Color(255f / 255f,162f / 255f,0,255f / 255f);
                 }
             );
-            leaderboardButton.leaderboardText.text = RemoteConfigService.Instance.appConfig.GetString(leaderboardButton.LeaderboardTitleKey);
+
+            if (ArabicSupport.IsArabicString(
+                    RemoteConfigService.Instance.appConfig.GetString(leaderboardButton.LeaderboardTitleKey)))
+            {
+                leaderboardButton.leaderboardText.text = ArabicSupport.Fix(
+                    RemoteConfigService.Instance.appConfig.GetString(leaderboardButton.LeaderboardTitleKey),
+                    true);
+            }
+            else
+            {
+                leaderboardButton.leaderboardText.text = RemoteConfigService.Instance.appConfig.GetString(leaderboardButton.LeaderboardTitleKey);
+            }
             
             if(leaderboardButton.isLeaderboardActive && isFirstLeaderboardEnable)
             {

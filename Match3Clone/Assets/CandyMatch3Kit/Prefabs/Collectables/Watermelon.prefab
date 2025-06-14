@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 114083339469040974}
   - component: {fileID: 61118236788747546}
   - component: {fileID: 95319290492052878}
+  - component: {fileID: 6651456618610942974}
   m_Layer: 0
   m_Name: Watermelon
   m_TagString: Tile
@@ -175,3 +176,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6651456618610942974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380951460432540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1337d8c8ae2bc14ca00a866f66122f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureKey: Watermelon
+  sprite: {fileID: 212194445928561852}
