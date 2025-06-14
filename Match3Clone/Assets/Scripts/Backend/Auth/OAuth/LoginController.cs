@@ -450,7 +450,7 @@ public class LoginController : MonoBehaviour
             var playerProfile = new PlayerProfile
             {
                 PlayerId = AuthenticationService.Instance.PlayerId,
-                PlayerName = AuthenticationService.Instance.PlayerName,
+                PlayerName = await AuthenticationService.Instance.GetPlayerNameAsync(),
                 Email = "",
                 PlayerImageUrl = "",
                 PhoneNumber = "",
