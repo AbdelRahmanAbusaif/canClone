@@ -26,11 +26,7 @@ namespace GameVanilla.Game.UI
         [HideInInspector]
         public int star3;
 
-        public GameObject girlAvatar;
-        public GameObject boyAvatar;
-        public Animator girlAnimator;
-        public Animator boyAnimator;
-        private Animator avatarAnimator;
+        
 
         private bool star1Achieved;
         private bool star2Achieved;
@@ -41,17 +37,7 @@ namespace GameVanilla.Game.UI
         /// </summary>
         private void Start()
         {
-            var avatarSelected = PlayerPrefs.GetInt("avatar_selected");
-            if (avatarSelected == 0)
-            {
-                avatarAnimator = girlAnimator;
-                boyAvatar.SetActive(false);
-            }
-            else
-            {
-                avatarAnimator = boyAnimator;
-                girlAvatar.SetActive(false);
-            }
+
         }
 
         /// <summary>
@@ -87,21 +73,21 @@ namespace GameVanilla.Game.UI
             {
                 star1Achieved = true;
                 star1Image.Activate();
-                avatarAnimator.SetTrigger("Happy");
+              
                 SoundManager.instance.PlaySound("StarProgressBar");
             }
             if (score >= star2 && !star2Achieved)
             {
                 star2Achieved = true;
                 star2Image.Activate();
-                avatarAnimator.SetTrigger("Happy");
+             
                 SoundManager.instance.PlaySound("StarProgressBar");
             }
             if (score >= star3 && !star3Achieved)
             {
                 star3Achieved = true;
                 star3Image.Activate();
-                avatarAnimator.SetTrigger("Happy");
+               
                 SoundManager.instance.PlaySound("StarProgressBar");
             }
 
