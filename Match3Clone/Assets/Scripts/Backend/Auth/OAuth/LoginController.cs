@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Authentication.PlayerAccounts;
@@ -13,10 +14,9 @@ using System.Text;
 
 public class LoginController : MonoBehaviour
 {
-    public TextMeshProUGUI textMessage;
     public event Action<PlayerProfile>  OnSignInSuccess;
     public event Action OnLinkedAccount;
-    public static event Action OnSignedOutSuccess;
+    public event Action OnSignedOutSuccess;
     public GameObject LoadingPanel;
     async private void Awake() 
     {    
@@ -73,7 +73,6 @@ public class LoginController : MonoBehaviour
         catch (AuthenticationException ex)
         {
             Debug.LogException(ex);
-            textMessage.text = "Authentication failed. Please try again. because: " + ex.Message;
         }
         catch (RequestFailedException ex)
         {
@@ -132,7 +131,6 @@ public class LoginController : MonoBehaviour
         catch (AuthenticationException ex)
         {
             Debug.LogException(ex);
-            textMessage.text = "Authentication failed. Please try again. because: " + ex.Message;
         }
         catch (RequestFailedException ex)
         {
@@ -221,45 +219,17 @@ public class LoginController : MonoBehaviour
                 Level = 1,
                 IsAcceptedTerms = false,
             };
-            var heartSystem = new HeartSystem()
-            {
-                Heart = 5,
-                LastHeartTime = "0",
-                NextHeartTime = "0"
-            };
-            var dailyBonus = new DailyBonus()
-            {
-                DateLastPlayed = "0",
-                DailyBonusDayKey = "0"
-            };
-            var spinWheel = new SpinWheel()
-            {
-                DateLastSpin = "0",
-                DailySpinDayKey = "0"
-            };
-
-            var primeSubscriptions = new ConsumableItem()
-            {
-                Id = "PrimeSubscription",
-                ConsumableName = "PrimeSubscription",
-                DatePurchased = "0",
-                DateExpired = "0"
-            };
-            var levelsComplete = new List<LevelComplete>();
-            var adManager = new List<AdManager>();
-            var containerProfileAvatarImages = new List<ConsumableItem>();
-            var containerProfileBorders = new List<ConsumableItem>();
-            var containerProfileCoverImages = new List<ConsumableItem>();
-
-    
+            
+            PlayerPrefs.SetInt("IsLinkAccount", 1);
+            PlayerPrefs.Save();
+            
             OnSignInSuccess?.Invoke(playerProfile);
-
+            
             Debug.Log("Sign in with Facebook succeeded!");
         }
         catch (AuthenticationException ex)
         {
             Debug.LogException(ex);
-            textMessage.text = "Authentication failed. Please try again. because: " + ex.Message;
         }
         catch (RequestFailedException ex)
         {
@@ -270,6 +240,67 @@ public class LoginController : MonoBehaviour
             LoadingPanel.SetActive(false);
         }
     }
+    public async void InitLinkAccountWithFacebook(FacebookGamesUser user)
+    {
+        try
+        {
+            LoadingPanel.SetActive(true);
+            Debug.Log("Facebook token: " + user.idToken);
+            await AuthenticationService.Instance.LinkWithFacebookAsync(user.idToken);
+            var playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+
+            playerProfile.Email = user.email;
+            playerProfile.PlayerName = user.name;
+            
+            playerProfile.PlayerImageUrl = user.ImgUrl;
+            
+            // Save the updated player profile
+            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+            
+            // Update Player Image from URL
+            StartCoroutine(UpdatePlayerImage(playerProfile.PlayerImageUrl));
+
+            PlayerPrefs.SetInt("IsLinkAccount", 1);
+            PlayerPrefs.Save();
+
+            OnLinkedAccount?.Invoke();
+        }
+        catch (AuthenticationException ex)
+        {
+            Debug.LogException(ex);
+        }
+        catch (RequestFailedException ex)
+        {
+            Debug.LogException(ex);
+        }
+        finally
+        {
+            LoadingPanel.SetActive(false);
+        }
+    }
+
+    private IEnumerator UpdatePlayerImage(string playerProfilePlayerImageUrl)
+    {
+        // Download the image from the URL
+        var unityWebRequest = UnityEngine.Networking.UnityWebRequestTexture.GetTexture(playerProfilePlayerImageUrl);
+        yield return unityWebRequest.SendWebRequest();
+        if (unityWebRequest.result == UnityEngine.Networking.UnityWebRequest.Result.ConnectionError || 
+            unityWebRequest.result == UnityEngine.Networking.UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("Error downloading image: " + unityWebRequest.error);
+        }
+        else
+        {
+            // Get the texture from the response
+            var texture = UnityEngine.Networking.DownloadHandlerTexture.GetContent(unityWebRequest);
+            // Save the texture to local storage
+            CallAsyncMethod(texture);
+            Debug.Log("Player profile image updated successfully.");
+        }
+    }
+
+    private async void CallAsyncMethod(Texture2D texture) => await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileImage", texture);
+    
     #endregion
     #region  Google Play Games
     
@@ -333,7 +364,6 @@ public class LoginController : MonoBehaviour
         catch (AuthenticationException ex)
         {
             Debug.LogException(ex);
-            textMessage.text = "Authentication failed. Please try again. because: " + ex.Message;
         }
         catch (RequestFailedException ex)
         {
@@ -420,7 +450,7 @@ public class LoginController : MonoBehaviour
             var playerProfile = new PlayerProfile
             {
                 PlayerId = AuthenticationService.Instance.PlayerId,
-                PlayerName = AuthenticationService.Instance.PlayerName,
+                PlayerName = await AuthenticationService.Instance.GetPlayerNameAsync(),
                 Email = "",
                 PlayerImageUrl = "",
                 PhoneNumber = "",

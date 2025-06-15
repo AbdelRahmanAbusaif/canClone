@@ -13,6 +13,8 @@ namespace GameVanilla.Core
         public string scene = "<Insert scene name>";
         public float duration = 1.0f;
         public Color color = Color.black;
+        
+        [SerializeField] private LoginController _loginController;
 
         /// <summary>
         /// Performs the transition to the next scene.
@@ -20,8 +22,9 @@ namespace GameVanilla.Core
         private void Start() {
             ProfileManager.OnUpdateSuccess += PerformTransition;
             UILogin.OnSignIn += PerformTransition;
-
-            LoginController.OnSignedOutSuccess += PerformTransition;
+            
+            if(_loginController != null)
+                _loginController.OnSignedOutSuccess += PerformTransition;
         }
         public void PerformTransition()
         {
@@ -31,7 +34,8 @@ namespace GameVanilla.Core
             ProfileManager.OnUpdateSuccess -= PerformTransition;
             UILogin.OnSignIn -= PerformTransition;
 
-            LoginController.OnSignedOutSuccess -= PerformTransition;
+            if(_loginController != null)
+                _loginController.OnSignedOutSuccess -= PerformTransition;
         }
     }
 }

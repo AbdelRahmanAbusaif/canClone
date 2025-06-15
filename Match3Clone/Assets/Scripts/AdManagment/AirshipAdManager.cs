@@ -23,6 +23,9 @@ public class AirshipAdManager : MonoBehaviour
             var jsonFile = File.ReadAllText(Path.Combine(Application.persistentDataPath, "AirshipAdConfig.json"));
             var newList = JsonConvert.DeserializeObject<List<AirAdComponent>>(jsonFile);
 
+            Debug.Log("New List " + jsonFile);
+            Debug.Log(newList.Count + " Count Airship Ads");
+            
             foreach (var airShip in newList)
             {
                 waitingAds.Enqueue(airShip);
@@ -77,6 +80,17 @@ public class AirshipAdManager : MonoBehaviour
                 Debug.Log("Another ad is showing. Delaying Airship ad.");
                 yield return new WaitForSeconds(1f);
             }
+            
+            Debug.Log("Showing Airship Ad");
+            if (airShipAds.Count == 0)
+            {
+                Debug.Log("No more Airship Ads to show.");
+                
+                AdCoordinator.Instance.NotifyAdEnded();
+                yield break; // Exit if no ads are left
+            }
+            
+            Debug.Log("Airship Ads Count: " + airShipAds.Count);
             var ad = airShipAds.Dequeue();
             Debug.Log("Ad Name: " + ad.AdName);
             Debug.Log("Ad URL: " + ad.Url);
@@ -137,6 +151,7 @@ public class AirshipAdManager : MonoBehaviour
         {
             airShipAds.Enqueue(waiting.AirShipAd);
         }
+        waitingAds.Clear(); // Clear the waiting ads after adding them to the queue
         StartCoroutine(ShowAds());
     }
     private void OnApplicationQuit() 
@@ -153,6 +168,7 @@ public class AirshipAdManager : MonoBehaviour
     {
         File.WriteAllText(Path.Combine(Application.persistentDataPath, "AirshipAdConfig.json"),
             JsonConvert.SerializeObject(waitingAds));
+        waitingAds.Clear();
     }
 }
 

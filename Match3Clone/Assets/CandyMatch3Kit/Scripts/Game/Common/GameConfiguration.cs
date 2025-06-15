@@ -123,7 +123,8 @@ namespace GameVanilla.Game.Common
         /// </summary>
         public GameConfiguration()
         {
-            ingameBoosterAmount.Add(BoosterType.Lollipop, 1);
+            /*
+ingameBoosterAmount.Add(BoosterType.Lollipop, 1);
             ingameBoosterAmount.Add(BoosterType.Bomb, 1);
             ingameBoosterAmount.Add(BoosterType.Switch, 1);
             ingameBoosterAmount.Add(BoosterType.ColorBomb, 1);
@@ -149,6 +150,7 @@ namespace GameVanilla.Game.Common
             spinWheelItems.Add(new SpinWheelItem { type = DailyBonusType.Coins5, amount = 100 });
             spinWheelItems.Add(new SpinWheelItem { type = DailyBonusType.Coins6, amount = 300 });
             spinWheelItems.Add(new SpinWheelItem { type = DailyBonusType.Coins6, amount = 500 });
+*/
         }
 
         /// <summary>

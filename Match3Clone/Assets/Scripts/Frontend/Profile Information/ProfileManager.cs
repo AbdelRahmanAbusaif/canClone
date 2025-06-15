@@ -224,9 +224,15 @@ public class ProfileManager : MonoBehaviour
         playerProfile.PlayerName = playerName;
 
         Debug.Log($"Player phone number: {playerProfile.PhoneNumber}");
-
-        await AuthenticationService.Instance.UpdatePlayerNameAsync(playerProfile.PlayerName.Replace("+", "").Replace(" ", ""));
+        
+        if(!String.IsNullOrEmpty(playerProfile.PlayerName))
+        {
+            await AuthenticationService.Instance.UpdatePlayerNameAsync(playerProfile.PlayerName.Replace("+", "").Replace(" ", ""));
+        }
+        
         playerProfile.PlayerName = AuthenticationService.Instance.PlayerName;
+        
+        Debug.Log($"Player name: {playerProfile.PlayerName}");
         await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerProfile);
 
         SaveImageInCloud();
@@ -327,6 +333,11 @@ public class ProfileManager : MonoBehaviour
     {
         updateButton.onClick.RemoveListener(OnUpdateButtonClicked);
         uploadImageButton.onClick.RemoveListener(OnUploadImageButtonClicked);
+    }
+
+    private void OnApplicationQuit()
+    {
+        AuthenticationService.Instance.SignOut();
     }
 }
 
