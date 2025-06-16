@@ -415,6 +415,48 @@ MonoBehaviour:
     m_Key: ObtainButtonText
     m_Metadata:
       m_Items: []
+  - m_Id: 43200063778230272
+    m_Key: QuitGameText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43200187216596992
+    m_Key: ConfirmQuitText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43200609226493952
+    m_Key: 'LoseHeartConfirm
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43201550893879296
+    m_Key: PlayOnText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43201827646640128
+    m_Key: QuitButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43203764681084928
+    m_Key: CompletedText!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43204471962374144
+    m_Key: NextKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43206745652629504
+    m_Key: LevelFailedText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43207238537875456
+    m_Key: RetryText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43207685919117312
+    m_Key: "You did not reach\n the required score points."
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

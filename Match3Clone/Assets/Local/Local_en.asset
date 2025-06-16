@@ -430,6 +430,46 @@ MonoBehaviour:
     m_Localized: Obtain
     m_Metadata:
       m_Items: []
+  - m_Id: 43200063778230272
+    m_Localized: Quit Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43200187216596992
+    m_Localized: Do you want to quit the level?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43200609226493952
+    m_Localized: You will lose a life!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43201550893879296
+    m_Localized: Play on
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43201827646640128
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43203764681084928
+    m_Localized: Completed!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43204471962374144
+    m_Localized: Next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43206745652629504
+    m_Localized: Level Failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43207238537875456
+    m_Localized: Retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43207685919117312
+    m_Localized: "You did not reach\n the required score points."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
