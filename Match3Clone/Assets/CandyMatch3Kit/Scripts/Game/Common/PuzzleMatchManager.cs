@@ -96,7 +96,7 @@ namespace GameVanilla.Game.Common
 
             if (gameConfig != null)
             {
-                Debug.Log("Game Configuration: " + gameConfig);
+                Debug.Log("Game Configuration: " + RemoteConfigService.Instance.appConfig.GetJson("game_configuration"));
                 this.gameConfig = gameConfig;
                 iapManager = new IapManager();
             }
