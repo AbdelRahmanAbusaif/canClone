@@ -75,7 +75,7 @@ public class SpriteCycler : MonoBehaviour
         {
             targetImage.sprite = activeSprites[currentIndex];
             currentIndex = (currentIndex + 1) % activeSprites.Count;
-            yield return new WaitForSeconds(9.5f);
+            yield return new WaitForSeconds(10f);
         }
     }
 

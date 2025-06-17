@@ -33,18 +33,30 @@ namespace GameVanilla.Game.Common
         // Coroutine to handle the delay and explosion logic
         private IEnumerator DelayedResolve(GameBoard board, List<GameObject> tiles, FxPool fxPool)
         {
-           
-            yield return new WaitForSeconds(0.4f); 
-            
+            for (var i = tiles.Count - 1; i >= 0; i--)
+            {
+               
+                var tile = tiles[i];
+
+                if (tile != null && ( tile.GetComponent<ColorBomb>() != null))
+                {
+                    board.ExplodeTileNonRecursive(tile);
+                }
+            }
+
+
 
             // Explode each matching tile
+
+            yield return new WaitForSeconds(0.5f);
+
             for (var i = tiles.Count - 1; i >= 0; i--)
             {
                 yield return new WaitForSeconds(0.03f);
                 var tile = tiles[i];
+
                 if (tile != null && (tile.GetComponent<Candy>() != null || tile.GetComponent<ColorBomb>() != null))
                 {
-                    
                     board.ExplodeTileNonRecursive(tile);
                 }
             }
