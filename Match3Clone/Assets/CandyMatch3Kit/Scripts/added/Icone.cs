@@ -73,6 +73,8 @@ public class SpriteCycler : MonoBehaviour
     {
         while (true)
         {
+            GetComponent<Animator>().Play(0);
+            yield return new WaitForSeconds(1f);
             targetImage.sprite = activeSprites[currentIndex];
             currentIndex = (currentIndex + 1) % activeSprites.Count;
             yield return new WaitForSeconds(10f);
