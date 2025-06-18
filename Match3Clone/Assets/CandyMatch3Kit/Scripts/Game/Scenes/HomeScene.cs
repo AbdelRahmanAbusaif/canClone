@@ -188,6 +188,7 @@ namespace GameVanilla.Game.Scenes
             var sound = PlayerPrefs.GetInt("sound_enabled");
             // soundButton.transform.GetChild(0).GetComponent<SpriteSwapper>().SetEnabled(sound == 1);
             var music = PlayerPrefs.GetInt("music_enabled");
+            Debug.Log("Music enabled: " + music);
             musicButton.transform.GetChild(0).GetComponent<SpriteSwapper>().SetEnabled(music == 1);
         }
     }
