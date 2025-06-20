@@ -88,7 +88,7 @@ public class VideoAdManager : MonoBehaviour
     }
     private void Update() 
     {
-        if(videoAdComponent != null && waitingAds.Count > 0 && timeToClose < DateTime.Now)
+        if(videoAdComponent != null  && timeToClose < DateTime.Now)
         {
             closeTimeText.text = "00:00";
             closedButton.interactable = true;

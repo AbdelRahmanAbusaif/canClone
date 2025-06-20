@@ -43,8 +43,8 @@ namespace GameVanilla.Game.Common
         private async void Awake()
         {
 
-            RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
-            RemoteConfigService.Instance.FetchConfigs(new UserAttributes(), new AppAttributes());
+            // RemoteConfigService.Instance.FetchCompleted += ApplyRemoteConfig;
+            // RemoteConfigService.Instance.FetchConfigs(new UserAttributes(), new AppAttributes());
             
             if (instance == null)
             {
@@ -82,6 +82,12 @@ namespace GameVanilla.Game.Common
             // {
             //     PlayerPrefs.SetInt("num_coins", gameConfig.initialCoins);
             // }
+            ApplyRemoteConfig(
+                new ConfigResponse
+                {
+                    status = ConfigRequestStatus.Success
+                }
+            );
 
         }
         private void OnEnable() 
@@ -104,7 +110,7 @@ namespace GameVanilla.Game.Common
 
         private void OnDisable() 
         {
-            RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
+            // RemoteConfigService.Instance.FetchCompleted -= ApplyRemoteConfig;
         }
     }
 }
