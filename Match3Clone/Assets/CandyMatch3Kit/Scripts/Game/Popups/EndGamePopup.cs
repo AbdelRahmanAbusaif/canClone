@@ -11,6 +11,7 @@ using GameVanilla.Game.Scenes;
 using GameVanilla.Game.UI;
 using GameVanilla.Game.Common;
 
+using TMPro;
 namespace GameVanilla.Game.Popups
 {
     /// <summary>
@@ -29,7 +30,7 @@ namespace GameVanilla.Game.Popups
         private GameObject goalGroup;
 
         [SerializeField]
-        private Text scoreOnlyReachedText;
+        private TextMeshProUGUI scoreOnlyReachedText;
         
         [SerializeField]
         private GameObject girl;
