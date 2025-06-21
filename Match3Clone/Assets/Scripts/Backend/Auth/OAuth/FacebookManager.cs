@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using ArabicSupporter;
 using Facebook.Unity;
 using TMPro;
 using Unity.Services.Authentication;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FacebookManager : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class FacebookManager : MonoBehaviour
     public string Token;
     public string Error;
 
+    public GameObject AccountExitPanel;
+    public Button LoadAccountButton;
     // Awake function from Unity's MonoBehaviour
     void Awake()
     {
@@ -25,9 +29,51 @@ public class FacebookManager : MonoBehaviour
             // Already initialized, signal an app activation App Event
             FB.ActivateApp();
         }
-    }
 
-    void InitCallback()
+        _loginController.OnLinkedAccountIsAlreadyExists += OnLinkedAccountIsAlreadyExsit;
+        if (LoadAccountButton == null)
+		{
+			Debug.LogError("LoadAccountButton is not assigned in the FacebookManager.");
+			return;
+		}
+		LoadAccountButton.onClick.AddListener(() =>
+        {
+            AuthenticationService.Instance.DeleteAccountAsync().ContinueWith(task =>
+			{
+				if (task.IsFaulted)
+				{
+					Debug.LogError($"Failed to delete account: {task.Exception}");
+					return;
+				}
+				Debug.Log("Account deleted successfully.");
+			});
+            _loginController.InitSignOut();
+			Debug.Log("User signed out from Facebook, ready to link account again.");
+			if (AccountExitPanel != null)
+			{
+				AccountExitPanel.SetActive(false);
+			}
+			else
+			{
+				Debug.LogError("AccountExitPanel is not assigned in the FacebookManager.");
+			}
+			Login();
+		});
+	}
+
+	private void OnLinkedAccountIsAlreadyExsit()
+	{
+		if (AccountExitPanel != null)
+		{
+			AccountExitPanel.SetActive(true);
+		}
+		else
+		{
+			Debug.LogError("AccountExitPanel is not assigned in the FacebookManager.");
+		}
+	}
+
+	void InitCallback()
     {
         if (FB.IsInitialized)
         {
@@ -98,11 +144,20 @@ public class FacebookManager : MonoBehaviour
 
                         if (AuthenticationService.Instance.IsSignedIn)
                         {
-                            _loginController.InitLinkAccountWithFacebook(fbUser);
-                        }
+                            Debug.Log("User is already signed in, linking Facebook account.");
+                            if(_loginController != null)
+                            {
+							    _loginController.InitLinkAccountWithFacebook(fbUser);
+                            }
+							else
+							{
+								Debug.LogError("LoginController is not assigned in the FacebookManager.");
+							}
+						}
                         else
                         {
-                           _loginController.InitSignFacebook(fbUser);
+							Debug.Log("User is not signed in, signing in with Facebook account.");
+							_loginController.InitSignFacebook(fbUser);
                         }
                     }
                     else
@@ -119,6 +174,18 @@ public class FacebookManager : MonoBehaviour
             }
         });
     }
+	private void OnDestroy()
+	{
+		if (_loginController != null)
+		{
+			_loginController.OnLinkedAccountIsAlreadyExists -= OnLinkedAccountIsAlreadyExsit;
+		}
+		if (LoadAccountButton != null)
+		{
+			LoadAccountButton.onClick.RemoveAllListeners();
+		}
+		Debug.Log("FacebookManager destroyed and listeners removed.");
+	}
 }
 [System.Serializable]
 public class FacebookGamesUser

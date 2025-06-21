@@ -18,7 +18,10 @@ public class LoginController : MonoBehaviour
     public event Action OnLinkedAccount;
     public event Action OnSignedOutSuccess;
     public GameObject LoadingPanel;
-    async private void Awake() 
+    
+    public event Action OnLinkedAccountIsAlreadyExists;
+
+	async private void Awake() 
     {    
         await UnityServices.Instance.InitializeAsync();
 
@@ -255,7 +258,7 @@ public class LoginController : MonoBehaviour
             playerProfile.PlayerImageUrl = user.ImgUrl;
             
             // Save the updated player profile
-            await CloudSaveManager.Instance.SaveDataAsync("PlayerProfile", playerProfile);
+            await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerProfile);
             
             // Update Player Image from URL
             StartCoroutine(UpdatePlayerImage(playerProfile.PlayerImageUrl));
@@ -265,15 +268,34 @@ public class LoginController : MonoBehaviour
 
             OnLinkedAccount?.Invoke();
         }
-        catch (AuthenticationException ex)
-        {
-            Debug.LogException(ex);
-        }
         catch (RequestFailedException ex)
         {
             Debug.LogException(ex);
-        }
-        finally
+
+            Debug.LogError("Request failed: " + ex.Message);
+			// Handle specific error: Facebook already linked to another account
+            Debug.LogError("Error code: " + ex.ErrorCode);
+            Debug.LogError("Authentication Code Error: " + AuthenticationErrorCodes.AccountAlreadyLinked);
+			// Check if the error code indicates that the Facebook account is already linked to another Unity account
+
+
+			if (ex.ErrorCode == AuthenticationErrorCodes.AccountAlreadyLinked)
+			{
+				Debug.LogWarning("This Facebook account is already linked to another Unity account.");
+
+				// Optionally show a UI message to the user:
+				//ShowPopup("This Facebook account is already linked to another account.");
+				OnLinkedAccountIsAlreadyExists?.Invoke();
+
+				// Optional: Sign in directly with Facebook instead
+				// await AuthenticationService.Instance.SignInWithFacebookAsync(user.idToken);
+			}
+            else
+            {
+				Debug.LogError("An error occurred while linking the Facebook account: " + ex.Message);
+			}
+		}
+		finally
         {
             LoadingPanel.SetActive(false);
         }
@@ -418,7 +440,9 @@ public class LoginController : MonoBehaviour
 
             LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
 
-            OnSignedOutSuccess?.Invoke();
+            PlayerPrefs.DeleteAll();
+
+			OnSignedOutSuccess?.Invoke();
         }
         catch (AuthenticationException ex)
         {

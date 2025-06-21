@@ -81,10 +81,10 @@ public class ProfileEditUI : MonoBehaviour
             DateTime expirationDate = DateTime.Parse(item.DateExpired);
             var timeLeft = expirationDate.Date - DateTime.Now.Date;
 
-            if(timeLeft.Days < 0)
+            if(timeLeft.Days <= 0)
             {
                 timeLeft = expirationDate - ServerTimeManager.Instance.CurrentTime;
-                expiredText.text = "hh:mm";
+                expiredText.text = timeLeft.Hours.ToString() + " H";
             }
             else if(timeLeft.Days >= 1000f)
             {
@@ -94,7 +94,7 @@ public class ProfileEditUI : MonoBehaviour
             }
             else
             {
-                expiredText.text = timeLeft.Days.ToString();
+                expiredText.text = timeLeft.Days.ToString() + " D";
             }
 
             CloudSaveManager.Instance.LoadImageAsync(item.Id, itemImage, false);

@@ -31,7 +31,7 @@ public class CheckAdTimer : MonoBehaviour
             TimeSpan timeSpan = ServerTimeManager.Instance.CurrentTime.Date - expiredDate.Date;
 
             Debug.Log($"Checking ad {ad.AdId} with current timer: {ad.AdCurrentTimer}, next timer: {ad.AdNextTimer}, expired date: {expiredDate}, time span: {timeSpan}");
-			if (timeSpan.Days >= 1)
+			if (timeSpan.Days >= 0)
             {
 				Debug.Log($"Ad {ad.AdId} timer expired. Resetting ad counter and timers.");
 				ad.AdCurrentTimer = ad.AdNextTimer;
