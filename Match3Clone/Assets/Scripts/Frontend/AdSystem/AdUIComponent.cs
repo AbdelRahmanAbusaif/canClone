@@ -59,11 +59,13 @@ public class AdUIComponent : MonoBehaviour
 
                     PuzzleMatchManager.instance.coinsSystem.BuyCoins(reward);
                     
-                    adManager.AdCurrentTimer = ServerTimeManager.Instance.CurrentTime.ToString();
-                    adManager.AdNextTimer = ServerTimeManager.Instance.CurrentTime.AddDays(1).ToString();
+                    Debug.Log("Rewarded Player with: " + reward + " coins");
+                    Debug.Log("Ad Counter: " + adManager.AdCounter + " for AdId: " + adManager.AdId);
+					adManager.AdCurrentTimer = ServerTimeManager.Instance.CurrentTime.Date.ToString();
+                    adManager.AdNextTimer = ServerTimeManager.Instance.CurrentTime.Date.AddDays(1).ToString();
 
-
-                    Debug.Log("Ad Reward: " + reward);
+                    adManagers[adManagers.FindIndex(x => x.AdId == AdId)] = adManager;
+					Debug.Log("Ad Reward: " + reward);
                 }
                 else
                 {

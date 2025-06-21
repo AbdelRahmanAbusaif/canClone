@@ -12,7 +12,6 @@ using UnityEngine.UIElements;
 
 public class AdUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI adTimerText;
     [SerializeField] private Transform adContainer;
     [SerializeField] private GameObject adPrefabs;
     [SerializeField] private List<AdData> adData;
@@ -21,7 +20,7 @@ public class AdUI : MonoBehaviour
     private DateTime adTimer;
     private List<AdManager> adManagers;
     private TimeSpan adTimerSpan = new TimeSpan(0, 0, 0);
-    private void OnEnable() 
+    private void Awake() 
     {
         ApplyRemoteConfig();
     }
@@ -83,7 +82,7 @@ public class AdUI : MonoBehaviour
 
             Debug.Log("Ad Added");
         }
-        await CloudSaveManager.Instance.SaveDataAsync("AdManager", adManagers);
+        await CloudSaveManager.Instance.SaveDataAsync<List<AdManager>>("AdManager", adManagers);
     }
 }
 [Serializable]

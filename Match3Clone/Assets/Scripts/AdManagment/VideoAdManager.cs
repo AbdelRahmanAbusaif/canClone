@@ -88,7 +88,7 @@ public class VideoAdManager : MonoBehaviour
     }
     private void Update() 
     {
-        if(videoAdComponent != null && waitingAds.Count > 0 && timeToClose < DateTime.Now)
+        if(videoAdComponent != null  && timeToClose < DateTime.Now)
         {
             closeTimeText.text = "00:00";
             closedButton.interactable = true;
@@ -350,10 +350,6 @@ public class VideoAdManager : MonoBehaviour
             videoAdComponent.TimeToShow = DateTime.Now.AddMinutes(video.Duration).ToString(); // Set the time to show the ad again
             waitingAds.Enqueue(videoAdComponent); // add video ad to waiting ads
             File.WriteAllTextAsync(Path.Combine(Application.persistentDataPath,"waitingVideo.json"), JsonConvert.SerializeObject(waitingAds)); // save waiting ads to file
-            if(PlayerPrefs.GetInt("sound_enabled")==1)
-            {
-                backGroundMusicSource.mute = false;
-            }
             AdCoordinator.Instance.NotifyAdEnded(); // Notify end
             StartCoroutine(PlayVideo());
             notificationPrefab.SetActive(false);

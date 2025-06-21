@@ -1,6 +1,5 @@
 using System;
 using GoogleMobileAds.Api;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -37,12 +36,6 @@ public class GoogleAdManager : MonoBehaviour
             LoadRewardedAd();
             RewardedEndEvent += () => GiveRewarededReward();
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     #region Banner Ads
@@ -266,8 +259,6 @@ public class GoogleAdManager : MonoBehaviour
             _rewardedAd = null;
         }
 
-        Debug.Log("Loading the rewarded ad.");
-        OnAdLoaded?.Invoke(adUIComponent.AdId);
 
         // create our request used to load the ad.
         var adRequest = new AdRequest();
@@ -285,6 +276,9 @@ public class GoogleAdManager : MonoBehaviour
 
                 Debug.Log("Rewarded ad loaded with response : "
                           + ad.GetResponseInfo());
+
+                Debug.Log("Loading the rewarded ad.");
+                OnAdLoaded?.Invoke(adUIComponent.AdId);
 
                 _rewardedAd = ad;
                 RewaredEvent(_rewardedAd);

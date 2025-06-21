@@ -1443,7 +1443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &596717408
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1687,9 +1687,9 @@ RectTransform:
   - {fileID: 1934305769}
   m_Father: {fileID: 596717410}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 93.75, y: -634.805}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &638854787
@@ -2272,9 +2272,9 @@ RectTransform:
   - {fileID: 15307286}
   m_Father: {fileID: 596717410}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 93.75, y: -204.935}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &900787537
@@ -3228,7 +3228,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 1647710677}
-  soundButton: {fileID: 0}
   musicButton: {fileID: 15307290}
 --- !u!1 &1500603640
 GameObject:
@@ -5182,6 +5181,7 @@ MonoBehaviour:
   scene: LevelScene
   duration: 1
   color: {r: 0, g: 0, b: 0, a: 1}
+  _loginController: {fileID: 0}
 --- !u!114 &2030071647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5223,7 +5223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e16672b1c30cfa41809f46c3d074da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMessage: {fileID: 0}
   LoadingPanel: {fileID: 0}
 --- !u!4 &2078453329
 Transform:
