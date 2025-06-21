@@ -100,7 +100,7 @@ namespace GameVanilla.Game.Popups
             
             var serializer = new fsSerializer();
             var level = FileUtils.LoadJsonFile<Level>(serializer, "Levels/" + numLevel);
-            levelText.text = "" + numLevel;
+            levelText.text = "Level" + numLevel;
             // var stars = PlayerPrefs.GetInt("level_stars_" + numLevel);
             
             var LevelCompletes = await LocalSaveManager.Instance.LoadDataAsync<List<LevelComplete>>("LevelsComplete");

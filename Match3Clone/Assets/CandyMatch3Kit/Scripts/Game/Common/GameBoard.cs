@@ -2476,7 +2476,7 @@ namespace GameVanilla.Game.Common
                     yield return new WaitForSeconds(GameplayConstants.TimeBetweenRewardedCandiesExplosion);
                 }
             } while (tiles.Find(x => x != null && IsSpecialCandy(x)) != null);
-
+            yield return new WaitForSeconds(GameplayConstants.EndGamePopupDelay);
             gameScene.OpenWinPopup();
         }
 

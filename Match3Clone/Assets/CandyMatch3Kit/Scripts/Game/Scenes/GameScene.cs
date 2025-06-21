@@ -335,7 +335,9 @@ namespace GameVanilla.Game.Scenes
         /// <returns>The coroutine.</returns>
         private IEnumerator OpenWinPopupAsync()
         {
-            yield return new WaitForSeconds(GameplayConstants.EndGamePopupDelay);
+            //yield return new WaitForSeconds(GameplayConstants.EndGamePopupDelay);
+            yield return new WaitForSeconds(3f);
+
             OpenWinPopup();
         }
 
