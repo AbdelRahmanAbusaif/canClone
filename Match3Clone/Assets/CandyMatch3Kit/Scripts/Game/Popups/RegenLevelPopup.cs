@@ -9,6 +9,7 @@ using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 using GameVanilla.Core;
+using TMPro;
 
 namespace GameVanilla.Game.Popups
 {
@@ -20,7 +21,7 @@ namespace GameVanilla.Game.Popups
     {
 #pragma warning disable 649
 	    [SerializeField]
-	    private Text text;
+	    private TextMeshProUGUI text;
 #pragma warning restore 649
 
 	    /// <summary>

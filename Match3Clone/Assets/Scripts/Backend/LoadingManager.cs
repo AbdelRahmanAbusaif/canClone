@@ -154,7 +154,8 @@ public class LoadingManager : MonoBehaviour
 
         if (AuthenticationService.Instance.SessionTokenExists)
         {
-            loginController.InitSignInCachedUser();
+            Debug.Log("User is signed in, loading home page scene...");
+			loginController.InitSignInCachedUser();
 
             // Hide loading spinner
             if (LoadingSpinner != null)
@@ -165,7 +166,8 @@ public class LoadingManager : MonoBehaviour
         }
         else
         {
-            Transition.LoadLevel(LoginPageScene,1f,Color.black);
+			Debug.Log("User is not signed in, loading login page scene...");
+			Transition.LoadLevel(LoginPageScene,1f,Color.black);
             // loginController.InitSignAnonymous();
         }
     }

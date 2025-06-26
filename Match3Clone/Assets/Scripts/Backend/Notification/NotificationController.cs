@@ -4,6 +4,7 @@ using Unity.Notifications.Android;
 #elif UNITY_IOS
 using Unity.Notifications.iOS;
 #endif
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 

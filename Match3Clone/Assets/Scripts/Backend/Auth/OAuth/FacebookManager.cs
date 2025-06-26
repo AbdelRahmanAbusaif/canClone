@@ -47,6 +47,7 @@ public class FacebookManager : MonoBehaviour
 				}
 				Debug.Log("Account deleted successfully.");
 			});
+		    Login();
             _loginController.InitSignOut();
 			Debug.Log("User signed out from Facebook, ready to link account again.");
 			if (AccountExitPanel != null)
@@ -57,7 +58,6 @@ public class FacebookManager : MonoBehaviour
 			{
 				Debug.LogError("AccountExitPanel is not assigned in the FacebookManager.");
 			}
-			Login();
 		});
 	}
 

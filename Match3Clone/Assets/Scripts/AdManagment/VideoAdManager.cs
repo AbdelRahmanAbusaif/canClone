@@ -347,7 +347,13 @@ public class VideoAdManager : MonoBehaviour
             videoPlayer.Stop();
             vertexImage.gameObject.SetActive(false);
             videoPlayer.clip = null;
-            videoAdComponent.TimeToShow = DateTime.Now.AddMinutes(video.Duration).ToString(); // Set the time to show the ad again
+
+			if (PlayerPrefs.GetInt("music_enabled") == 1)
+			{
+				backGroundMusicSource.mute = false;
+			}
+
+			videoAdComponent.TimeToShow = DateTime.Now.AddMinutes(video.Duration).ToString(); // Set the time to show the ad again
             waitingAds.Enqueue(videoAdComponent); // add video ad to waiting ads
             File.WriteAllTextAsync(Path.Combine(Application.persistentDataPath,"waitingVideo.json"), JsonConvert.SerializeObject(waitingAds)); // save waiting ads to file
             AdCoordinator.Instance.NotifyAdEnded(); // Notify end

@@ -5103,6 +5103,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Token: 
   Error: 
+  AccountExitPanel: {fileID: 0}
+  LoadAccountButton: {fileID: 0}
 --- !u!4 &577754942
 Transform:
   m_ObjectHideFlags: 0
@@ -19878,6 +19880,7 @@ MonoBehaviour:
   borderProfileImageTexture: {fileID: 2800000, guid: 99f6d8c0578354553a996a1a14cc98cb,
     type: 3}
   uploadImagePanel: {fileID: 1749309293464280323}
+  loadingPanel: {fileID: 1843694721}
 --- !u!224 &4832485117828827898
 RectTransform:
   m_ObjectHideFlags: 0

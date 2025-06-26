@@ -8,6 +8,7 @@ using Unity.Services.Authentication;
 
 using SaveData;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class ProfileManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class ProfileManager : MonoBehaviour
     [SerializeField] private Texture2D borderProfileImageTexture;
 
     [SerializeField] private GameObject uploadImagePanel;
+    [SerializeField] private GameObject loadingPanel;
     
     private string filepath = "";
 
@@ -202,7 +204,9 @@ public class ProfileManager : MonoBehaviour
 
     private async void OnUpdateButtonClicked()
     {
-        phoneNumber = panels[currentPanelIndex].inputField.text;
+        loadingPanel.SetActive(true);
+
+		phoneNumber = panels[currentPanelIndex].inputField.text;
 
         // Debug.Log("Updating player profile...");
         try
@@ -221,7 +225,6 @@ public class ProfileManager : MonoBehaviour
         }
 
         playerProfile.PhoneNumber = phoneNumber;
-        playerProfile.PlayerName = playerName;
 
         Debug.Log($"Player phone number: {playerProfile.PhoneNumber}");
         
@@ -235,8 +238,8 @@ public class ProfileManager : MonoBehaviour
         Debug.Log($"Player name: {playerProfile.PlayerName}");
         await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerProfile);
 
-        SaveImageInCloud();
         Debug.Log($"Player profile image: {playerProfile.PlayerImageUrl}");
+        await SaveImageInCloud();
 
         Debug.Log("Player profile updated successfully");
 
@@ -246,9 +249,8 @@ public class ProfileManager : MonoBehaviour
             Debug.LogError("Phone number is null, please enter a valid phone number");
             return;
         }
-        OnUpdateSuccess?.Invoke();
     }
-    private async void SaveImageInCloud()
+    private async Task SaveImageInCloud()
     {
         playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
         if (playerProfile == null)
@@ -262,7 +264,9 @@ public class ProfileManager : MonoBehaviour
 
             Sprite sprite = Sprite.Create(avatarProfileImageTexture, new Rect(0, 0, avatarProfileImageTexture.width, avatarProfileImageTexture.height), new Vector2(0.5f, 0.5f));
             UpdloadedInCloud(sprite);
-            return;
+
+			OnUpdateSuccess?.Invoke();
+			return;
         }
         if (playerProfile == null)
         {
@@ -295,9 +299,13 @@ public class ProfileManager : MonoBehaviour
         var containerProfileAvatarImages = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileAvatarImages");
         containerProfileAvatarImages.Add(item);
         await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileAvatarImages", containerProfileAvatarImages);
-    }
 
-    private string GetImageBase64(Texture2D texture)
+		OnUpdateSuccess?.Invoke();
+		loadingPanel.SetActive(false);
+		Debug.Log("Player profile image uploaded successfully.");
+	}
+
+	private string GetImageBase64(Texture2D texture)
     {
         Texture2D resizeTexture = ImageUtility.ResizeTexture(texture, 256, 256);
         byte[] bytes = ImageUtility.CompressTexture(resizeTexture, quality: 50);
@@ -323,8 +331,8 @@ public class ProfileManager : MonoBehaviour
             Sprite playerImage = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
 
             UpdloadedInCloud(playerImage);
-        }
-        else
+		}
+		else
         {
             Debug.LogError("Unknown error when downloading image from Facebook.");
         }

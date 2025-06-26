@@ -7,8 +7,6 @@ using Unity.Services.Core;
 using UnityEngine;
 using SaveData;
 using System.Collections.Generic;
-using UnityEngine.SocialPlatforms;
-using TMPro;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -326,76 +324,76 @@ public class LoginController : MonoBehaviour
     #endregion
     #region  Google Play Games
     
-    public async void InitSignGooglePlay(GooglePlayGamesUser user)
-    {
-        await SignInGooglePlayAsync(user);
-    }
+    //public async void InitSignGooglePlay(GooglePlayGamesUser user)
+    //{
+    //    await SignInGooglePlayAsync(user);
+    //}
 
-    private async Task SignInGooglePlayAsync(GooglePlayGamesUser user)
-    {
-        try
-        {
-            LoadingPanel.SetActive(true);
-            await AuthenticationService.Instance.SignInWithGooglePlayGamesAsync(user.idToken);
-            var playerProfile = new PlayerProfile
-            {
-                PlayerId = AuthenticationService.Instance.PlayerId,
-                PlayerName = user.name,
-                Email = user.email,
-                PlayerImageUrl = user.ImgUrl,
-                PhoneNumber = "",
-                DataPublicProfileImage = "",
-                DataPublicProfileBorder = "",
-                Level = 1,
-                IsAcceptedTerms = false,
-            };
-            var heartSystem = new HeartSystem()
-            {
-                Heart = 5,
-                LastHeartTime = "0",
-                NextHeartTime = "0"
-            };
-            var dailyBonus = new DailyBonus()
-            {
-                DateLastPlayed = "0",
-                DailyBonusDayKey = "0"
-            };
-            var spinWheel = new SpinWheel()
-            {
-                DateLastSpin = "0",
-                DailySpinDayKey = "0"
-            };
+    //private async Task SignInGooglePlayAsync(GooglePlayGamesUser user)
+    //{
+    //    try
+    //    {
+    //        LoadingPanel.SetActive(true);
+    //        await AuthenticationService.Instance.SignInWithGooglePlayGamesAsync(user.idToken);
+    //        var playerProfile = new PlayerProfile
+    //        {
+    //            PlayerId = AuthenticationService.Instance.PlayerId,
+    //            PlayerName = user.name,
+    //            Email = user.email,
+    //            PlayerImageUrl = user.ImgUrl,
+    //            PhoneNumber = "",
+    //            DataPublicProfileImage = "",
+    //            DataPublicProfileBorder = "",
+    //            Level = 1,
+    //            IsAcceptedTerms = false,
+    //        };
+    //        var heartSystem = new HeartSystem()
+    //        {
+    //            Heart = 5,
+    //            LastHeartTime = "0",
+    //            NextHeartTime = "0"
+    //        };
+    //        var dailyBonus = new DailyBonus()
+    //        {
+    //            DateLastPlayed = "0",
+    //            DailyBonusDayKey = "0"
+    //        };
+    //        var spinWheel = new SpinWheel()
+    //        {
+    //            DateLastSpin = "0",
+    //            DailySpinDayKey = "0"
+    //        };
             
-            var primeSubscriptions = new ConsumableItem()
-            {
-                Id = "PrimeSubscription",
-                ConsumableName = "PrimeSubscription",
-                DatePurchased = "0",
-                DateExpired = "0"
-            };
-            var levelsComplete = new List<LevelComplete>();
-            var adManager = new List<AdManager>();
-            var containerProfileAvatarImages = new List<ConsumableItem>();
-            var containerProfileBorders = new List<ConsumableItem>();
-            var containerProfileCoverImages = new List<ConsumableItem>();
+    //        var primeSubscriptions = new ConsumableItem()
+    //        {
+    //            Id = "PrimeSubscription",
+    //            ConsumableName = "PrimeSubscription",
+    //            DatePurchased = "0",
+    //            DateExpired = "0"
+    //        };
+    //        var levelsComplete = new List<LevelComplete>();
+    //        var adManager = new List<AdManager>();
+    //        var containerProfileAvatarImages = new List<ConsumableItem>();
+    //        var containerProfileBorders = new List<ConsumableItem>();
+    //        var containerProfileCoverImages = new List<ConsumableItem>();
 
-            OnSignInSuccess?.Invoke(playerProfile);
+    //        OnSignInSuccess?.Invoke(playerProfile);
             
-            Debug.Log("Sign in with Google Play Games succeeded!");
-        }
-        catch (AuthenticationException ex)
-        {
-            Debug.LogException(ex);
-        }
-        catch (RequestFailedException ex)
-        {
-            Debug.LogException(ex);
-        }
-        finally
-        {
-            LoadingPanel.SetActive(false);
-        }
-    }
+    //        Debug.Log("Sign in with Google Play Games succeeded!");
+    //    }
+    //    catch (AuthenticationException ex)
+    //    {
+    //        Debug.LogException(ex);
+    //    }
+    //    catch (RequestFailedException ex)
+    //    {
+    //        Debug.LogException(ex);
+    //    }
+    //    finally
+    //    {
+    //        LoadingPanel.SetActive(false);
+    //    }
+    //}
 
     #endregion
 
@@ -426,8 +424,9 @@ public class LoginController : MonoBehaviour
         {
             AuthenticationService.Instance.SignOut(true);
             PlayerAccountService.Instance.SignOut();
+            AuthenticationService.Instance.ClearSessionToken();
 
-            LocalSaveManager.Instance.DeleteData("PlayerProfile");
+			LocalSaveManager.Instance.DeleteData("PlayerProfile");
             LocalSaveManager.Instance.DeleteData("DailyBonus");
             LocalSaveManager.Instance.DeleteData("SpinWheel");
             LocalSaveManager.Instance.DeleteData("HeartSystem");
@@ -441,6 +440,29 @@ public class LoginController : MonoBehaviour
             LocalSaveManager.Instance.DeleteImage("PlayerProfileImage");
 
             PlayerPrefs.DeleteAll();
+
+			GameObject backgorundMusic = GameObject.Find("BackgroundMusic");
+			if (backgorundMusic != null)
+			{
+				Destroy(backgorundMusic);
+			}
+
+            GameObject soundManager = GameObject.Find("SoundManager(Clone)");
+			if (soundManager != null)
+			{
+				Destroy(soundManager);
+			}
+
+            GameObject gameManager = GameObject.Find("GameManager(Clone)");
+			if (gameManager != null)
+            {
+				Destroy(gameManager);
+			}
+			
+            Debug.Log("Signed out successfully.");
+			LoadingPanel.SetActive(false);
+
+			// Invoke the signed out success event
 
 			OnSignedOutSuccess?.Invoke();
         }
@@ -600,7 +622,7 @@ public class LoginController : MonoBehaviour
             Debug.LogException(ex);
         }
     }
-    public async void InitSignInCachedUser()
+    public async void  InitSignInCachedUser()
     {
         await SignInCachedUserAsync();
     }
@@ -633,12 +655,14 @@ public class LoginController : MonoBehaviour
             LocalSaveManager.Instance.DeleteImage("FriendList");
 			LocalSaveManager.Instance.DeleteImage("FriendRequests");
 
-			await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log("Sign in anonymously succeeded!");
+            if(!AuthenticationService.Instance.IsSignedIn)
+            {
+			    await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                Debug.Log("Sign in anonymously succeeded!");
+            }
 
             await GetPlayerProfileAsync();
 
-            
             // Shows how to get the playerID
             Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");   
         }
