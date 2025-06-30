@@ -15,11 +15,7 @@ public class LeaderboardMainMenu : MonoBehaviour
     [SerializeField] private RectTransform playerContainer;
     
     [SerializeField] private List<LeaderboardItem> leaderboardItems = new List<LeaderboardItem>();
-    private void TestAddScore()
-    {
-        LeaderboardManager.Instance.AddScore(leaderboardId,Random.Range(0, 1000));
-        Debug.Log("Score added successfully.");
-    }
+   
     private async void OnEnable()
     {
 

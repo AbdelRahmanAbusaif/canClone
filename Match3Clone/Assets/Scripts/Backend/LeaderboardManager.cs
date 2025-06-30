@@ -40,7 +40,18 @@ public class LeaderboardManager : MonoBehaviour
 
         return scoreResponse;
     }
-    public async Task<LeaderboardEntry> GetPlayerProfileScore(string leaderboardId)
+	public async Task<LeaderboardVersionScoresPage> GetPaginatedVersionScores(string leaderboardId, string versionId)
+	{
+		var scoresResponse = await LeaderboardsService.Instance.GetVersionScoresAsync(
+			leaderboardId,
+			versionId,
+			new GetVersionScoresOptions { Offset = 25, Limit = 50 }
+		);
+		Debug.Log(JsonConvert.SerializeObject(scoresResponse));
+
+		return scoresResponse;
+	}
+	public async Task<LeaderboardEntry> GetPlayerProfileScore(string leaderboardId)
     {
         var scoreResponse = await LeaderboardsService.Instance
         .GetPlayerScoreAsync(

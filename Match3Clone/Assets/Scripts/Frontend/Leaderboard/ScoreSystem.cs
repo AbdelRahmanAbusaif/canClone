@@ -34,7 +34,7 @@ public class ScoreSystem : MonoBehaviour
     {
         foreach (var score in scores)
         {
-            if(!score.isScoreAvailable)
+            if(!score.isScoreAvailable && score.isScoreFreezed)
             {
                 continue;
             }
@@ -49,8 +49,9 @@ public class ScoreSystem : MonoBehaviour
         foreach (var score in scores)
         {
             score.isScoreAvailable = RemoteConfigService.Instance.appConfig.GetBool(score.remoteConfigKey);
+            score.isScoreFreezed = RemoteConfigService.Instance.appConfig.GetBool(score.leaderboardFreezeKey);
 
-            if (score.isScoreAvailable)
+			if (score.isScoreAvailable && !score.isScoreFreezed)
             {
                 Debug.Log($"Score for {score.candyColor} candy is available");
                 score.scorePanel.SetActive(true);
@@ -67,7 +68,7 @@ public class ScoreSystem : MonoBehaviour
 
         foreach (var score in scores)
         {
-            if (score.isScoreAvailable && levelsComplete.Find(L => L.NumberLevel == gameScene.level.id) == null)
+            if (score.isScoreAvailable && !score.isScoreFreezed && levelsComplete.Find(L => L.NumberLevel == gameScene.level.id) == null)
             {
                 LeaderboardManager.Instance.AddScore(score.leaderboardId, score.score);
                 Debug.Log($"Score for {score.candyColor} candy is {score.score}");
@@ -82,7 +83,7 @@ public class ScoreSystem : MonoBehaviour
 
         foreach (var score in scores)
         {
-            if (score.candyColor == candy && score.isScoreAvailable)
+            if (score.candyColor == candy && score.isScoreAvailable && !score.isScoreFreezed)
             {
                 score.score++;
                 score.scoreText.text = score.score.ToString();
@@ -103,9 +104,11 @@ public class ScoreSystem : MonoBehaviour
     {
         internal int score;
         internal bool isScoreAvailable;
-        public string leaderboardId;
+        internal bool isScoreFreezed;
+		public string leaderboardId;
         public string remoteConfigKey;
-        public CandyColor candyColor;
+        public string leaderboardFreezeKey;
+		public CandyColor candyColor;
         public TextMeshProUGUI scoreText;
         public GameObject scorePanel;
     }

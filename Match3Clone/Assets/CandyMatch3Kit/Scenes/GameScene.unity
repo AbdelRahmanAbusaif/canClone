@@ -840,31 +840,37 @@ MonoBehaviour:
   scores:
   - leaderboardId: BLUE_LEADERBOARD
     remoteConfigKey: IsBlueLeaderboard
+    leaderboardFreezeKey: FreezeBlueLeaderboard
     candyColor: 0
     scoreText: {fileID: 992382812}
     scorePanel: {fileID: 1181790715}
   - leaderboardId: RED_LEADERBOARD
     remoteConfigKey: IsRedLeaerboard
+    leaderboardFreezeKey: FreezeRedLeaderboard
     candyColor: 4
     scoreText: {fileID: 1018719762}
     scorePanel: {fileID: 557217799}
-  - leaderboardId: GREEN_LEADERBOARD
-    remoteConfigKey: IsGreenLeaderboard
-    candyColor: 1
-    scoreText: {fileID: 1795273096}
-    scorePanel: {fileID: 1886137692}
   - leaderboardId: YELLOW_LEADERBOARD
     remoteConfigKey: IsYellowLeaderboard
+    leaderboardFreezeKey: FreezeYallowLeaderboard
     candyColor: 5
     scoreText: {fileID: 993141193}
     scorePanel: {fileID: 2113627331}
+  - leaderboardId: GREEN_LEADERBOARD
+    remoteConfigKey: IsGreenLeaderboard
+    leaderboardFreezeKey: FreezeGreenLeaderboard
+    candyColor: 1
+    scoreText: {fileID: 1795273096}
+    scorePanel: {fileID: 1886137692}
   - leaderboardId: ORANGE_LEADERBOARD
     remoteConfigKey: IsOrangeLeadeboard
+    leaderboardFreezeKey: FreezeOrangeLeaderboard
     candyColor: 2
     scoreText: {fileID: 321178515}
     scorePanel: {fileID: 1848817112}
   - leaderboardId: PURPLE_LEADERBOARD
     remoteConfigKey: IsPurpleLeaderboard
+    leaderboardFreezeKey: FreezePurpleLeaderboard
     candyColor: 3
     scoreText: {fileID: 1088608771}
     scorePanel: {fileID: 494763786}
