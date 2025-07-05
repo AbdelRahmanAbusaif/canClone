@@ -15,6 +15,16 @@ public class LeaderboardHistoryItem : MonoBehaviour
 
 	string descriptionEnText = string.Empty; // Placeholder for description, if needed later
 	string descriptionArText = string.Empty; // Placeholder for description, if needed later
+
+	string imageURL = string.Empty; // Placeholder for image URL, if needed later
+
+	private void OnEnable()
+	{
+		if (!string.IsNullOrEmpty(imageURL))
+		{
+			StartCoroutine(LoadImage(imageURL));
+		}
+	}
 	private void Start()
 	{
 		showMessage.onClick.AddListener(() =>
@@ -27,7 +37,7 @@ public class LeaderboardHistoryItem : MonoBehaviour
 			var historyPageComponent = historyPage.GetComponent<LeaderboardHistoryPage>();
 			if (historyPageComponent != null)
 			{
-				historyPageComponent.SetData(titleText.text, descriptionEnText, descriptionArText);
+				historyPageComponent.SetData(titleText.text, descriptionArText, descriptionEnText);
 			}
 			else
 			{
@@ -43,10 +53,7 @@ public class LeaderboardHistoryItem : MonoBehaviour
 		descriptionEnText = data.contentEn ?? string.Empty; // Ensure description is not null
 		descriptionArText = data.contentAr ?? string.Empty; // Ensure description is not null
 
-		if (!string.IsNullOrEmpty(data.imageURL))
-		{
-			StartCoroutine(LoadImage(data.imageURL));
-		}
+		imageURL = data.imageURL ?? string.Empty; // Ensure imageURL is not null
 	}
 	private IEnumerator LoadImage(string url)
 	{
