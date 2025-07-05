@@ -1,4 +1,4 @@
-// Copyright (C) 2017 gamevanilla. All rights reserved.
+﻿// Copyright (C) 2017 gamevanilla. All rights reserved.
 // This code can only be used under the standard Unity Asset Store End User License Agreement,
 // a copy of which is available at http://unity3d.com/company/legal/as_terms.
 
@@ -10,6 +10,8 @@ using GameVanilla.Core;
 using GameVanilla.Game.Common;
 using GameVanilla.Game.Scenes;
 using System.Threading.Tasks;
+using UnityEngine.Localization.Settings;
+using TMPro;
 
 namespace GameVanilla.Game.Popups
 {
@@ -30,10 +32,10 @@ namespace GameVanilla.Game.Popups
         private GameObject timeGroup;
 
         [SerializeField]
-        private Text title1Text;
+        private TextMeshProUGUI title1Text;
 
         [SerializeField]
-        private Text title2Text;
+        private TextMeshProUGUI title2Text;
 
         [SerializeField]
         private Text numExtraMovesText;
@@ -98,17 +100,57 @@ namespace GameVanilla.Game.Popups
             if (gameScene.level.limitType == LimitType.Moves)
             {
                 timeGroup.SetActive(false);
-                title1Text.text = "Out of moves!";
-                title2Text.text = string.Format("Add +{0} extra moves to continue.", gameConfig.numExtraMoves);
+
+                if (LocalizationSettings.SelectedLocale.Identifier.Code == "ar")
+                {
+					Debug.Log("Setting Arabic text for NoMovesOrTimePopup");
+					Debug.Log("لا يوجد حركات"); // Debug log for Arabic text
+					Debug.Log(string.Format("أضف +{0} حركات إضافية للاستمرار.", gameConfig.numExtraMoves)); // Debug log for Arabic text
+					Debug.Log("Fix Arabic text: " + ArabicSupporter.ArabicSupport.Fix("لا يوجد حركات!"));
+					Debug.Log("Fix Arabic text: " + ArabicSupporter.ArabicSupport.Fix(
+						string.Format("أضف +{0} حركات إضافية للاستمرار.", gameConfig.numExtraMoves)));
+
+					title1Text.text = ArabicSupporter.ArabicSupport.Fix("لا يوجد حركات!");
+					title2Text.text = ArabicSupporter.ArabicSupport.Fix(
+                        string.Format("أضف +{0} حركات إضافية للاستمرار.", gameConfig.numExtraMoves)
+                        );
+
+					string path = Application.persistentDataPath + "/arabic_log.txt";
+					System.IO.File.WriteAllText(path, title2Text.text);
+					Debug.Log("Arabic text written to: " + path);
+				}
+                else
+                {
+                    title1Text.text = "Out of moves!";
+                    title2Text.text = string.Format("Add +{0} extra moves to continue.", gameConfig.numExtraMoves);
+                }
+
                 costText.text = gameConfig.extraMovesCost.ToString();
                 numExtraMovesText.text = string.Format("+{0}", gameConfig.numExtraMoves);
             }
             else
             {
                 movesGroup.SetActive(false);
-                title1Text.text = "Out of time!";
-                title2Text.text = string.Format("Add +{0} extra seconds to continue.",
-                    PuzzleMatchManager.instance.gameConfig.numExtraTime);
+
+                if (LocalizationSettings.SelectedLocale.Identifier.Code == "ar")
+                {
+                    Debug.Log("Setting Arabic text for NoMovesOrTimePopup");
+                    Debug.Log("لا يوجد وقت!"); // Debug log for Arabic text
+					Debug.Log(string.Format("أضف +{0} ثوانٍ إضافية للاستمرار.", gameConfig.numExtraTime)); // Debug log for Arabic text
+
+                    Debug.Log("Fix Arabic text: " + ArabicSupporter.ArabicSupport.Fix("لا يوجد وقت!"));
+					Debug.Log("Fix Arabic text: " + ArabicSupporter.ArabicSupport.Fix(
+						string.Format("أضف +{0} ثوانٍ إضافية للاستمرار.", gameConfig.numExtraTime)));
+					title1Text.text = ArabicSupporter.ArabicSupport.Fix("لا يوجد وقت!");
+					title2Text.text = ArabicSupporter.ArabicSupport.Fix
+                        (string.Format("أضف +{0} ثوانٍ إضافية للاستمرار.", gameConfig.numExtraTime));
+				}
+                else
+                {
+                    title1Text.text = "Out of time!";
+                    title2Text.text = string.Format("Add +{0} extra seconds to continue.",
+                        PuzzleMatchManager.instance.gameConfig.numExtraTime);
+                }
                 costText.text = gameConfig.extraTimeCost.ToString();
             }
         }

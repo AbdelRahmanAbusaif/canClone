@@ -224,6 +224,7 @@ public class ProfileManager : MonoBehaviour
             return;
         }
 
+        playerProfile.IsAcceptedTerms = true;
         playerProfile.PhoneNumber = phoneNumber;
 
         Debug.Log($"Player phone number: {playerProfile.PhoneNumber}");
@@ -308,7 +309,7 @@ public class ProfileManager : MonoBehaviour
 	private string GetImageBase64(Texture2D texture)
     {
         Texture2D resizeTexture = ImageUtility.ResizeTexture(texture, 256, 256);
-        byte[] bytes = ImageUtility.CompressTexture(resizeTexture, quality: 50);
+        byte[] bytes = ImageUtility.CompressTexture(resizeTexture, quality: 30);
         
         return Convert.ToBase64String(bytes);
     }

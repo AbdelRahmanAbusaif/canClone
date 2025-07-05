@@ -124,7 +124,6 @@ namespace GameVanilla.Core
             {
                 if(nameToSound.ContainsKey(sound.name))
                 {
-                    Debug.Log("Sound " + sound.name + " already exists in the dictionary. Please check for duplicates.");
                 }
                 else
                 {
