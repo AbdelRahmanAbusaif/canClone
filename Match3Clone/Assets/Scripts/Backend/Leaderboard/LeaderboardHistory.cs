@@ -12,6 +12,7 @@ public class LeaderboardHistory : MonoBehaviour
 
 	[SerializeField] private Transform contentParent;
 	[SerializeField] private GameObject leaderboardHistoryPrefab;
+	[SerializeField] private GameObject emprtyListUI;
 
 	[SerializeField] private List<LeaderboardHistoryData> leaderboardHistoryDatas = new List<LeaderboardHistoryData>();
 	void OnEnable()
@@ -27,6 +28,30 @@ public class LeaderboardHistory : MonoBehaviour
 
 		Debug.Log($"Leaderboard History JSON: {json}");
 		leaderboardHistoryDatas = JsonConvert.DeserializeObject<List<LeaderboardHistoryData>>(json);
+
+		var itemsToRemove = new List<LeaderboardHistoryData>();
+
+		foreach (var data in leaderboardHistoryDatas)
+		{
+			if (string.IsNullOrEmpty(data.versionId) || string.IsNullOrEmpty(data.titleAr) || string.IsNullOrEmpty(data.titleEn))
+			{
+				Debug.LogWarning("Invalid leaderboard history data found, skipping.");
+				itemsToRemove.Add(data);
+			}
+		}
+
+		foreach (var item in itemsToRemove)
+		{
+			leaderboardHistoryDatas.Remove(item);
+		}
+
+		if (leaderboardHistoryDatas == null || leaderboardHistoryDatas.Count == 0)
+		{
+			Debug.LogWarning("No leaderboard history data found in remote config.");
+			emprtyListUI.SetActive(true);
+			return;
+		}
+
 
 		leaderboardHistoryDatas.Sort((x, y) => string.Compare(x.versionId, y.versionId, StringComparison.Ordinal));
 
@@ -60,14 +85,17 @@ public class LeaderboardHistory : MonoBehaviour
 public class LeaderboardHistoryData
 {
     public string versionId;
-    public string title; 
-	
+
+    public string titleEn;
+	public string titleAr;
+
 	public LeaderboardType leaderboardType;
 
 	public string contentEn;
 	public string contentAr;
 
 	public string imageURL;
+	public string imageEntryId;
 }
 public enum LeaderboardType
 {

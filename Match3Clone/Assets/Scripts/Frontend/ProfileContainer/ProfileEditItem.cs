@@ -49,7 +49,11 @@ public class ProfileEditItem : MonoBehaviour
 
                         GameObject cloneObject = Instantiate(item.ItemPrefab, item.ItemContainer.transform);
                         cloneObject.GetComponent<ProfileEditUI>().SetItemData(containerProfileAvatarImage.Id, containerProfileAvatarImage.ConsumableName, ConsumableType.PlayerProfileAvatar);
-                    }
+
+						item.ItemContainer.GetComponent<RectTransform>().sizeDelta =
+	                        new Vector2(item.ItemContainer.GetComponent<RectTransform>().sizeDelta.x,
+	                        item.ItemContainer.GetComponent<RectTransform>().sizeDelta.y + item.ItemPrefab.GetComponent<RectTransform>().sizeDelta.y + 20f);
+					}
                     break;
                 case ConsumableType.PlayerProfileCover:
                     List<ConsumableItem> containerProfileCoverImages = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileCoverImages");
@@ -59,7 +63,12 @@ public class ProfileEditItem : MonoBehaviour
 
                         GameObject cloneObject = Instantiate(item.ItemPrefab, item.ItemContainer.transform);
                         cloneObject.GetComponent<ProfileEditUI>().SetItemData(containerProfileCoverImage.Id, containerProfileCoverImage.ConsumableName, ConsumableType.PlayerProfileCover);
-                    }
+
+						item.ItemContainer.GetComponent<RectTransform>().sizeDelta =
+                            new Vector2(item.ItemContainer.GetComponent<RectTransform>().sizeDelta.x,
+                            item.ItemContainer.GetComponent<RectTransform>().sizeDelta.y + item.ItemPrefab.GetComponent<RectTransform>().sizeDelta.y + 20f);
+
+					}
                     break;
                 case ConsumableType.PlayerProfileBorder:
                     List<ConsumableItem> containerProfileBorders = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileBorders");
@@ -69,7 +78,11 @@ public class ProfileEditItem : MonoBehaviour
 
                         GameObject cloneObject = Instantiate(item.ItemPrefab, item.ItemContainer.transform);
                         cloneObject.GetComponent<ProfileEditUI>().SetItemData(containerProfileBorder.Id, containerProfileBorder.ConsumableName, ConsumableType.PlayerProfileBorder);
-                    }
+
+						item.ItemContainer.GetComponent<RectTransform>().sizeDelta =
+	                    new Vector2(item.ItemContainer.GetComponent<RectTransform>().sizeDelta.x,
+	                    item.ItemContainer.GetComponent<RectTransform>().sizeDelta.y + item.ItemPrefab.GetComponent<RectTransform>().sizeDelta.y + 20f);
+					}
                     break;
             }
         }

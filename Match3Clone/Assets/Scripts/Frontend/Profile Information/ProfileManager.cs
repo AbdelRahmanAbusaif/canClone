@@ -216,11 +216,13 @@ public class ProfileManager : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError($"Error get player profile: {e.Message}");
+            loadingPanel.SetActive(false);
         }
         
         if(!ValidatePhoneNumber(phoneNumber))
         {
             Debug.LogError("Invalid phone number format. Please enter a valid phone number.");
+            loadingPanel.SetActive(false);
             return;
         }
 
@@ -248,7 +250,8 @@ public class ProfileManager : MonoBehaviour
         {
             playerProfile.PhoneNumber = phoneNumber;
             Debug.LogError("Phone number is null, please enter a valid phone number");
-            return;
+			loadingPanel.SetActive(false);
+			return;
         }
     }
     private async Task SaveImageInCloud()

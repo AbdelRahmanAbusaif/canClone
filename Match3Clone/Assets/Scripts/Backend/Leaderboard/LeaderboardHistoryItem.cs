@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -47,7 +48,14 @@ public class LeaderboardHistoryItem : MonoBehaviour
 	}
 	public void SetData(LeaderboardHistoryData data)
 	{
-		titleText.text = data.title;
+		if(LocalizationSettings.SelectedLocale.Identifier.Code == "ar")
+		{
+			titleText.text = ArabicSupporter.ArabicSupport.Fix(data.titleAr?? string.Empty); // Ensure title is not null
+		}
+		else
+		{
+			titleText.text = data.titleEn;
+		}
 		//descriptionText.text = data.description;
 
 		descriptionEnText = data.contentEn ?? string.Empty; // Ensure description is not null

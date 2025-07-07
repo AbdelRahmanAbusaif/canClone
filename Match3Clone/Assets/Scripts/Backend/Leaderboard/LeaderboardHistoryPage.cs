@@ -18,14 +18,7 @@ public class LeaderboardHistoryPage : MonoBehaviour
 	}
 	public void SetData(string title, string contentAr, string contentEn)
 	{
-		if(ArabicSupport.IsArabicString(title))
-		{
-			titleText.text = ArabicSupporter.ArabicSupport.Fix(title);
-		}
-		else
-		{
-			titleText.text = title;
-		}
+		titleText.text = title;
 
 		Debug.Log($"Setting content for {LocalizationSettings.SelectedLocale} locale");
 		// Set content based on the selected locale
