@@ -4,113 +4,138 @@ using System.Collections.Generic;
 using TMPro;
 using System.Collections;
 using ArabicSupporter;
+
+[RequireComponent(typeof(TextMeshProUGUI))]
 public class ArabicFixerTMPRO : MonoBehaviour
 {
-    public string fixedText;
-    public bool ShowTashkeel;
-    public bool UseHinduNumbers;
+	[TextArea]
+	public string fixedText;
+	public bool ShowTashkeel;
+	public bool UseHinduNumbers;
 
-    TextMeshProUGUI tmpTextComponent;
+	private TextMeshProUGUI tmpTextComponent;
+	private RectTransform rectTransform;
 
-    private string OldText; // For Refresh on TextChange
-    private int OldFontSize; // For Refresh on Font Size Change
-    private RectTransform rectTransform;  // For Refresh on resize
-    private Vector2 OldDeltaSize; // For Refresh on resize
-    private bool OldEnabled = false; // For Refresh on enabled change // when text ui is not active then arabic text will not trigered when the control get active
-    private List<RectTransform> OldRectTransformParents = new List<RectTransform>(); // For Refresh on parent resizing
-    private Vector2 OldScreenRect = new Vector2(Screen.width, Screen.height); // For Refresh on screen resizing
+	// State for detecting changes
+	private string oldText;
+	private int oldFontSize;
+	private Vector2 oldDeltaSize;
+	private bool oldEnabled;
+	private List<RectTransform> parentRects = new List<RectTransform>();
+	private Vector2 oldScreenSize;
 
-    bool isInitilized;
-    public void Awake()
-    {
-        GetRectTransformParents(OldRectTransformParents);
-        isInitilized = false;
-        tmpTextComponent = GetComponent<TextMeshProUGUI>();
-    }
+	private bool isInitialized;
 
-    public void Start()
-    {
-        rectTransform = GetComponent<RectTransform>();
+	private void Awake()
+	{
+		tmpTextComponent = GetComponent<TextMeshProUGUI>();
+		rectTransform = GetComponent<RectTransform>();
+		GetRectTransformParents(parentRects);
+		isInitialized = false;
+	}
 
-        fixedText = tmpTextComponent.text;
-        isInitilized = true;
-    }
+	private void Start()
+	{
+		fixedText = tmpTextComponent.text;
+		oldScreenSize = new Vector2(Screen.width, Screen.height);
+		isInitialized = true;
+		ApplyFix();
+	}
 
-    private void GetRectTransformParents(List<RectTransform> rectTransforms)
-    {
-        rectTransforms.Clear();
-        for (Transform parent = transform.parent; parent != null; parent = parent.parent)
-        {
-            GameObject goP = parent.gameObject;
-            RectTransform rect = goP.GetComponent<RectTransform>();
-            if (rect) rectTransforms.Add(rect);
-        }
-    }
+	private void GetRectTransformParents(List<RectTransform> rects)
+	{
+		rects.Clear();
+		for (Transform t = transform.parent; t != null; t = t.parent)
+		{
+			if (t is RectTransform rt) rects.Add(rt);
+		}
+	}
 
-    private bool CheckRectTransformParentsIfChanged()
-    {
-        bool hasChanged = false;
-        for (int i = 0; i < OldRectTransformParents.Count; i++)
-        {
-            hasChanged |= OldRectTransformParents[i].hasChanged;
-            OldRectTransformParents[i].hasChanged = false;
-        }
-        return hasChanged;
-    }
+	private bool HaveParentsChanged()
+	{
+		bool changed = false;
+		foreach (var rt in parentRects)
+		{
+			changed |= rt.hasChanged;
+			rt.hasChanged = false;
+		}
+		return changed;
+	}
 
-    public void Update()
-    {
-        if (!isInitilized)
-            return;
+	private void Update()
+	{
+		if (!isInitialized) return;
 
+		// Check if any relevant property changed
+		if (oldText == fixedText &&
+			oldFontSize == (int)tmpTextComponent.fontSize &&
+			oldDeltaSize == rectTransform.sizeDelta &&
+			oldEnabled == tmpTextComponent.enabled &&
+			oldScreenSize.x == Screen.width && oldScreenSize.y == Screen.height &&
+			!HaveParentsChanged())
+		{
+			return;
+		}
 
-        // if No Need to Refresh
-        if (OldText == fixedText &&
-            OldFontSize == tmpTextComponent.fontSize &&
-            OldDeltaSize == rectTransform.sizeDelta &&
-            OldEnabled == tmpTextComponent.enabled &&
-            (OldScreenRect.x == Screen.width && OldScreenRect.y == Screen.height &&
-            !CheckRectTransformParentsIfChanged()))
-            return;
+		ApplyFix();
 
-        FixTextForUI();
-        OldText = fixedText;
-        OldFontSize = (int)tmpTextComponent.fontSize;
-        OldDeltaSize = rectTransform.sizeDelta;
-        OldEnabled = tmpTextComponent.enabled;
-        OldScreenRect.x = Screen.width;
-        OldScreenRect.y = Screen.height;
-    }
+		// Update state
+		oldText = fixedText;
+		oldFontSize = (int)tmpTextComponent.fontSize;
+		oldDeltaSize = rectTransform.sizeDelta;
+		oldEnabled = tmpTextComponent.enabled;
+		oldScreenSize = new Vector2(Screen.width, Screen.height);
+	}
 
-    public void FixTextForUI()
-    {
-        if (!string.IsNullOrEmpty(fixedText))
-        {
-            string rtlText = ArabicSupport.Fix(fixedText, ShowTashkeel, UseHinduNumbers);
-            rtlText = rtlText.Replace("\r", ""); // the Arabix fixer Return \r\n for everyy \n .. need to be removed
+	private void ApplyFix()
+	{
+		if (string.IsNullOrEmpty(fixedText)) return;
 
-            string finalText = "";
-            string[] rtlParagraph = rtlText.Split('\n');
+		// Fix Arabic shaping, remove carriage returns
+		string rtlText = ArabicSupport.Fix(fixedText, ShowTashkeel, UseHinduNumbers)
+			.Replace("\r", string.Empty);
 
-            tmpTextComponent.text = "";
-            for (int lineIndex = 0; lineIndex < rtlParagraph.Length; lineIndex++)
-            {
-                string[] words = rtlParagraph[lineIndex].Split(' ');
-                System.Array.Reverse(words);
-                tmpTextComponent.text = string.Join(" ", words);
-                Canvas.ForceUpdateCanvases();
-                for (int i = 0; i < tmpTextComponent.textInfo.lineCount; i++)
-                {
-                    int startIndex = tmpTextComponent.textInfo.lineInfo[i].firstCharacterIndex;
-                    int endIndex = (i == tmpTextComponent.textInfo.lineCount - 1) ? tmpTextComponent.text.Length
-                        : tmpTextComponent.textInfo.lineInfo[i + 1].firstCharacterIndex;
-                    int length = endIndex - startIndex;
-                    string[] lineWords = tmpTextComponent.text.Substring(startIndex, length).Split(' ');
-                    System.Array.Reverse(lineWords);
-                    finalText = finalText + string.Join(" ", lineWords).Trim() + "\n";
-                }
-            }
-            tmpTextComponent.text = finalText.TrimEnd('\n');
-        }
-    }
+		// Split into paragraphs, preserving empty entries
+		string[] paragraphs = rtlText.Split(new[] { '\n' }, System.StringSplitOptions.None);
+		List<string> finalLines = new List<string>();
+
+		foreach (var para in paragraphs)
+		{
+			// Preserve empty paragraphs (blank lines)
+			if (string.IsNullOrEmpty(para))
+			{
+				finalLines.Add(string.Empty);
+				continue;
+			}
+
+			// Reverse words for layout pass
+			string[] words = para.Split(' ');
+			System.Array.Reverse(words);
+			string reversedPara = string.Join(" ", words);
+
+			// Set and update to get line info
+			tmpTextComponent.text = reversedPara;
+			Canvas.ForceUpdateCanvases();
+
+			int lineCount = tmpTextComponent.textInfo.lineCount;
+			for (int i = 0; i < lineCount; i++)
+			{
+				int start = tmpTextComponent.textInfo.lineInfo[i].firstCharacterIndex;
+				int end = (i == lineCount - 1)
+					? tmpTextComponent.text.Length
+					: tmpTextComponent.textInfo.lineInfo[i + 1].firstCharacterIndex;
+
+				int length = end - start;
+				string lineText = tmpTextComponent.text.Substring(start, length).Trim();
+
+				// Reverse words back for correct Arabic order per line
+				string[] lineWords = lineText.Split(' ');
+				System.Array.Reverse(lineWords);
+				finalLines.Add(string.Join(" ", lineWords));
+			}
+		}
+
+		// Join all lines with newline
+		tmpTextComponent.text = string.Join("\n", finalLines);
+	}
 }

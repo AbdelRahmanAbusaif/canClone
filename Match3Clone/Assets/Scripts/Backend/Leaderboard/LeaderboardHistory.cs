@@ -33,7 +33,7 @@ public class LeaderboardHistory : MonoBehaviour
 
 		foreach (var data in leaderboardHistoryDatas)
 		{
-			if (string.IsNullOrEmpty(data.versionId) || string.IsNullOrEmpty(data.titleAr) || string.IsNullOrEmpty(data.titleEn))
+			if (data.isHidden)
 			{
 				Debug.LogWarning("Invalid leaderboard history data found, skipping.");
 				itemsToRemove.Add(data);
@@ -96,6 +96,8 @@ public class LeaderboardHistoryData
 
 	public string imageURL;
 	public string imageEntryId;
+
+	public bool isHidden;
 }
 public enum LeaderboardType
 {
