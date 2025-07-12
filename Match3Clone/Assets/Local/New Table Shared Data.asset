@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: Local Shared Data
+  m_Name: New Table Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: Local
-  m_TableCollectionNameGuidString: 58f0f652f9b00564ba34bb75de15f7de
+  m_TableCollectionName: New Table
+  m_TableCollectionNameGuidString: 4c1b348942b0e78469730fdc910dcdae
   m_Entries:
   - m_Id: 3954876112228352
     m_Key: 1DayText
@@ -559,59 +559,23 @@ MonoBehaviour:
     m_Key: DaySevenText
     m_Metadata:
       m_Items: []
-  - m_Id: 52127217966551040
-    m_Key: Day7
+  - m_Id: 52107159722692608
+    m_Key: DaySevenText
     m_Metadata:
       m_Items: []
-  - m_Id: 52127280340045824
-    m_Key: Day6
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52127361936035840
-    m_Key: Day5
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52127455083139072
-    m_Key: Day4
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52127529687224320
-    m_Key: Day3
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52130445047271424
-    m_Key: EmprtyStoreText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52133772434771968
-    m_Key: SpinWheelText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52134030732595200
-    m_Key: SpinWheelTip
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52134499349598208
-    m_Key: SpinText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52135544414965760
-    m_Key: YouWinText
-    m_Metadata:
-      m_Items: []
-  - m_Id: 52135851983278080
-    m_Key: YourPrizeText
+  - m_Id: 52107159722692608
+    m_Key: DaySevenText
     m_Metadata:
       m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 1883826653255172399
+    rid: 1750422769562812416
   references:
     version: 2
     RefIds:
-    - rid: 1883826653255172399
+    - rid: 1750422769562812416
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
         asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1739802537388
+        m_CustomEpoch: 1752226339508

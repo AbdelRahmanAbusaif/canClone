@@ -11,6 +11,8 @@ using GameVanilla.Game.Common;
 using GameVanilla.Game.Scenes;
 using GameVanilla.Game.UI;
 using System.Threading.Tasks;
+using TMPro;
+using UnityEngine.Localization.Settings;
 
 namespace GameVanilla.Game.Popups
 {
@@ -33,10 +35,10 @@ namespace GameVanilla.Game.Popups
 	    private Sprite colorBombSprite;
 
 	    [SerializeField]
-	    private Text boosterNameText;
+	    private TextMeshProUGUI boosterNameText;
 
 	    [SerializeField]
-	    private Text boosterDescriptionText;
+	    private TextMeshProUGUI boosterDescriptionText;
 
 	    [SerializeField]
 	    private Image boosterImage;
@@ -97,26 +99,74 @@ namespace GameVanilla.Game.Popups
 			{
 				case BoosterType.Lollipop:
 					boosterImage.sprite = lollipopSprite;
-					boosterNameText.text = "Lollipop";
-					boosterDescriptionText.text = "Destroy one candy of your choice on the board.";
+
+					if (LocalizationSettings.SelectedLocale.Identifier.Code == "ar")
+					{
+						boosterNameText.text = "مصاصة";
+						boosterDescriptionText.text = "تدمير حلوى واحدة من اختيارك على اللوحة.";
+					}
+					else
+					{
+						boosterNameText.text = "Lollipop";
+						boosterDescriptionText.text = "Destroy one candy of your choice on the board.";
+
+						boosterDescriptionText.gameObject.GetComponent<ArabicFixerTMPRO>().enabled = false;
+						boosterNameText.gameObject.GetComponent<ArabicFixerTMPRO>().enabled = false;
+
+					}
 					break;
 
 				case BoosterType.Bomb:
 					boosterImage.sprite = bombSprite;
-					boosterNameText.text = "Bomb";
-					boosterDescriptionText.text = "Destroy all the adjacent candies.";
+
+					if (LocalizationSettings.SelectedLocale.Identifier.Code == "ar")
+					{
+						boosterNameText.text = "قنبلة";
+						boosterDescriptionText.text = "تدمير جميع الحلوى المجاورة.";
+					}
+					else
+					{
+						boosterNameText.text = "Bomb";
+						boosterDescriptionText.text = "Destroy all the adjacent candies.";
+						boosterDescriptionText.gameObject.GetComponent<ArabicFixerTMPRO>().enabled = false;
+						boosterNameText.gameObject.GetComponent<ArabicFixerTMPRO>().enabled = false;
+					}
 					break;
 
 				case BoosterType.Switch:
 					boosterImage.sprite = switchSprite;
-					boosterNameText.text = "Switch";
-					boosterDescriptionText.text = "Switch two candies.";
+
+					if (LocalizationSettings.SelectedLocale.Identifier.Code == "ar")
+					{
+						boosterNameText.text = "مفتاح";
+						boosterDescriptionText.text = "تبديل حلوى اثنين.";
+					}
+					else
+					{
+						boosterNameText.text = "Switch";
+						boosterDescriptionText.text = "Switch two candies.";
+						boosterDescriptionText.gameObject.GetComponent<ArabicFixerTMPRO>().enabled = false;
+						boosterNameText.gameObject.GetComponent<ArabicFixerTMPRO>().enabled = false;
+					}
 					break;
 
 				case BoosterType.ColorBomb:
 					boosterImage.sprite = colorBombSprite;
-					boosterNameText.text = "Color bomb";
-					boosterDescriptionText.text = "Destroy all the candies of the same random color.";
+
+					if (LocalizationSettings.SelectedLocale.Identifier.Code == "ar")
+					{
+						boosterNameText.text = "قنبلة ملونة";
+						boosterDescriptionText.text = "تدمير جميع الحلوى من نفس اللون العشوائي.";
+					}
+					else
+					{
+
+						boosterNameText.text = "Color bomb";
+						boosterDescriptionText.text = "Destroy all the candies of the same random color.";
+
+						boosterDescriptionText.gameObject.GetComponent<ArabicFixerTMPRO>().enabled = false;
+						boosterNameText.gameObject.GetComponent<ArabicFixerTMPRO>().enabled = false;
+					}
 					break;
 			}
 

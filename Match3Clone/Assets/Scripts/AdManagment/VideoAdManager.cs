@@ -165,10 +165,15 @@ public class VideoAdManager : MonoBehaviour
 
     private IEnumerator CheckTimer()
     {
-        Debug.Log("Checking timer for video ad.");
+        if(videoAdComponents.Count == 0)
+		{
+			Debug.LogError("No video ads available.");
+			yield break;
+		}
+
+		Debug.Log("Checking timer for video ad.");
         timeToShowInSecond = PlayerPrefs.GetInt("TimeToShowInSecond");
 
-        
         Debug.Log("Time to show in second: " + timeToShowInSecond);
         while(timeToShowInSecond > 0)
         {

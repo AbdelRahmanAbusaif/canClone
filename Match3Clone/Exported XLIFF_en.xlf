@@ -1,0 +1,834 @@
+<?xml version="1.0"?>
+<xliff xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" srcLang="en" trgLang="en" xmlns="urn:oasis:names:tc:xliff:document:2.0">
+  <file id="08933a205dbda91448ecfbcc9507286d" original="Assets/Local/Local_en.asset">
+    <group id="58f0f652f9b00564ba34bb75de15f7de" name="Local">
+      <unit id="662548291309568" name="SignInUsing" xml:space="preserve">
+        <segment>
+          <source>Sign In using:</source>
+          <target>Sign In using:</target>
+        </segment>
+      </unit>
+      <unit id="669416556384256" name="UnityAccountButton" xml:space="preserve">
+        <segment>
+          <source>Sign in</source>
+          <target>Sign in</target>
+        </segment>
+      </unit>
+      <unit id="670035337859072" name="FacebookAccountButton " xml:space="preserve">
+        <segment>
+          <source>Login with Facebook</source>
+          <target>Login with Facebook</target>
+        </segment>
+      </unit>
+      <unit id="670518685257728" name="TItlePlayerProfile" xml:space="preserve">
+        <segment>
+          <source>Player sign up</source>
+          <target>Player sign up</target>
+        </segment>
+      </unit>
+      <unit id="670997251149824" name="UpdateImageButton" xml:space="preserve">
+        <segment>
+          <source>Update Image</source>
+          <target>Update Image</target>
+        </segment>
+      </unit>
+      <unit id="671235068186624" name="ImageProfileTitle" xml:space="preserve">
+        <segment>
+          <source>Pick a image</source>
+          <target>Pick a image</target>
+        </segment>
+      </unit>
+      <unit id="671670961229824" name="UsernameSignUpProfile" xml:space="preserve">
+        <segment>
+          <source>So, what is you name brother?
+Choice your name wisely!</source>
+          <target>So, what is you name brother?
+Choice your name wisely!</target>
+        </segment>
+      </unit>
+      <unit id="672472262037504" name="WarningUsername" xml:space="preserve">
+        <segment>
+          <source>Name must be in English and Does not contain Space</source>
+          <target>Name must be in English and Does not contain Space</target>
+        </segment>
+      </unit>
+      <unit id="673165911838720" name="NextButton" xml:space="preserve">
+        <segment>
+          <source>Next</source>
+          <target>Next</target>
+        </segment>
+      </unit>
+      <unit id="673602270449664" name="EmailSignupPage" xml:space="preserve">
+        <segment>
+          <source>So, Your name is Awsome!
+please enter you email then:</source>
+          <target>So, Your name is Awsome!
+please enter you email then:</target>
+        </segment>
+      </unit>
+      <unit id="674485695729664" name="WarningEmailPanel" xml:space="preserve">
+        <segment>
+          <source>Email Should be like this example "example@domain"</source>
+          <target>Email Should be like this example "example@domain"</target>
+        </segment>
+      </unit>
+      <unit id="675162559926272" name="PhoneNumberTitle" xml:space="preserve">
+        <segment>
+          <source>Now, Pick your phone number!</source>
+          <target>Now, Pick your phone number!</target>
+        </segment>
+      </unit>
+      <unit id="676806324441088" name="WarningPhoneNumber" xml:space="preserve">
+        <segment>
+          <source>The number should be like Jordan Pattern</source>
+          <target>The number should be like Jordan Pattern</target>
+        </segment>
+      </unit>
+      <unit id="677276413644800" name="UpdateButton" xml:space="preserve">
+        <segment>
+          <source>Update Profile</source>
+          <target>Update Profile</target>
+        </segment>
+      </unit>
+      <unit id="677924454584320" name="PolicyTermTitle" xml:space="preserve">
+        <segment>
+          <source>Policy Term</source>
+          <target>Policy Term</target>
+        </segment>
+      </unit>
+      <unit id="678068990300160" name="PolicyTermSupport" xml:space="preserve">
+        <segment>
+          <source>We Support our game with ads!</source>
+          <target>We Support our game with ads!</target>
+        </segment>
+      </unit>
+      <unit id="678521484398592" name="PolicyTermDescriptiion" xml:space="preserve">
+        <segment>
+          <source>In order to provide a free gaming experience with real rewards, we display short, non-intrusive ads that last no more than 5 seconds. We need your consent before you start playing.</source>
+          <target>In order to provide a free gaming experience with real rewards, we display short, non-intrusive ads that last no more than 5 seconds. We need your consent before you start playing.</target>
+        </segment>
+      </unit>
+      <unit id="679939654078464" name="PolicyTermButtonLink" xml:space="preserve">
+        <segment>
+          <source>For more information please follow : Privice Policy </source>
+          <target>For more information please follow : Privice Policy </target>
+        </segment>
+      </unit>
+      <unit id="680430073073664" name="CloseButton" xml:space="preserve">
+        <segment>
+          <source>Close</source>
+          <target>Close</target>
+        </segment>
+      </unit>
+      <unit id="680716837638144" name="AcceotButton" xml:space="preserve">
+        <segment>
+          <source>Accept</source>
+          <target>Accept</target>
+        </segment>
+      </unit>
+      <unit id="704479759224832" name="CuationButton" xml:space="preserve">
+        <segment>
+          <source>Cuation</source>
+          <target>Cuation</target>
+        </segment>
+      </unit>
+      <unit id="704742419124224" name="BorderText" xml:space="preserve">
+        <segment>
+          <source>Border</source>
+          <target>Border</target>
+        </segment>
+      </unit>
+      <unit id="704793300226048" name="CuationDiscription" xml:space="preserve">
+        <segment>
+          <source>You Are not connecting to internet
+please try again.</source>
+          <target>You Are not connecting to internet
+please try again.</target>
+        </segment>
+      </unit>
+      <unit id="705286063837184" name="TryAgainButton" xml:space="preserve">
+        <segment>
+          <source>Try Again</source>
+          <target>Try Again</target>
+        </segment>
+      </unit>
+      <unit id="743811475886080" name="ScoreText" xml:space="preserve">
+        <segment>
+          <source>Score</source>
+          <target>Score</target>
+        </segment>
+      </unit>
+      <unit id="744251022168064" name="MoveText" xml:space="preserve">
+        <segment>
+          <source>Move</source>
+          <target>Move</target>
+        </segment>
+      </unit>
+      <unit id="744526030098432" name="GoalText" xml:space="preserve">
+        <segment>
+          <source>Goal</source>
+          <target>Goal</target>
+        </segment>
+      </unit>
+      <unit id="745160586350592" name="ReachScoreText" xml:space="preserve">
+        <segment>
+          <source>Reach Score:</source>
+          <target>Reach Score:</target>
+        </segment>
+      </unit>
+      <unit id="745369605296128" name="ReachText" xml:space="preserve">
+        <segment>
+          <source>Reach:</source>
+          <target>Reach:</target>
+        </segment>
+      </unit>
+      <unit id="1785830050680832" name="CancelButtonText" xml:space="preserve">
+        <segment>
+          <source>Cancel</source>
+          <target>Cancel</target>
+        </segment>
+      </unit>
+      <unit id="1785889630769152" name="BuyButtonText" xml:space="preserve">
+        <segment>
+          <source>Buy</source>
+          <target>Buy</target>
+        </segment>
+      </unit>
+      <unit id="1789261821825024" name="StoreText" xml:space="preserve">
+        <segment>
+          <source>Store</source>
+          <target>Store</target>
+        </segment>
+      </unit>
+      <unit id="1789442105593856" name="AvatarText" xml:space="preserve">
+        <segment>
+          <source>Avatar</source>
+          <target>Avatar</target>
+        </segment>
+      </unit>
+      <unit id="2952984951312384" name="PathText" xml:space="preserve">
+        <segment>
+          <source>Levels</source>
+          <target>Levels</target>
+        </segment>
+      </unit>
+      <unit id="2953231840628736" name="LeaderboardText" xml:space="preserve">
+        <segment>
+          <source>Leaderboard</source>
+          <target>Leaderboard</target>
+        </segment>
+      </unit>
+      <unit id="2953422144589824" name="CashBattle" xml:space="preserve">
+        <segment>
+          <source>Battle</source>
+          <target>Battle</target>
+        </segment>
+      </unit>
+      <unit id="3203212229005312" name="ComingSoonText" xml:space="preserve">
+        <segment>
+          <source>Coming Soon!!</source>
+          <target>Coming Soon!!</target>
+        </segment>
+      </unit>
+      <unit id="3954876112228352" name="1DayText" xml:space="preserve">
+        <segment>
+          <source>1 Day</source>
+          <target>1 Day</target>
+        </segment>
+      </unit>
+      <unit id="3955730143825920" name="7DaysText" xml:space="preserve">
+        <segment>
+          <source>7 Days</source>
+          <target>7 Days</target>
+        </segment>
+      </unit>
+      <unit id="3956140871045120" name="30DaysText" xml:space="preserve">
+        <segment>
+          <source>30 Days</source>
+          <target>30 Days</target>
+        </segment>
+      </unit>
+      <unit id="3970928346976256" name="ChoiceYourBundleText" xml:space="preserve">
+        <segment>
+          <source>Choice your bundle</source>
+          <target>Choice your bundle</target>
+        </segment>
+      </unit>
+      <unit id="4266013643034624" name="CoverProfileText" xml:space="preserve">
+        <segment>
+          <source>Profile Cover</source>
+          <target>Profile Cover</target>
+        </segment>
+      </unit>
+      <unit id="4318242441842688" name="SubscriptionText" xml:space="preserve">
+        <segment>
+          <source>Subscription  ( Basha )</source>
+          <target>Subscription  ( Basha )</target>
+        </segment>
+      </unit>
+      <unit id="4328412098121728" name="Decoration" xml:space="preserve">
+        <segment>
+          <source>Decotation</source>
+          <target>Decotation</target>
+        </segment>
+      </unit>
+      <unit id="5003151867170816" name="ExtraText" xml:space="preserve">
+        <segment>
+          <source>Extra</source>
+          <target>Extra</target>
+        </segment>
+      </unit>
+      <unit id="5003484546781184" name="BestDealText" xml:space="preserve">
+        <segment>
+          <source>Best Deal</source>
+          <target>Best Deal</target>
+        </segment>
+      </unit>
+      <unit id="5003651861762048" name="UserChoiceText" xml:space="preserve">
+        <segment>
+          <source>User's
+Choice</source>
+          <target>User's
+Choice</target>
+        </segment>
+      </unit>
+      <unit id="5021590337933312" name="FreeCoinAdText" xml:space="preserve">
+        <segment>
+          <source>Watch Ads to Get Free Coins</source>
+          <target>Watch Ads to Get Free Coins</target>
+        </segment>
+      </unit>
+      <unit id="6165049228709888" name="PrimeSubText" xml:space="preserve">
+        <segment>
+          <source>Prime Subscription</source>
+          <target>Prime Subscription</target>
+        </segment>
+      </unit>
+      <unit id="6165788063748096" name="ConfirmText" xml:space="preserve">
+        <segment>
+          <source>Confirm</source>
+          <target>Confirm</target>
+        </segment>
+      </unit>
+      <unit id="6521516800659456" name="MyProfileText" xml:space="preserve">
+        <segment>
+          <source>My Profile</source>
+          <target>My Profile</target>
+        </segment>
+      </unit>
+      <unit id="6521796460072960" name="FriendListText" xml:space="preserve">
+        <segment>
+          <source>Friend</source>
+          <target>Friend</target>
+        </segment>
+      </unit>
+      <unit id="6614449285550080" name="MyItemsText" xml:space="preserve">
+        <segment>
+          <source>My Items</source>
+          <target>My Items</target>
+        </segment>
+      </unit>
+      <unit id="6617556241403904" name="PhoneNumberText" xml:space="preserve">
+        <segment>
+          <source>Phone Number</source>
+          <target>Phone Number</target>
+        </segment>
+      </unit>
+      <unit id="6618736782790656" name="EmailText" xml:space="preserve">
+        <segment>
+          <source>Email</source>
+          <target>Email</target>
+        </segment>
+      </unit>
+      <unit id="6619312597815296" name="PlayerLevelText" xml:space="preserve">
+        <segment>
+          <source>Player Level</source>
+          <target>Player Level</target>
+        </segment>
+      </unit>
+      <unit id="6884128243634176" name="UseButtonText" xml:space="preserve">
+        <segment>
+          <source>Use</source>
+          <target>Use</target>
+        </segment>
+      </unit>
+      <unit id="7557641866629120" name="GoToStoreButtonText" xml:space="preserve">
+        <segment>
+          <source>Go To Store</source>
+          <target>Go To Store</target>
+        </segment>
+      </unit>
+      <unit id="7557859450343424" name="ThereIsNothingText" xml:space="preserve">
+        <segment>
+          <source>There is nothing?</source>
+          <target>There is nothing?</target>
+        </segment>
+      </unit>
+      <unit id="7564269621923840" name="SettingText" xml:space="preserve">
+        <segment>
+          <source>Setting</source>
+          <target>Setting</target>
+        </segment>
+      </unit>
+      <unit id="7564488572981248" name="ChangeLanguageButtonText" xml:space="preserve">
+        <segment>
+          <source>Language</source>
+          <target>Language</target>
+        </segment>
+      </unit>
+      <unit id="7564640335482880" name="SaveButtonText" xml:space="preserve">
+        <segment>
+          <source>Save</source>
+          <target>Save</target>
+        </segment>
+      </unit>
+      <unit id="7565689364467712" name="MusicText" xml:space="preserve">
+        <segment>
+          <source>Music</source>
+          <target>Music</target>
+        </segment>
+      </unit>
+      <unit id="7565949390344192" name="SoundText" xml:space="preserve">
+        <segment>
+          <source>Sound</source>
+          <target>Sound</target>
+        </segment>
+      </unit>
+      <unit id="10110888229785600" name="DiscriptionContentDownloadText" xml:space="preserve">
+        <segment>
+          <source>Error when download content 
+Please Try Again.</source>
+          <target>Error when download content 
+Please Try Again.</target>
+        </segment>
+      </unit>
+      <unit id="10113875736055808" name="LoadingText" xml:space="preserve">
+        <segment>
+          <source>Loading..</source>
+          <target>Loading..</target>
+        </segment>
+      </unit>
+      <unit id="10844249143431168" name="DiscriptionAssetPageText" xml:space="preserve">
+        <segment>
+          <source>There is update!
+Press Update button to update the game</source>
+          <target>There is update!
+Press Update button to update the game</target>
+        </segment>
+      </unit>
+      <unit id="10844750736052224" name="UpdateTextButton" xml:space="preserve">
+        <segment>
+          <source>Update</source>
+          <target>Update</target>
+        </segment>
+      </unit>
+      <unit id="17017474227425280" name="SignUpText" xml:space="preserve">
+        <segment>
+          <source>Player Login</source>
+          <target>Player Login</target>
+        </segment>
+      </unit>
+      <unit id="20236540457209856" name="knowMoreText" xml:space="preserve">
+        <segment>
+          <source>Know more...</source>
+          <target>Know more...</target>
+        </segment>
+      </unit>
+      <unit id="21085919904747520" name="skipAdText" xml:space="preserve">
+        <segment>
+          <source>Skip Ad</source>
+          <target>Skip Ad</target>
+        </segment>
+      </unit>
+      <unit id="22927164725743616" name="adNotificationText" xml:space="preserve">
+        <segment>
+          <source>After the 5 second Ad will show up.</source>
+          <target>After the 5 second Ad will show up.</target>
+        </segment>
+      </unit>
+      <unit id="26713767874973696" name="SignInButton" xml:space="preserve">
+        <segment>
+          <source>Sign In</source>
+          <target>Sign In</target>
+        </segment>
+      </unit>
+      <unit id="26713942722924544" name="SignUpButton" xml:space="preserve">
+        <segment>
+          <source>Don't have Account?</source>
+          <target>Don't have Account?</target>
+        </segment>
+      </unit>
+      <unit id="26714356465848320" name="ForgetPasswordText" xml:space="preserve">
+        <segment>
+          <source>Forget Password؟</source>
+          <target>Forget Password؟</target>
+        </segment>
+      </unit>
+      <unit id="26775518435921920" name="SignUpTextButton" xml:space="preserve">
+        <segment>
+          <source>Sign Up</source>
+          <target>Sign Up</target>
+        </segment>
+      </unit>
+      <unit id="26794828936040448" name="VerifyButtonText" xml:space="preserve">
+        <segment>
+          <source>Verify Email</source>
+          <target>Verify Email</target>
+        </segment>
+      </unit>
+      <unit id="26797179574996992" name="VerificationWarningText" xml:space="preserve">
+        <segment>
+          <source>We email you VERIFICATION in your email. Please verify and click the Verify button to continue.</source>
+          <target>We email you VERIFICATION in your email. Please verify and click the Verify button to continue.</target>
+        </segment>
+      </unit>
+      <unit id="26797814504542208" name="ResendTextButton" xml:space="preserve">
+        <segment>
+          <source>Resend Verivication</source>
+          <target>Resend Verivication</target>
+        </segment>
+      </unit>
+      <unit id="27113437490745344" name="AnynomuseSignInText" xml:space="preserve">
+        <segment>
+          <source>Sign In Leter</source>
+          <target>Sign In Leter</target>
+        </segment>
+      </unit>
+      <unit id="27129392333754368" name="SendMailText" xml:space="preserve">
+        <segment>
+          <source>Reset Password!</source>
+          <target>Reset Password!</target>
+        </segment>
+      </unit>
+      <unit id="27138125679988736" name="CauationText" xml:space="preserve">
+        <segment>
+          <source>Cauation</source>
+          <target>Cauation</target>
+        </segment>
+      </unit>
+      <unit id="27139270410407936" name="New Entry" xml:space="preserve">
+        <segment>
+          <source />
+        </segment>
+      </unit>
+      <unit id="27139289876172800" name="New Entry 1" xml:space="preserve">
+        <segment>
+          <source />
+        </segment>
+      </unit>
+      <unit id="27139776432214016" name="PasswordGuidelineText" xml:space="preserve">
+        <segment>
+          <source>- The password is case sensitive; it requires a minimum of 8 and a maximum of 30 characters and at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 symbol.</source>
+          <target>- The password is case sensitive; it requires a minimum of 8 and a maximum of 30 characters and at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 symbol.</target>
+        </segment>
+      </unit>
+      <unit id="27462214936334336" name="MyFriendText" xml:space="preserve">
+        <segment>
+          <source>My Friend</source>
+          <target>My Friend</target>
+        </segment>
+      </unit>
+      <unit id="27462795000188928" name="RequestFriendText" xml:space="preserve">
+        <segment>
+          <source>Request friend</source>
+          <target>Request friend</target>
+        </segment>
+      </unit>
+      <unit id="27513130230124544" name="ThereIsNoFriendText" xml:space="preserve">
+        <segment>
+          <source>There is no friend here.
+Go to add Friend Now</source>
+          <target>There is no friend here.
+Go to add Friend Now</target>
+        </segment>
+      </unit>
+      <unit id="27513708758863872" name="AddFriendText" xml:space="preserve">
+        <segment>
+          <source>Add Friend</source>
+          <target>Add Friend</target>
+        </segment>
+      </unit>
+      <unit id="27548117461536768" name="ThereIsNorRequestNow" xml:space="preserve">
+        <segment>
+          <source>There is no friend request now..</source>
+          <target>There is no friend request now..</target>
+        </segment>
+      </unit>
+      <unit id="33780170594451456" name="VerificationCodeText" xml:space="preserve">
+        <segment>
+          <source>Verification Code Page</source>
+          <target>Verification Code Page</target>
+        </segment>
+      </unit>
+      <unit id="35814033009840128" name="WhyVerifiyText" xml:space="preserve">
+        <segment>
+          <source>Why You need Verifiy your Email?</source>
+          <target>Why You need Verifiy your Email?</target>
+        </segment>
+      </unit>
+      <unit id="35815057992880128" name="InstrictionText" xml:space="preserve">
+        <segment>
+          <source>1- Verify the account not fake
+2- To make sure the price arrive to your account</source>
+          <target>1- Verify the account not fake
+2- To make sure the price arrive to your account</target>
+        </segment>
+      </unit>
+      <unit id="35850949788864512" name="NotEnoughCoindText" xml:space="preserve">
+        <segment>
+          <source>Not Enough Coin!</source>
+          <target>Not Enough Coin!</target>
+        </segment>
+      </unit>
+      <unit id="36536357031940096" name="AdWillBeShowText" xml:space="preserve">
+        <segment>
+          <source>Ad will be show after:</source>
+          <target>Ad will be show after:</target>
+        </segment>
+      </unit>
+      <unit id="42397332683526144" name="SignOutText" xml:space="preserve">
+        <segment>
+          <source>Sign out</source>
+          <target>Sign out</target>
+        </segment>
+      </unit>
+      <unit id="43175985562423296" name="PlayerProfileText" xml:space="preserve">
+        <segment>
+          <source>Player Profile</source>
+          <target>Player Profile</target>
+        </segment>
+      </unit>
+      <unit id="43178456733093888" name="DauilyBonusText" xml:space="preserve">
+        <segment>
+          <source>Daily Bonus</source>
+          <target>Daily Bonus</target>
+        </segment>
+      </unit>
+      <unit id="43178997936721920" name="BestBonusText" xml:space="preserve">
+        <segment>
+          <source>Best Bonus</source>
+          <target>Best Bonus</target>
+        </segment>
+      </unit>
+      <unit id="43179514188435456" name="ObtainButtonText" xml:space="preserve">
+        <segment>
+          <source>Obtain</source>
+          <target>Obtain</target>
+        </segment>
+      </unit>
+      <unit id="43200063778230272" name="QuitGameText" xml:space="preserve">
+        <segment>
+          <source>Quit Game</source>
+          <target>Quit Game</target>
+        </segment>
+      </unit>
+      <unit id="43200187216596992" name="ConfirmQuitText" xml:space="preserve">
+        <segment>
+          <source>Do you want to quit the level?</source>
+          <target>Do you want to quit the level?</target>
+        </segment>
+      </unit>
+      <unit id="43200609226493952" name="LoseHeartConfirm&#xA;" xml:space="preserve">
+        <segment>
+          <source>You’ll lose one life if you leave now!
+</source>
+          <target>You’ll lose one life if you leave now!
+</target>
+        </segment>
+      </unit>
+      <unit id="43201550893879296" name="PlayOnText" xml:space="preserve">
+        <segment>
+          <source>Keep playing</source>
+          <target>Keep playing</target>
+        </segment>
+      </unit>
+      <unit id="43201827646640128" name="QuitButton" xml:space="preserve">
+        <segment>
+          <source>Quit</source>
+          <target>Quit</target>
+        </segment>
+      </unit>
+      <unit id="43203764681084928" name="CompletedText!" xml:space="preserve">
+        <segment>
+          <source> Congratulations</source>
+          <target> Congratulations</target>
+        </segment>
+      </unit>
+      <unit id="43204471962374144" name="NextKey" xml:space="preserve">
+        <segment>
+          <source>Next</source>
+          <target>Next</target>
+        </segment>
+      </unit>
+      <unit id="43206745652629504" name="LevelFailedText" xml:space="preserve">
+        <segment>
+          <source>Level Failed</source>
+          <target>Level Failed</target>
+        </segment>
+      </unit>
+      <unit id="43207238537875456" name="RetryText" xml:space="preserve">
+        <segment>
+          <source>Retry</source>
+          <target>Retry</target>
+        </segment>
+      </unit>
+      <unit id="43207685919117312" name="You did not reach&#xD;&#xA; the required score points." xml:space="preserve">
+        <segment>
+          <source>You did not reach
+ the required score points.</source>
+          <target>You did not reach
+ the required score points.</target>
+        </segment>
+      </unit>
+      <unit id="43279129523671040" name="coinsSlote&#xA;" xml:space="preserve">
+        <segment>
+          <source>Coins</source>
+          <target>Coins</target>
+        </segment>
+      </unit>
+      <unit id="43280462498648064" name="storePopup" xml:space="preserve">
+        <segment>
+          <source>All purchased items can be found in “My Items” in your profile</source>
+          <target>All purchased items can be found in “My Items” in your profile</target>
+        </segment>
+      </unit>
+      <unit id="43285071980023808" name="okButton" xml:space="preserve">
+        <segment>
+          <source>Ok</source>
+          <target>Ok</target>
+        </segment>
+      </unit>
+      <unit id="43285409206259712" name="StillLocked" xml:space="preserve">
+        <segment>
+          <source>This level is still locked.</source>
+          <target>This level is still locked.</target>
+        </segment>
+      </unit>
+      <unit id="43500113312763904" name="storePopuo2" xml:space="preserve">
+        <segment>
+          <source>    </source>
+          <target>    </target>
+        </segment>
+      </unit>
+      <unit id="43508327110561792" name="playtxt" xml:space="preserve">
+        <segment>
+          <source>Play!</source>
+          <target>Play!</target>
+        </segment>
+      </unit>
+      <unit id="43903743506681856" name="DevelopCollabarationText" xml:space="preserve">
+        <segment>
+          <source>Developed in collaboration with:</source>
+          <target>Developed in collaboration with:</target>
+        </segment>
+      </unit>
+      <unit id="43904111246479360" name="DesignCratedText" xml:space="preserve">
+        <segment>
+          <source>Design and created with :</source>
+          <target>Design and created with :</target>
+        </segment>
+      </unit>
+      <unit id="43904330310782976" name="FollowUsInstagramText" xml:space="preserve">
+        <segment>
+          <source>Follow us on Instagram:</source>
+          <target>Follow us on Instagram:</target>
+        </segment>
+      </unit>
+      <unit id="43904663091056640" name="ContactUsText" xml:space="preserve">
+        <segment>
+          <source>Contact us:</source>
+          <target>Contact us:</target>
+        </segment>
+      </unit>
+      <unit id="44646138082922496" name="RegenerateLevelText" xml:space="preserve">
+        <segment>
+          <source>Regenerate Level...</source>
+          <target>Regenerate Level...</target>
+        </segment>
+      </unit>
+      <unit id="44946371434156032" name="LoadText" xml:space="preserve">
+        <segment>
+          <source>Load</source>
+          <target>Load</target>
+        </segment>
+      </unit>
+      <unit id="44946740235112448" name="WarningText" xml:space="preserve">
+        <segment>
+          <source>Warning</source>
+          <target>Warning</target>
+        </segment>
+      </unit>
+      <unit id="44947084193206272" name="TextAlreadyExsistAcountKey" xml:space="preserve">
+        <segment>
+          <source>This Facebook account is connected to another profile.
+Do you want to use it to log in?</source>
+          <target>This Facebook account is connected to another profile.
+Do you want to use it to log in?</target>
+        </segment>
+      </unit>
+      <unit id="44996525398855680" name="NoText" xml:space="preserve">
+        <segment>
+          <source>No</source>
+          <target>No</target>
+        </segment>
+      </unit>
+      <unit id="44996588531519488" name="YesText" xml:space="preserve">
+        <segment>
+          <source>Yes</source>
+          <target>Yes</target>
+        </segment>
+      </unit>
+      <unit id="48259147439181824" name="WinnerHistoryText" xml:space="preserve">
+        <segment>
+          <source>Winners</source>
+          <target>Winners</target>
+        </segment>
+      </unit>
+      <unit id="49996690270621696" name="ForPrize" xml:space="preserve">
+        <segment>
+          <source>For prize distribution purposes</source>
+          <target>For prize distribution purposes</target>
+        </segment>
+      </unit>
+      <unit id="50418700700258304" name="emptyListWinner" xml:space="preserve">
+        <segment>
+          <source>There is no winner yet</source>
+          <target>There is no winner yet</target>
+        </segment>
+      </unit>
+      <unit id="50784868162244608" name="showPastWinner" xml:space="preserve">
+        <segment>
+          <source>Click to know the names of the winners</source>
+          <target>Click to know the names of the winners</target>
+        </segment>
+      </unit>
+      <unit id="52106832109801472" name="DayOneText" xml:space="preserve">
+        <segment>
+          <source>Day 1</source>
+          <target>Day 1</target>
+        </segment>
+      </unit>
+      <unit id="52107069897478144" name="DayTwoText" xml:space="preserve">
+        <segment>
+          <source>Day 2</source>
+          <target>Day 2</target>
+        </segment>
+      </unit>
+      <unit id="52107159722692608" name="DaySevenText" xml:space="preserve">
+        <segment>
+          <source />
+        </segment>
+      </unit>
+      <unit id="52107159722692608" name="DaySevenText" xml:space="preserve">
+        <segment>
+          <source />
+        </segment>
+      </unit>
+      <unit id="52107159722692608" name="DaySevenText" xml:space="preserve">
+        <segment>
+          <source />
+        </segment>
+      </unit>
+    </group>
+  </file>
+</xliff>

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using Unity.Services.Core;
 using Newtonsoft.Json;
+using UnityEngine.UI;
 
 
 public class StorePageManager : MonoBehaviour
@@ -19,12 +20,22 @@ public class StorePageManager : MonoBehaviour
     [SerializeField] private GameObject storeCoverProfilePrefabs;
     [SerializeField] private GameObject storePrimeSubscriptionPrefabs;
 
-    [SerializeField] private Transform avatarContent;
+    [SerializeField] private ScrollRect storeAvatarProfileScroll;
+	[SerializeField] private ScrollRect storeBorderProfileScroll;
+	[SerializeField] private ScrollRect storeCoverProfileScroll;
+	[SerializeField] private ScrollRect storePrimeSubscriptionScroll;
+
+	[SerializeField] private Transform avatarContent;
     [SerializeField] private Transform borderContent;
     [SerializeField] private Transform coverProfileContent;
     [SerializeField] private Transform primeSubscriptionContent;
 
-    [SerializeField] private GameObject loadingPanel;
+    [SerializeField] private Transform avatarContentEmptyPage;
+	[SerializeField] private Transform borderContentEmptyPage;
+	[SerializeField] private Transform coverProfileContentEmptyPage;
+	[SerializeField] private Transform primeSubscriptionContentEmptyPage;
+
+	[SerializeField] private GameObject loadingPanel;
     private void OnEnable()
     {
         loadingPanel.SetActive(true);
@@ -57,45 +68,61 @@ public class StorePageManager : MonoBehaviour
 
 
     public void ApplyRemoteConfig()
-    {
-        var jsonData = RemoteConfigService.Instance.appConfig.GetJson("StoreItems");
-        var storeItems = JsonConvert.DeserializeObject<StoreItems>(jsonData);
+	{
+		var jsonData = RemoteConfigService.Instance.appConfig.GetJson("StoreItems");
+		var storeItems = JsonConvert.DeserializeObject<StoreItems>(jsonData);
 
-        foreach (var child in avatarContent.GetComponentsInChildren<StoreItemUI>())
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (var child in borderContent.GetComponentsInChildren<StoreItemUI>())
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (var child in coverProfileContent.GetComponentsInChildren<StoreItemUI>())
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (var child in primeSubscriptionContent.GetComponentsInChildren<StoreItemUI>())
-        {
-            Destroy(child.gameObject);
-        }
-        
+		foreach (var child in avatarContent.GetComponentsInChildren<StoreItemUI>())
+		{
+			Destroy(child.gameObject);
+		}
+		foreach (var child in borderContent.GetComponentsInChildren<StoreItemUI>())
+		{
+			Destroy(child.gameObject);
+		}
+		foreach (var child in coverProfileContent.GetComponentsInChildren<StoreItemUI>())
+		{
+			Destroy(child.gameObject);
+		}
+		foreach (var child in primeSubscriptionContent.GetComponentsInChildren<StoreItemUI>())
+		{
+			Destroy(child.gameObject);
+		}
 
-        avatarItems?.Clear();
-        borderItems?.Clear();
-        coverProfileItems?.Clear();
-        primeSubscriptionItems?.Clear();
-        
-        avatarItems = storeItems.AvatarItems;
-        borderItems = storeItems.BorderItems;
-        coverProfileItems = storeItems.CoverProfileItems;
-        primeSubscriptionItems = storeItems.PrimeSubscriptionItems;
 
-        Create(avatarContent, storeAvatarProfilePrefabs, avatarItems);
-        Create(borderContent, storeBorderProfilePrefabs, borderItems);
-        Create(coverProfileContent, storeCoverProfilePrefabs, coverProfileItems);
-        Create(primeSubscriptionContent, storePrimeSubscriptionPrefabs, primeSubscriptionItems);
+		avatarItems?.Clear();
+		borderItems?.Clear();
+		coverProfileItems?.Clear();
+		primeSubscriptionItems?.Clear();
 
-        loadingPanel.SetActive(false);
-    }    
+		avatarItems = storeItems.AvatarItems;
+		borderItems = storeItems.BorderItems;
+		coverProfileItems = storeItems.CoverProfileItems;
+		primeSubscriptionItems = storeItems.PrimeSubscriptionItems;
+
+		Create(avatarContent, storeAvatarProfilePrefabs, avatarItems);
+		Create(borderContent, storeBorderProfilePrefabs, borderItems);
+		Create(coverProfileContent, storeCoverProfilePrefabs, coverProfileItems);
+		Create(primeSubscriptionContent, storePrimeSubscriptionPrefabs, primeSubscriptionItems);
+
+		CheckEmptyList();
+
+		loadingPanel.SetActive(false);
+	}
+
+	private void CheckEmptyList()
+	{
+		// Set empty page visibility based on item counts
+		avatarContentEmptyPage.gameObject.SetActive(avatarItems.Count == 0);
+		borderContentEmptyPage.gameObject.SetActive(borderItems.Count == 0);
+		coverProfileContentEmptyPage.gameObject.SetActive(coverProfileItems.Count == 0);
+		primeSubscriptionContentEmptyPage.gameObject.SetActive(primeSubscriptionItems.Count == 0);
+
+		storeAvatarProfileScroll.enabled = (avatarItems.Count > 0);
+		storeBorderProfileScroll.enabled = (borderItems.Count > 0);
+		storeCoverProfileScroll.enabled = (coverProfileItems.Count > 0);
+		storePrimeSubscriptionScroll.enabled = (primeSubscriptionItems.Count > 0);
+	}
 }
 
 internal class StoreItems

@@ -59,7 +59,6 @@ public class SpriteCycler : MonoBehaviour
         else
         {
             // No active sprites
-            targetImage.sprite = null;
 
             if (cycleCoroutine != null)
             {
