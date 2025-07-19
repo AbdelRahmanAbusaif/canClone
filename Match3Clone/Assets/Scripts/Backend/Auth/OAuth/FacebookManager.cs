@@ -118,7 +118,23 @@ public class FacebookManager : MonoBehaviour
                     if (userResult.Error == null)
                     {
                         var userInfo = Facebook.MiniJSON.Json.Deserialize(userResult.RawResult) as Dictionary<string, object>;
-                        string email = userInfo["email"] as string;
+
+                        if (userInfo == null)
+                        {
+                            Debug.LogError("Failed to parse user info from Facebook response.");
+                            return;
+                        }
+
+                        string email = string.Empty;
+                        if (userInfo.ContainsKey("email"))
+                        {
+                            email = userInfo["email"] as string;
+                        }
+                        else
+                        {
+                            Debug.LogError("User info does not contain required fields: email or name.");
+                        }
+
                         string name = userInfo["name"] as string;
 
                         if(ArabicSupport.IsArabicString(name))
@@ -126,7 +142,6 @@ public class FacebookManager : MonoBehaviour
                             name = ArabicSupport.Fix(name);
                         }
 
-                        // Parse the nested picture dictionary
                         var pictureDict = userInfo["picture"] as Dictionary<string, object>;
                         var dataDict = pictureDict["data"] as Dictionary<string, object>;
                         string pictureUrl = dataDict["url"] as string;

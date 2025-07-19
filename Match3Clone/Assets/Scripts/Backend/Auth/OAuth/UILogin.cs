@@ -63,6 +63,7 @@ public class UILogin : MonoBehaviour
 
     private async void OnSignInSuccess(PlayerProfile playerData)
     {
+        loadingPanel.SetActive(true);
         Debug.Log("Sign in success");
         // Here will be the code for get the player info and save it to the database
         
@@ -146,12 +147,13 @@ public class UILogin : MonoBehaviour
             AdManagers = await CloudSaveManager.Instance.LoadDataAsync<List<AdManager>>("AdManager");
 
 			OnSignIn?.Invoke();
+            loadingPanel.SetActive(false);
             return;
         }
-        if(termPanel != null)
+        if (termPanel != null)
         {
             loadingPanel.SetActive(true);
-            
+
             await CloudSaveManager.Instance.SaveDataAsync("HeartSystem", heartSystem);
             await CloudSaveManager.Instance.SaveDataAsync("DailyBonus", dailyBonus);
             await CloudSaveManager.Instance.SaveDataAsync("SpinWheel", spinWheel);
@@ -163,13 +165,14 @@ public class UILogin : MonoBehaviour
             await CloudSaveManager.Instance.SaveDataAsync("AdManager", AdManagers);
 
             await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerData);
-           
-			termPanel.SetActive(true);
+
+            termPanel.SetActive(true);
             loadingPanel.SetActive(false);
         }
         else
         {
             OnSignUp?.Invoke();
+            loadingPanel.SetActive(false);
         }
     }
 

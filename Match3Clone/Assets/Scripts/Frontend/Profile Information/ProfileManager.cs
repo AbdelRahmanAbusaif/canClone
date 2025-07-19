@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using System;
 using Unity.Services.Authentication;
+using System.Linq;
 
 using SaveData;
 using System.Collections.Generic;
@@ -206,114 +207,219 @@ public class ProfileManager : MonoBehaviour
     {
         loadingPanel.SetActive(true);
 
-		phoneNumber = panels[currentPanelIndex].inputField.text;
-
-        // Debug.Log("Updating player profile...");
         try
         {
-            playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+            await ProcessProfileUpdateAsync();
         }
         catch (Exception e)
         {
-            Debug.LogError($"Error get player profile: {e.Message}");
-            loadingPanel.SetActive(false);
+            Debug.LogError($"Error updating profile: {e.Message}");
         }
-        
-        if(!ValidatePhoneNumber(phoneNumber))
+        finally
+        {
+            // Ensure loading panel is always disabled and success event is invoked
+            loadingPanel.SetActive(false);
+            OnUpdateSuccess?.Invoke();
+        }
+    }
+
+    private async Task ProcessProfileUpdateAsync()
+    {
+        phoneNumber = panels[currentPanelIndex].inputField.text;
+
+        // Validate phone number first
+        if (!ValidatePhoneNumber(phoneNumber))
         {
             Debug.LogError("Invalid phone number format. Please enter a valid phone number.");
-            loadingPanel.SetActive(false);
             return;
         }
 
+        // Load player profile
+        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
+        if (playerProfile == null)
+        {
+            Debug.LogError("Failed to load player profile.");
+            return;
+        }
+
+        // Update profile data
         playerProfile.IsAcceptedTerms = true;
         playerProfile.PhoneNumber = phoneNumber;
 
         Debug.Log($"Player phone number: {playerProfile.PhoneNumber}");
-        
-        if(!String.IsNullOrEmpty(playerProfile.PlayerName))
-        {
-            await AuthenticationService.Instance.UpdatePlayerNameAsync(playerProfile.PlayerName.Replace("+", "").Replace(" ", ""));
-        }
-        
-        playerProfile.PlayerName = AuthenticationService.Instance.PlayerName;
-        
-        Debug.Log($"Player name: {playerProfile.PlayerName}");
-        await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerProfile);
 
-        Debug.Log($"Player profile image: {playerProfile.PlayerImageUrl}");
-        await SaveImageInCloud();
+        // Create tasks for parallel execution
+        var tasks = new List<Task>();
+
+        // Task 1: Update player name if exists
+        if (!String.IsNullOrEmpty(playerProfile.PlayerName))
+        {
+            tasks.Add(UpdatePlayerNameAsync(playerProfile.PlayerName));
+        }
+
+        // Task 2: Save profile data
+        tasks.Add(SaveProfileDataAsync());
+
+        // Task 3: Save image in cloud
+        tasks.Add(SaveImageInCloudAsync());
+
+        // Wait for all tasks to complete
+        await Task.WhenAll(tasks);
 
         Debug.Log("Player profile updated successfully");
+    }
 
-        if(playerProfile.PhoneNumber == null)
+    private async Task UpdatePlayerNameAsync(string playerName)
+    {
+        try
         {
-            playerProfile.PhoneNumber = phoneNumber;
-            Debug.LogError("Phone number is null, please enter a valid phone number");
-			loadingPanel.SetActive(false);
-			return;
+            await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName.Replace("+", "").Replace(" ", ""));
+            playerProfile.PlayerName = AuthenticationService.Instance.PlayerName;
+            Debug.Log($"Player name updated: {playerProfile.PlayerName}");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error updating player name: {e.Message}");
         }
     }
-    private async Task SaveImageInCloud()
-    {
-        playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
-        if (playerProfile == null)
-        {
-            Debug.LogError("Player profile is null.");
-            return;
-        }
-        if (string.IsNullOrEmpty(playerProfile.PlayerImageUrl))
-        {
-            Debug.LogError("Player profile URL is null or empty.");
 
+    private async Task SaveProfileDataAsync()
+    {
+        try
+        {
+            await CloudSaveManager.Instance.SavePublicDataAsync("PlayerProfile", playerProfile);
+            Debug.Log("Player profile data saved successfully");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error saving profile data: {e.Message}");
+        }
+    }
+    private async Task SaveImageInCloudAsync()
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(playerProfile?.PlayerImageUrl))
+            {
+                Debug.Log("Player profile URL is null or empty, using default avatar.");
+                Sprite sprite = Sprite.Create(avatarProfileImageTexture, new Rect(0, 0, avatarProfileImageTexture.width, avatarProfileImageTexture.height), new Vector2(0.5f, 0.5f));
+                await UploadImageToCloudAsync(sprite);
+                return;
+            }
+
+            // Download image from URL and upload to cloud
+            await DownloadAndUploadImageAsync(playerProfile.PlayerImageUrl);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error saving image in cloud: {e.Message}");
+            // Fallback to default avatar
             Sprite sprite = Sprite.Create(avatarProfileImageTexture, new Rect(0, 0, avatarProfileImageTexture.width, avatarProfileImageTexture.height), new Vector2(0.5f, 0.5f));
-            UpdloadedInCloud(sprite);
-
-			OnUpdateSuccess?.Invoke();
-			return;
+            await UploadImageToCloudAsync(sprite);
         }
-        if (playerProfile == null)
-        {
-            Debug.LogError("Player profile is null.");
-            return;
-        }
-
-        StartCoroutine(DownloadImage(playerProfile.PlayerImageUrl));
     }
 
-    private async void UpdloadedInCloud(Sprite playerImage)
+    private async Task DownloadAndUploadImageAsync(string url)
     {
-        await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileImage", playerImage.texture);
-        await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileBorderImage", borderProfileImageTexture);
-        await CloudSaveManager.Instance.SaveImageAsync("PlayerProfileCoverImage", coverProfileImageTexture);
+        Debug.Log("Downloading image from URL: " + url);
 
-        await CloudSaveManager.Instance.SaveDataAsyncString<string>("PlayerImageUploaded", GetImageBase64(playerImage.texture));
-        await CloudSaveManager.Instance.SaveDataAsyncString<string>("PlayerBorderImageUploaded", GetImageBase64(borderProfileImageTexture));
-        await CloudSaveManager.Instance.SaveDataAsyncString<string>("PlayerCoverImageUploaded", GetImageBase64(coverProfileImageTexture));
+        using var request = UnityWebRequestTexture.GetTexture(url);
+        var operation = request.SendWebRequest();
 
-        playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
-        ConsumableItem item = new ConsumableItem()
+        // Wait for the request to complete asynchronously
+        while (!operation.isDone)
         {
-            Id = "PlayerImageUploaded",
-            ConsumableName = "PlayerImageUploaded",
-            DatePurchased = DateTime.MinValue.ToString(),
-            DateExpired = DateTime.MaxValue.ToString()
-        };
+            await Task.Yield();
+        }
 
-        var containerProfileAvatarImages = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileAvatarImages");
-        containerProfileAvatarImages.Add(item);
-        await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileAvatarImages", containerProfileAvatarImages);
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("Error downloading image: " + request.error);
+            throw new Exception($"Failed to download image: {request.error}");
+        }
+        else if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Image downloaded successfully.");
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+            Sprite playerImage = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+            await UploadImageToCloudAsync(playerImage);
+        }
+        else
+        {
+            throw new Exception("Unknown error when downloading image.");
+        }
+    }
 
-		OnUpdateSuccess?.Invoke();
-		loadingPanel.SetActive(false);
-		Debug.Log("Player profile image uploaded successfully.");
-	}
+    private async Task UploadImageToCloudAsync(Sprite playerImage)
+    {
+        try
+        {
+            // Step 1: Process ALL Unity operations on main thread first
+            Texture2D resizedPlayerTexture = ImageUtility.ResizeTexture(playerImage.texture, 256, 256);
+            Texture2D resizedBorderTexture = ImageUtility.ResizeTexture(borderProfileImageTexture, 256, 256);
+            Texture2D resizedCoverTexture = ImageUtility.ResizeTexture(coverProfileImageTexture, 256, 256);
 
-	private string GetImageBase64(Texture2D texture)
+            // Compress textures on main thread (Unity requirement)
+            byte[] playerImageBytes = ImageUtility.CompressTexture(resizedPlayerTexture, quality: 30);
+            byte[] borderImageBytes = ImageUtility.CompressTexture(resizedBorderTexture, quality: 30);
+            byte[] coverImageBytes = ImageUtility.CompressTexture(resizedCoverTexture, quality: 30);
+
+            // Step 2: Create tasks for parallel image uploads (original textures)
+            var uploadTasks = new List<Task>
+            {
+                CloudSaveManager.Instance.SaveImageAsync("PlayerProfileImage", playerImage.texture),
+                CloudSaveManager.Instance.SaveImageAsync("PlayerProfileBorderImage", borderProfileImageTexture),
+                CloudSaveManager.Instance.SaveImageAsync("PlayerProfileCoverImage", coverProfileImageTexture)
+            };
+
+            // Step 3: Convert to Base64 on main thread, then upload in parallel
+            string playerImageBase64 = Convert.ToBase64String(playerImageBytes);
+            string borderImageBase64 = Convert.ToBase64String(borderImageBytes);
+            string coverImageBase64 = Convert.ToBase64String(coverImageBytes);
+
+            var stringUploadTasks = new List<Task>
+            {
+                CloudSaveManager.Instance.SaveDataAsyncString<string>("PlayerImageUploaded", playerImageBase64),
+                CloudSaveManager.Instance.SaveDataAsyncString<string>("PlayerBorderImageUploaded", borderImageBase64),
+                CloudSaveManager.Instance.SaveDataAsyncString<string>("PlayerCoverImageUploaded", coverImageBase64)
+            };
+
+            // Wait for all uploads to complete
+            await Task.WhenAll(uploadTasks);
+            await Task.WhenAll(stringUploadTasks);
+
+            // Update profile data
+            playerProfile.DataPublicProfileImage = "PlayerImageUploaded";
+            ConsumableItem item = new ConsumableItem()
+            {
+                Id = "PlayerImageUploaded",
+                ConsumableName = "PlayerImageUploaded",
+                DatePurchased = DateTime.MinValue.ToString(),
+                DateExpired = DateTime.MaxValue.ToString()
+            };
+
+            // Update container profile avatar images
+            var containerProfileAvatarImages = await LocalSaveManager.Instance.LoadDataAsync<List<ConsumableItem>>("ContainerProfileAvatarImages");
+            if (containerProfileAvatarImages == null)
+            {
+                containerProfileAvatarImages = new List<ConsumableItem>();
+            }
+            containerProfileAvatarImages.Add(item);
+            await CloudSaveManager.Instance.SaveDataAsync("ContainerProfileAvatarImages", containerProfileAvatarImages);
+
+            Debug.Log("Player profile image uploaded successfully.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error uploading image to cloud: {e.Message}");
+            throw;
+        }
+    }
+    private string GetImageBase64(Texture2D texture)
     {
         Texture2D resizeTexture = ImageUtility.ResizeTexture(texture, 256, 256);
         byte[] bytes = ImageUtility.CompressTexture(resizeTexture, quality: 30);
-        
+
         return Convert.ToBase64String(bytes);
     }
     private IEnumerator DownloadImage(string url)
@@ -334,11 +440,23 @@ public class ProfileManager : MonoBehaviour
             Texture2D texture = DownloadHandlerTexture.GetContent(request);
             Sprite playerImage = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
 
-            UpdloadedInCloud(playerImage);
+            // Note: This coroutine is now deprecated in favor of the async version
+            StartCoroutine(UploadImageToCloudCoroutine(playerImage));
 		}
 		else
         {
             Debug.LogError("Unknown error when downloading image from Facebook.");
+        }
+    }
+
+    private IEnumerator UploadImageToCloudCoroutine(Sprite playerImage)
+    {
+        var task = UploadImageToCloudAsync(playerImage);
+        yield return new WaitUntil(() => task.IsCompleted);
+        
+        if (task.IsFaulted)
+        {
+            Debug.LogError($"Error uploading image: {task.Exception?.GetBaseException().Message}");
         }
     }
     private void OnDisable() 
