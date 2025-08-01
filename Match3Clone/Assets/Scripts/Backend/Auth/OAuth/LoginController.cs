@@ -251,8 +251,11 @@ public class LoginController : MonoBehaviour
             var playerProfile = await LocalSaveManager.Instance.LoadDataAsync<PlayerProfile>("PlayerProfile");
 
             playerProfile.Email = user.email;
-            playerProfile.PlayerName = user.name;
-            
+
+            // Update player name in AuthenticationService
+            string PlayerName = await AuthenticationService.Instance.UpdatePlayerNameAsync(user.name);
+            playerProfile.PlayerName = PlayerName;
+
             playerProfile.PlayerImageUrl = user.ImgUrl;
             
             // Save the updated player profile

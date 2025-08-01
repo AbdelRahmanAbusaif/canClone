@@ -31,7 +31,7 @@ namespace GameVanilla.Game.Common
             heartSystem = await LocalSaveManager.Instance.LoadDataAsync<HeartSystem>("HeartSystem");    
         }
         /// <summary>
-        /// Sets the appropriate number of lives according to the general lives counter.
+        /// Sets the appropriate number of <c>lives</c> according to the general lives counter.
         /// </summary> 
         private void Start()
         {            

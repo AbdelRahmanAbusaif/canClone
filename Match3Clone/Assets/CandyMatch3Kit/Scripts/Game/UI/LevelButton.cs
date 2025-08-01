@@ -58,7 +58,7 @@ namespace GameVanilla.Game.UI
             index = transform.GetSiblingIndex();
 
           
-            loopValue = loopingScroll != null ? loopingScroll.loop : 0;
+            loopValue = loopingScroll != null ? loopingScroll.CurrentLoop : 0;
             numLevel = index + (200 * loopValue) + 1;
 
             //
@@ -77,7 +77,7 @@ namespace GameVanilla.Game.UI
         {
             if (loopingScroll == null) return;
 
-            int currentLoop = loopingScroll.loop;
+            int currentLoop = loopingScroll.CurrentLoop;
             if (currentLoop != prevLoop)
             {
                 prevLoop = currentLoop;
