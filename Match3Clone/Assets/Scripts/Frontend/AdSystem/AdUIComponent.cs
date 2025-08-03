@@ -70,6 +70,8 @@ public class AdUIComponent : MonoBehaviour
                 else
                 {
                     // will be plus 1 to the counter and save the data
+                    adButton.interactable = true;
+                    Debug.Log("Ad Counter: " + adManager.AdCounter + " for AdId: " + adManager.AdId);
                     adManagers[adManagers.FindIndex(x => x.AdId == AdId)] = adManager;
 
                 }
@@ -82,6 +84,7 @@ public class AdUIComponent : MonoBehaviour
     private void OnClick()
     {
         Debug.Log("Open Ad");
+        adButton.interactable = false;
         OpenAd();
     }
 

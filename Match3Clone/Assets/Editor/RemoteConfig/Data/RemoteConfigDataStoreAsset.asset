@@ -1,0 +1,707 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
+  m_Name: RemoteConfigDataStoreAsset
+  m_EditorClassIdentifier: 
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"f4ebe276-4b95-455d-becb-abc174c18742\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"LogoURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://th.bing.com/th/id/R.f48ceff9ab3322d4e84ed12a44c484d1?rik=0KQ6OgL4T%2b9uCA&riu=http%3a%2f%2fwww.photo-paysage.com%2falbums%2fuserpics%2f10001%2fCascade_-15.JPG&ehk=kx1JjE9ugj%2bZvUIrjzSmcnslPc7NE1cOnZdra%2f3pJEM%3d&risl=1&pid=ImgRaw&r=0\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ca46a119-909b-4751-a4bf-43dbb5442d78\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"BackgroundURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/fa2224b6-6fd8-4fec-af15-6a9aa25f7acc/versions/6a4136ff-6a94-4ca2-8f63-0a9be7f3ee7c/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b35746ee-188d-4aa4-97dd-02120f77722d\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"EncryptionKey\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"YourStrongKey0781451554\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"89698785-57f3-4f80-b545-692371a22acc\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"game_configuration\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"maxLives\": 5,\r\n       
+    \"timeToNextLife\": 1500,\r\n        \"livesRefillCost\": 600,\r\n        \"initialCoins\":
+    50,\r\n        \"numExtraMoves\": 5,\r\n        \"extraMovesCost\": 250,\r\n       
+    \"numExtraTime\": 15,\r\n        \"extraTimeCost\": 250,\r\n        \"defaultTileScore\":
+    100,\r\n        \"scoreOverrides\": [],\r\n        \"ingameBoosterAmount\": {\r\n         
+    \"Lollipop\": 1,\r\n          \"Bomb\": 1,\r\n          \"Switch\": 1,\r\n         
+    \"ColorBomb\": 1\r\n        },\r\n        \"ingameBoosterCost\": {\r\n         
+    \"Lollipop\": 150,\r\n          \"Bomb\": 300,\r\n          \"Switch\": 75,\r\n         
+    \"ColorBomb\": 350\r\n        },\r\n        \"defaultZoomLevel\": 1.5,\r\n       
+    \"defaultCanvasScalingMatch\": 0.5,\r\n        \"resolutionOverrides\": [\r\n         
+    {\r\n            \"name\": \"iPhone X\",\r\n            \"width\": 1125,\r\n           
+    \"height\": 2436,\r\n            \"zoomLevel\": 1.4,\r\n            \"canvasScalingMatch\":
+    0\r\n          },\r\n          {\r\n            \"name\": \"Samsung Galaxy Note
+    8\",\r\n            \"width\": 1440,\r\n            \"height\": 2960,\r\n           
+    \"zoomLevel\": 1.4,\r\n            \"canvasScalingMatch\": 0\r\n          }\r\n       
+    ],\r\n        \"adsGameIdIos\": \"Replace with your game ID for iOS\",\r\n       
+    \"adsGameIdAndroid\": \"Replace with your game ID for Android\",\r\n        \"adsTestMode\":
+    true,\r\n        \"rewardedAdCoins\": 150,\r\n        \"iapItems\": [\r\n         
+    {\r\n            \"storeId\": \"com.gamevanilla.candymatch3.coinspack5\",\r\n           
+    \"numCoins\": 5000,\r\n            \"discount\": 30,\r\n            \"mostPopular\":
+    false,\r\n            \"bestValue\": true,\r\n            \"coinIcon\": \"VeryLarge\"\r\n         
+    },\r\n          {\r\n            \"storeId\": \"com.gamevanilla.candymatch3.coinspack4\",\r\n           
+    \"numCoins\": 1000,\r\n            \"discount\": 14,\r\n            \"mostPopular\":
+    false,\r\n            \"bestValue\": false,\r\n            \"coinIcon\": \"Large\"\r\n         
+    },\r\n          {\r\n            \"storeId\": \"com.gamevanilla.candymatch3.coinspack3\",\r\n           
+    \"numCoins\": 500,\r\n            \"discount\": 9,\r\n            \"mostPopular\":
+    false,\r\n            \"bestValue\": false,\r\n            \"coinIcon\": \"MediumLarge\"\r\n         
+    },\r\n          {\r\n            \"storeId\": \"com.gamevanilla.candymatch3.coinspack2\",\r\n           
+    \"numCoins\": 300,\r\n            \"discount\": 4,\r\n            \"mostPopular\":
+    true,\r\n            \"bestValue\": false,\r\n            \"coinIcon\": \"MediumSmall\"\r\n         
+    },\r\n          {\r\n            \"storeId\": \"com.gamevanilla.candymatch3.coinspack1\",\r\n           
+    \"numCoins\": 100,\r\n            \"discount\": 14,\r\n            \"mostPopular\":
+    false,\r\n            \"bestValue\": false,\r\n            \"coinIcon\": \"Small\"\r\n         
+    }\r\n        ],\r\n        \"dailyBonus\": [\r\n          {\r\n            \"type\":
+    \"Coins1\",\r\n            \"amount\": 10\r\n          },\r\n          {\r\n           
+    \"type\": \"Coins2\",\r\n            \"amount\": 30\r\n          },\r\n         
+    {\r\n            \"type\": \"Coins3\",\r\n            \"amount\": 50\r\n         
+    },\r\n          {\r\n            \"type\": \"Coins3\",\r\n            \"amount\":
+    80\r\n          },\r\n          {\r\n            \"type\": \"Coins4\",\r\n           
+    \"amount\": 100\r\n          },\r\n          {\r\n            \"type\": \"Coins5\",\r\n           
+    \"amount\": 130\r\n          },\r\n          {\r\n            \"type\": \"Coins6\",\r\n           
+    \"amount\": 200\r\n          }\r\n        ],\r\n        \"spinWheelCost\": 150,\r\n       
+    \"spinWheelCostIncrement\": 100,\r\n        \"spinWheelItems\": [\r\n         
+    {\r\n            \"type\": \"Coins1\",\r\n            \"amount\": 100\r\n         
+    },\r\n          {\r\n            \"type\": \"Lollipop\",\r\n            \"amount\":
+    2\r\n          },\r\n          {\r\n            \"type\": \"Coins2\",\r\n           
+    \"amount\": 150\r\n          },\r\n          {\r\n            \"type\": \"Bomb\",\r\n           
+    \"amount\": 1\r\n          },\r\n          {\r\n            \"type\": \"Coins5\",\r\n           
+    \"amount\": 300\r\n          },\r\n          {\r\n            \"type\": \"Switch\",\r\n           
+    \"amount\": 5\r\n          },\r\n          {\r\n            \"type\": \"Coins6\",\r\n           
+    \"amount\": 10\r\n          },\r\n          {\r\n            \"type\": \"ColorBomb\",\r\n           
+    \"amount\": 1\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"927adcb1-ef8a-40a5-9e3e-a689d9652b89\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"BackgroundMusicURL\",\r\n      \"type\":
+    \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/89ca5971-a2ed-4c6b-82a2-9deb4faf57a4/entries/27bafb81-fef0-4681-a632-f9b7a2cbd602/versions/647fed59-5219-4c23-ad38-1a501e9c0499/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"96fcca87-812d-4142-8c59-ac6c1bf6c9e2\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"PurpleCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/17ce7884-1ea2-4b4e-9026-856f7bd01a9f/versions/ae35b31b-a0e0-4827-a311-853cf54c89e2/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4cc203fd-bd96-41cc-9316-abee07a8f11f\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"BlueCandyURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/674d175a-0305-47cc-ae10-27c42c34e504/versions/b59737da-d0da-47b2-9296-739ef2076dcc/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"298b8d4e-4fe5-4d6a-9652-64ef205f4ba9\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"RedCandyURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/02097f74-c250-47bc-ac63-140a1c8a21bc/versions/12d591b7-84ec-414d-a2f3-d5134fa497d7/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"e1c62e20-1f5b-45a9-ab6f-85b3ea3cba20\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"GreenCandyURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/77a07214-a5a9-4c91-8dee-f7bf0dce0627/versions/2d0cf496-dff0-49d2-a6f5-0f1b9955d841/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"7ff5e074-a443-49e0-b1af-eefcd22bc889\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"YellowCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/0a683512-2e7b-484a-8b11-4c99e68a56d0/versions/72b6efbc-3f3c-4120-9cc7-64b3966ed7a3/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"7c286f0a-d85e-46c1-a655-3ee14fd091d2\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"OrangeCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/5fd1237c-e031-454e-9801-838a1588c2c1/versions/b42966a7-b0c8-4e8f-8499-a95acd30bd3b/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"51717584-bf19-4ce6-b54d-b553599820e1\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedYellowCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/a7f1411b-365a-492d-93ad-c488a5d84a8a/versions/e240b577-6885-46c3-a8d8-599f5136a92f/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"82b048df-daf8-42a0-932c-ec0b105a43f9\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedRedCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/555325dc-e121-4cb8-a5f1-3d1b99f7e194/versions/25262a92-2706-4567-a295-92e02e081a57/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"34e97057-b742-4795-8bf4-73ade9fa45dd\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedPurpleCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/7d85f98e-4790-4268-aeb2-d958b5f71f77/versions/8785edf2-9519-4987-bfc5-1ea9a2153347/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4ec9ca1e-b4de-40c6-b61a-311034cec4a2\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedOrangeCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/9df5b429-5e73-4b92-9b68-c5ad31e4745f/versions/79e5f1be-f2b9-4a70-b5a9-943530f24310/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"0868a8e3-775b-467f-ab26-63529402bebf\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedGreenCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/e6f1eea8-05a3-45db-ba97-ccb1a37e3cfc/versions/8c26b82e-0e58-486a-8ff9-4df052304f7b/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"1ffc8162-a8a0-4010-87bb-98fc43369b45\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedBlueCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/ced906ac-6d72-433a-a359-5ebf62cb69e1/versions/c2607788-e379-41ef-b537-fd7dd2d59154/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"74c3882b-9c0c-4878-aab3-0461b03539b0\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalYellowCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/e80eea0f-3bca-4647-921c-bb7d9a51cc86/versions/eeb33fc4-9bd8-4e18-a180-31e0b3ae3da7/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a6b7d0da-a35a-4032-b026-dd0ad97b5d4c\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalRedCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/5e019f41-8792-4681-ba0a-a30c5e7607a7/versions/e3be6ba1-1bb8-47fc-918f-e12143ed3c48/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"3a59a7e3-69e7-4a0e-8281-3c97f7d6b750\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalPurpleCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/f476b492-e22b-4ca2-8fc6-cff1dae1e014/versions/5879cbc9-98ab-435e-904a-98aa64937748/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4e8d25b2-5656-4bc7-bbb4-e59b46a405d8\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalOrangeCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/43b3a2f7-0b4f-48d2-aac1-ab0869ea2768/versions/da142298-1944-40a0-bfd2-67da568c0dca/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"eb7cd604-3156-4cd7-a711-2cee05bed6e7\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalGreenCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/6c1844a0-25be-416b-9309-d1293b3d3a7b/versions/aa4d2d31-016b-4c13-9709-0c054f47fcd8/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"0e3e2f88-6cd3-49a9-8c35-ae2fadb92554\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalBlueCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d5b9848d-6fc8-453c-bd19-db073d3acff0/versions/7c66a0c2-a21b-4745-9b9c-4ed31cdd60d3/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"5d40bc0c-3516-479a-8031-f9e64f3b80a3\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalYellowCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/8e187f19-0655-4436-bec8-a62964eec89f/versions/8c6082e1-2019-4979-a361-0cbf060fe9e7/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"d4d2d141-cb27-4070-865e-4d7dddee151f\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalRedCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/0c8c6d87-fa5b-4e6c-a5c1-6febb89ad444/versions/5e55712c-90a8-4049-b9c5-2f5c54bce539/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"86ca0278-87e2-434d-812f-36e58519763a\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalPurpleCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/90c413a7-1830-4e6a-9d6e-635c3bfa1325/versions/873851a4-b20e-457e-804b-bd833e538577/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"6b0ffe35-3cdc-46d3-bcf8-4eee47693b6e\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalOrangeCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d5a3559f-cd3e-490f-a955-c4f015624205/versions/543851c5-bfe1-4550-ae94-8401d5aeda01/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4fb23c50-4a13-4fff-9283-9cb20b908862\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalGreenCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/5de2f28b-1c94-4e4a-bd6d-e84cd05eb437/versions/904700e6-799e-444e-b09d-211bd97c752a/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a06f4f8b-3237-4645-be69-100bf5624c5a\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalBlueCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/19e292bc-d003-4c7d-b3fa-b70dc87919d9/versions/a558f932-b75d-41ff-b76c-2a99f9b351a1/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"5a6b52c0-ba7c-46c7-ba89-00b598088179\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"ColorBombURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/99784451-000a-4c0c-80c5-a122d6bd4151/versions/ca78b948-48e2-4c52-bd29-4254be01cece/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"18f416ba-3fc5-44c3-9934-1bc9be18172a\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"ScoreType\",\r\n      \"type\": \"int\",\r\n     
+    \"value\": 0\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"a26daf4e-5bf2-4a4a-ba61-9c4b0efd1973\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"IsRedLeaerboard\",\r\n      \"type\": \"bool\",\r\n      \"value\":
+    false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"94e23556-e3bb-4660-9799-913be36b8710\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"IsBlueLeaderboard\",\r\n      \"type\":
+    \"bool\",\r\n      \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"3c03f958-3cd5-4446-a545-19913f25cdb2\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"IsPurpleLeaderboard\",\r\n      \"type\": \"bool\",\r\n     
+    \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"f5a771a7-abab-4b76-8c00-143b39bcfe2f\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"IsGreenLeaderboard\",\r\n      \"type\": \"bool\",\r\n      \"value\":
+    false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"f4668e20-8b4a-4391-9bf1-7df4d338ea67\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"IsYellowLeaderboard\",\r\n      \"type\":
+    \"bool\",\r\n      \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"b06ecd5b-b312-473b-b225-3d40f7d9b62b\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"IsOrangeLeadeboard\",\r\n      \"type\": \"bool\",\r\n     
+    \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"5f59e90c-6f3d-4fd4-be17-3e7ca8c8227f\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"RedLeaderboardTitle\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
+    null,\r\n      \"value\": \"\u062A\u062D\u062F\u064A \u0625\u0643\u0633\u0628\u0648
+    - \u064A\u0646\u062A\u0647\u064A \u0628\u0639\u062F 3 \u0623\u064A\u0627\u0645\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ca1b408b-b9d6-4dd3-86b6-3d1df93236a1\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"BlueLeaderboardTitle\",\r\n      \"type\":
+    \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": \"Blue Title\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a54bb146-e26e-458b-a02c-3ae1c96cec7f\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"YellowLeaderboardTitle\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"Yellow Title\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"f0d6380b-7f81-4bb0-bf5b-168ff31204f1\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"OrangeLeaderboardTitle\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"Orange Title\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"6c1843d2-11e8-4429-a660-85495b3fbda0\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"GreenLeaderboardTitle\",\r\n      \"type\":
+    \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": \"\u062A\u062D\u0640\u0640\u062F\u064A
+    \u0627\u0644\u0648\u062D\u0634 - \u0627\u0646\u062A\u0647\u0649 \u0627\u0644\u062A\u062D\u062F\u064A
+    \u0645\u0628\u0631\u0648\u0643 \u0644\u0644\u0641\u0627\u0626\u0632\u064A\u0646\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"7187ecc5-beba-4c22-9d34-0cf9963788ae\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"PurpleLeaderboardTitle\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"Purple Title\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"41b36f42-f06b-46a3-9722-7076df198338\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"CherryURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/943e890b-5572-423c-812c-51992487796f/versions/e7e47b8b-1b94-4582-9f5c-7ce3e6439ce9/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"dc78a1f2-bb64-4a3d-b413-d5e174b9b0c4\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"HoneyURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/8a323050-0f17-4af9-b816-91af6b6d8504/versions/ab6271b1-7c5e-4376-b3e1-c69dd3e049fe/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"bf4e721f-8644-4907-95a1-675e1ae0a70b\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"Syrup1URL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/45bbdd57-7406-480c-bc73-f97c91f43e0c/versions/326acc7c-c169-4458-bcda-d79b91dd0a3d/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"c959974d-6df3-433a-99cf-f5a495b6ffbf\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"Syrup2URL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/03e404e1-386b-4253-95f2-b6ebe1ff5dbd/versions/e740c201-6b59-433a-a40d-68d52203d57a/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b7e6f834-afff-45fa-b1e7-8d8e0d19ae39\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"ChocolateURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d633a69c-17cc-4ba6-9e14-c8a19ce58370/versions/de44fcd2-5abc-4c78-b4e4-d3a9ccbf11a9/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"0f864696-727b-40c9-aa50-ac49a12d199f\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"IceURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/430eed46-ea50-4d7d-8499-aa9172aa8919/versions/b67593e0-1ac9-4e36-aeda-9a1ea442e231/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ae09b203-2687-4cfb-8110-3066783c319b\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"MarshmallowURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/15391647-f554-47bb-af50-10f0d6563a24/versions/2a30045e-6c1c-4fa1-8223-15c0a43f5fe6/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"6383a31c-94f9-494f-ba06-2d56793e910d\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"UnbreakableURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/84f92099-41c4-4cd2-a255-c17870f3f08d/versions/cef0928b-eff5-4f1a-ba56-38345ada7f09/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"067e4cbd-9520-41f1-b6df-29f39b2ced8b\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WatermelonURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/f876febb-a716-42d9-bce3-21206e5fbc37/versions/8b11f5df-3a04-46fd-8db6-2e5bfea14a4c/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"41bebfa4-74dc-4c34-814e-4a23411848cb\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StoreItems\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"AvatarItems\": [\r\n         
+    {\r\n            \"Id\": \"1748706443712\",\r\n            \"Title\": \"Bomb
+    Shell\",\r\n            \"PriceForOneDay\": 120,\r\n            \"PriceForSevenDay\":
+    650,\r\n            \"PriceForThirtyDay\": 3600,\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/ce28795a-fc0e-418b-82cd-b7005fd492c6/entries/27e70960-4cfc-4488-af4b-c4f36fe57fda/versions/92739378-ac47-4d31-a04f-fc671ede3251/content/\",\r\n           
+    \"Type\": 0\r\n          }\r\n        ],\r\n        \"CoverProfileItems\": [\r\n         
+    {\r\n            \"Id\": \"1751797555212\",\r\n            \"Title\": \"Wa7sh
+    Cover\",\r\n            \"Description\": \"\",\r\n            \"PriceForOneDay\":
+    1,\r\n            \"PriceForSevenDay\": 1,\r\n            \"PriceForThirtyDay\":
+    1,\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/ce28795a-fc0e-418b-82cd-b7005fd492c6/entries/7db9c8f3-b11a-40b1-be97-0addae5b7ff4/versions/de21fe9e-ab92-4b50-a70e-0d2983cdcc32/content/\",\r\n           
+    \"Type\": 1\r\n          }\r\n        ],\r\n        \"BorderItems\": [],\r\n       
+    \"PrimeSubscriptionItems\": [\r\n          {\r\n            \"Id\": \"67c5f451-c344-4881-878f-4e951474bf77\",\r\n           
+    \"Title\": \"One day subscription\",\r\n            \"Description\": \"\",\r\n           
+    \"Price\": \"213\",\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/d8e1f6fd-4818-4585-b3d1-0353e5916f64/content/\",\r\n           
+    \"Type\": 3,\r\n            \"DurationType\": 0\r\n          },\r\n         
+    {\r\n            \"Id\": \"d387b0c5-a726-4814-9ffc-bc704f61ae8f\",\r\n           
+    \"Title\": \"Seven day subscription\",\r\n            \"Description\": \"\",\r\n           
+    \"Price\": \"213\",\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/d8e1f6fd-4818-4585-b3d1-0353e5916f64/content/\",\r\n           
+    \"Type\": 3,\r\n            \"DurationType\": 1\r\n          },\r\n         
+    {\r\n            \"Id\": \"21e6bdab-26e7-4f59-8355-c23ce328d01a\",\r\n           
+    \"Title\": \"Thirty day subscription\",\r\n            \"Description\": \"\",\r\n           
+    \"Price\": \"213\",\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/d8e1f6fd-4818-4585-b3d1-0353e5916f64/content/\",\r\n           
+    \"Type\": 3,\r\n            \"DurationType\": 2\r\n          },\r\n         
+    {\r\n            \"Id\": \"21e6bdab-26e7-4f59-8355-c23ce328d01b\",\r\n           
+    \"Title\": \"180 Day subscription\",\r\n            \"Description\": \"\",\r\n           
+    \"Price\": \"213\",\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/d8e1f6fd-4818-4585-b3d1-0353e5916f64/content/\",\r\n           
+    \"Type\": 3,\r\n            \"DurationType\": 3\r\n          },\r\n         
+    {\r\n            \"Id\": \"21e6bdab-26e7-4f59-8355-c23ce328d01c\",\r\n           
+    \"Title\": \"One Year subscription\",\r\n            \"Description\": \"\",\r\n           
+    \"Price\": \"213\",\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/d8e1f6fd-4818-4585-b3d1-0353e5916f64/content/\",\r\n           
+    \"Type\": 3,\r\n            \"DurationType\": 4\r\n          }\r\n        ]\r\n     
+    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"394b3713-1219-4fb0-b6f7-a7abab48ac99\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"AdRewards\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": []\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"42c6a238-afff-4d57-ace1-0b00b4be8115\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"SubIconURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/9d1883a4-38aa-4b54-acf3-6c632758a6ab/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"33f61bca-4889-4638-9480-bc71af8795b2\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"app_updated_number\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"2025-08-03T15:09:30.911Z\"\r\n    }\r\n  },\r\n 
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"c5232fa3-72d9-47ef-9c1f-506e9ec64c40\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"AirshipAd\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": [\r\n        {\r\n          \"AdName\":
+    \"\",\r\n          \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/ce28795a-fc0e-418b-82cd-b7005fd492c6/entries/a8eff0fd-6e54-4e41-9297-035e7ed44829/versions/20d087c0-0176-4132-892c-6bf6b38a44b2/content/\",\r\n         
+    \"AirShipImageUrl\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/ce28795a-fc0e-418b-82cd-b7005fd492c6/entries/fc24c1cd-dead-48ed-9314-fa6b8251939c/versions/f4ecdb8a-ffa7-4406-b506-c9f077d7f38b/content/\"\r\n       
+    }\r\n      ]\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"478f46df-e6a7-4a9f-9509-fe1f8cdca715\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"VideoAds\",\r\n      \"type\": \"json\",\r\n      \"schemaId\": null,\r\n     
+    \"value\": [\r\n        {\r\n          \"AdName\": \"Alwahsh\",\r\n         
+    \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/89ca5971-a2ed-4c6b-82a2-9deb4faf57a4/entries/a27a0be8-e0e2-4e31-b201-f2b3fed43882/versions/aac4b481-519a-4704-9144-fd0500c866e3/content/\",\r\n         
+    \"LinkUrl\": \"https://www.instagram.com/kashkawaan/\",\r\n          \"Duration\":
+    7\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
+    \"entityId\": \"c7256066-1262-472f-9b50-6d659c6b9069\"\r\n    },\r\n    \"rs\":
+    {\r\n      \"key\": \"ColorBombSoundURL\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/89ca5971-a2ed-4c6b-82a2-9deb4faf57a4/entries/df27825d-9d44-4fed-93a6-17b5cef41bc9/versions/0f6edd06-20f9-4082-928d-3ee39f13ed6e/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"0bf454cf-af84-4ebf-8b05-39133f6c058a\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"MusicLicense\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": \"Fluffing a Duck Kevin MacLeod (incompetech.com)\\nLicensed
+    under Creative Commons: By Attribution 3.0 License http://creativecommons.org/licenses/by/3.0/\\nMusic
+    promoted by https://www.chosic.com/free-music/all/\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"760deead-a6e2-4636-9b45-331b54f93054\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"FreezeRedLeaderboard\",\r\n      \"type\":
+    \"bool\",\r\n      \"value\": true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"c1675ff2-61e4-4173-8624-f5d4c690d8f4\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"FreezeBlueLeaderboard\",\r\n      \"type\": \"bool\",\r\n     
+    \"value\": true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"57a82c42-21e4-4543-b06f-380a28935113\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"FreezeYallowLeaderboard\",\r\n      \"type\": \"bool\",\r\n      \"value\":
+    true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"dee6f1dc-68a4-45af-852c-bc6b245732d7\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"FreezeOrangeLeaderboard\",\r\n      \"type\":
+    \"bool\",\r\n      \"value\": true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"0108a7d1-cdff-49ad-b6de-357fca8ab20e\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"FreezePurpleLeaderboard\",\r\n      \"type\": \"bool\",\r\n     
+    \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"296c9c9b-7c08-4935-b450-dd2634831e0a\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"FreezeGreenLeaderboard\",\r\n      \"type\": \"bool\",\r\n      \"value\":
+    true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a1408a67-3208-4ce7-a2cf-049ef09fe2a9\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"LeaderboardHistoryDatas\",\r\n      \"type\":
+    \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": [\r\n        {\r\n         
+    \"versionId\": \"20250711151027308305866\",\r\n          \"titleEn\": \"KASHKAWAAN\",\r\n         
+    \"titleAr\": \"\u062A\u062D\u062F\u064A \u0643\u0634\u0643\u0648\u0627\u0646\",\r\n         
+    \"leaderboard\": \"BLUE\",\r\n          \"contentAr\": \"\u0645\u0628\u0631\u0648\u0643
+    \u0644\u0643\u0644 \u0627\u0644\u0631\u0627\u0628\u062D\u064A\u0646\",\r\n         
+    \"contentEn\": \"cONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATES\",\r\n         
+    \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/b8d3d957-10d2-4899-87c2-85ecd0332cc7/versions/a58c2407-34d4-4edb-b89b-066f7b8c6d74/content/\",\r\n         
+    \"imageEntryId\": \"b8d3d957-10d2-4899-87c2-85ecd0332cc7\",\r\n          \"isHidden\":
+    true\r\n        },\r\n        {\r\n          \"versionId\": \"20250711081805201898480\",\r\n         
+    \"titleEn\": \"Al-Wahsh Challenge\",\r\n          \"titleAr\": \"\u062A\u062D\u062F\u064A
+    \u0642\u0647\u0648\u0629 \u0627\u0644\u0648\u062D\u0634\",\r\n          \"leaderboard\":
+    \"GREEN\",\r\n          \"contentAr\": \"\u0645\u0628\u0631\u0648\u0643 \u0644\u0644\u0641\u0627\u0626\u0632\u064A\u0646
+    \u0628\u062A\u062D\u062F\u064A \u0627\u0644\u0648\u062D\u0634\\r\\n\u0627\u0644\u0645\u0631\u0643\u0632
+    \u0627\u0644\u0623\u0648\u0644: \u0639\u0628\u062F \u0623\u0628\u0648\u062E\u0644\u064A\u0644\u2014
+    50 \u062F\u064A\u0646\u0627\u0631\\r\\n\u0627\u0644\u0645\u0631\u0643\u0632 \u0627\u0644\u062B\u0627\u0646\u064A:
+    \u0641\u062F\u0627\u0621 \u0627\u0644\u063A\u0645\u0631\u064A \u2014 30 \u062F\u064A\u0646\u0627\u0631\\r\\n\u0627\u0644\u0645\u0631\u0643\u0632
+    \u0627\u0644\u062B\u0627\u0644\u062B: \u063A\u062F\u064A\u0631 \u062A\u0627\u064A\u0647
+    \u2014 20 \u062F\u064A\u0646\u0627\u0631\\r\\n\\r\\n\u0627\u0633\u062A\u0646\u0648\u0646\u0627
+    \u0628\u0627\u0644\u062A\u062D\u062F\u064A\u0627\u062A \u0627\u0644\u062C\u0627\u064A\u0629...
+    \u0627\u0644\u062C\u0648\u0627\u0626\u0632 \u0631\u062D \u062A\u0643\u0628\u0631
+    \u0648\u0627\u0644\u0645\u0646\u0627\u0641\u0633\u0629 \u0631\u062D \u062A\u062D\u0645\u0649
+    \u0623\u0643\u062B\u0631!\\r\\n\u0645\u0639 \u0643\u0634\u0643\u0648\u0627\u0646
+    \u0643\u0627\u0634\u060C \u0639\u0645\u0631\u0643 \u0644\u0627 \u062A\u0644\u0639\u0628
+    \u0628\u0628\u0644\u0627\u0634!\",\r\n          \"contentEn\": \"Congratulations
+    to the winners of the Alwahsh Challenge.\\r\\n\\r\\n1st: Abed Abu Khalil\u2014
+    50 JOD\\r\\n2nd: Fidaa Al-gamary \u2014 30 JOD\\r\\n3rd: Ghadir Tayeh \u2014
+    20 JOD\\r\\n\\r\\nStay tuned for upcoming challenges...\\r\\nBigger prizes, tougher
+    competition!\\r\\nWith Kashkawaan Cash, you'll never play for free!\",\r\n         
+    \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/b2cd4709-a78f-4e23-887f-90e0c2d44e9f/versions/b260df96-2af6-43ae-aa3e-0e05b9f14364/content/\",\r\n         
+    \"imageEntryId\": \"b2cd4709-a78f-4e23-887f-90e0c2d44e9f\",\r\n          \"isHidden\":
+    false\r\n        },\r\n        {\r\n          \"versionId\": \"20250706204828904949502\",\r\n         
+    \"titleEn\": \"ORANGE CHALLENGE\",\r\n          \"titleAr\": \"\u062A\u062D\u062F\u064A
+    \u0627\u0644\u0627\u0648\u0631\u0627\u0646\u062C\",\r\n          \"leaderboard\":
+    \"ORANGE\",\r\n          \"contentAr\": \"orange\",\r\n          \"contentEn\":
+    \"orange\",\r\n          \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/0d893955-5c3a-4a59-a61b-0b38314e3471/versions/e79fac8e-26a7-43be-b5b1-c63f696235a7/content/\",\r\n         
+    \"imageEntryId\": \"0d893955-5c3a-4a59-a61b-0b38314e3471\",\r\n          \"isHidden\":
+    true\r\n        },\r\n        {\r\n          \"versionId\": \"20250710173147556592733\",\r\n         
+    \"titleEn\": \"purple challenge \",\r\n          \"titleAr\": \"\u062A\u062D\u062F\u064A
+    \u0627\u0644\u0628\u0631\u0628\u0644\",\r\n          \"leaderboard\": \"PURPLE\",\r\n         
+    \"contentAr\": \"purple\",\r\n          \"contentEn\": \"purple\",\r\n         
+    \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/b0228d11-05d7-4a67-9194-9acd98036c56/versions/db32a6a3-d74d-4324-9d19-de12f7abbbbe/content/\",\r\n         
+    \"imageEntryId\": \"b0228d11-05d7-4a67-9194-9acd98036c56\",\r\n          \"isHidden\":
+    true\r\n        },\r\n        {\r\n          \"versionId\": \"20250708071146019767073\",\r\n         
+    \"titleEn\": \"Ixabo\",\r\n          \"titleAr\": \"\u062A\u062D\u062F\u064A
+    \u0627\u0643\u0633\u0628\u0648\",\r\n          \"leaderboard\": \"RED\",\r\n         
+    \"contentAr\": \"\u0627\u0643\u0633\u0628\u0648\",\r\n          \"contentEn\":
+    \"Ixabo\",\r\n          \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/7d52ffb7-c1b7-42b7-b3bd-7f2b1e481933/versions/fe3982ad-3362-4e48-92c1-b647283bb8b3/content/\",\r\n         
+    \"imageEntryId\": \"7d52ffb7-c1b7-42b7-b3bd-7f2b1e481933\",\r\n          \"isHidden\":
+    true\r\n        },\r\n        {\r\n          \"versionId\": \"20250712161432535119324\",\r\n         
+    \"titleEn\": \"Yellow English Title\",\r\n          \"titleAr\": \"\u062A\u062D\u062F\u064A
+    \u0627\u0644\u0623\u0635\u0641\u0631\",\r\n          \"leaderboard\": \"YELLOW\",\r\n         
+    \"contentAr\": \"\u0645\u062D\u062A\u0648\u0649 \u0627\u0635\u0641\u0631 \u0627\u0644\u0644\u0648\u0646
+    \u0628\u0627\u0644\u0639\u0631\u0628\u064A\",\r\n          \"contentEn\": \"Yellow
+    English content\",\r\n          \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/4bd79105-c183-4c01-99dd-80015a5d339e/versions/1c0f15ec-137c-418f-905c-c98300bdd3c8/content/\",\r\n         
+    \"imageEntryId\": \"4bd79105-c183-4c01-99dd-80015a5d339e\",\r\n          \"isHidden\":
+    true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"f4ebe276-4b95-455d-becb-abc174c18742\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"LogoURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://th.bing.com/th/id/R.f48ceff9ab3322d4e84ed12a44c484d1?rik=0KQ6OgL4T%2b9uCA&riu=http%3a%2f%2fwww.photo-paysage.com%2falbums%2fuserpics%2f10001%2fCascade_-15.JPG&ehk=kx1JjE9ugj%2bZvUIrjzSmcnslPc7NE1cOnZdra%2f3pJEM%3d&risl=1&pid=ImgRaw&r=0\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ca46a119-909b-4751-a4bf-43dbb5442d78\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"BackgroundURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/fa2224b6-6fd8-4fec-af15-6a9aa25f7acc/versions/6a4136ff-6a94-4ca2-8f63-0a9be7f3ee7c/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b35746ee-188d-4aa4-97dd-02120f77722d\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"EncryptionKey\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"YourStrongKey0781451554\"\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"89698785-57f3-4f80-b545-692371a22acc\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"game_configuration\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"maxLives\": 5,\r\n       
+    \"timeToNextLife\": 1500,\r\n        \"livesRefillCost\": 600,\r\n        \"initialCoins\":
+    50,\r\n        \"numExtraMoves\": 5,\r\n        \"extraMovesCost\": 250,\r\n       
+    \"numExtraTime\": 15,\r\n        \"extraTimeCost\": 250,\r\n        \"defaultTileScore\":
+    100,\r\n        \"scoreOverrides\": [],\r\n        \"ingameBoosterAmount\": {\r\n         
+    \"Lollipop\": 1,\r\n          \"Bomb\": 1,\r\n          \"Switch\": 1,\r\n         
+    \"ColorBomb\": 1\r\n        },\r\n        \"ingameBoosterCost\": {\r\n         
+    \"Lollipop\": 150,\r\n          \"Bomb\": 300,\r\n          \"Switch\": 75,\r\n         
+    \"ColorBomb\": 350\r\n        },\r\n        \"defaultZoomLevel\": 1.5,\r\n       
+    \"defaultCanvasScalingMatch\": 0.5,\r\n        \"resolutionOverrides\": [\r\n         
+    {\r\n            \"name\": \"iPhone X\",\r\n            \"width\": 1125,\r\n           
+    \"height\": 2436,\r\n            \"zoomLevel\": 1.4,\r\n            \"canvasScalingMatch\":
+    0\r\n          },\r\n          {\r\n            \"name\": \"Samsung Galaxy Note
+    8\",\r\n            \"width\": 1440,\r\n            \"height\": 2960,\r\n           
+    \"zoomLevel\": 1.4,\r\n            \"canvasScalingMatch\": 0\r\n          }\r\n       
+    ],\r\n        \"adsGameIdIos\": \"Replace with your game ID for iOS\",\r\n       
+    \"adsGameIdAndroid\": \"Replace with your game ID for Android\",\r\n        \"adsTestMode\":
+    true,\r\n        \"rewardedAdCoins\": 150,\r\n        \"iapItems\": [\r\n         
+    {\r\n            \"storeId\": \"com.gamevanilla.candymatch3.coinspack5\",\r\n           
+    \"numCoins\": 5000,\r\n            \"discount\": 30,\r\n            \"mostPopular\":
+    false,\r\n            \"bestValue\": true,\r\n            \"coinIcon\": \"VeryLarge\"\r\n         
+    },\r\n          {\r\n            \"storeId\": \"com.gamevanilla.candymatch3.coinspack4\",\r\n           
+    \"numCoins\": 1000,\r\n            \"discount\": 14,\r\n            \"mostPopular\":
+    false,\r\n            \"bestValue\": false,\r\n            \"coinIcon\": \"Large\"\r\n         
+    },\r\n          {\r\n            \"storeId\": \"com.gamevanilla.candymatch3.coinspack3\",\r\n           
+    \"numCoins\": 500,\r\n            \"discount\": 9,\r\n            \"mostPopular\":
+    false,\r\n            \"bestValue\": false,\r\n            \"coinIcon\": \"MediumLarge\"\r\n         
+    },\r\n          {\r\n            \"storeId\": \"com.gamevanilla.candymatch3.coinspack2\",\r\n           
+    \"numCoins\": 300,\r\n            \"discount\": 4,\r\n            \"mostPopular\":
+    true,\r\n            \"bestValue\": false,\r\n            \"coinIcon\": \"MediumSmall\"\r\n         
+    },\r\n          {\r\n            \"storeId\": \"com.gamevanilla.candymatch3.coinspack1\",\r\n           
+    \"numCoins\": 100,\r\n            \"discount\": 14,\r\n            \"mostPopular\":
+    false,\r\n            \"bestValue\": false,\r\n            \"coinIcon\": \"Small\"\r\n         
+    }\r\n        ],\r\n        \"dailyBonus\": [\r\n          {\r\n            \"type\":
+    \"Coins1\",\r\n            \"amount\": 10\r\n          },\r\n          {\r\n           
+    \"type\": \"Coins2\",\r\n            \"amount\": 30\r\n          },\r\n         
+    {\r\n            \"type\": \"Coins3\",\r\n            \"amount\": 50\r\n         
+    },\r\n          {\r\n            \"type\": \"Coins3\",\r\n            \"amount\":
+    80\r\n          },\r\n          {\r\n            \"type\": \"Coins4\",\r\n           
+    \"amount\": 100\r\n          },\r\n          {\r\n            \"type\": \"Coins5\",\r\n           
+    \"amount\": 130\r\n          },\r\n          {\r\n            \"type\": \"Coins6\",\r\n           
+    \"amount\": 200\r\n          }\r\n        ],\r\n        \"spinWheelCost\": 150,\r\n       
+    \"spinWheelCostIncrement\": 100,\r\n        \"spinWheelItems\": [\r\n         
+    {\r\n            \"type\": \"Coins1\",\r\n            \"amount\": 100\r\n         
+    },\r\n          {\r\n            \"type\": \"Lollipop\",\r\n            \"amount\":
+    2\r\n          },\r\n          {\r\n            \"type\": \"Coins2\",\r\n           
+    \"amount\": 150\r\n          },\r\n          {\r\n            \"type\": \"Bomb\",\r\n           
+    \"amount\": 1\r\n          },\r\n          {\r\n            \"type\": \"Coins5\",\r\n           
+    \"amount\": 300\r\n          },\r\n          {\r\n            \"type\": \"Switch\",\r\n           
+    \"amount\": 5\r\n          },\r\n          {\r\n            \"type\": \"Coins6\",\r\n           
+    \"amount\": 10\r\n          },\r\n          {\r\n            \"type\": \"ColorBomb\",\r\n           
+    \"amount\": 1\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"927adcb1-ef8a-40a5-9e3e-a689d9652b89\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"BackgroundMusicURL\",\r\n      \"type\":
+    \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/89ca5971-a2ed-4c6b-82a2-9deb4faf57a4/entries/27bafb81-fef0-4681-a632-f9b7a2cbd602/versions/647fed59-5219-4c23-ad38-1a501e9c0499/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"96fcca87-812d-4142-8c59-ac6c1bf6c9e2\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"PurpleCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/17ce7884-1ea2-4b4e-9026-856f7bd01a9f/versions/ae35b31b-a0e0-4827-a311-853cf54c89e2/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4cc203fd-bd96-41cc-9316-abee07a8f11f\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"BlueCandyURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/674d175a-0305-47cc-ae10-27c42c34e504/versions/b59737da-d0da-47b2-9296-739ef2076dcc/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"298b8d4e-4fe5-4d6a-9652-64ef205f4ba9\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"RedCandyURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/02097f74-c250-47bc-ac63-140a1c8a21bc/versions/12d591b7-84ec-414d-a2f3-d5134fa497d7/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"e1c62e20-1f5b-45a9-ab6f-85b3ea3cba20\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"GreenCandyURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/77a07214-a5a9-4c91-8dee-f7bf0dce0627/versions/2d0cf496-dff0-49d2-a6f5-0f1b9955d841/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"7ff5e074-a443-49e0-b1af-eefcd22bc889\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"YellowCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/0a683512-2e7b-484a-8b11-4c99e68a56d0/versions/72b6efbc-3f3c-4120-9cc7-64b3966ed7a3/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"7c286f0a-d85e-46c1-a655-3ee14fd091d2\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"OrangeCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/5fd1237c-e031-454e-9801-838a1588c2c1/versions/b42966a7-b0c8-4e8f-8499-a95acd30bd3b/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"51717584-bf19-4ce6-b54d-b553599820e1\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedYellowCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/a7f1411b-365a-492d-93ad-c488a5d84a8a/versions/e240b577-6885-46c3-a8d8-599f5136a92f/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"82b048df-daf8-42a0-932c-ec0b105a43f9\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedRedCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/555325dc-e121-4cb8-a5f1-3d1b99f7e194/versions/25262a92-2706-4567-a295-92e02e081a57/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"34e97057-b742-4795-8bf4-73ade9fa45dd\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedPurpleCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/7d85f98e-4790-4268-aeb2-d958b5f71f77/versions/8785edf2-9519-4987-bfc5-1ea9a2153347/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4ec9ca1e-b4de-40c6-b61a-311034cec4a2\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedOrangeCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/9df5b429-5e73-4b92-9b68-c5ad31e4745f/versions/79e5f1be-f2b9-4a70-b5a9-943530f24310/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"0868a8e3-775b-467f-ab26-63529402bebf\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedGreenCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/e6f1eea8-05a3-45db-ba97-ccb1a37e3cfc/versions/8c26b82e-0e58-486a-8ff9-4df052304f7b/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"1ffc8162-a8a0-4010-87bb-98fc43369b45\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WrappedBlueCandyURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/ced906ac-6d72-433a-a359-5ebf62cb69e1/versions/c2607788-e379-41ef-b537-fd7dd2d59154/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"74c3882b-9c0c-4878-aab3-0461b03539b0\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalYellowCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/e80eea0f-3bca-4647-921c-bb7d9a51cc86/versions/eeb33fc4-9bd8-4e18-a180-31e0b3ae3da7/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a6b7d0da-a35a-4032-b026-dd0ad97b5d4c\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalRedCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/5e019f41-8792-4681-ba0a-a30c5e7607a7/versions/e3be6ba1-1bb8-47fc-918f-e12143ed3c48/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"3a59a7e3-69e7-4a0e-8281-3c97f7d6b750\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalPurpleCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/f476b492-e22b-4ca2-8fc6-cff1dae1e014/versions/5879cbc9-98ab-435e-904a-98aa64937748/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4e8d25b2-5656-4bc7-bbb4-e59b46a405d8\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalOrangeCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/43b3a2f7-0b4f-48d2-aac1-ab0869ea2768/versions/da142298-1944-40a0-bfd2-67da568c0dca/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"eb7cd604-3156-4cd7-a711-2cee05bed6e7\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalGreenCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/6c1844a0-25be-416b-9309-d1293b3d3a7b/versions/aa4d2d31-016b-4c13-9709-0c054f47fcd8/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"0e3e2f88-6cd3-49a9-8c35-ae2fadb92554\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedVerticalBlueCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d5b9848d-6fc8-453c-bd19-db073d3acff0/versions/7c66a0c2-a21b-4745-9b9c-4ed31cdd60d3/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"5d40bc0c-3516-479a-8031-f9e64f3b80a3\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalYellowCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/8e187f19-0655-4436-bec8-a62964eec89f/versions/8c6082e1-2019-4979-a361-0cbf060fe9e7/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"d4d2d141-cb27-4070-865e-4d7dddee151f\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalRedCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/0c8c6d87-fa5b-4e6c-a5c1-6febb89ad444/versions/5e55712c-90a8-4049-b9c5-2f5c54bce539/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"86ca0278-87e2-434d-812f-36e58519763a\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalPurpleCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/90c413a7-1830-4e6a-9d6e-635c3bfa1325/versions/873851a4-b20e-457e-804b-bd833e538577/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"6b0ffe35-3cdc-46d3-bcf8-4eee47693b6e\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalOrangeCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d5a3559f-cd3e-490f-a955-c4f015624205/versions/543851c5-bfe1-4550-ae94-8401d5aeda01/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"4fb23c50-4a13-4fff-9283-9cb20b908862\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalGreenCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/5de2f28b-1c94-4e4a-bd6d-e84cd05eb437/versions/904700e6-799e-444e-b09d-211bd97c752a/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a06f4f8b-3237-4645-be69-100bf5624c5a\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StripedHorizontalBlueCandyURL\",\r\n     
+    \"type\": \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/19e292bc-d003-4c7d-b3fa-b70dc87919d9/versions/a558f932-b75d-41ff-b76c-2a99f9b351a1/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"5a6b52c0-ba7c-46c7-ba89-00b598088179\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"ColorBombURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/99784451-000a-4c0c-80c5-a122d6bd4151/versions/ca78b948-48e2-4c52-bd29-4254be01cece/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"18f416ba-3fc5-44c3-9934-1bc9be18172a\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"ScoreType\",\r\n      \"type\": \"int\",\r\n     
+    \"value\": 0\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"a26daf4e-5bf2-4a4a-ba61-9c4b0efd1973\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"IsRedLeaerboard\",\r\n      \"type\": \"bool\",\r\n      \"value\":
+    false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"94e23556-e3bb-4660-9799-913be36b8710\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"IsBlueLeaderboard\",\r\n      \"type\":
+    \"bool\",\r\n      \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"3c03f958-3cd5-4446-a545-19913f25cdb2\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"IsPurpleLeaderboard\",\r\n      \"type\": \"bool\",\r\n     
+    \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"f5a771a7-abab-4b76-8c00-143b39bcfe2f\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"IsGreenLeaderboard\",\r\n      \"type\": \"bool\",\r\n      \"value\":
+    false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"f4668e20-8b4a-4391-9bf1-7df4d338ea67\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"IsYellowLeaderboard\",\r\n      \"type\":
+    \"bool\",\r\n      \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"b06ecd5b-b312-473b-b225-3d40f7d9b62b\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"IsOrangeLeadeboard\",\r\n      \"type\": \"bool\",\r\n     
+    \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"5f59e90c-6f3d-4fd4-be17-3e7ca8c8227f\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"RedLeaderboardTitle\",\r\n      \"type\": \"json\",\r\n      \"schemaId\":
+    null,\r\n      \"value\": \"\u062A\u062D\u062F\u064A \u0625\u0643\u0633\u0628\u0648
+    - \u064A\u0646\u062A\u0647\u064A \u0628\u0639\u062F 3 \u0623\u064A\u0627\u0645\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ca1b408b-b9d6-4dd3-86b6-3d1df93236a1\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"BlueLeaderboardTitle\",\r\n      \"type\":
+    \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": \"Blue Title\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a54bb146-e26e-458b-a02c-3ae1c96cec7f\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"YellowLeaderboardTitle\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"Yellow Title\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"f0d6380b-7f81-4bb0-bf5b-168ff31204f1\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"OrangeLeaderboardTitle\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"Orange Title\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"6c1843d2-11e8-4429-a660-85495b3fbda0\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"GreenLeaderboardTitle\",\r\n      \"type\":
+    \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": \"\u062A\u062D\u0640\u0640\u062F\u064A
+    \u0627\u0644\u0648\u062D\u0634 - \u0627\u0646\u062A\u0647\u0649 \u0627\u0644\u062A\u062D\u062F\u064A
+    \u0645\u0628\u0631\u0648\u0643 \u0644\u0644\u0641\u0627\u0626\u0632\u064A\u0646\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"7187ecc5-beba-4c22-9d34-0cf9963788ae\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"PurpleLeaderboardTitle\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"Purple Title\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"41b36f42-f06b-46a3-9722-7076df198338\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"CherryURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/943e890b-5572-423c-812c-51992487796f/versions/e7e47b8b-1b94-4582-9f5c-7ce3e6439ce9/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"dc78a1f2-bb64-4a3d-b413-d5e174b9b0c4\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"HoneyURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/8a323050-0f17-4af9-b816-91af6b6d8504/versions/ab6271b1-7c5e-4376-b3e1-c69dd3e049fe/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"bf4e721f-8644-4907-95a1-675e1ae0a70b\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"Syrup1URL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/45bbdd57-7406-480c-bc73-f97c91f43e0c/versions/326acc7c-c169-4458-bcda-d79b91dd0a3d/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"c959974d-6df3-433a-99cf-f5a495b6ffbf\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"Syrup2URL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/03e404e1-386b-4253-95f2-b6ebe1ff5dbd/versions/e740c201-6b59-433a-a40d-68d52203d57a/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"b7e6f834-afff-45fa-b1e7-8d8e0d19ae39\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"ChocolateURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d633a69c-17cc-4ba6-9e14-c8a19ce58370/versions/de44fcd2-5abc-4c78-b4e4-d3a9ccbf11a9/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"0f864696-727b-40c9-aa50-ac49a12d199f\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"IceURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/430eed46-ea50-4d7d-8499-aa9172aa8919/versions/b67593e0-1ac9-4e36-aeda-9a1ea442e231/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"ae09b203-2687-4cfb-8110-3066783c319b\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"MarshmallowURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/15391647-f554-47bb-af50-10f0d6563a24/versions/2a30045e-6c1c-4fa1-8223-15c0a43f5fe6/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"6383a31c-94f9-494f-ba06-2d56793e910d\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"UnbreakableURL\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/84f92099-41c4-4cd2-a255-c17870f3f08d/versions/cef0928b-eff5-4f1a-ba56-38345ada7f09/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"067e4cbd-9520-41f1-b6df-29f39b2ced8b\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"WatermelonURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/f876febb-a716-42d9-bce3-21206e5fbc37/versions/8b11f5df-3a04-46fd-8db6-2e5bfea14a4c/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"41bebfa4-74dc-4c34-814e-4a23411848cb\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"StoreItems\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"AvatarItems\": [\r\n         
+    {\r\n            \"Id\": \"1748706443712\",\r\n            \"Title\": \"Bomb
+    Shell\",\r\n            \"PriceForOneDay\": 120,\r\n            \"PriceForSevenDay\":
+    650,\r\n            \"PriceForThirtyDay\": 3600,\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/ce28795a-fc0e-418b-82cd-b7005fd492c6/entries/27e70960-4cfc-4488-af4b-c4f36fe57fda/versions/92739378-ac47-4d31-a04f-fc671ede3251/content/\",\r\n           
+    \"Type\": 0\r\n          }\r\n        ],\r\n        \"CoverProfileItems\": [\r\n         
+    {\r\n            \"Id\": \"1751797555212\",\r\n            \"Title\": \"Wa7sh
+    Cover\",\r\n            \"Description\": \"\",\r\n            \"PriceForOneDay\":
+    1,\r\n            \"PriceForSevenDay\": 1,\r\n            \"PriceForThirtyDay\":
+    1,\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/ce28795a-fc0e-418b-82cd-b7005fd492c6/entries/7db9c8f3-b11a-40b1-be97-0addae5b7ff4/versions/de21fe9e-ab92-4b50-a70e-0d2983cdcc32/content/\",\r\n           
+    \"Type\": 1\r\n          }\r\n        ],\r\n        \"BorderItems\": [],\r\n       
+    \"PrimeSubscriptionItems\": [\r\n          {\r\n            \"Id\": \"67c5f451-c344-4881-878f-4e951474bf77\",\r\n           
+    \"Title\": \"One day subscription\",\r\n            \"Description\": \"\",\r\n           
+    \"Price\": \"213\",\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/d8e1f6fd-4818-4585-b3d1-0353e5916f64/content/\",\r\n           
+    \"Type\": 3,\r\n            \"DurationType\": 0\r\n          },\r\n         
+    {\r\n            \"Id\": \"d387b0c5-a726-4814-9ffc-bc704f61ae8f\",\r\n           
+    \"Title\": \"Seven day subscription\",\r\n            \"Description\": \"\",\r\n           
+    \"Price\": \"213\",\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/d8e1f6fd-4818-4585-b3d1-0353e5916f64/content/\",\r\n           
+    \"Type\": 3,\r\n            \"DurationType\": 1\r\n          },\r\n         
+    {\r\n            \"Id\": \"21e6bdab-26e7-4f59-8355-c23ce328d01a\",\r\n           
+    \"Title\": \"Thirty day subscription\",\r\n            \"Description\": \"\",\r\n           
+    \"Price\": \"213\",\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/d8e1f6fd-4818-4585-b3d1-0353e5916f64/content/\",\r\n           
+    \"Type\": 3,\r\n            \"DurationType\": 2\r\n          },\r\n         
+    {\r\n            \"Id\": \"21e6bdab-26e7-4f59-8355-c23ce328d01b\",\r\n           
+    \"Title\": \"180 Day subscription\",\r\n            \"Description\": \"\",\r\n           
+    \"Price\": \"213\",\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/d8e1f6fd-4818-4585-b3d1-0353e5916f64/content/\",\r\n           
+    \"Type\": 3,\r\n            \"DurationType\": 3\r\n          },\r\n         
+    {\r\n            \"Id\": \"21e6bdab-26e7-4f59-8355-c23ce328d01c\",\r\n           
+    \"Title\": \"One Year subscription\",\r\n            \"Description\": \"\",\r\n           
+    \"Price\": \"213\",\r\n            \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/d8e1f6fd-4818-4585-b3d1-0353e5916f64/content/\",\r\n           
+    \"Type\": 3,\r\n            \"DurationType\": 4\r\n          }\r\n        ]\r\n     
+    }\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"394b3713-1219-4fb0-b6f7-a7abab48ac99\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"AdRewards\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": []\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"42c6a238-afff-4d57-ace1-0b00b4be8115\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"SubIconURL\",\r\n      \"type\": \"string\",\r\n     
+    \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/d0eade56-e7ae-4f91-b694-e54fc187b680/versions/9d1883a4-38aa-4b54-acf3-6c632758a6ab/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"33f61bca-4889-4638-9480-bc71af8795b2\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"app_updated_number\",\r\n      \"type\":
+    \"string\",\r\n      \"value\": \"2025-08-03T15:09:30.911Z\"\r\n    }\r\n  },\r\n 
+    {\r\n    \"metadata\": {\r\n      \"entityId\": \"c5232fa3-72d9-47ef-9c1f-506e9ec64c40\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"AirshipAd\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": [\r\n        {\r\n          \"AdName\":
+    \"\",\r\n          \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/ce28795a-fc0e-418b-82cd-b7005fd492c6/entries/a8eff0fd-6e54-4e41-9297-035e7ed44829/versions/20d087c0-0176-4132-892c-6bf6b38a44b2/content/\",\r\n         
+    \"AirShipImageUrl\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/ce28795a-fc0e-418b-82cd-b7005fd492c6/entries/fc24c1cd-dead-48ed-9314-fa6b8251939c/versions/f4ecdb8a-ffa7-4406-b506-c9f077d7f38b/content/\"\r\n       
+    }\r\n      ]\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"478f46df-e6a7-4a9f-9509-fe1f8cdca715\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"VideoAds\",\r\n      \"type\": \"json\",\r\n      \"schemaId\": null,\r\n     
+    \"value\": [\r\n        {\r\n          \"AdName\": \"Alwahsh\",\r\n         
+    \"Url\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/89ca5971-a2ed-4c6b-82a2-9deb4faf57a4/entries/a27a0be8-e0e2-4e31-b201-f2b3fed43882/versions/aac4b481-519a-4704-9144-fd0500c866e3/content/\",\r\n         
+    \"LinkUrl\": \"https://www.instagram.com/kashkawaan/\",\r\n          \"Duration\":
+    7\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
+    \"entityId\": \"c7256066-1262-472f-9b50-6d659c6b9069\"\r\n    },\r\n    \"rs\":
+    {\r\n      \"key\": \"ColorBombSoundURL\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/89ca5971-a2ed-4c6b-82a2-9deb4faf57a4/entries/df27825d-9d44-4fed-93a6-17b5cef41bc9/versions/0f6edd06-20f9-4082-928d-3ee39f13ed6e/content/\"\r\n   
+    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"0bf454cf-af84-4ebf-8b05-39133f6c058a\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"MusicLicense\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": \"Fluffing a Duck Kevin MacLeod (incompetech.com)\\nLicensed
+    under Creative Commons: By Attribution 3.0 License http://creativecommons.org/licenses/by/3.0/\\nMusic
+    promoted by https://www.chosic.com/free-music/all/\"\r\n    }\r\n  },\r\n  {\r\n   
+    \"metadata\": {\r\n      \"entityId\": \"760deead-a6e2-4636-9b45-331b54f93054\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"FreezeRedLeaderboard\",\r\n      \"type\":
+    \"bool\",\r\n      \"value\": true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"c1675ff2-61e4-4173-8624-f5d4c690d8f4\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"FreezeBlueLeaderboard\",\r\n      \"type\": \"bool\",\r\n     
+    \"value\": true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"57a82c42-21e4-4543-b06f-380a28935113\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"FreezeYallowLeaderboard\",\r\n      \"type\": \"bool\",\r\n      \"value\":
+    true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"dee6f1dc-68a4-45af-852c-bc6b245732d7\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"FreezeOrangeLeaderboard\",\r\n      \"type\":
+    \"bool\",\r\n      \"value\": true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\":
+    {\r\n      \"entityId\": \"0108a7d1-cdff-49ad-b6de-357fca8ab20e\"\r\n    },\r\n   
+    \"rs\": {\r\n      \"key\": \"FreezePurpleLeaderboard\",\r\n      \"type\": \"bool\",\r\n     
+    \"value\": false\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
+    \"296c9c9b-7c08-4935-b450-dd2634831e0a\"\r\n    },\r\n    \"rs\": {\r\n     
+    \"key\": \"FreezeGreenLeaderboard\",\r\n      \"type\": \"bool\",\r\n      \"value\":
+    true\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"a1408a67-3208-4ce7-a2cf-049ef09fe2a9\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"LeaderboardHistoryDatas\",\r\n      \"type\":
+    \"json\",\r\n      \"schemaId\": null,\r\n      \"value\": [\r\n        {\r\n         
+    \"versionId\": \"20250711151027308305866\",\r\n          \"titleEn\": \"KASHKAWAAN\",\r\n         
+    \"titleAr\": \"\u062A\u062D\u062F\u064A \u0643\u0634\u0643\u0648\u0627\u0646\",\r\n         
+    \"leaderboard\": \"BLUE\",\r\n          \"contentAr\": \"\u0645\u0628\u0631\u0648\u0643
+    \u0644\u0643\u0644 \u0627\u0644\u0631\u0627\u0628\u062D\u064A\u0646\",\r\n         
+    \"contentEn\": \"cONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATEScONGRATES\",\r\n         
+    \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/b8d3d957-10d2-4899-87c2-85ecd0332cc7/versions/a58c2407-34d4-4edb-b89b-066f7b8c6d74/content/\",\r\n         
+    \"imageEntryId\": \"b8d3d957-10d2-4899-87c2-85ecd0332cc7\",\r\n          \"isHidden\":
+    true\r\n        },\r\n        {\r\n          \"versionId\": \"20250711081805201898480\",\r\n         
+    \"titleEn\": \"Al-Wahsh Challenge\",\r\n          \"titleAr\": \"\u062A\u062D\u062F\u064A
+    \u0642\u0647\u0648\u0629 \u0627\u0644\u0648\u062D\u0634\",\r\n          \"leaderboard\":
+    \"GREEN\",\r\n          \"contentAr\": \"\u0645\u0628\u0631\u0648\u0643 \u0644\u0644\u0641\u0627\u0626\u0632\u064A\u0646
+    \u0628\u062A\u062D\u062F\u064A \u0627\u0644\u0648\u062D\u0634\\r\\n\u0627\u0644\u0645\u0631\u0643\u0632
+    \u0627\u0644\u0623\u0648\u0644: \u0639\u0628\u062F \u0623\u0628\u0648\u062E\u0644\u064A\u0644\u2014
+    50 \u062F\u064A\u0646\u0627\u0631\\r\\n\u0627\u0644\u0645\u0631\u0643\u0632 \u0627\u0644\u062B\u0627\u0646\u064A:
+    \u0641\u062F\u0627\u0621 \u0627\u0644\u063A\u0645\u0631\u064A \u2014 30 \u062F\u064A\u0646\u0627\u0631\\r\\n\u0627\u0644\u0645\u0631\u0643\u0632
+    \u0627\u0644\u062B\u0627\u0644\u062B: \u063A\u062F\u064A\u0631 \u062A\u0627\u064A\u0647
+    \u2014 20 \u062F\u064A\u0646\u0627\u0631\\r\\n\\r\\n\u0627\u0633\u062A\u0646\u0648\u0646\u0627
+    \u0628\u0627\u0644\u062A\u062D\u062F\u064A\u0627\u062A \u0627\u0644\u062C\u0627\u064A\u0629...
+    \u0627\u0644\u062C\u0648\u0627\u0626\u0632 \u0631\u062D \u062A\u0643\u0628\u0631
+    \u0648\u0627\u0644\u0645\u0646\u0627\u0641\u0633\u0629 \u0631\u062D \u062A\u062D\u0645\u0649
+    \u0623\u0643\u062B\u0631!\\r\\n\u0645\u0639 \u0643\u0634\u0643\u0648\u0627\u0646
+    \u0643\u0627\u0634\u060C \u0639\u0645\u0631\u0643 \u0644\u0627 \u062A\u0644\u0639\u0628
+    \u0628\u0628\u0644\u0627\u0634!\",\r\n          \"contentEn\": \"Congratulations
+    to the winners of the Alwahsh Challenge.\\r\\n\\r\\n1st: Abed Abu Khalil\u2014
+    50 JOD\\r\\n2nd: Fidaa Al-gamary \u2014 30 JOD\\r\\n3rd: Ghadir Tayeh \u2014
+    20 JOD\\r\\n\\r\\nStay tuned for upcoming challenges...\\r\\nBigger prizes, tougher
+    competition!\\r\\nWith Kashkawaan Cash, you'll never play for free!\",\r\n         
+    \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/b2cd4709-a78f-4e23-887f-90e0c2d44e9f/versions/b260df96-2af6-43ae-aa3e-0e05b9f14364/content/\",\r\n         
+    \"imageEntryId\": \"b2cd4709-a78f-4e23-887f-90e0c2d44e9f\",\r\n          \"isHidden\":
+    false\r\n        },\r\n        {\r\n          \"versionId\": \"20250706204828904949502\",\r\n         
+    \"titleEn\": \"ORANGE CHALLENGE\",\r\n          \"titleAr\": \"\u062A\u062D\u062F\u064A
+    \u0627\u0644\u0627\u0648\u0631\u0627\u0646\u062C\",\r\n          \"leaderboard\":
+    \"ORANGE\",\r\n          \"contentAr\": \"orange\",\r\n          \"contentEn\":
+    \"orange\",\r\n          \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/0d893955-5c3a-4a59-a61b-0b38314e3471/versions/e79fac8e-26a7-43be-b5b1-c63f696235a7/content/\",\r\n         
+    \"imageEntryId\": \"0d893955-5c3a-4a59-a61b-0b38314e3471\",\r\n          \"isHidden\":
+    true\r\n        },\r\n        {\r\n          \"versionId\": \"20250710173147556592733\",\r\n         
+    \"titleEn\": \"purple challenge \",\r\n          \"titleAr\": \"\u062A\u062D\u062F\u064A
+    \u0627\u0644\u0628\u0631\u0628\u0644\",\r\n          \"leaderboard\": \"PURPLE\",\r\n         
+    \"contentAr\": \"purple\",\r\n          \"contentEn\": \"purple\",\r\n         
+    \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/b0228d11-05d7-4a67-9194-9acd98036c56/versions/db32a6a3-d74d-4324-9d19-de12f7abbbbe/content/\",\r\n         
+    \"imageEntryId\": \"b0228d11-05d7-4a67-9194-9acd98036c56\",\r\n          \"isHidden\":
+    true\r\n        },\r\n        {\r\n          \"versionId\": \"20250708071146019767073\",\r\n         
+    \"titleEn\": \"Ixabo\",\r\n          \"titleAr\": \"\u062A\u062D\u062F\u064A
+    \u0627\u0643\u0633\u0628\u0648\",\r\n          \"leaderboard\": \"RED\",\r\n         
+    \"contentAr\": \"\u0627\u0643\u0633\u0628\u0648\",\r\n          \"contentEn\":
+    \"Ixabo\",\r\n          \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/7d52ffb7-c1b7-42b7-b3bd-7f2b1e481933/versions/fe3982ad-3362-4e48-92c1-b647283bb8b3/content/\",\r\n         
+    \"imageEntryId\": \"7d52ffb7-c1b7-42b7-b3bd-7f2b1e481933\",\r\n          \"isHidden\":
+    true\r\n        },\r\n        {\r\n          \"versionId\": \"20250712161432535119324\",\r\n         
+    \"titleEn\": \"Yellow English Title\",\r\n          \"titleAr\": \"\u062A\u062D\u062F\u064A
+    \u0627\u0644\u0623\u0635\u0641\u0631\",\r\n          \"leaderboard\": \"YELLOW\",\r\n         
+    \"contentAr\": \"\u0645\u062D\u062A\u0648\u0649 \u0627\u0635\u0641\u0631 \u0627\u0644\u0644\u0648\u0646
+    \u0628\u0627\u0644\u0639\u0631\u0628\u064A\",\r\n          \"contentEn\": \"Yellow
+    English content\",\r\n          \"imageURL\": \"https://5ca24116-8a7d-4cce-8209-85289e255536.client-api.unity3dusercontent.com/client_api/v1/environments/3147ad3e-d6a6-4bee-b14b-7b61742d3daf/buckets/32a6c7ed-b031-4d8f-8f61-551c04a03b93/entries/4bd79105-c183-4c01-99dd-80015a5d339e/versions/1c0f15ec-137c-418f-905c-c98300bdd3c8/content/\",\r\n         
+    \"imageEntryId\": \"4bd79105-c183-4c01-99dd-80015a5d339e\",\r\n          \"isHidden\":
+    true\r\n        }\r\n      ]\r\n    }\r\n  }\r\n]"
+  _environments: "[\r\n  {\r\n    \"projectId\": \"5ca24116-8a7d-4cce-8209-85289e255536\",\r\n   
+    \"name\": \"production\",\r\n    \"id\": \"3147ad3e-d6a6-4bee-b14b-7b61742d3daf\",\r\n   
+    \"isDefault\": true,\r\n    \"createdAt\": \"2024-12-20T13:52:00Z\",\r\n    \"updatedAt\":
+    \"2024-12-20T13:52:00Z\"\r\n  },\r\n  {\r\n    \"projectId\": \"5ca24116-8a7d-4cce-8209-85289e255536\",\r\n   
+    \"name\": \"devlopment\",\r\n    \"id\": \"3df470df-ecfc-4ee7-b74c-2b0e9d20649c\",\r\n   
+    \"isDefault\": false,\r\n    \"createdAt\": \"2025-03-04T11:49:26Z\",\r\n   
+    \"updatedAt\": \"2025-03-04T11:49:26Z\"\r\n  }\r\n]"
