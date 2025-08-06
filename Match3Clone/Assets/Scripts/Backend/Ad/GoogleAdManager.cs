@@ -32,10 +32,18 @@ public class GoogleAdManager : MonoBehaviour
             // LoadBannerAd();
             LoadInterstitialAd();
             interRewardEvent += () => GiveInterReward();
-            
+
             LoadRewardedAd();
             RewardedEndEvent += () => GiveRewarededReward();
         });
+
+#if UNITY_ANDROID
+        // Request for the Android platform
+        rewardedId = "ca-app-pub-7802481399775928/3587550272";
+#elif UNITY_IOS
+        // Request for the iOS platform
+        rewardedId = "ca-app-pub-7802481399775928/3310905994";
+        #endif
     }
 
     #region Banner Ads
